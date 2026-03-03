@@ -5,12 +5,12 @@ import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: "Free",
+    name: "Free Trial",
     price: "0",
-    period: "円 / 月",
+    period: "円 / 1週間",
     description: "まず試してみたい方に",
-    features: ["1グループ", "月50回応答", "ナレッジ1ファイル", "管理画面"],
-    cta: "無料で始める",
+    features: ["1週間無料お試し", "公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル", "管理画面"],
+    cta: "無料で試す",
     popular: false,
   },
   {
@@ -18,7 +18,7 @@ const plans = [
     price: "4,980",
     period: "円 / 月",
     description: "小規模ビジネスに",
-    features: ["3グループ", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
+    features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
     cta: "このプランで始める",
     popular: false,
   },
@@ -27,16 +27,16 @@ const plans = [
     price: "9,800",
     period: "円 / 月",
     description: "成長するビジネスに最適",
-    features: ["10グループ", "月2,000回応答", "ナレッジ無制限", "エスカレーション通知", "管理画面", "優先サポート"],
+    features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ無制限", "エスカレーション通知", "Web検索AI", "優先サポート"],
     cta: "このプランで始める",
     popular: true,
   },
   {
     name: "Pro",
-    price: "14,800",
+    price: "29,800",
     period: "円 / 月",
     description: "本格運用に",
-    features: ["無制限グループ", "無制限応答", "ナレッジ無制限", "人格カスタマイズ", "エスカレーション通知", "専任サポート"],
+    features: ["公式LINE 無制限", "月10,000回応答", "ナレッジ無制限", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
     cta: "このプランで始める",
     popular: false,
   },
@@ -64,7 +64,7 @@ export default function Pricing() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-5 text-center text-[#9CA3AF] text-[16px] sm:text-[18px]"
         >
-          無料プランで、まず試してみてください。
+          1週間の無料お試しで、まず体験してみてください。
         </motion.p>
 
         {/* Mobile: 1col scroll / Desktop: 4col */}
@@ -76,9 +76,8 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative bg-[#0A0A0F] rounded-2xl p-7 flex flex-col ${
-                plan.popular ? "border-2 border-[#06C755]" : "border border-[#1A1A2E]"
-              }`}
+              className={`relative bg-[#0A0A0F] rounded-2xl p-7 flex flex-col ${plan.popular ? "border-2 border-[#06C755]" : "border border-[#1A1A2E]"
+                }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#06C755] text-white text-[12px] font-semibold px-4 py-1 rounded-full whitespace-nowrap">
@@ -111,11 +110,10 @@ export default function Pricing() {
 
               <a
                 href="#cta"
-                className={`mt-7 block text-center py-[14px] rounded-xl text-[15px] font-semibold transition-all duration-200 touch-manipulation active:scale-95 ${
-                  plan.popular
-                    ? "bg-[#06C755] hover:bg-[#08E065] text-white"
-                    : "border border-[#2A2A3E] hover:border-[#06C755] text-white hover:text-[#06C755]"
-                }`}
+                className={`mt-7 block text-center py-[14px] rounded-xl text-[15px] font-semibold transition-all duration-200 touch-manipulation active:scale-95 ${plan.popular
+                  ? "bg-[#06C755] hover:bg-[#08E065] text-white"
+                  : "border border-[#2A2A3E] hover:border-[#06C755] text-white hover:text-[#06C755]"
+                  }`}
               >
                 {plan.cta}
               </a>

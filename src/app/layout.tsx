@@ -23,22 +23,22 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "LINX | LINEグループに、AIスタッフを。",
+  title: "LINX | 公式LINEに、AIスタッフを。",
   description:
-    "LINXは、あなたのLINEグループにAIコンシェルジュを追加するサービス。顧客対応を24時間自動化。導入5分、月額0円から。",
+    "LINXは、あなたの公式LINEにAIコンシェルジュを追加するサービス。顧客対応を24時間自動化。1週間無料お試し。",
   openGraph: {
-    title: "LINX | LINEグループに、AIスタッフを。",
+    title: "LINX | 公式LINEに、AIスタッフを。",
     description:
-      "LINEグループにAIコンシェルジュを追加。顧客対応を24時間自動化。導入5分、月額0円から。",
+      "公式LINEにAIコンシェルジュを追加。顧客対応を24時間自動化。1週間無料お試し。",
     siteName: "LINX",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LINX | LINEグループに、AIスタッフを。",
+    title: "LINX | 公式LINEに、AIスタッフを。",
     description:
-      "LINEグループにAIコンシェルジュを追加。顧客対応を24時間自動化。",
+      "公式LINEにAIコンシェルジュを追加。顧客対応を24時間自動化。",
   },
 };
 

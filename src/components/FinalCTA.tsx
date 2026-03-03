@@ -30,7 +30,7 @@ export default function FinalCTA() {
           className="mt-6 text-[16px] sm:text-[18px] text-[#9CA3AF]"
           style={{ lineHeight: 1.8 }}
         >
-          あなたのLINEグループに、
+          あなたの公式LINEに、
           <br />
           AIスタッフが加わる体験を。
         </motion.p>

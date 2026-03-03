@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const features = [
-  { label: "グループチャット対応", linx: true, lineAi: false, lstep: false, chatplus: false },
+  { label: "公式LINE対応", linx: true, lineAi: false, lstep: false, chatplus: false },
   { label: "生成AI（自由応答）", linx: true, lineAi: false, lstep: false, chatplus: true },
   { label: "ナレッジ学習", linx: true, lineAi: false, lstep: false, chatplus: true },
   { label: "導入時間", linx: "5分", lineAi: "30分", lstep: "数時間", chatplus: "数週間" },
@@ -60,9 +60,8 @@ export default function Comparison() {
                   {competitors.map((c) => (
                     <th
                       key={c.key}
-                      className={`text-center text-[14px] font-semibold p-4 ${
-                        c.highlight ? "text-[#06C755] bg-[#06C755]/5 rounded-t-xl" : "text-[#6B7280]"
-                      }`}
+                      className={`text-center text-[14px] font-semibold p-4 ${c.highlight ? "text-[#06C755] bg-[#06C755]/5 rounded-t-xl" : "text-[#6B7280]"
+                        }`}
                     >
                       {c.highlight ? <>LIN<span className="text-[#06C755]">X</span></> : c.label}
                     </th>
@@ -76,9 +75,8 @@ export default function Comparison() {
                     {competitors.map((c) => (
                       <td
                         key={c.key}
-                        className={`text-center p-4 ${c.highlight ? "bg-[#06C755]/5" : ""} ${
-                          i === features.length - 1 && c.highlight ? "rounded-b-xl" : ""
-                        }`}
+                        className={`text-center p-4 ${c.highlight ? "bg-[#06C755]/5" : ""} ${i === features.length - 1 && c.highlight ? "rounded-b-xl" : ""
+                          }`}
                       >
                         <CellValue value={feature[c.key as keyof typeof feature] as boolean | string} />
                       </td>
@@ -155,7 +153,7 @@ export default function Comparison() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-8 text-center text-white font-semibold text-[15px] sm:text-[16px]"
         >
-          LINXだけが「グループチャット × 生成AI」を実現。
+          LINXだけが「公式LINE × 生成AI」を実現。
         </motion.p>
       </div>
     </section>

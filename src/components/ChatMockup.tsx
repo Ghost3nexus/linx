@@ -41,7 +41,7 @@ export default function ChatMockup() {
         <div className="bg-[#06C755] px-4 py-3 pt-7 flex items-center gap-3 relative z-10">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           <span className="text-white text-sm font-semibold flex-1 text-center pr-5">
-            美容院 お客様グループ
+            美容院 公式LINE
           </span>
         </div>
 
@@ -53,24 +53,21 @@ export default function ChatMockup() {
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.4, delay: msg.delay + 0.8 }}
-              className={`flex ${
-                msg.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                }`}
             >
               <div className="max-w-[78%]">
                 <span
-                  className={`text-[10px] mb-0.5 block ${
-                    msg.sender === "user" ? "text-right" : "text-left"
-                  } text-white/70`}
+                  className={`text-[10px] mb-0.5 block ${msg.sender === "user" ? "text-right" : "text-left"
+                    } text-white/70`}
                 >
                   {msg.name}
                 </span>
                 <div
-                  className={`px-3 py-2 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${
-                    msg.sender === "user"
+                  className={`px-3 py-2 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${msg.sender === "user"
                       ? "bg-[#A4DB59] text-[#1a1a1a] rounded-tr-sm"
                       : "bg-white text-[#1a1a1a] rounded-tl-sm"
-                  }`}
+                    }`}
                 >
                   {msg.text}
                 </div>

@@ -6,7 +6,7 @@ import ChatMockup from "./ChatMockup";
 
 const badges = [
   { icon: Zap, label: "導入5分" },
-  { icon: Wallet, label: "月額0円から" },
+  { icon: Wallet, label: "1週間無料お試し" },
   { icon: Smartphone, label: "LINEを変えなくていい" },
 ];
 
@@ -27,7 +27,7 @@ export default function Hero() {
             className="text-[28px] sm:text-[40px] md:text-[52px] font-bold tracking-tight"
             style={{ lineHeight: 1.3 }}
           >
-            LINEグループに、
+            公式LINEに、
             <br />
             <span className="text-[#06C755]">AIスタッフ</span>を。
           </motion.h1>
@@ -39,9 +39,9 @@ export default function Hero() {
             className="mt-8 text-[16px] sm:text-[18px] text-[#9CA3AF] max-w-[600px] mx-auto"
             style={{ lineHeight: 1.9 }}
           >
-            LINXが、あなたの代わりにLINEグループで顧客対応。
+            LINXが、あなたの代わりに公式LINEで顧客対応。
             <br className="hidden sm:block" />
-            導入5分。月額0円から。いつものLINEに追加するだけ。
+            導入5分。1週間無料お試し。いつものLINEに追加するだけ。
           </motion.p>
 
           <motion.div

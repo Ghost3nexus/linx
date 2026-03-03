@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { UserPlus, Bot, Bell, Clock } from "lucide-react";
 
 const points = [
-  { icon: UserPlus, text: "グループLINEにBotを追加するだけ" },
+  { icon: UserPlus, text: "公式LINEにBotを追加するだけ" },
   { icon: Bot, text: "よくある質問はAIが自動で回答" },
   { icon: Bell, text: "判断が必要なときはあなたに通知" },
   { icon: Clock, text: "24時間365日、即レス" },
@@ -33,7 +33,7 @@ export default function Solution() {
           className="mt-6 sm:mt-8 text-center text-[#9CA3AF] text-[16px] sm:text-[18px] max-w-[640px] mx-auto"
           style={{ lineHeight: 1.9 }}
         >
-          LINXは、あなたのLINEグループに参加するAIスタッフ。
+          LINXは、あなたの公式LINEに参加するAIスタッフ。
           お客様が「@LINX」と呼びかけるだけで、あなたが登録した情報をもとにAIが即座に回答します。
         </motion.p>
 

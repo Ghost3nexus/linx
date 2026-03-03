@@ -13,8 +13,8 @@ const steps = [
   {
     num: "02",
     icon: UserPlus,
-    title: "LINXをグループに追加",
-    description: "いつものLINEグループにLINXを招待。設定は不要です。",
+    title: "LINXを公式LINEに追加",
+    description: "あなたの公式LINEにLINXを招待。設定は不要です。",
   },
   {
     num: "03",
