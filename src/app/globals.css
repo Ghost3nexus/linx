@@ -14,14 +14,6 @@
   --color-error: #FF3366;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -31,13 +23,15 @@ html {
 
 body {
   background-color: #050508;
-  color: #FAFAFA;
+  color: rgba(250, 250, 250, 0.9);
   font-family: var(--font-inter), var(--font-noto-sans-jp), "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100dvh;
   overflow-x: hidden;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
 }
 
 ::selection {
@@ -45,19 +39,16 @@ body {
   color: #FAFAFA;
 }
 
-/* iOS Safari fixes */
 @supports (-webkit-touch-callout: none) {
   body {
     min-height: -webkit-fill-available;
   }
 }
 
-/* Smooth scroll anchor offset for fixed header */
 :target {
   scroll-margin-top: 80px;
 }
 
-/* Better focus styles */
 :focus-visible {
   outline: 2px solid #06C755;
   outline-offset: 2px;

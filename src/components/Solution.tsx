@@ -12,14 +12,15 @@ const points = [
 
 export default function Solution() {
   return (
-    <section id="solution" className="py-20 sm:py-24 px-5 sm:px-6">
-      <div className="max-w-5xl mx-auto">
+    <section id="solution" className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
+      <div className="max-w-[1000px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
+          style={{ lineHeight: 1.4 }}
         >
           LINXが、あなたの代わりに答えます。
         </motion.h2>
@@ -27,39 +28,37 @@ export default function Solution() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-5 sm:mt-6 text-center text-[#6B7280] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-6 sm:mt-8 text-center text-[#9CA3AF] text-[16px] sm:text-[18px] max-w-[640px] mx-auto"
+          style={{ lineHeight: 1.9 }}
         >
           LINXは、あなたのLINEグループに参加するAIスタッフ。
-          <br className="hidden sm:block" />
-          お客様が「@LINX」と呼びかけるだけで、
-          <br className="hidden sm:block" />
-          あなたが登録した情報をもとにAIが即座に回答します。
+          お客様が「@LINX」と呼びかけるだけで、あなたが登録した情報をもとにAIが即座に回答します。
         </motion.p>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-3 sm:mt-4 text-center text-[#FAFAFA] text-sm sm:text-base font-medium"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-4 text-center text-white text-[15px] sm:text-[16px] font-medium"
         >
           あなたは、本当に必要なときだけ会話に参加すればいい。
         </motion.p>
 
-        <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[640px] mx-auto">
           {points.map((point, i) => (
             <motion.div
               key={point.text}
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              className="flex items-center gap-3 bg-[#0D1117] border border-[#1A1A2E] rounded-xl px-4 sm:px-5 py-3.5 sm:py-4"
+              className="flex items-center gap-4 bg-[#0A0A0F] border border-[#1A1A2E] rounded-xl px-6 py-5"
             >
-              <point.icon size={20} className="text-[#06C755] shrink-0" />
-              <span className="text-[#FAFAFA] text-sm font-medium">
+              <point.icon size={22} className="text-[#06C755] shrink-0" />
+              <span className="text-[15px] text-[#E5E7EB] font-medium" style={{ lineHeight: 1.6 }}>
                 {point.text}
               </span>
             </motion.div>

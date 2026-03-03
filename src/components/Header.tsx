@@ -22,14 +22,8 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   return (
@@ -41,31 +35,31 @@ export default function Header() {
       }`}
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-xl font-bold tracking-tight text-[#FAFAFA]">
+      <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
+        <a href="#" className="text-[20px] font-bold tracking-tight text-white">
           LIN<span className="text-[#06C755]">X</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[#6B7280] text-sm hover:text-[#FAFAFA] transition-colors duration-200"
+              className="text-[#9CA3AF] text-[15px] hover:text-white transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
           <a
             href="#cta"
-            className="bg-[#06C755] hover:bg-[#08E065] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 active:scale-95"
+            className="bg-[#06C755] hover:bg-[#08E065] text-white text-[15px] font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
           >
             無料で始める
           </a>
         </nav>
 
         <button
-          className="md:hidden text-[#FAFAFA] p-2 -mr-2 touch-manipulation"
+          className="md:hidden text-white p-2 -mr-2 touch-manipulation"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="メニュー"
         >
@@ -80,24 +74,22 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 top-16 bg-black/60 md:hidden z-40"
+              className="fixed inset-0 top-[64px] bg-black/60 md:hidden z-40"
               onClick={() => setMobileOpen(false)}
             />
             <motion.nav
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden bg-[#0A0A0F] border-b border-[#1A1A2E] px-5 pb-6 relative z-50"
+              exit={{ opacity: 0, y: -8 }}
+              className="md:hidden bg-[#0A0A0F] border-b border-[#1A1A2E] px-6 pb-8 relative z-50"
             >
-              <div className="flex flex-col gap-1 pt-2">
+              <div className="flex flex-col gap-2 pt-4">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="text-[#6B7280] text-base hover:text-[#FAFAFA] transition-colors py-3 touch-manipulation"
+                    className="text-[#9CA3AF] text-[16px] hover:text-white transition-colors py-3 touch-manipulation"
                   >
                     {link.label}
                   </a>
@@ -105,7 +97,7 @@ export default function Header() {
                 <a
                   href="#cta"
                   onClick={() => setMobileOpen(false)}
-                  className="mt-2 bg-[#06C755] hover:bg-[#08E065] text-white text-sm font-semibold px-5 py-3.5 rounded-xl text-center transition-all duration-200 touch-manipulation"
+                  className="mt-3 bg-[#06C755] text-white text-[16px] font-semibold py-4 rounded-xl text-center touch-manipulation"
                 >
                   無料で始める
                 </a>

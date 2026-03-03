@@ -14,7 +14,7 @@ const steps = [
     num: "02",
     icon: UserPlus,
     title: "LINXをグループに追加",
-    description: "いつものLINEグループにLINXを招待するだけ。設定は不要です。",
+    description: "いつものLINEグループにLINXを招待。設定は不要です。",
   },
   {
     num: "03",
@@ -26,39 +26,39 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 sm:py-24 px-5 sm:px-6 border-t border-[#1A1A2E]">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
+      <div className="max-w-[1000px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
+          style={{ lineHeight: 1.4 }}
         >
           導入は、3ステップ。5分で完了。
         </motion.h2>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-8 relative">
-          {/* Connecting line (desktop) */}
-          <div className="hidden md:block absolute top-12 left-[20%] right-[20%] h-px border-t border-dashed border-[#1A1A2E]" />
-
+        <div className="mt-14 sm:mt-20 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
           {steps.map((step, i) => (
             <motion.div
               key={step.num}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="relative text-center"
+              className="text-center"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#0D1117] border border-[#1A1A2E] mb-5 sm:mb-6">
+              <div className="inline-flex items-center justify-center w-[64px] h-[64px] rounded-2xl bg-[#0A0A0F] border border-[#1A1A2E] mb-6">
                 <step.icon size={28} className="text-[#06C755]" />
               </div>
-              <div className="text-[#06C755] font-bold text-xs sm:text-sm tracking-widest mb-2">
+              <div className="text-[#06C755] font-bold text-[13px] tracking-[0.15em] mb-3">
                 STEP {step.num}
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-[#FAFAFA]">{step.title}</h3>
-              <p className="mt-2 sm:mt-3 text-sm text-[#6B7280] leading-relaxed max-w-[280px] mx-auto">
+              <h3 className="text-[18px] sm:text-[20px] font-semibold text-white" style={{ lineHeight: 1.4 }}>
+                {step.title}
+              </h3>
+              <p className="mt-3 text-[15px] text-[#9CA3AF] max-w-[300px] mx-auto" style={{ lineHeight: 1.8 }}>
                 {step.description}
               </p>
             </motion.div>
@@ -68,9 +68,9 @@ export default function HowItWorks() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 sm:mt-12 text-center text-[#6B7280] text-sm"
+          className="mt-12 text-center text-[#6B7280] text-[15px]"
         >
           技術知識は不要。LINEが使えれば、誰でも始められます。
         </motion.p>

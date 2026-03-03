@@ -38,22 +38,16 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     <div className="border-b border-[#1A1A2E]">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-4 sm:py-5 text-left gap-3 sm:gap-4 touch-manipulation"
+        className="w-full flex items-center justify-between py-6 text-left gap-4 touch-manipulation"
       >
-        <span className="text-[#FAFAFA] font-semibold text-sm sm:text-base">{q}</span>
+        <span className="text-white font-semibold text-[16px]" style={{ lineHeight: 1.5 }}>{q}</span>
         <ChevronDown
-          size={18}
-          className={`text-[#6B7280] shrink-0 transition-transform duration-200 ${
-            open ? "rotate-180" : ""
-          }`}
+          size={20}
+          className={`text-[#6B7280] shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${
-          open ? "max-h-48 pb-4 sm:pb-5" : "max-h-0"
-        }`}
-      >
-        <p className="text-[#6B7280] text-sm leading-relaxed">{a}</p>
+      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[200px] pb-6" : "max-h-0"}`}>
+        <p className="text-[#9CA3AF] text-[15px]" style={{ lineHeight: 1.8 }}>{a}</p>
       </div>
     </div>
   );
@@ -61,14 +55,15 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-20 sm:py-24 px-5 sm:px-6">
-      <div className="max-w-3xl mx-auto">
+    <section id="faq" className="py-[80px] sm:py-[100px] px-6">
+      <div className="max-w-[760px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
+          style={{ lineHeight: 1.4 }}
         >
           よくある質問
         </motion.h2>
@@ -76,9 +71,9 @@ export default function FAQ() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mt-8 sm:mt-12"
+          className="mt-12"
         >
           {faqs.map((faq) => (
             <FAQItem key={faq.q} q={faq.q} a={faq.a} />
