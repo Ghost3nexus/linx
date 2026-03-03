@@ -32,37 +32,37 @@ const cases = [
 
 export default function UseCases() {
   return (
-    <section id="usecases" className="py-24 px-6">
+    <section id="usecases" className="py-20 sm:py-24 px-5 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center"
         >
           あなたの業種でも、すぐ使えます。
         </motion.h2>
 
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {cases.map((c, i) => (
             <motion.div
               key={c.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-card border border-border rounded-2xl p-6 hover:border-primary/40 transition-all duration-300 group"
+              className="bg-[#0D1117] border border-[#1A1A2E] rounded-2xl p-4 sm:p-6 hover:border-[#06C755]/40 transition-all duration-300 group"
             >
               <c.icon
-                size={32}
-                className="text-primary group-hover:scale-110 transition-transform duration-300"
+                size={28}
+                className="text-[#06C755] group-hover:scale-110 transition-transform duration-300 sm:w-8 sm:h-8"
               />
-              <h3 className="mt-4 text-lg font-semibold text-text">
+              <h3 className="mt-3 sm:mt-4 text-sm sm:text-lg font-semibold text-[#FAFAFA]">
                 {c.title}
               </h3>
-              <p className="mt-2 text-sm text-sub">{c.description}</p>
-              <p className="mt-4 text-sm font-semibold text-primary">
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-[#6B7280]">{c.description}</p>
+              <p className="mt-3 sm:mt-4 text-xs sm:text-sm font-semibold text-[#06C755]">
                 {c.effect}
               </p>
             </motion.div>

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --color-bg: #050508;
   --color-surface: #0A0A0F;
   --color-card: #0D1117;
@@ -12,11 +12,11 @@
   --color-secondary: #00D4FF;
   --color-warn: #FFB800;
   --color-error: #FF3366;
-  --font-sans: var(--font-inter);
-  --font-jp: var(--font-noto-sans-jp);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -24,17 +24,41 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans), var(--font-jp), sans-serif;
+  background-color: #050508;
+  color: #FAFAFA;
+  font-family: var(--font-inter), var(--font-noto-sans-jp), "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  line-height: 1.6;
 }
 
 ::selection {
   background: rgba(6, 199, 85, 0.3);
   color: #FAFAFA;
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Smooth scroll anchor offset for fixed header */
+:target {
+  scroll-margin-top: 80px;
+}
+
+/* Better focus styles */
+:focus-visible {
+  outline: 2px solid #06C755;
+  outline-offset: 2px;
 }
