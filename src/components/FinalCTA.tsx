@@ -43,7 +43,7 @@ export default function FinalCTA() {
           className="mt-10"
         >
           <a
-            href="#"
+            href="/dashboard"
             className="inline-block bg-[#06C755] hover:bg-[#08E065] text-white font-semibold px-12 py-[18px] rounded-xl text-[17px] transition-all duration-200 active:scale-95 touch-manipulation"
           >
             無料で始める
