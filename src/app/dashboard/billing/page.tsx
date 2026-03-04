@@ -9,22 +9,22 @@ const PLANS = [
         id: "free",
         name: "Free Trial",
         price: "¥0",
-        period: "1週間",
-        features: ["公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル"],
+        period: "1週間お試し",
+        features: ["公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル", "管理画面"],
     },
     {
         id: "starter",
         name: "Starter",
         price: "¥4,980",
         period: "/ 月",
-        features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "メールサポート"],
+        features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
     },
     {
         id: "standard",
         name: "Standard",
         price: "¥9,800",
         period: "/ 月",
-        features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ無制限", "Web検索AI", "優先サポート"],
+        features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ100ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
         popular: true,
     },
     {
@@ -32,7 +32,7 @@ const PLANS = [
         name: "Pro",
         price: "¥29,800",
         period: "/ 月",
-        features: ["公式LINE 無制限", "月10,000回応答", "ナレッジ無制限", "Web検索AI", "外部ツール連携", "専任サポート"],
+        features: ["公式LINE 100アカウント", "月10,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
     },
 ];
 
@@ -121,10 +121,10 @@ export default function BillingPage() {
                         <div
                             key={plan.id}
                             className={`bg-[#0A0A0F] border rounded-xl p-6 transition-colors relative ${plan.popular
-                                    ? "border-[#06C755]/50"
-                                    : isCurrent
-                                        ? "border-[#06C755]/30"
-                                        : "border-[#1A1A2E] hover:border-[#2A2A3E]"
+                                ? "border-[#06C755]/50"
+                                : isCurrent
+                                    ? "border-[#06C755]/30"
+                                    : "border-[#1A1A2E] hover:border-[#2A2A3E]"
                                 }`}
                         >
                             {plan.popular && (

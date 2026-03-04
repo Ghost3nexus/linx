@@ -20,7 +20,7 @@ const steps = [
     num: "03",
     icon: MessageCircle,
     title: "AIが応答開始",
-    description: "お客様が @LINX で呼びかけるだけ。AIがすぐにお答えします。",
+    description: "お客様がメッセージを送るだけ。AIがすぐにお答えします。",
   },
 ];
 

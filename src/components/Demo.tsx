@@ -15,8 +15,8 @@ const tabs: { id: Tab; label: string }[] = [
 const groupNames: Record<Tab, string> = {
   kindergarten: "ひまわり幼稚園 公式LINE",
   salon: "美容院 公式LINE",
-  ec: "STORE ファンコミュニティ",
-  consulting: "〇〇様 プロジェクト",
+  ec: "STORE 公式LINE",
+  consulting: "〇〇コンサル 公式LINE",
 };
 
 const conversations: Record<Tab, { sender: string; text: string }[]> = {
@@ -64,8 +64,8 @@ export default function Demo() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-5 py-2.5 rounded-full text-[14px] font-medium transition-all duration-200 touch-manipulation ${activeTab === tab.id
-                  ? "bg-[#06C755]/15 text-[#06C755] border border-[#06C755]/30"
-                  : "text-[#6B7280] hover:text-white border border-transparent hover:border-[#1A1A2E]"
+                ? "bg-[#06C755]/15 text-[#06C755] border border-[#06C755]/30"
+                : "text-[#6B7280] hover:text-white border border-transparent hover:border-[#1A1A2E]"
                 }`}
             >
               {tab.label}
@@ -107,8 +107,8 @@ export default function Demo() {
                     >
                       <div
                         className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-[13px] whitespace-pre-line ${msg.sender === "user"
-                            ? "bg-[#A4DB59] text-[#1a1a1a] rounded-tr-sm"
-                            : "bg-white text-[#1a1a1a] rounded-tl-sm"
+                          ? "bg-[#A4DB59] text-[#1a1a1a] rounded-tr-sm"
+                          : "bg-white text-[#1a1a1a] rounded-tl-sm"
                           }`}
                         style={{ lineHeight: 1.6 }}
                       >

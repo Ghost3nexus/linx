@@ -7,10 +7,11 @@ const plans = [
   {
     name: "Free Trial",
     price: "0",
-    period: "円 / 1週間",
+    period: "円 / 1週間お試し",
     description: "まず試してみたい方に",
     features: ["1週間無料お試し", "公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル", "管理画面"],
     cta: "無料で試す",
+    href: "/dashboard",
     popular: false,
   },
   {
@@ -20,6 +21,7 @@ const plans = [
     description: "小規模ビジネスに",
     features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
     cta: "このプランで始める",
+    href: "/dashboard/billing",
     popular: false,
   },
   {
@@ -27,8 +29,9 @@ const plans = [
     price: "9,800",
     period: "円 / 月",
     description: "成長するビジネスに最適",
-    features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ無制限", "エスカレーション通知", "Web検索AI", "優先サポート"],
+    features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ100ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
     cta: "このプランで始める",
+    href: "/dashboard/billing",
     popular: true,
   },
   {
@@ -36,8 +39,9 @@ const plans = [
     price: "29,800",
     period: "円 / 月",
     description: "本格運用に",
-    features: ["公式LINE 無制限", "月10,000回応答", "ナレッジ無制限", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
+    features: ["公式LINE 100アカウント", "月10,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
     cta: "このプランで始める",
+    href: "/dashboard/billing",
     popular: false,
   },
 ];
@@ -109,7 +113,7 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="#cta"
+                href={plan.href}
                 className={`mt-7 block text-center py-[14px] rounded-xl text-[15px] font-semibold transition-all duration-200 touch-manipulation active:scale-95 ${plan.popular
                   ? "bg-[#06C755] hover:bg-[#08E065] text-white"
                   : "border border-[#2A2A3E] hover:border-[#06C755] text-white hover:text-[#06C755]"
