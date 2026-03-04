@@ -1,11 +1,40 @@
 const API_BASE = process.env.NEXT_PUBLIC_LINX_API_URL || 'https://linx-server-production.up.railway.app/api';
-const ACCOUNT_ID = process.env.NEXT_PUBLIC_LINX_ACCOUNT_ID || 'default';
+
+// ── Auth token helpers ──
+
+function getToken(): string | null {
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem('linx_token');
+}
+
+function getAccountId(): string {
+    if (typeof window === 'undefined') return 'default';
+    return localStorage.getItem('linx_account_id') || process.env.NEXT_PUBLIC_LINX_ACCOUNT_ID || 'default';
+}
+
+export function setAuth(token: string, accountId: string) {
+    localStorage.setItem('linx_token', token);
+    localStorage.setItem('linx_account_id', accountId);
+}
+
+export function clearAuth() {
+    localStorage.removeItem('linx_token');
+    localStorage.removeItem('linx_account_id');
+}
+
+export function isLoggedIn(): boolean {
+    return !!getToken();
+}
+
+// ── Core fetch helper ──
 
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
+    const token = getToken();
     const res = await fetch(`${API_BASE}${path}`, {
         ...options,
         headers: {
             'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
             ...options?.headers,
         },
     });
@@ -14,6 +43,44 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
         throw new Error(err.error || `API Error ${res.status}`);
     }
     return res.json();
+}
+
+// ── Auth ──
+
+export interface AuthResult {
+    token: string;
+    accountId: string;
+    email: string;
+}
+
+export interface Me {
+    accountId: string;
+    email: string;
+    plan: string;
+    setupComplete: boolean;
+    lineConnected: boolean;
+}
+
+export async function register(email: string, password: string): Promise<AuthResult> {
+    const result = await api<AuthResult>('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+    });
+    setAuth(result.token, result.accountId);
+    return result;
+}
+
+export async function login(email: string, password: string): Promise<AuthResult> {
+    const result = await api<AuthResult>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+    });
+    setAuth(result.token, result.accountId);
+    return result;
+}
+
+export async function getMe(): Promise<Me> {
+    return api<Me>('/auth/me');
 }
 
 // ── Knowledge ──
@@ -27,35 +94,37 @@ export interface KnowledgeItem {
 }
 
 export async function getKnowledge(): Promise<KnowledgeItem[]> {
-    const data = await api<{ items: KnowledgeItem[] }>(`/linx/knowledge/${ACCOUNT_ID}`);
+    const data = await api<{ items: KnowledgeItem[] }>(`/linx/knowledge/${getAccountId()}`);
     return data.items;
 }
 
 export async function addKnowledge(title: string, content: string): Promise<KnowledgeItem> {
-    return api(`/linx/knowledge/${ACCOUNT_ID}`, {
+    return api(`/linx/knowledge/${getAccountId()}`, {
         method: 'POST',
         body: JSON.stringify({ title, content }),
     });
 }
 
 export async function updateKnowledge(id: string, title: string, content: string): Promise<KnowledgeItem> {
-    return api(`/linx/knowledge/${ACCOUNT_ID}/${id}`, {
+    return api(`/linx/knowledge/${getAccountId()}/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ title, content }),
     });
 }
 
 export async function deleteKnowledge(id: string): Promise<void> {
-    await api(`/linx/knowledge/${ACCOUNT_ID}/${id}`, { method: 'DELETE' });
+    await api(`/linx/knowledge/${getAccountId()}/${id}`, { method: 'DELETE' });
 }
 
 export async function uploadPDF(file: File, title?: string): Promise<KnowledgeItem & { source: string; pages: number; extractedChars: number }> {
+    const token = getToken();
     const formData = new FormData();
     formData.append('file', file);
     if (title) formData.append('title', title);
 
-    const res = await fetch(`${API_BASE}/linx/knowledge/${ACCOUNT_ID}/upload`, {
+    const res = await fetch(`${API_BASE}/linx/knowledge/${getAccountId()}/upload`, {
         method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
     });
     if (!res.ok) {
@@ -74,6 +143,9 @@ export interface Settings {
     plan: string;
     stripeCustomerId?: string;
     stripeSubscriptionId?: string;
+    lineChannelId?: string;
+    lineChannelAccessToken?: string;
+    setupComplete?: boolean;
     planLimits: {
         maxMonthlyResponses: number;
         maxKnowledgeFiles: number;
@@ -81,14 +153,25 @@ export interface Settings {
 }
 
 export async function getSettings(): Promise<Settings> {
-    return api(`/linx/settings/${ACCOUNT_ID}`);
+    return api(`/linx/settings/${getAccountId()}`);
 }
 
 export async function updateSettings(updates: Partial<Pick<Settings, 'botName' | 'tone' | 'escalationUserId'>>): Promise<Settings> {
-    return api(`/linx/settings/${ACCOUNT_ID}`, {
+    return api(`/linx/settings/${getAccountId()}`, {
         method: 'PUT',
         body: JSON.stringify(updates),
     });
+}
+
+export async function updateLineSettings(lineChannelId: string, lineChannelSecret: string, lineChannelAccessToken: string): Promise<{ success: boolean; webhookUrl: string; botId: string }> {
+    return api(`/linx/settings/${getAccountId()}/line`, {
+        method: 'PUT',
+        body: JSON.stringify({ lineChannelId, lineChannelSecret, lineChannelAccessToken }),
+    });
+}
+
+export async function getWebhookUrl(): Promise<{ webhookUrl: string }> {
+    return api(`/linx/webhook-url/${getAccountId()}`);
 }
 
 // ── Billing ──
@@ -96,7 +179,7 @@ export async function updateSettings(updates: Partial<Pick<Settings, 'botName' |
 export async function createCheckoutSession(plan: string): Promise<{ sessionId: string; url: string }> {
     return api('/linx/billing/checkout', {
         method: 'POST',
-        body: JSON.stringify({ accountId: ACCOUNT_ID, plan }),
+        body: JSON.stringify({ accountId: getAccountId(), plan }),
     });
 }
 
@@ -120,7 +203,7 @@ export interface LogEntry {
 }
 
 export async function getLogs(limit = 50, offset = 0): Promise<LogEntry[]> {
-    return api(`/linx/logs/${ACCOUNT_ID}?limit=${limit}&offset=${offset}`);
+    return api(`/linx/logs/${getAccountId()}?limit=${limit}&offset=${offset}`);
 }
 
 // ── Stats ──
@@ -134,5 +217,5 @@ export interface Stats {
 }
 
 export async function getStats(): Promise<Stats> {
-    return api(`/linx/stats/${ACCOUNT_ID}`);
+    return api(`/linx/stats/${getAccountId()}`);
 }

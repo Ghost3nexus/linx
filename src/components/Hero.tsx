@@ -51,7 +51,7 @@ export default function Hero() {
             className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
           >
             <a
-              href="/dashboard"
+              href="/login"
               className="bg-[#06C755] hover:bg-[#08E065] text-white font-semibold px-10 py-[16px] rounded-xl text-[16px] sm:text-[17px] transition-all duration-200 active:scale-95 text-center touch-manipulation"
             >
               無料で始める

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSettings, updateSettings, type Settings } from "@/lib/apiClient";
-import { Save, Bot, Volume2, Bell } from "lucide-react";
+import { getSettings, updateSettings, updateLineSettings, getWebhookUrl, type Settings } from "@/lib/apiClient";
+import { Save, Bot, Volume2, Bell, Link2, ExternalLink, Copy, Check } from "lucide-react";
 
 const toneOptions = [
     { value: "professional", label: "プロフェッショナル", desc: "丁寧でありつつ親しみやすい" },
@@ -21,6 +21,16 @@ export default function SettingsPage() {
     const [tone, setTone] = useState<string>("professional");
     const [escalationUserId, setEscalationUserId] = useState("");
 
+    // LINE連携設定
+    const [lineChannelId, setLineChannelId] = useState("");
+    const [lineChannelSecret, setLineChannelSecret] = useState("");
+    const [lineAccessToken, setLineAccessToken] = useState("");
+    const [webhookUrl, setWebhookUrl] = useState("");
+    const [lineLoading, setLineLoading] = useState(false);
+    const [lineError, setLineError] = useState("");
+    const [lineSuccess, setLineSuccess] = useState("");
+    const [copied, setCopied] = useState(false);
+
     useEffect(() => {
         getSettings()
             .then((s) => {
@@ -28,9 +38,13 @@ export default function SettingsPage() {
                 setBotName(s.botName || "LINX");
                 setTone(s.tone || "professional");
                 setEscalationUserId(s.escalationUserId || "");
+                if (s.lineChannelId) setLineChannelId(s.lineChannelId);
             })
             .catch((e) => setError(e.message))
             .finally(() => setLoading(false));
+
+        // Webhook URL取得
+        getWebhookUrl().then((r) => setWebhookUrl(r.webhookUrl)).catch(() => { });
     }, []);
 
     async function handleSave() {
@@ -47,6 +61,31 @@ export default function SettingsPage() {
         } finally {
             setSaving(false);
         }
+    }
+
+    async function handleLineSetup() {
+        if (!lineChannelId || !lineChannelSecret || !lineAccessToken) {
+            setLineError("すべての項目を入力してください");
+            return;
+        }
+        setLineLoading(true);
+        setLineError("");
+        setLineSuccess("");
+        try {
+            const result = await updateLineSettings(lineChannelId, lineChannelSecret, lineAccessToken);
+            setWebhookUrl(result.webhookUrl);
+            setLineSuccess("接続成功！Webhook URLをLINE Developersに設定してください。");
+        } catch (e: unknown) {
+            setLineError(e instanceof Error ? e.message : "LINE接続に失敗しました");
+        } finally {
+            setLineLoading(false);
+        }
+    }
+
+    function copyWebhookUrl() {
+        navigator.clipboard.writeText(webhookUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     }
 
     if (loading) {
@@ -110,8 +149,8 @@ export default function SettingsPage() {
                             <label
                                 key={opt.value}
                                 className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer border transition-colors ${tone === opt.value
-                                        ? "border-[#06C755]/40 bg-[#06C755]/5"
-                                        : "border-[#1A1A2E] hover:border-[#2A2A3E]"
+                                    ? "border-[#06C755]/40 bg-[#06C755]/5"
+                                    : "border-[#1A1A2E] hover:border-[#2A2A3E]"
                                     }`}
                             >
                                 <input
@@ -153,6 +192,94 @@ export default function SettingsPage() {
                         placeholder="Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                         className="w-full bg-[#0D1117] border border-[#1A1A2E] rounded-lg px-4 py-3 text-[14px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none transition-colors font-mono"
                     />
+                </div>
+
+                {/* LINE連携設定 */}
+                <div className="bg-[#0A0A0F] border border-[#1A1A2E] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#06C755]/10 flex items-center justify-center">
+                            <Link2 size={18} className="text-[#06C755]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-white">LINE公式アカウント連携</h3>
+                            <p className="text-[12px] text-[#6B7280]">Channel情報を入力してLINEと接続</p>
+                        </div>
+                    </div>
+
+                    {lineError && (
+                        <div className="mb-3 bg-[#FF3366]/10 border border-[#FF3366]/30 rounded-lg p-3 text-[#FF3366] text-[13px]">{lineError}</div>
+                    )}
+                    {lineSuccess && (
+                        <div className="mb-3 bg-[#06C755]/10 border border-[#06C755]/30 rounded-lg p-3 text-[#06C755] text-[13px]">✅ {lineSuccess}</div>
+                    )}
+
+                    <div className="space-y-3 mb-4">
+                        <div>
+                            <label className="block text-[12px] text-[#9CA3AF] mb-1.5">Channel ID</label>
+                            <input
+                                type="text"
+                                value={lineChannelId}
+                                onChange={(e) => setLineChannelId(e.target.value)}
+                                placeholder="1234567890"
+                                className="w-full bg-[#0D1117] border border-[#1A1A2E] rounded-lg px-3 py-2.5 text-[13px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none font-mono"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-[12px] text-[#9CA3AF] mb-1.5">Channel Secret</label>
+                            <input
+                                type="password"
+                                value={lineChannelSecret}
+                                onChange={(e) => setLineChannelSecret(e.target.value)}
+                                placeholder="••••••••••••••••••••••••••••••••"
+                                className="w-full bg-[#0D1117] border border-[#1A1A2E] rounded-lg px-3 py-2.5 text-[13px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none font-mono"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-[12px] text-[#9CA3AF] mb-1.5">Channel Access Token（長期）</label>
+                            <textarea
+                                value={lineAccessToken}
+                                onChange={(e) => setLineAccessToken(e.target.value)}
+                                placeholder="発行したLong-lived Channel access tokenを貼り付け..."
+                                rows={3}
+                                className="w-full bg-[#0D1117] border border-[#1A1A2E] rounded-lg px-3 py-2.5 text-[13px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none font-mono resize-none"
+                            />
+                        </div>
+                    </div>
+
+                    {webhookUrl && (
+                        <div className="bg-[#0D1117] border border-[#06C755]/30 rounded-lg p-3 mb-4">
+                            <p className="text-[11px] text-[#6B7280] mb-1.5">Webhook URL（LINE Developersに設定）</p>
+                            <div className="flex items-center gap-2">
+                                <code className="flex-1 text-[11px] text-[#06C755] font-mono break-all">{webhookUrl}</code>
+                                <button
+                                    onClick={copyWebhookUrl}
+                                    className="shrink-0 px-2 py-1 bg-[#06C755]/10 hover:bg-[#06C755]/20 text-[#06C755] rounded text-[11px] flex items-center gap-1 transition-colors"
+                                >
+                                    {copied ? <Check size={11} /> : <Copy size={11} />}
+                                    {copied ? "コピー済" : "コピー"}
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={handleLineSetup}
+                            disabled={lineLoading}
+                            className="flex items-center gap-2 bg-[#06C755] hover:bg-[#08E065] disabled:opacity-50 text-white font-medium px-4 py-2.5 rounded-lg text-[13px] transition-colors"
+                        >
+                            <Link2 size={14} />
+                            {lineLoading ? "接続テスト中..." : "接続テスト・保存"}
+                        </button>
+                        <a
+                            href="https://developers.line.biz/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-[12px] text-[#6B7280] hover:text-[#9CA3AF] transition-colors"
+                        >
+                            LINE Developers <ExternalLink size={11} />
+                        </a>
+                    </div>
                 </div>
 
                 {/* Plan info (read-only) */}
