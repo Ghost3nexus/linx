@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, Wallet, Smartphone } from "lucide-react";
+import { Clock, Wallet, Smartphone } from "lucide-react";
 import ChatMockup from "./ChatMockup";
 
 const badges = [
-  { icon: Zap, label: "導入5分" },
+  { icon: Clock, label: "最短30分で導入" },
   { icon: Wallet, label: "1週間無料お試し" },
-  { icon: Smartphone, label: "LINEを変えなくていい" },
+  { icon: Smartphone, label: "LINE公式連携" },
 ];
 
 export default function Hero() {
@@ -41,7 +41,7 @@ export default function Hero() {
           >
             LINXが、あなたの代わりに公式LINEで顧客対応。
             <br className="hidden sm:block" />
-            導入5分。1週間無料お試し。いつものLINEに追加するだけ。
+            LINE公式アカウントがあれば最短30分。1週間無料お試し。
           </motion.p>
 
           <motion.div
