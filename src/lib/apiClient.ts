@@ -49,6 +49,22 @@ export async function deleteKnowledge(id: string): Promise<void> {
     await api(`/linx/knowledge/${ACCOUNT_ID}/${id}`, { method: 'DELETE' });
 }
 
+export async function uploadPDF(file: File, title?: string): Promise<KnowledgeItem & { source: string; pages: number; extractedChars: number }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (title) formData.append('title', title);
+
+    const res = await fetch(`${API_BASE}/linx/knowledge/${ACCOUNT_ID}/upload`, {
+        method: 'POST',
+        body: formData,
+    });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: res.statusText }));
+        throw new Error(err.error || `Upload Error ${res.status}`);
+    }
+    return res.json();
+}
+
 // ── Settings ──
 
 export interface Settings {

@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useCallback } from "react";
 import {
-    getKnowledge, addKnowledge, updateKnowledge, deleteKnowledge,
+    getKnowledge, addKnowledge, updateKnowledge, deleteKnowledge, uploadPDF,
     type KnowledgeItem,
 } from "@/lib/apiClient";
-import { Plus, Pencil, Trash2, X, Save, BookOpen } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, BookOpen, Upload, FileText } from "lucide-react";
 
 export default function KnowledgePage() {
     const [items, setItems] = useState<KnowledgeItem[]>([]);
@@ -18,6 +18,8 @@ export default function KnowledgePage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [saving, setSaving] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [dragOver, setDragOver] = useState(false);
 
     const load = useCallback(() => {
         setLoading(true);
@@ -78,6 +80,40 @@ export default function KnowledgePage() {
         }
     }
 
+    async function handlePDFUpload(file: File) {
+        if (!file.name.endsWith('.pdf')) {
+            setError('PDFファイルのみアップロード可能です');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            setError('ファイルサイズは5MB以下にしてください');
+            return;
+        }
+        setUploading(true);
+        setError('');
+        try {
+            await uploadPDF(file);
+            load();
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : 'アップロードに失敗しました');
+        } finally {
+            setUploading(false);
+        }
+    }
+
+    function handleDrop(e: React.DragEvent) {
+        e.preventDefault();
+        setDragOver(false);
+        const file = e.dataTransfer.files[0];
+        if (file) handlePDFUpload(file);
+    }
+
+    function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (file) handlePDFUpload(file);
+        e.target.value = '';
+    }
+
     const showEditor = isNew || editing !== null;
 
     return (
@@ -92,8 +128,33 @@ export default function KnowledgePage() {
                     className="flex items-center gap-2 bg-[#06C755] hover:bg-[#08E065] text-white font-medium px-5 py-2.5 rounded-lg text-[14px] transition-colors"
                 >
                     <Plus size={16} />
-                    ナレッジを追加
+                    テキスト追加
                 </button>
+            </div>
+
+            {/* PDF Drop Zone */}
+            <div
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                className={`mt-6 border-2 border-dashed rounded-xl p-6 text-center transition-colors ${dragOver ? 'border-[#06C755] bg-[#06C755]/5' : 'border-[#1A1A2E] hover:border-[#2A2A3E]'
+                    }`}
+            >
+                {uploading ? (
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="w-5 h-5 border-2 border-[#06C755] border-t-transparent rounded-full animate-spin" />
+                        <span className="text-[#9CA3AF] text-[14px]">PDFを解析中...</span>
+                    </div>
+                ) : (
+                    <label className="cursor-pointer">
+                        <div className="flex flex-col items-center gap-2">
+                            <FileText size={28} className="text-[#4B5563]" />
+                            <p className="text-[14px] text-[#9CA3AF]">PDFをドラッグ&ドロップ、または<span className="text-[#06C755] ml-1">クリックして選択</span></p>
+                            <p className="text-[12px] text-[#4B5563]">最大5MB</p>
+                        </div>
+                        <input type="file" accept=".pdf" onChange={handleFileSelect} className="hidden" />
+                    </label>
+                )}
             </div>
 
             {error && (
