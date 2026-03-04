@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BookOpen, MessageSquare, Settings, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, BookOpen, MessageSquare, Settings, ArrowLeft, CreditCard } from "lucide-react";
 
 const navItems = [
     { href: "/dashboard", label: "ダッシュボード", icon: LayoutDashboard },
     { href: "/dashboard/knowledge", label: "ナレッジ", icon: BookOpen },
     { href: "/dashboard/logs", label: "会話ログ", icon: MessageSquare },
     { href: "/dashboard/settings", label: "設定", icon: Settings },
+    { href: "/dashboard/billing", label: "プラン・課金", icon: CreditCard },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -34,8 +35,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-5 py-3 text-[14px] transition-colors ${isActive
-                                        ? "text-[#06C755] bg-[#06C755]/8 border-r-2 border-[#06C755]"
-                                        : "text-[#9CA3AF] hover:text-white hover:bg-white/5"
+                                    ? "text-[#06C755] bg-[#06C755]/8 border-r-2 border-[#06C755]"
+                                    : "text-[#9CA3AF] hover:text-white hover:bg-white/5"
                                     }`}
                             >
                                 <item.icon size={18} />

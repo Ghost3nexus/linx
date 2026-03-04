@@ -72,6 +72,8 @@ export interface Settings {
     tone: 'professional' | 'casual' | 'formal';
     escalationUserId: string;
     plan: string;
+    stripeCustomerId?: string;
+    stripeSubscriptionId?: string;
     planLimits: {
         maxMonthlyResponses: number;
         maxKnowledgeFiles: number;
@@ -86,6 +88,22 @@ export async function updateSettings(updates: Partial<Pick<Settings, 'botName' |
     return api(`/linx/settings/${ACCOUNT_ID}`, {
         method: 'PUT',
         body: JSON.stringify(updates),
+    });
+}
+
+// ── Billing ──
+
+export async function createCheckoutSession(plan: string): Promise<{ sessionId: string; url: string }> {
+    return api('/linx/billing/checkout', {
+        method: 'POST',
+        body: JSON.stringify({ accountId: ACCOUNT_ID, plan }),
+    });
+}
+
+export async function createPortalSession(customerId: string): Promise<{ url: string }> {
+    return api('/linx/billing/portal', {
+        method: 'POST',
+        body: JSON.stringify({ customerId }),
     });
 }
 
