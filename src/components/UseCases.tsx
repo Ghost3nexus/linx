@@ -34,13 +34,22 @@ export default function UseCases() {
   return (
     <section id="usecases" className="py-[80px] sm:py-[100px] px-6">
       <div className="max-w-[1000px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          Use Cases
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           あなたの業種でも、すぐ使えます。
         </motion.h2>
@@ -53,7 +62,7 @@ export default function UseCases() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-[#0A0A0F] border border-[#1A1A2E] rounded-2xl p-7 hover:border-[#06C755]/40 transition-all duration-300 group"
+              className="bg-[#0A0A0F] border border-[#1A1A2E] rounded-2xl p-7 hover:border-[#06C755]/40 transition-all duration-300 group card-glow"
             >
               <c.icon
                 size={28}

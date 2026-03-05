@@ -203,7 +203,8 @@ export interface LogEntry {
 }
 
 export async function getLogs(limit = 50, offset = 0): Promise<LogEntry[]> {
-    return api(`/linx/logs/${getAccountId()}?limit=${limit}&offset=${offset}`);
+    const data = await api<{ items: LogEntry[]; total: number }>(`/linx/logs/${getAccountId()}?limit=${limit}&offset=${offset}`);
+    return data.items;
 }
 
 // ── Stats ──

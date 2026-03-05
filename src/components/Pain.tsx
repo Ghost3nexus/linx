@@ -25,13 +25,22 @@ export default function Pain() {
   return (
     <section className="py-[80px] sm:py-[100px] px-6">
       <div className="max-w-[1000px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          Problem
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           こんな毎日、続けられますか？
         </motion.h2>
@@ -44,7 +53,7 @@ export default function Pain() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="bg-[#0A0A0F] border border-[#1A1A2E] rounded-2xl p-7 sm:p-8"
+              className="bg-[#0A0A0F] border border-[#1A1A2E] rounded-2xl p-7 sm:p-8 card-glow transition-all duration-300"
             >
               <pain.icon size={28} className="text-[#6B7280]" />
               <h3 className="mt-5 text-[17px] sm:text-[18px] font-semibold text-white" style={{ lineHeight: 1.5 }}>

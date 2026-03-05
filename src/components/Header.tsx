@@ -9,6 +9,7 @@ const navLinks = [
   { label: "料金", href: "#pricing" },
   { label: "事例", href: "#usecases" },
   { label: "FAQ", href: "#faq" },
+  { label: "お問い合わせ", href: "https://calendar.app.google/AJXwDSRvDQEWTxjb7" },
 ];
 
 export default function Header() {
@@ -40,19 +41,20 @@ export default function Header() {
           LIN<span className="text-[#06C755]">X</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[#9CA3AF] text-[15px] hover:text-white transition-colors duration-200"
+              {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="text-[#9CA3AF] text-[14px] hover:text-white transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
           <a
-            href="#cta"
-            className="bg-[#06C755] hover:bg-[#08E065] text-white text-[15px] font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
+            href="/login"
+            className="bg-[#06C755] hover:bg-[#08E065] text-white text-[14px] font-semibold px-6 py-2.5 rounded-xl transition-all duration-200 active:scale-95"
           >
             無料で始める
           </a>
@@ -88,6 +90,7 @@ export default function Header() {
                   <a
                     key={link.href}
                     href={link.href}
+                    {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     onClick={() => setMobileOpen(false)}
                     className="text-[#9CA3AF] text-[16px] hover:text-white transition-colors py-3 touch-manipulation"
                   >
@@ -95,7 +98,7 @@ export default function Header() {
                   </a>
                 ))}
                 <a
-                  href="#cta"
+                  href="/login"
                   onClick={() => setMobileOpen(false)}
                   className="mt-3 bg-[#06C755] text-white text-[16px] font-semibold py-4 rounded-xl text-center touch-manipulation"
                 >

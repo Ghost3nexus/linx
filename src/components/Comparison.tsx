@@ -33,13 +33,22 @@ export default function Comparison() {
   return (
     <section className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
       <div className="max-w-[1000px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          Comparison
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           他のツールと、何が違うのか。
         </motion.h2>
@@ -153,7 +162,7 @@ export default function Comparison() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-8 text-center text-white font-semibold text-[15px] sm:text-[16px]"
         >
-          LINXだけが「公式LINE × 生成AI」を実現。
+          LINXだけが「公式LINE × 生成AI × 中小企業価格」を実現。
         </motion.p>
       </div>
     </section>

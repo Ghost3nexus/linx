@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer
-      className="border-t border-[#1A1A2E] py-10 px-6"
+      className="border-t border-[#1A1A2E] py-10 px-6 mb-16 md:mb-0"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 2.5rem)" }}
     >
       <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -19,7 +19,12 @@ export default function Footer() {
           <a href="#" className="hover:text-white transition-colors touch-manipulation">
             プライバシーポリシー
           </a>
-          <a href="#" className="hover:text-white transition-colors touch-manipulation">
+          <a
+            href="https://calendar.app.google/AJXwDSRvDQEWTxjb7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors touch-manipulation"
+          >
             お問い合わせ
           </a>
         </nav>

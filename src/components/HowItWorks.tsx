@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { UserPlus, Link2, MessageCircle } from "lucide-react";
+import { UserPlus, Link2, MessageCircle, ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -34,13 +34,22 @@ export default function HowItWorks() {
   return (
     <section className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
       <div className="max-w-[1000px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          How it works
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           導入は3ステップ。最短30分で完了。
         </motion.h2>
@@ -103,9 +112,10 @@ export default function HowItWorks() {
           </p>
           <a
             href="/login"
-            className="inline-block mt-6 bg-[#06C755] hover:bg-[#08E065] text-white font-semibold px-8 py-3 rounded-xl text-[15px] transition-all active:scale-95"
+            className="inline-flex items-center gap-2 mt-6 bg-[#06C755] hover:bg-[#08E065] text-white font-semibold px-8 py-3.5 rounded-xl text-[15px] transition-all active:scale-95 cta-glow"
           >
             無料で始める
+            <ArrowRight size={16} />
           </a>
         </motion.div>
       </div>

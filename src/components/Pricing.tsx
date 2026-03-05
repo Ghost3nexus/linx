@@ -5,12 +5,12 @@ import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: "Free Trial",
+    name: "Free",
     price: "0",
-    period: "円 / 1週間お試し",
-    description: "まず試してみたい方に",
-    features: ["1週間無料お試し", "公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル", "管理画面"],
-    cta: "無料で試す",
+    period: "円 / 月",
+    description: "まずは無料で体験",
+    features: ["公式LINE 1アカウント", "月30回応答", "ナレッジ1ファイル", "管理画面", "ずっと無料"],
+    cta: "無料で始める",
     href: "/dashboard",
     popular: false,
   },
@@ -18,8 +18,8 @@ const plans = [
     name: "Starter",
     price: "4,980",
     period: "円 / 月",
-    description: "小規模ビジネスに",
-    features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
+    description: "小規模店舗・個人事業に",
+    features: ["公式LINE 1アカウント", "月300回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: false,
@@ -28,8 +28,8 @@ const plans = [
     name: "Standard",
     price: "9,800",
     period: "円 / 月",
-    description: "成長するビジネスに最適",
-    features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ100ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
+    description: "複数店舗・成長企業に",
+    features: ["公式LINE 3アカウント", "月1,000回応答", "ナレッジ20ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: true,
@@ -38,8 +38,8 @@ const plans = [
     name: "Pro",
     price: "29,800",
     period: "円 / 月",
-    description: "本格運用に",
-    features: ["公式LINE 100アカウント", "月10,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
+    description: "本格運用・チェーン展開に",
+    features: ["公式LINE 10アカウント", "月5,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: false,
@@ -50,13 +50,22 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
       <div className="max-w-[1100px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          Pricing
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           始めるのに、理由はいらない。
         </motion.h2>
@@ -68,7 +77,7 @@ export default function Pricing() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-5 text-center text-[#9CA3AF] text-[16px] sm:text-[18px]"
         >
-          1週間の無料お試しで、まず体験してみてください。
+          無料プランでいつでも始められます。クレジットカード不要。
         </motion.p>
 
         {/* Mobile: 1col scroll / Desktop: 4col */}
@@ -80,11 +89,13 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative bg-[#0A0A0F] rounded-2xl p-7 flex flex-col ${plan.popular ? "border-2 border-[#06C755]" : "border border-[#1A1A2E]"
+              className={`relative rounded-2xl p-7 flex flex-col ${plan.popular
+                ? "border-gradient-animated"
+                : "bg-[#0A0A0F] border border-[#1A1A2E]"
                 }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#06C755] text-white text-[12px] font-semibold px-4 py-1 rounded-full whitespace-nowrap">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#06C755] text-white text-[12px] font-semibold px-4 py-1 rounded-full whitespace-nowrap z-10">
                   人気
                 </div>
               )}
@@ -115,7 +126,7 @@ export default function Pricing() {
               <a
                 href={plan.href}
                 className={`mt-7 block text-center py-[14px] rounded-xl text-[15px] font-semibold transition-all duration-200 touch-manipulation active:scale-95 ${plan.popular
-                  ? "bg-[#06C755] hover:bg-[#08E065] text-white"
+                  ? "bg-[#06C755] hover:bg-[#08E065] text-white cta-glow"
                   : "border border-[#2A2A3E] hover:border-[#06C755] text-white hover:text-[#06C755]"
                   }`}
               >
@@ -125,15 +136,20 @@ export default function Pricing() {
           ))}
         </div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 text-center text-[#6B7280] text-[14px]"
+          className="mt-10 text-center"
         >
-          すべてのプランに含まれるもの: 生成AI応答 / ナレッジ登録 / 会話ログ / 管理画面
-        </motion.p>
+          <p className="text-[#6B7280] text-[14px]">
+            すべてのプランに含まれるもの: 生成AI応答 / ナレッジ登録 / 会話ログ / 管理画面
+          </p>
+          <p className="mt-3 text-[#4B5563] text-[13px]">
+            合わなければいつでも解約。解約金ゼロ。
+          </p>
+        </motion.div>
       </div>
     </section>
   );

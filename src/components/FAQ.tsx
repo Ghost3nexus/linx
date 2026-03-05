@@ -15,19 +15,19 @@ const faqs = [
   },
   {
     q: "お客様の個人情報は安全ですか？",
-    a: "会話データは暗号化して保存されます。第三者への提供は一切行いません。詳しくはプライバシーポリシーをご確認ください。",
+    a: "会話データはSSL暗号化通信で保護されます。第三者への提供は一切行いません。詳しくはプライバシーポリシーをご確認ください。",
   },
   {
     q: "既存のLINE公式アカウントと併用できますか？",
-    a: "はい。LINXは独立したLINE公式アカウントとして動作するため、既存のアカウントに影響はありません。",
+    a: "はい。LINXはLINE Messaging APIを通じて動作するため、既存のLINE公式アカウントの機能はそのまま使えます。",
   },
   {
     q: "無料プランに期限はありますか？",
-    a: "無料お試しは1週間です。その後、有料プランへアップグレードいただけます。アカウント数や応答回数に応じたプランをご用意しています。",
+    a: "いいえ。無料プランは期限なしでずっとお使いいただけます。月30回の応答とナレッジ1ファイルまでご利用可能です。ビジネスが成長したら、いつでも有料プランにアップグレードできます。",
   },
   {
     q: "解約はいつでもできますか？",
-    a: "はい。管理画面からいつでも解約できます。解約金はありません。",
+    a: "はい。管理画面からいつでも解約できます。解約金はありません。日割り返金も対応しています。",
   },
 ];
 
@@ -46,7 +46,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
           className={`text-[#6B7280] shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[200px] pb-6" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[300px] pb-6" : "max-h-0"}`}>
         <p className="text-[#9CA3AF] text-[15px]" style={{ lineHeight: 1.8 }}>{a}</p>
       </div>
     </div>
@@ -57,13 +57,22 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-[80px] sm:py-[100px] px-6">
       <div className="max-w-[760px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          FAQ
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
           よくある質問
         </motion.h2>

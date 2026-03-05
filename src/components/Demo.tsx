@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Tab = "kindergarten" | "salon" | "ec" | "consulting";
@@ -41,21 +41,77 @@ const conversations: Record<Tab, { sender: string; text: string }[]> = {
   ],
 };
 
+function TypingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <div className="bg-white text-[#1a1a1a] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5">
+        <span className="w-2 h-2 bg-gray-400 rounded-full typing-dot" />
+        <span className="w-2 h-2 bg-gray-400 rounded-full typing-dot" />
+        <span className="w-2 h-2 bg-gray-400 rounded-full typing-dot" />
+      </div>
+    </div>
+  );
+}
+
 export default function Demo() {
   const [activeTab, setActiveTab] = useState<Tab>("salon");
+  const [visibleCount, setVisibleCount] = useState(0);
+  const [showTyping, setShowTyping] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const msgs = conversations[activeTab];
+
+  useEffect(() => {
+    setVisibleCount(0);
+    setShowTyping(false);
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    const showNext = (index: number) => {
+      if (index >= msgs.length) return;
+
+      // Show typing indicator before bot messages
+      if (msgs[index].sender === "bot" && index > 0) {
+        setShowTyping(true);
+        timerRef.current = setTimeout(() => {
+          setShowTyping(false);
+          setVisibleCount(index + 1);
+          timerRef.current = setTimeout(() => showNext(index + 1), 800);
+        }, 1200);
+      } else {
+        setVisibleCount(index + 1);
+        timerRef.current = setTimeout(() => showNext(index + 1), 600);
+      }
+    };
+
+    timerRef.current = setTimeout(() => showNext(0), 400);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [activeTab]);
 
   return (
     <section id="demo" className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
       <div className="max-w-[800px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className="section-label text-center mb-4"
+        >
+          Demo
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-center"
-          style={{ lineHeight: 1.4 }}
+          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
+          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
         >
-          実際の画面を見てみてください。
+          実際の会話を見てみてください。
         </motion.h2>
 
         <div className="mt-10 flex justify-center gap-2 flex-wrap">
@@ -94,15 +150,15 @@ export default function Demo() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.2 }}
                   className="space-y-3"
                 >
-                  {conversations[activeTab].map((msg, i) => (
+                  {msgs.slice(0, visibleCount).map((msg, i) => (
                     <motion.div
                       key={`${activeTab}-${i}`}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: i * 0.15 }}
+                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
                       className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                     >
                       <div
@@ -116,11 +172,30 @@ export default function Demo() {
                       </div>
                     </motion.div>
                   ))}
+                  {showTyping && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <TypingIndicator />
+                    </motion.div>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
         </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-6 text-center text-[13px] text-[#4B5563]"
+        >
+          ※ デモ用サンプル会話です。実際のAI応答は登録したナレッジに基づきます。
+        </motion.p>
       </div>
     </section>
   );
