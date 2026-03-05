@@ -54,9 +54,9 @@ export default function Header() {
           ))}
           <a
             href="/login"
-            className="bg-[#06C755] hover:bg-[#08E065] text-white text-[14px] font-semibold px-6 py-2.5 rounded-xl transition-all duration-200 active:scale-95"
+            className="bg-[#06C755] hover:bg-[#08E065] text-white text-[14px] font-semibold px-6 py-2.5 rounded-xl transition-all duration-200 active:scale-95 cta-glow"
           >
-            無料で始める
+            無料で試す
           </a>
         </nav>
 

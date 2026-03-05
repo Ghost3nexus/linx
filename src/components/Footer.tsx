@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer
-      className="border-t border-[#1A1A2E] py-10 px-6 mb-16 md:mb-0"
+      className="border-t border-[#1A1A2E] py-10 px-6 mb-16 md:mb-12"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 2.5rem)" }}
     >
       <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
