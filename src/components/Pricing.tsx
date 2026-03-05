@@ -9,7 +9,12 @@ const plans = [
     price: "0",
     period: "円 / 月",
     description: "まずは無料で体験",
-    features: ["公式LINE 1アカウント", "月30回応答", "ナレッジ1ファイル", "管理画面", "ずっと無料"],
+    features: [
+      "LINEグループ 1件",
+      "月30回 AI応答",
+      "ナレッジ 1件登録",
+      "ずっと無料・カード不要",
+    ],
     cta: "無料で始める",
     href: "/dashboard",
     popular: false,
@@ -19,7 +24,12 @@ const plans = [
     price: "4,980",
     period: "円 / 月",
     description: "小規模店舗・個人事業に",
-    features: ["公式LINE 1アカウント", "月300回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
+    features: [
+      "LINEグループ 1件",
+      "月300回 AI応答",
+      "ナレッジ 5件登録",
+      "メールサポート",
+    ],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: false,
@@ -28,8 +38,15 @@ const plans = [
     name: "Standard",
     price: "9,800",
     period: "円 / 月",
-    description: "複数店舗・成長企業に",
-    features: ["公式LINE 3アカウント", "月1,000回応答", "ナレッジ20ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
+    description: "複数グループ・成長企業に",
+    features: [
+      "LINEグループ 3件",
+      "月1,000回 AI応答",
+      "ナレッジ 20件登録",
+      "Web検索AI（RAG）",
+      "エスカレーション通知",
+      "優先サポート",
+    ],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: true,
@@ -39,7 +56,16 @@ const plans = [
     price: "29,800",
     period: "円 / 月",
     description: "本格運用・チェーン展開に",
-    features: ["公式LINE 10アカウント", "月5,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
+    features: [
+      "LINEグループ 10件",
+      "月5,000回 AI応答",
+      "ナレッジ 100件登録",
+      "Web検索AI（RAG）",
+      "外部ツール連携",
+      "エスカレーション通知",
+      "AI人格カスタマイズ",
+      "専任サポート",
+    ],
     cta: "このプランで始める",
     href: "/dashboard/billing",
     popular: false,
@@ -144,7 +170,7 @@ export default function Pricing() {
           className="mt-10 text-center"
         >
           <p className="text-[#6B7280] text-[14px]">
-            すべてのプランに含まれるもの: 生成AI応答 / ナレッジ登録 / 会話ログ / 管理画面
+            全プラン共通: AI自動応答 / ナレッジ登録 / 会話ログ閲覧 / 管理画面 / LINE Reply API（追加課金なし）
           </p>
           <p className="mt-3 text-[#4B5563] text-[13px]">
             合わなければいつでも解約。解約金ゼロ。

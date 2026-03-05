@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const features = [
-  { label: "公式LINE対応", linx: true, lineAi: false, lstep: false, chatplus: false },
+  { label: "グループチャット対応", linx: true, lineAi: false, lstep: false, chatplus: false },
   { label: "生成AI（自由応答）", linx: true, lineAi: false, lstep: false, chatplus: true },
   { label: "ナレッジ学習", linx: true, lineAi: false, lstep: false, chatplus: true },
+  { label: "Web検索AI（RAG）", linx: true, lineAi: false, lstep: false, chatplus: false },
   { label: "導入時間", linx: "5分", lineAi: "30分", lstep: "数時間", chatplus: "数週間" },
   { label: "月額", linx: "0円〜", lineAi: "3,000円〜", lstep: "0円〜", chatplus: "15万円〜" },
 ];
