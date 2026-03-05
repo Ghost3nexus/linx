@@ -7,24 +7,24 @@ import { CreditCard, Zap, Check, ExternalLink } from "lucide-react";
 const PLANS = [
     {
         id: "free",
-        name: "Free Trial",
+        name: "Free",
         price: "¥0",
-        period: "1週間お試し",
-        features: ["公式LINE 1アカウント", "月50回応答", "ナレッジ1ファイル", "管理画面"],
+        period: "ずっと無料",
+        features: ["公式LINE 1アカウント", "月30回応答", "ナレッジ1ファイル", "管理画面"],
     },
     {
         id: "starter",
         name: "Starter",
         price: "¥4,980",
         period: "/ 月",
-        features: ["公式LINE 3アカウント", "月500回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
+        features: ["公式LINE 1アカウント", "月300回応答", "ナレッジ5ファイル", "管理画面", "メールサポート"],
     },
     {
         id: "standard",
         name: "Standard",
         price: "¥9,800",
         period: "/ 月",
-        features: ["公式LINE 10アカウント", "月2,000回応答", "ナレッジ100ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
+        features: ["公式LINE 3アカウント", "月1,000回応答", "ナレッジ20ファイル", "エスカレーション通知", "Web検索AI", "優先サポート"],
         popular: true,
     },
     {
@@ -32,7 +32,7 @@ const PLANS = [
         name: "Pro",
         price: "¥29,800",
         period: "/ 月",
-        features: ["公式LINE 100アカウント", "月10,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
+        features: ["公式LINE 10アカウント", "月5,000回応答", "ナレッジ100ファイル", "人格カスタマイズ", "Web検索AI", "外部ツール連携", "エスカレーション通知", "専任サポート"],
     },
 ];
 
