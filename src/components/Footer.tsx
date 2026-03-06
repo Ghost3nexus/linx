@@ -12,12 +12,15 @@ export default function Footer() {
           <span className="ml-3">by TomorrowProof</span>
         </div>
 
-        <nav className="flex gap-6 text-[14px] text-[#6B7280]">
-          <a href="#" className="hover:text-white transition-colors touch-manipulation">
-            利用規約
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-[#6B7280]">
+          <a href="/tokushoho" className="hover:text-white transition-colors touch-manipulation">
+            特定商取引法
           </a>
-          <a href="#" className="hover:text-white transition-colors touch-manipulation">
+          <a href="/privacy" className="hover:text-white transition-colors touch-manipulation">
             プライバシーポリシー
+          </a>
+          <a href="/ai-disclaimer" className="hover:text-white transition-colors touch-manipulation">
+            AI免責事項
           </a>
           <a
             href="https://calendar.app.google/AJXwDSRvDQEWTxjb7"
