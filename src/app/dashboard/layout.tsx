@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, BookOpen, MessageSquare, Settings, ArrowLeft, CreditCard, LogOut, Zap } from "lucide-react";
+import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays } from "lucide-react";
 import { isLoggedIn, getMe, clearAuth, type Me } from "@/lib/apiClient";
 
 const navItems = [
     { href: "/dashboard", label: "ダッシュボード", icon: LayoutDashboard },
     { href: "/dashboard/knowledge", label: "お店の情報", icon: BookOpen },
+    { href: "/dashboard/reservations", label: "予約管理", icon: CalendarDays },
     { href: "/dashboard/logs", label: "会話ログ", icon: MessageSquare },
     { href: "/dashboard/settings", label: "設定", icon: Settings },
     { href: "/dashboard/billing", label: "プラン・課金", icon: CreditCard },

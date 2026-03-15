@@ -127,11 +127,11 @@ export default function Comparison() {
                 おすすめ
               </span>
             </div>
-            <div className="space-y-4">
+            <div className="divide-y divide-[#F0F0F0]">
               {features.map((f) => (
-                <div key={f.label} className="flex items-center justify-between">
+                <div key={f.label} className="flex items-center justify-between py-3.5">
                   <span className="text-[15px] text-[#666666]">{f.label}</span>
-                  <span className="text-[15px] font-bold text-[#1A1A1A]">
+                  <span className="text-[15px] font-bold text-[#1A1A1A] shrink-0 ml-3">
                     {typeof f.linx === "boolean" ? (
                       f.linx ? <Check size={18} className="text-[#06C755]" /> : <X size={18} className="text-[#E53935]" />
                     ) : (
@@ -153,7 +153,7 @@ export default function Comparison() {
         >
           <a
             href="/login"
-            className="inline-flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all active:scale-95 cta-glow"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all active:scale-95 cta-glow"
           >
             無料ではじめる
             <ArrowRight size={16} />

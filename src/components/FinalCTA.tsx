@@ -40,7 +40,7 @@ export default function FinalCTA() {
         >
           <a
             href="/login"
-            className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-12 py-[18px] rounded-full text-[18px] transition-all duration-200 active:scale-95 touch-manipulation cta-glow"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-12 py-[18px] rounded-full text-[18px] transition-all duration-200 active:scale-95 touch-manipulation cta-glow"
           >
             無料ではじめる
             <ArrowRight size={20} />

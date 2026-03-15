@@ -53,14 +53,14 @@ export default function Hero() {
             >
               <a
                 href="/login"
-                className="bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-10 py-[18px] rounded-full text-[17px] transition-all duration-200 active:scale-95 text-center touch-manipulation cta-glow inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-10 py-[18px] rounded-full text-[17px] transition-all duration-200 active:scale-95 text-center touch-manipulation cta-glow inline-flex items-center justify-center gap-2"
               >
                 無料ではじめる
                 <ArrowRight size={18} />
               </a>
               <a
                 href="#demo"
-                className="border-2 border-[#E0E0E0] hover:border-[#06C755] text-[#333333] hover:text-[#06C755] font-bold px-10 py-[18px] rounded-full text-[17px] transition-all duration-200 text-center touch-manipulation"
+                className="w-full sm:w-auto border-2 border-[#E0E0E0] hover:border-[#06C755] text-[#333333] hover:text-[#06C755] font-bold px-10 py-[18px] rounded-full text-[17px] transition-all duration-200 text-center touch-manipulation"
               >
                 デモを見る
               </a>
@@ -83,7 +83,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5 }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 w-full max-w-[340px] lg:w-auto"
           >
             <ChatMockup />
           </motion.div>

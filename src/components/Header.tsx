@@ -59,7 +59,7 @@ export default function Header() {
         </nav>
 
         <button
-          className="md:hidden text-[#1A1A1A] p-2 -mr-2 touch-manipulation"
+          className="md:hidden text-[#1A1A1A] min-w-[44px] min-h-[44px] flex items-center justify-center -mr-2 touch-manipulation"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="メニュー"
         >
@@ -74,7 +74,8 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 top-[64px] bg-black/30 md:hidden z-40"
+              className="fixed inset-0 bg-black/30 md:hidden z-40"
+              style={{ top: "calc(64px + env(safe-area-inset-top))" }}
               onClick={() => setMobileOpen(false)}
             />
             <motion.nav

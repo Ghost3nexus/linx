@@ -123,6 +123,15 @@ export default function KnowledgePage() {
                     <h1 className="text-[24px] font-bold text-[#1A1A1A]">お店の情報 管理</h1>
                     <p className="text-[#999999] mt-1 text-[14px]">AIが回答に使う情報を管理します</p>
                 </div>
+            </div>
+
+            {/* Warning banner */}
+            <div className="mt-4 bg-[#FFF8E1] border border-[#FFE082] rounded-xl p-4 flex items-start gap-3">
+                <span className="text-[20px] shrink-0">⚠️</span>
+                <div>
+                    <p className="text-[14px] font-bold text-[#F57F17]">ここに登録した情報は、LINEのお客様に表示されます</p>
+                    <p className="text-[13px] text-[#999999] mt-1">社外秘の情報や個人情報（電話番号・住所等）は登録しないでください。</p>
+                </div>
                 <button
                     onClick={openNew}
                     className="flex items-center gap-2 bg-[#06C755] hover:bg-[#08E065] text-white font-medium px-5 py-2.5 rounded-lg text-[14px] transition-colors"

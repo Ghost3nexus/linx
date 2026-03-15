@@ -38,7 +38,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     <div className="border-b border-[#F0F0F0]">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-6 text-left gap-4 touch-manipulation"
+        className="w-full flex items-center justify-between py-5 min-h-[44px] text-left gap-4 touch-manipulation"
       >
         <span className="text-[#1A1A1A] font-bold text-[16px] sm:text-[17px]" style={{ lineHeight: 1.5 }}>
           {q}

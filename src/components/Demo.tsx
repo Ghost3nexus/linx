@@ -124,12 +124,12 @@ export default function Demo() {
         </motion.p>
 
         {/* Tab buttons */}
-        <div className="mt-8 flex justify-center gap-2 flex-wrap">
+        <div className="mt-8 grid grid-cols-2 sm:flex sm:justify-center gap-2 sm:flex-wrap">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-2.5 rounded-full text-[15px] font-bold transition-all duration-200 touch-manipulation ${
+              className={`min-h-[44px] px-5 py-2.5 rounded-full text-[15px] font-bold transition-all duration-200 touch-manipulation ${
                 activeTab === tab.id
                   ? "bg-[#06C755] text-white shadow-md"
                   : "bg-white text-[#666666] border border-[#E0E0E0] hover:border-[#06C755] hover:text-[#06C755]"
@@ -146,7 +146,7 @@ export default function Demo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 max-w-[380px] mx-auto"
+          className="mt-8 max-w-[340px] sm:max-w-[380px] mx-auto"
         >
           <div className="bg-white border-2 border-[#E8E8E8] rounded-[24px] overflow-hidden shadow-lg">
             {/* LINE header */}

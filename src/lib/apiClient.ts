@@ -226,6 +226,68 @@ export async function autoSetupFromUrl(url: string): Promise<AutoSetupResult> {
     });
 }
 
+// ── Reservations ──
+
+export interface Reservation {
+    id: string;
+    customerName: string;
+    customerLineUserId?: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    service?: string;
+    note?: string;
+    status: 'confirmed' | 'cancelled' | 'completed';
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface AvailableSlot {
+    startTime: string;
+    endTime: string;
+}
+
+export interface BusinessHour {
+    dayOfWeek: number;
+    openTime: string;
+    closeTime: string;
+    isClosed: boolean;
+}
+
+export async function getReservations(from: string, to: string): Promise<Reservation[]> {
+    const data = await api<{ reservations: Reservation[] }>(`/linx/reservations/${getAccountId()}?from=${from}&to=${to}`);
+    return data.reservations;
+}
+
+export async function createReservation(reservation: { customerName: string; date: string; startTime: string; endTime: string; service?: string; note?: string }): Promise<Reservation> {
+    const data = await api<{ reservation: Reservation }>(`/linx/reservations/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(reservation),
+    });
+    return data.reservation;
+}
+
+export async function cancelReservation(id: string): Promise<void> {
+    await api(`/linx/reservations/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
+export async function getAvailableSlots(date: string): Promise<AvailableSlot[]> {
+    const data = await api<{ slots: AvailableSlot[] }>(`/linx/reservations/${getAccountId()}/available?date=${date}`);
+    return data.slots;
+}
+
+export async function getBusinessHours(): Promise<BusinessHour[]> {
+    const data = await api<{ hours: BusinessHour[] }>(`/linx/business-hours/${getAccountId()}`);
+    return data.hours;
+}
+
+export async function setBusinessHours(hours: BusinessHour[]): Promise<void> {
+    await api(`/linx/business-hours/${getAccountId()}`, {
+        method: 'PUT',
+        body: JSON.stringify({ hours }),
+    });
+}
+
 // ── Stats ──
 
 export interface Stats {

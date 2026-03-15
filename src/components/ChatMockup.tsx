@@ -27,7 +27,7 @@ const messages = [
 
 export default function ChatMockup() {
   return (
-    <div className="w-full max-w-[320px] mx-auto">
+    <div className="w-full max-w-[280px] sm:max-w-[320px] mx-auto">
       {/* Phone frame */}
       <div className="relative bg-white border-2 border-[#E0E0E0] rounded-[2.5rem] overflow-hidden shadow-xl">
         {/* Notch */}

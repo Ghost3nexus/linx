@@ -155,7 +155,7 @@ export default function Pricing() {
 
               <a
                 href={plan.href}
-                className={`mt-7 block text-center py-[14px] rounded-full text-[16px] font-bold transition-all duration-200 touch-manipulation active:scale-95 ${
+                className={`mt-7 py-[14px] min-h-[48px] flex items-center justify-center rounded-full text-[16px] font-bold transition-all duration-200 touch-manipulation active:scale-95 ${
                   plan.popular || plan.highlight
                     ? "bg-[#06C755] hover:bg-[#05B04A] text-white cta-glow"
                     : "border-2 border-[#E0E0E0] hover:border-[#06C755] text-[#333333] hover:text-[#06C755]"

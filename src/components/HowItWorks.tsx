@@ -104,7 +104,7 @@ export default function HowItWorks() {
         >
           <a
             href="/login"
-            className="inline-flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all active:scale-95 cta-glow"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all active:scale-95 cta-glow"
           >
             今すぐ無料ではじめる
             <ArrowRight size={16} />

@@ -34,6 +34,17 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* Prevent iOS auto-zoom on inputs */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Japanese text wrapping safety */
+p, h1, h2, h3, h4, li, span, a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 ::selection {
   background: rgba(6, 199, 85, 0.2);
   color: #1A1A1A;
