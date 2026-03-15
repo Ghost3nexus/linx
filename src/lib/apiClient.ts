@@ -207,6 +207,25 @@ export async function getLogs(limit = 50, offset = 0): Promise<LogEntry[]> {
     return data.items;
 }
 
+// ── Auto Setup ──
+
+export interface AutoSetupResult {
+    success: boolean;
+    items: KnowledgeItem[];
+    itemsCreated: number;
+    suggestion: {
+        botName: string;
+        tone: string;
+    };
+}
+
+export async function autoSetupFromUrl(url: string): Promise<AutoSetupResult> {
+    return api(`/linx/auto-setup/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify({ url }),
+    });
+}
+
 // ── Stats ──
 
 export interface Stats {
