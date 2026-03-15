@@ -19,17 +19,17 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#050508",
+  themeColor: "#FFFFFF",
 };
 
 export const metadata: Metadata = {
   title: "LINX | 公式LINEに、AIスタッフを。",
   description:
-    "LINXは、あなたの公式LINEにAIコンシェルジュを追加するサービス。顧客対応を24時間自動化。1週間無料お試し。",
+    "LINXは、あなたの公式LINEにAIスタッフを追加するサービス。お客様の質問にAIが即回答。予約・在庫・FAQ対応を24時間自動化。無料ではじめられます。",
   openGraph: {
     title: "LINX | 公式LINEに、AIスタッフを。",
     description:
-      "公式LINEにAIコンシェルジュを追加。顧客対応を24時間自動化。1週間無料お試し。",
+      "公式LINEにAIスタッフを追加。お客様の質問に24時間自動で回答。無料ではじめられます。",
     siteName: "LINX",
     locale: "ja_JP",
     type: "website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "LINX | 公式LINEに、AIスタッフを。",
     description:
-      "公式LINEにAIコンシェルジュを追加。顧客対応を24時間自動化。",
+      "公式LINEにAIスタッフを追加。24時間自動応答。無料ではじめられます。",
   },
 };
 
@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="dark">
+    <html lang="ja">
       <body className={`${inter.variable} ${notoSansJP.variable} antialiased`}>
         {children}
       </body>

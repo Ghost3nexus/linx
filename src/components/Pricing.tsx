@@ -8,48 +8,51 @@ const plans = [
     name: "Free",
     price: "0",
     period: "円 / 月",
-    description: "まずは無料で体験",
+    description: "まずは無料で試してみたい方に",
     features: [
-      "LINEグループ 1件",
-      "月30回 AI応答",
-      "ナレッジ 1件登録",
+      "LINEアカウント 1件",
+      "月50回までAI回答",
+      "お店情報の登録 1件",
       "ずっと無料・カード不要",
     ],
-    cta: "無料で始める",
-    href: "/dashboard",
+    cta: "無料ではじめる",
+    href: "/login",
     popular: false,
+    highlight: true,
   },
   {
     name: "Starter",
     price: "4,980",
     period: "円 / 月",
-    description: "小規模店舗・個人事業に",
+    description: "個人のお店・小規模事業に",
     features: [
-      "LINEグループ 1件",
-      "月300回 AI応答",
-      "ナレッジ 5件登録",
+      "LINEアカウント 3件",
+      "月500回までAI回答",
+      "お店情報の登録 5件",
       "メールサポート",
     ],
-    cta: "このプランで始める",
-    href: "/dashboard/billing",
-    popular: false,
+    cta: "このプランではじめる",
+    href: "/login",
+    popular: true,
+    highlight: false,
   },
   {
     name: "Standard",
     price: "9,800",
     period: "円 / 月",
-    description: "複数グループ・成長企業に",
+    description: "複数店舗・成長中のビジネスに",
     features: [
-      "LINEグループ 3件",
-      "月1,000回 AI応答",
-      "ナレッジ 20件登録",
-      "Web検索AI（RAG）",
-      "エスカレーション通知",
+      "LINEアカウント 10件",
+      "月2,000回までAI回答",
+      "お店情報の登録 無制限",
+      "Web検索で最新情報も回答",
+      "大事な質問は通知でお知らせ",
       "優先サポート",
     ],
-    cta: "このプランで始める",
-    href: "/dashboard/billing",
-    popular: true,
+    cta: "このプランではじめる",
+    href: "/login",
+    popular: false,
+    highlight: false,
   },
   {
     name: "Pro",
@@ -57,57 +60,55 @@ const plans = [
     period: "円 / 月",
     description: "本格運用・チェーン展開に",
     features: [
-      "LINEグループ 10件",
-      "月5,000回 AI応答",
-      "ナレッジ 100件登録",
-      "Web検索AI（RAG）",
+      "LINEアカウント 無制限",
+      "月10,000回までAI回答",
+      "お店情報の登録 無制限",
+      "すべてのStandard機能",
+      "AIの話し方をカスタマイズ",
       "外部ツール連携",
-      "エスカレーション通知",
-      "AI人格カスタマイズ",
-      "専任サポート",
+      "専任サポート担当",
     ],
-    cta: "このプランで始める",
-    href: "/dashboard/billing",
+    cta: "このプランではじめる",
+    href: "/login",
     popular: false,
+    highlight: false,
   },
 ];
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-[80px] sm:py-[100px] px-6 border-t border-[#1A1A2E]">
+    <section id="pricing" className="py-[60px] sm:py-[80px] px-6 section-alt">
       <div className="max-w-[1100px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-4"
+          className="section-label text-center mb-3"
         >
-          Pricing
+          料金プラン
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[26px] sm:text-[34px] md:text-[44px] font-bold text-center"
-          style={{ lineHeight: 1.3, letterSpacing: "-0.02em" }}
+          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.4 }}
         >
-          始めるのに、理由はいらない。
+          まずは無料で、はじめてみませんか？
         </motion.h2>
-
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-5 text-center text-[#9CA3AF] text-[16px] sm:text-[18px]"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-3 text-center text-[#999999] text-[16px]"
         >
-          無料プランでいつでも始められます。クレジットカード不要。
+          クレジットカード不要。いつでもプラン変更・解約OK。
         </motion.p>
 
-        {/* Mobile: 1col scroll / Desktop: 4col */}
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-5">
+        <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-5">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -115,34 +116,37 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative rounded-2xl p-7 flex flex-col ${plan.popular
-                ? "border-gradient-animated"
-                : "bg-[#0A0A0F] border border-[#1A1A2E]"
-                }`}
+              className={`relative rounded-2xl p-7 flex flex-col bg-white shadow-sm hover:shadow-lg transition-all duration-300 ${
+                plan.popular
+                  ? "border-2 border-[#06C755] shadow-md"
+                  : plan.highlight
+                  ? "border-2 border-[#06C755]/30"
+                  : "border border-[#E8E8E8]"
+              }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#06C755] text-white text-[12px] font-semibold px-4 py-1 rounded-full whitespace-nowrap z-10">
-                  人気
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#06C755] text-white text-[13px] font-bold px-4 py-1 rounded-full whitespace-nowrap z-10">
+                  人気 No.1
                 </div>
               )}
 
               <div>
-                <h3 className="text-[18px] font-semibold text-white">{plan.name}</h3>
-                <p className="text-[14px] text-[#6B7280] mt-1">{plan.description}</p>
+                <h3 className="text-[18px] font-bold text-[#1A1A1A]">{plan.name}</h3>
+                <p className="text-[14px] text-[#999999] mt-1">{plan.description}</p>
               </div>
 
               <div className="mt-5">
-                <span className="text-[32px] font-bold text-white">
+                <span className="text-[36px] font-bold text-[#1A1A1A]">
                   {plan.price === "0" ? "¥0" : `¥${plan.price}`}
                 </span>
-                <span className="text-[14px] text-[#6B7280] ml-1">{plan.period}</span>
+                <span className="text-[14px] text-[#999999] ml-1">{plan.period}</span>
               </div>
 
               <ul className="mt-6 space-y-3.5 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check size={16} className="text-[#06C755] shrink-0 mt-0.5" />
-                    <span className="text-[15px] text-[#D1D5DB]" style={{ lineHeight: 1.5 }}>
+                    <Check size={18} className="text-[#06C755] shrink-0 mt-0.5" />
+                    <span className="text-[15px] text-[#333333]" style={{ lineHeight: 1.5 }}>
                       {feature}
                     </span>
                   </li>
@@ -151,10 +155,11 @@ export default function Pricing() {
 
               <a
                 href={plan.href}
-                className={`mt-7 block text-center py-[14px] rounded-xl text-[15px] font-semibold transition-all duration-200 touch-manipulation active:scale-95 ${plan.popular
-                  ? "bg-[#06C755] hover:bg-[#08E065] text-white cta-glow"
-                  : "border border-[#2A2A3E] hover:border-[#06C755] text-white hover:text-[#06C755]"
-                  }`}
+                className={`mt-7 block text-center py-[14px] rounded-full text-[16px] font-bold transition-all duration-200 touch-manipulation active:scale-95 ${
+                  plan.popular || plan.highlight
+                    ? "bg-[#06C755] hover:bg-[#05B04A] text-white cta-glow"
+                    : "border-2 border-[#E0E0E0] hover:border-[#06C755] text-[#333333] hover:text-[#06C755]"
+                }`}
               >
                 {plan.cta}
               </a>
@@ -167,13 +172,13 @@ export default function Pricing() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 text-center"
+          className="mt-8 text-center"
         >
-          <p className="text-[#6B7280] text-[14px]">
-            全プラン共通: AI自動応答 / ナレッジ登録 / 会話ログ閲覧 / 管理画面 / LINE Reply API（追加課金なし）
+          <p className="text-[#999999] text-[14px]">
+            全プラン共通: AI自動応答 / 情報登録 / 会話ログ / 管理画面
           </p>
-          <p className="mt-3 text-[#4B5563] text-[13px]">
-            合わなければいつでも解約。解約金ゼロ。
+          <p className="mt-2 text-[#AAAAAA] text-[13px]">
+            合わなければいつでも解約。解約金はありません。
           </p>
         </motion.div>
       </div>
