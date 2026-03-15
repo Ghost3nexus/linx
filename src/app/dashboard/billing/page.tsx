@@ -89,8 +89,8 @@ export default function BillingPage() {
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-[24px] font-bold text-white">プラン・課金</h1>
-                    <p className="text-[#6B7280] mt-1 text-[14px]">
+                    <h1 className="text-[24px] font-bold text-[#1A1A1A]">プラン・課金</h1>
+                    <p className="text-[#999999] mt-1 text-[14px]">
                         現在のプラン: <span className="text-[#06C755] font-medium">{currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1)}</span>
                     </p>
                 </div>
@@ -98,7 +98,7 @@ export default function BillingPage() {
                     <button
                         onClick={handleManage}
                         disabled={processing === "manage"}
-                        className="flex items-center gap-2 text-[14px] text-[#9CA3AF] hover:text-white border border-[#1A1A2E] hover:border-[#2A2A3E] px-4 py-2.5 rounded-lg transition-colors"
+                        className="flex items-center gap-2 text-[14px] text-[#666666] hover:text-[#1A1A1A] border border-[#E8E8E8] hover:border-[#D0D0D0] px-4 py-2.5 rounded-lg transition-colors"
                     >
                         <ExternalLink size={16} />
                         {processing === "manage" ? "読み込み中..." : "課金管理（Stripe）"}
@@ -107,7 +107,7 @@ export default function BillingPage() {
             </div>
 
             {error && (
-                <div className="mt-4 bg-[#FF3366]/10 border border-[#FF3366]/30 rounded-lg p-4 text-[#FF3366] text-[14px]">
+                <div className="mt-4 bg-[#E53935]/10 border border-[#E53935]/30 rounded-lg p-4 text-[#E53935] text-[14px]">
                     {error}
                 </div>
             )}
@@ -120,11 +120,11 @@ export default function BillingPage() {
                     return (
                         <div
                             key={plan.id}
-                            className={`bg-[#0A0A0F] border rounded-xl p-6 transition-colors relative ${plan.popular
+                            className={`bg-white border rounded-xl p-6 transition-colors relative ${plan.popular
                                 ? "border-[#06C755]/50"
                                 : isCurrent
                                     ? "border-[#06C755]/30"
-                                    : "border-[#1A1A2E] hover:border-[#2A2A3E]"
+                                    : "border-[#E8E8E8] hover:border-[#D0D0D0]"
                                 }`}
                         >
                             {plan.popular && (
@@ -134,16 +134,16 @@ export default function BillingPage() {
                             )}
 
                             <div className="mb-4">
-                                <h3 className="text-[16px] font-semibold text-white">{plan.name}</h3>
+                                <h3 className="text-[16px] font-semibold text-[#1A1A1A]">{plan.name}</h3>
                                 <div className="flex items-baseline gap-1 mt-2">
-                                    <span className="text-[24px] font-bold text-white">{plan.price}</span>
-                                    <span className="text-[13px] text-[#6B7280]">{plan.period}</span>
+                                    <span className="text-[24px] font-bold text-[#1A1A1A]">{plan.price}</span>
+                                    <span className="text-[13px] text-[#999999]">{plan.period}</span>
                                 </div>
                             </div>
 
                             <ul className="space-y-2 mb-6">
                                 {plan.features.map((f) => (
-                                    <li key={f} className="flex items-center gap-2 text-[13px] text-[#9CA3AF]">
+                                    <li key={f} className="flex items-center gap-2 text-[13px] text-[#666666]">
                                         <Check size={14} className="text-[#06C755] shrink-0" />
                                         {f}
                                     </li>
@@ -165,16 +165,16 @@ export default function BillingPage() {
                                     {processing === plan.id ? "処理中..." : "アップグレード"}
                                 </button>
                             ) : (
-                                <div className="py-2.5 text-center text-[14px] text-[#4B5563]">—</div>
+                                <div className="py-2.5 text-center text-[14px] text-[#AAAAAA]">—</div>
                             )}
                         </div>
                     );
                 })}
             </div>
 
-            <div className="mt-8 bg-[#0A0A0F] border border-[#1A1A2E] rounded-xl p-6">
-                <h3 className="text-[15px] font-medium text-white mb-2">課金について</h3>
-                <ul className="space-y-1 text-[13px] text-[#6B7280]">
+            <div className="mt-8 bg-white border border-[#E8E8E8] rounded-xl p-6">
+                <h3 className="text-[15px] font-medium text-[#1A1A1A] mb-2">課金について</h3>
+                <ul className="space-y-1 text-[13px] text-[#999999]">
                     <li>• クレジットカード決済はStripeで安全に処理されます</li>
                     <li>• プラン変更はいつでも可能です（日割り計算）</li>
                     <li>• 解約後は無料プランに自動移行します</li>

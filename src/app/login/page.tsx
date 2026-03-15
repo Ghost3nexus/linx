@@ -34,7 +34,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#050509] flex items-center justify-center px-4">
+        <div className="min-h-screen bg-white flex items-center justify-center px-4">
             <div className="w-full max-w-[400px]">
                 {/* Logo */}
                 <div className="text-center mb-10">
@@ -42,12 +42,12 @@ export default function LoginPage() {
                         <div className="w-9 h-9 rounded-xl bg-[#06C755] flex items-center justify-center">
                             <Zap size={18} className="text-white" />
                         </div>
-                        <span className="text-[20px] font-bold text-white tracking-tight">LINX</span>
+                        <span className="text-[20px] font-bold text-[#1A1A1A] tracking-tight">LINX</span>
                     </div>
-                    <h1 className="text-[24px] font-bold text-white">
+                    <h1 className="text-[24px] font-bold text-[#1A1A1A]">
                         {mode === "register" ? "アカウント作成" : "ログイン"}
                     </h1>
-                    <p className="text-[14px] text-[#6B7280] mt-2">
+                    <p className="text-[14px] text-[#999999] mt-2">
                         {mode === "register"
                             ? "1週間無料お試し。クレジットカード不要。"
                             : "アカウントにログイン"}
@@ -57,25 +57,25 @@ export default function LoginPage() {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {error && (
-                        <div className="bg-[#FF3366]/10 border border-[#FF3366]/30 rounded-lg p-3 text-[#FF3366] text-[13px]">
+                        <div className="bg-[#E53935]/10 border border-[#E53935]/30 rounded-lg p-3 text-[#E53935] text-[13px]">
                             {error}
                         </div>
                     )}
 
                     <div>
-                        <label className="block text-[13px] text-[#9CA3AF] mb-2">メールアドレス</label>
+                        <label className="block text-[13px] text-[#666666] mb-2">メールアドレス</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             placeholder="you@company.com"
-                            className="w-full bg-[#0A0A0F] border border-[#1A1A2E] rounded-xl px-4 py-3 text-[14px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none transition-colors"
+                            className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl px-4 py-3 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none transition-colors"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-[13px] text-[#9CA3AF] mb-2">パスワード</label>
+                        <label className="block text-[13px] text-[#666666] mb-2">パスワード</label>
                         <div className="relative">
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -84,12 +84,12 @@ export default function LoginPage() {
                                 required
                                 minLength={8}
                                 placeholder={mode === "register" ? "8文字以上" : "パスワード"}
-                                className="w-full bg-[#0A0A0F] border border-[#1A1A2E] rounded-xl px-4 py-3 pr-12 text-[14px] text-white placeholder:text-[#4B5563] focus:border-[#06C755] focus:outline-none transition-colors"
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl px-4 py-3 pr-12 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none transition-colors"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4B5563] hover:text-[#9CA3AF] transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#AAAAAA] hover:text-[#666666] transition-colors"
                             >
                                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                             </button>
@@ -112,7 +112,7 @@ export default function LoginPage() {
                 <div className="mt-6 text-center">
                     <button
                         onClick={() => { setMode(mode === "register" ? "login" : "register"); setError(""); }}
-                        className="text-[13px] text-[#6B7280] hover:text-[#9CA3AF] transition-colors"
+                        className="text-[13px] text-[#999999] hover:text-[#666666] transition-colors"
                     >
                         {mode === "register"
                             ? "すでにアカウントをお持ちの方は ログイン"
@@ -120,8 +120,8 @@ export default function LoginPage() {
                     </button>
                 </div>
 
-                <div className="mt-8 text-center text-[12px] text-[#4B5563]">
-                    <a href="/" className="hover:text-[#6B7280] transition-colors">← LPに戻る</a>
+                <div className="mt-8 text-center text-[12px] text-[#AAAAAA]">
+                    <a href="/" className="hover:text-[#999999] transition-colors">← LPに戻る</a>
                 </div>
             </div>
         </div>
