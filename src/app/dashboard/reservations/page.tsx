@@ -48,8 +48,15 @@ export default function ReservationsPage() {
     const [newService, setNewService] = useState("");
     const [newNote, setNewNote] = useState("");
 
-    // Business hours editor
-    const [editHours, setEditHours] = useState<BusinessHour[]>([]);
+    // Business hours editor — デフォルト値で初期化
+    const [editHours, setEditHours] = useState<BusinessHour[]>(
+        DAY_LABELS.map((_, i) => ({
+            dayOfWeek: i,
+            openTime: "09:00",
+            closeTime: "18:00",
+            isClosed: i === 0,
+        }))
+    );
 
     const weekDates = getWeekDates(weekOffset);
 
@@ -62,15 +69,33 @@ export default function ReservationsPage() {
             getBusinessHours().catch(() => []),
         ])
             .then(([res, hours]) => {
-                setReservations(Array.isArray(res) ? res : []);
-                const h = Array.isArray(hours) ? hours : [];
-                setBusinessHoursState(h);
-                setEditHours(h.length > 0 ? h : DAY_LABELS.map((_, i) => ({
-                    dayOfWeek: i,
-                    openTime: "09:00",
-                    closeTime: "18:00",
-                    isClosed: i === 0,
-                })));
+                // snake_case → camelCase 変換（DBから直接返る場合の対応）
+                const normalizedRes = (Array.isArray(res) ? res : []).map((r: Record<string, unknown>) => ({
+                    id: r.id,
+                    customerName: r.customerName || r.customer_name,
+                    customerLineUserId: r.customerLineUserId || r.customer_line_user_id,
+                    date: r.date,
+                    startTime: r.startTime || r.start_time,
+                    endTime: r.endTime || r.end_time,
+                    service: r.service,
+                    note: r.note,
+                    status: r.status,
+                    createdAt: r.createdAt || r.created_at,
+                    updatedAt: r.updatedAt || r.updated_at,
+                } as Reservation));
+                setReservations(normalizedRes);
+
+                const normalizedHours = (Array.isArray(hours) ? hours : []).map((h: Record<string, unknown>) => ({
+                    dayOfWeek: h.dayOfWeek ?? h.day_of_week,
+                    openTime: h.openTime || h.open_time || "09:00",
+                    closeTime: h.closeTime || h.close_time || "18:00",
+                    isClosed: h.isClosed ?? h.is_closed ?? false,
+                } as BusinessHour));
+
+                setBusinessHoursState(normalizedHours);
+                if (normalizedHours.length > 0) {
+                    setEditHours(normalizedHours);
+                }
             })
             .catch((e) => setError(e.message))
             .finally(() => setLoading(false));
