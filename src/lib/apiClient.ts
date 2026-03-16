@@ -288,6 +288,45 @@ export async function setBusinessHours(hours: BusinessHour[]): Promise<void> {
     });
 }
 
+// ── Customers ──
+
+export interface Customer {
+    id: string;
+    name: string;
+    lineUserId?: string;
+    email?: string;
+    phone?: string;
+    plan?: string;
+    notes?: string;
+    firstVisit?: string;
+    lastVisit?: string;
+    visitCount: number;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export async function getCustomers(): Promise<Customer[]> {
+    const data = await api<{ success: boolean; data: Customer[] }>(`/linx/customers/${getAccountId()}`);
+    return data.data || [];
+}
+
+export async function createCustomer(customer: { name: string; email?: string; phone?: string; plan?: string; notes?: string }): Promise<Customer> {
+    const data = await api<{ success: boolean; data: Customer }>(`/linx/customers/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(customer),
+    });
+    return data.data;
+}
+
+export async function updateCustomer(id: string, updates: Partial<Customer>): Promise<Customer> {
+    const data = await api<{ success: boolean; data: Customer }>(`/linx/customers/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
+    return data.data;
+}
+
 // ── Stats ──
 
 export interface Stats {
