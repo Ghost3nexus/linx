@@ -58,13 +58,19 @@ export default function ReservationsPage() {
         const from = weekDates[0];
         const to = weekDates[6];
         Promise.all([
-            getReservations(from, to),
-            getBusinessHours(),
+            getReservations(from, to).catch(() => []),
+            getBusinessHours().catch(() => []),
         ])
             .then(([res, hours]) => {
-                setReservations(res);
-                setBusinessHoursState(hours);
-                setEditHours(hours);
+                setReservations(Array.isArray(res) ? res : []);
+                const h = Array.isArray(hours) ? hours : [];
+                setBusinessHoursState(h);
+                setEditHours(h.length > 0 ? h : DAY_LABELS.map((_, i) => ({
+                    dayOfWeek: i,
+                    openTime: "09:00",
+                    closeTime: "18:00",
+                    isClosed: i === 0,
+                })));
             })
             .catch((e) => setError(e.message))
             .finally(() => setLoading(false));

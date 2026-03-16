@@ -255,16 +255,16 @@ export interface BusinessHour {
 }
 
 export async function getReservations(from: string, to: string): Promise<Reservation[]> {
-    const data = await api<{ reservations: Reservation[] }>(`/linx/reservations/${getAccountId()}?from=${from}&to=${to}`);
-    return data.reservations;
+    const data = await api<{ success: boolean; data: Reservation[] }>(`/linx/reservations/${getAccountId()}?from=${from}&to=${to}`);
+    return data.data || [];
 }
 
 export async function createReservation(reservation: { customerName: string; date: string; startTime: string; endTime: string; service?: string; note?: string }): Promise<Reservation> {
-    const data = await api<{ reservation: Reservation }>(`/linx/reservations/${getAccountId()}`, {
+    const data = await api<{ success: boolean; data: Reservation }>(`/linx/reservations/${getAccountId()}`, {
         method: 'POST',
         body: JSON.stringify(reservation),
     });
-    return data.reservation;
+    return data.data;
 }
 
 export async function cancelReservation(id: string): Promise<void> {
@@ -272,13 +272,13 @@ export async function cancelReservation(id: string): Promise<void> {
 }
 
 export async function getAvailableSlots(date: string): Promise<AvailableSlot[]> {
-    const data = await api<{ slots: AvailableSlot[] }>(`/linx/reservations/${getAccountId()}/available?date=${date}`);
-    return data.slots;
+    const data = await api<{ success: boolean; data: AvailableSlot[] }>(`/linx/reservations/${getAccountId()}/available?date=${date}`);
+    return data.data || [];
 }
 
 export async function getBusinessHours(): Promise<BusinessHour[]> {
-    const data = await api<{ hours: BusinessHour[] }>(`/linx/business-hours/${getAccountId()}`);
-    return data.hours;
+    const data = await api<{ success: boolean; data: BusinessHour[] }>(`/linx/business-hours/${getAccountId()}`);
+    return data.data || [];
 }
 
 export async function setBusinessHours(hours: BusinessHour[]): Promise<void> {
