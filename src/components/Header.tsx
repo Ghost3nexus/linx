@@ -40,7 +40,7 @@ export default function Header() {
           LIN<span className="text-[#06C755]">X</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -51,8 +51,14 @@ export default function Header() {
             </a>
           ))}
           <a
+            href="/documents"
+            className="border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white text-[14px] font-bold px-5 py-2.5 rounded-full transition-all duration-300"
+          >
+            資料ダウンロード
+          </a>
+          <a
             href="/login"
-            className="bg-[#06C755] hover:bg-[#05B04A] text-white text-[15px] font-bold px-7 py-3 rounded-full transition-all duration-200 active:scale-95 cta-glow"
+            className="bg-[#06C755] hover:bg-[#05B04A] text-white text-[14px] font-bold px-6 py-2.5 rounded-full transition-all duration-200 active:scale-95 cta-glow"
           >
             無料ではじめる
           </a>
@@ -98,7 +104,17 @@ export default function Header() {
                 <a
                   href="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="mt-3 bg-[#06C755] text-white text-[17px] font-bold py-4 rounded-full text-center touch-manipulation cta-glow"
+                <a
+                  href="/documents"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-2 border-2 border-[#1A1A1A] text-[#1A1A1A] text-[17px] font-bold py-4 rounded-full text-center touch-manipulation"
+                >
+                  資料ダウンロード
+                </a>
+                <a
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-2 bg-[#06C755] text-white text-[17px] font-bold py-4 rounded-full text-center touch-manipulation cta-glow"
                 >
                   無料ではじめる
                 </a>
