@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import ChatMockup from "./ChatMockup";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -84,14 +84,21 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Chat Mockup */}
+          {/* Right: Product Visual */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5 }}
-            className="flex-shrink-0 w-full max-w-[340px] lg:w-auto"
+            className="flex-shrink-0 w-full max-w-[560px] lg:max-w-[520px]"
           >
-            <ChatMockup />
+            <Image
+              src="/hero-visual.png"
+              alt="LINXのダッシュボードとLINEチャット画面"
+              width={1024}
+              height={576}
+              className="w-full h-auto rounded-2xl shadow-2xl"
+              priority
+            />
           </motion.div>
         </div>
       </div>
