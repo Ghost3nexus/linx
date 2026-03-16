@@ -11,6 +11,9 @@ export default function Footer() {
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-2 text-[14px] text-[#999999]">
+          <a href="/terms" className="hover:text-[#06C755] transition-colors duration-300 touch-manipulation">
+            利用規約
+          </a>
           <a href="/tokushoho" className="hover:text-[#06C755] transition-colors duration-300 touch-manipulation">
             特定商取引法
           </a>
