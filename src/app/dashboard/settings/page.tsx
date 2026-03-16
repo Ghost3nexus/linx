@@ -357,6 +357,80 @@ export default function SettingsPage() {
                     </div>
                 </div>
 
+                {/* CSV Import */}
+                <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#2196F3]/10 flex items-center justify-center">
+                            <Upload size={18} className="text-[#2196F3]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">データインポート</h3>
+                            <p className="text-[12px] text-[#999999]">CSVファイルから顧客・予約データを一括インポート</p>
+                        </div>
+                    </div>
+
+                    {importResult && (
+                        <div className={`mb-4 rounded-lg p-3 text-[13px] ${importResult.errors.length > 0 && importResult.imported === 0
+                            ? "bg-[#E53935]/10 border border-[#E53935]/30 text-[#E53935]"
+                            : "bg-[#06C755]/10 border border-[#06C755]/30 text-[#06C755]"
+                        }`}>
+                            <p className="font-medium">
+                                {importResult.type === "customers" ? "顧客" : "予約"}インポート結果: {importResult.imported}/{importResult.total}件成功
+                            </p>
+                            {importResult.errors.length > 0 && (
+                                <ul className="mt-2 text-[12px] text-[#E53935] space-y-0.5">
+                                    {importResult.errors.map((err, i) => <li key={i}>{err}</li>)}
+                                </ul>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="space-y-4">
+                        <div>
+                            <p className="text-[13px] text-[#1A1A1A] font-medium mb-1.5">顧客データ</p>
+                            <p className="text-[11px] text-[#999999] mb-2">CSV形式: 名前,メール,電話,プラン,メモ</p>
+                            <label className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-[13px] font-medium cursor-pointer transition-colors ${
+                                importLoading ? "bg-gray-100 text-[#999999]" : "bg-[#F9FAFB] border border-[#E8E8E8] text-[#666666] hover:border-[#2196F3] hover:text-[#2196F3]"
+                            }`}>
+                                <Upload size={14} />
+                                {importLoading ? "インポート中..." : "CSVを選択"}
+                                <input
+                                    type="file"
+                                    accept=".csv"
+                                    className="hidden"
+                                    disabled={importLoading}
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleCSVImport("customers", file);
+                                        e.target.value = "";
+                                    }}
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <p className="text-[13px] text-[#1A1A1A] font-medium mb-1.5">予約データ</p>
+                            <p className="text-[11px] text-[#999999] mb-2">CSV形式: 顧客名,日付,開始時間,終了時間,サービス,メモ</p>
+                            <label className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-[13px] font-medium cursor-pointer transition-colors ${
+                                importLoading ? "bg-gray-100 text-[#999999]" : "bg-[#F9FAFB] border border-[#E8E8E8] text-[#666666] hover:border-[#2196F3] hover:text-[#2196F3]"
+                            }`}>
+                                <Upload size={14} />
+                                {importLoading ? "インポート中..." : "CSVを選択"}
+                                <input
+                                    type="file"
+                                    accept=".csv"
+                                    className="hidden"
+                                    disabled={importLoading}
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleCSVImport("reservations", file);
+                                        e.target.value = "";
+                                    }}
+                                />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Plan info (read-only) */}
                 {settings && (
                     <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
