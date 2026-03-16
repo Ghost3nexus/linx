@@ -102,6 +102,9 @@ export default function Header() {
                   </a>
                 ))}
                 <a
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                <a
                   href="/documents"
                   onClick={() => setMobileOpen(false)}
                   className="mt-2 border-2 border-[#1A1A1A] text-[#1A1A1A] text-[17px] font-bold py-4 rounded-full text-center touch-manipulation"
