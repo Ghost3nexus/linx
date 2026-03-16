@@ -15,10 +15,16 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-[#E8F5E9] text-[#06C755] text-[14px] font-bold px-4 py-2 rounded-full mb-6"
+              className="flex flex-col items-center lg:items-start gap-3 mb-6"
             >
-              <span className="w-2 h-2 bg-[#06C755] rounded-full animate-pulse" />
-              無料ではじめられます
+              <span className="inline-flex items-center gap-2 bg-[#FFF8E1] text-[#E6A700] text-[13px] font-bold px-4 py-1.5 rounded-full border border-[#FFE082]">
+                <span className="text-[14px]">🏪</span>
+                開業店舗の導入が増えています
+              </span>
+              <span className="inline-flex items-center gap-2 bg-[#E8F5E9] text-[#06C755] text-[14px] font-bold px-4 py-2 rounded-full">
+                <span className="w-2 h-2 bg-[#06C755] rounded-full animate-pulse" />
+                無料ではじめられます
+              </span>
             </motion.div>
 
             <motion.h1
