@@ -146,6 +146,7 @@ export interface Settings {
     lineChannelId?: string;
     lineChannelAccessToken?: string;
     setupComplete?: boolean;
+    clientStripeConnected?: boolean;
     planLimits: {
         maxMonthlyResponses: number;
         maxKnowledgeFiles: number;
@@ -156,7 +157,7 @@ export async function getSettings(): Promise<Settings> {
     return api(`/linx/settings/${getAccountId()}`);
 }
 
-export async function updateSettings(updates: Partial<Pick<Settings, 'botName' | 'tone' | 'escalationUserId'>>): Promise<Settings> {
+export async function updateSettings(updates: Partial<Pick<Settings, 'botName' | 'tone' | 'escalationUserId'>> & { clientStripeSecretKey?: string }): Promise<Settings> {
     return api(`/linx/settings/${getAccountId()}`, {
         method: 'PUT',
         body: JSON.stringify(updates),

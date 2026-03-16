@@ -31,6 +31,9 @@ export default function SettingsPage() {
     const [lineSuccess, setLineSuccess] = useState("");
     const [copied, setCopied] = useState(false);
 
+    // Client Stripe key
+    const [clientStripeKey, setClientStripeKey] = useState("");
+
     // CSVインポート
     const [importLoading, setImportLoading] = useState(false);
     const [importResult, setImportResult] = useState<{ type: string; imported: number; total: number; errors: string[] } | null>(null);
@@ -71,8 +74,14 @@ export default function SettingsPage() {
         setError("");
         setSuccess("");
         try {
-            const updated = await updateSettings({ botName, tone: tone as Settings["tone"], escalationUserId });
+            const updated = await updateSettings({
+                botName,
+                tone: tone as Settings["tone"],
+                escalationUserId,
+                ...(clientStripeKey ? { clientStripeSecretKey: clientStripeKey } : {}),
+            });
             setSettings(updated);
+            setClientStripeKey(""); // Clear after save — key is stored server-side
             setSuccess("設定を保存しました");
             setTimeout(() => setSuccess(""), 3000);
         } catch (e: unknown) {
@@ -301,27 +310,46 @@ export default function SettingsPage() {
                     </div>
                 </div>
 
-                {/* Stripe連携 */}
+                {/* Stripe連携（クライアント用） */}
                 <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="w-9 h-9 rounded-lg bg-[#635BFF]/10 flex items-center justify-center">
                             <CreditCard size={18} className="text-[#635BFF]" />
                         </div>
                         <div>
-                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">決済連携（Stripe）</h3>
-                            <p className="text-[12px] text-[#999999]">予約時に自動で決済リンクを送信します</p>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">お客様用の決済連携（Stripe）</h3>
+                            <p className="text-[12px] text-[#999999]">あなたのお客様が支払う決済の接続です（入金はあなたのStripeアカウントに届きます）</p>
                         </div>
                     </div>
-                    {settings?.stripeCustomerId ? (
-                        <div className="flex items-center gap-2 text-[14px] text-[#06C755]">
-                            <Check size={16} />
-                            Stripe接続済み
+
+                    <div className="space-y-3">
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">Stripe Secret Key</label>
+                            <input
+                                type="password"
+                                value={clientStripeKey}
+                                onChange={(e) => setClientStripeKey(e.target.value)}
+                                placeholder="sk_live_xxxxxxxxxxxx"
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none font-mono"
+                            />
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">
+                                Stripe Dashboard → 開発者 → APIキー → シークレットキーをコピー
+                            </p>
                         </div>
-                    ) : (
-                        <p className="text-[14px] text-[#999999]">
-                            プラン・課金ページからプランをアップグレードすると自動的にStripeと接続されます。
-                        </p>
-                    )}
+
+                        {settings?.clientStripeConnected && (
+                            <div className="flex items-center gap-2 text-[14px] text-[#06C755]">
+                                <Check size={16} />
+                                Stripe接続済み — お客様の決済はあなたのStripeアカウントに届きます
+                            </div>
+                        )}
+
+                        <div className="bg-[#FFF8E1] border border-[#FFE082] rounded-lg p-3">
+                            <p className="text-[12px] text-[#F57F17]">
+                                Stripe APIキーは暗号化して保存されます。第三者に共有しないでください。
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* LP・LINE連携 */}
@@ -353,6 +381,40 @@ export default function SettingsPage() {
                                 </code>
                             </div>
                             <p className="text-[11px] text-[#AAAAAA] mt-1">このコードをホームページに貼り付けると、LINE友だち追加ボタンが表示されます</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Payment URL (Square/LINE Pay/PayPay etc) */}
+                <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#FF6B00]/10 flex items-center justify-center">
+                            <ExternalLink size={18} className="text-[#FF6B00]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">その他の決済連携</h3>
+                            <p className="text-[12px] text-[#999999]">Square・LINE Pay・PayPay等の決済URLを設定できます</p>
+                        </div>
+                    </div>
+                    <div className="space-y-3">
+                        <p className="text-[13px] text-[#666666]">
+                            Stripe以外の決済サービスをお使いの場合、決済ページのURLを登録するとAIがお客様に案内します。
+                        </p>
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">決済ページURL</label>
+                            <input
+                                type="url"
+                                placeholder="https://squareup.com/... や https://pay.line.me/..."
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none"
+                            />
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">
+                                Square・LINE Pay・PayPay・銀行振込ページなど、お客様が支払いに使うURLを入力してください
+                            </p>
+                        </div>
+                        <div className="bg-[#F5FBF7] border border-[#06C755]/20 rounded-lg p-3">
+                            <p className="text-[12px] text-[#666666]">
+                                💡 URLを設定すると、AIが「お支払いはこちらから」と自動で案内します
+                            </p>
                         </div>
                     </div>
                 </div>
