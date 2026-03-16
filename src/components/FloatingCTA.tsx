@@ -31,7 +31,8 @@ export default function FloatingCTA() {
           >
             <a
               href="/login"
-              className="flex items-center justify-center bg-[#06C755] hover:bg-[#05B04A] text-white text-center min-h-[48px] py-3.5 rounded-full font-bold text-[16px] cta-glow transition-all active:scale-95 touch-manipulation"
+              className="flex items-center justify-center bg-[#06C755] hover:bg-[#05B04A] text-white text-center min-h-[52px] py-4 rounded-full font-bold text-[16px] transition-all active:scale-95 touch-manipulation"
+              style={{ boxShadow: "0 4px 20px rgba(6,199,85,0.25)", transition: "all 0.3s cubic-bezier(.25,1,.5,1)" }}
             >
               無料ではじめる
             </a>

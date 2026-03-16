@@ -29,14 +29,14 @@ const testimonials = [
 
 export default function SocialProof() {
   return (
-    <section className="py-[60px] sm:py-[80px] px-6 section-alt">
+    <section className="py-[80px] sm:py-[120px] md:py-[160px] px-6 section-alt">
       <div className="max-w-[1000px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           ご利用者の声
         </motion.p>
@@ -45,8 +45,8 @@ export default function SocialProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           導入された方の感想
         </motion.h2>
@@ -55,12 +55,12 @@ export default function SocialProof() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-3 text-center text-[#999999] text-[14px]"
+          className="mt-4 text-center text-[#999999] text-[14px] sm:text-[15px]"
         >
           ※ ベータ版テスターの方々のご感想です
         </motion.p>
 
-        <div className="mt-10 sm:mt-14 grid sm:grid-cols-3 gap-5 sm:gap-6">
+        <div className="mt-12 sm:mt-16 grid sm:grid-cols-3 gap-5 sm:gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
@@ -68,26 +68,27 @@ export default function SocialProof() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="bg-white border border-[#E8E8E8] rounded-2xl p-7 sm:p-8 flex flex-col shadow-sm hover:shadow-md transition-all duration-300"
+              className="bg-white border border-[#E8E8E8] border-l-[4px] border-l-[#06C755] rounded-2xl p-8 sm:p-9 flex flex-col shadow-sm hover:shadow-lg transition-all duration-300"
+              style={{ transition: "all 0.3s cubic-bezier(.25,1,.5,1)" }}
             >
-              {/* Stars */}
-              <div className="flex gap-0.5 mb-4">
+              {/* Stars - bigger */}
+              <div className="flex gap-1 mb-5">
                 {[...Array(5)].map((_, j) => (
-                  <Star key={j} size={16} className="text-[#F9A825] fill-[#F9A825]" />
+                  <Star key={j} size={20} className="text-[#F9A825] fill-[#F9A825]" />
                 ))}
               </div>
 
               <p
-                className="text-[15px] text-[#333333] flex-1"
+                className="text-[15px] sm:text-[16px] text-[#333333] flex-1"
                 style={{ lineHeight: 1.8 }}
               >
                 {t.quote}
               </p>
 
-              <div className="mt-6 pt-5 border-t border-[#F0F0F0]">
-                <p className="text-[15px] font-bold text-[#1A1A1A]">{t.name}</p>
-                <p className="text-[13px] text-[#999999]">{t.role}</p>
-                <div className="mt-3 inline-block bg-[#E8F5E9] text-[#06C755] text-[13px] font-bold px-3 py-1.5 rounded-full">
+              <div className="mt-7 pt-6 border-t border-[#F0F0F0]">
+                <p className="text-[15px] sm:text-[16px] font-bold text-[#1A1A1A]">{t.name}</p>
+                <p className="text-[13px] sm:text-[14px] text-[#999999]">{t.role}</p>
+                <div className="mt-3 inline-block bg-[#E8F5E9] text-[#06C755] text-[13px] sm:text-[14px] font-bold px-4 py-1.5 rounded-full">
                   {t.metric}
                 </div>
               </div>

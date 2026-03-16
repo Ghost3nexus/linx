@@ -92,14 +92,14 @@ export default function Demo() {
   }, [activeTab]);
 
   return (
-    <section id="demo" className="py-[60px] sm:py-[80px] px-6 section-alt">
+    <section id="demo" className="py-[80px] sm:py-[120px] md:py-[160px] px-6 section-alt">
       <div className="max-w-[800px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           デモ
         </motion.p>
@@ -108,8 +108,8 @@ export default function Demo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           実際の会話を見てみましょう
         </motion.h2>
@@ -118,46 +118,54 @@ export default function Demo() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-3 text-center text-[16px] text-[#999999]"
+          className="mt-4 text-center text-[16px] sm:text-[18px] text-[#666666] max-w-[640px] mx-auto"
+          style={{ lineHeight: 1.8 }}
         >
           業種をタップすると、会話の例が変わります
         </motion.p>
 
-        {/* Tab buttons */}
-        <div className="mt-8 grid grid-cols-2 sm:flex sm:justify-center gap-2 sm:flex-wrap">
+        {/* Tab buttons - bigger */}
+        <div className="mt-10 grid grid-cols-2 sm:flex sm:justify-center gap-3 sm:flex-wrap">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`min-h-[44px] px-5 py-2.5 rounded-full text-[15px] font-bold transition-all duration-200 touch-manipulation ${
+              className={`min-h-[48px] px-6 py-3 rounded-full text-[15px] sm:text-[16px] font-bold transition-all duration-300 touch-manipulation ${
                 activeTab === tab.id
                   ? "bg-[#06C755] text-white shadow-md"
                   : "bg-white text-[#666666] border border-[#E0E0E0] hover:border-[#06C755] hover:text-[#06C755]"
               }`}
+              style={{ transition: "all 0.3s cubic-bezier(.25,1,.5,1)" }}
             >
               {tab.emoji} {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Chat mockup */}
+        {/* Chat mockup - more immersive */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 max-w-[340px] sm:max-w-[380px] mx-auto"
+          className="mt-10 max-w-[360px] sm:max-w-[400px] mx-auto"
         >
-          <div className="bg-white border-2 border-[#E8E8E8] rounded-[24px] overflow-hidden shadow-lg">
+          <div
+            className="bg-white border-2 border-[#E8E8E8] rounded-[24px] overflow-hidden"
+            style={{
+              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)",
+              transform: "perspective(1200px) rotateY(-1deg)",
+            }}
+          >
             {/* LINE header */}
-            <div className="bg-[#06C755] px-5 py-3 text-center">
+            <div className="bg-[#06C755] px-5 py-3.5 text-center">
               <span className="text-white text-[14px] font-bold">
                 {groupNames[activeTab]}
               </span>
             </div>
 
             {/* Chat area */}
-            <div className="p-4 space-y-3 min-h-[280px] bg-[#7494A5]">
+            <div className="p-4 space-y-3 min-h-[300px] bg-[#7494A5]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
@@ -220,7 +228,7 @@ export default function Demo() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-6 text-center text-[13px] text-[#AAAAAA]"
+          className="mt-8 text-center text-[13px] text-[#AAAAAA]"
         >
           ※ デモ用のサンプル会話です。実際のAI応答は登録した情報をもとに回答します。
         </motion.p>

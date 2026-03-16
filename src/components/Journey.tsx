@@ -32,14 +32,14 @@ const steps = [
 
 export default function Journey() {
   return (
-    <section className="py-[60px] sm:py-[80px] px-6 bg-[#F5FBF7]">
+    <section className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-white">
       <div className="max-w-[1100px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           カスタマージャーニー
         </motion.p>
@@ -48,8 +48,8 @@ export default function Journey() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           お客様の体験はこうなります
         </motion.h2>
@@ -58,22 +58,22 @@ export default function Journey() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-4 text-center text-[16px] text-[#666666]"
+          className="mt-4 text-center text-[16px] sm:text-[18px] text-[#666666] max-w-[640px] mx-auto"
           style={{ lineHeight: 1.8 }}
         >
           集客からリピーター化まで、LINXがお客様の体験をつなぎます
         </motion.p>
 
         {/* Desktop: horizontal */}
-        <div className="mt-10 sm:mt-14 hidden md:block">
+        <div className="mt-14 sm:mt-20 hidden md:block">
           <div className="relative flex items-start justify-between">
             {/* Connecting line */}
-            <div className="absolute top-[40px] left-[60px] right-[60px] h-[3px] bg-[#06C755]/20 rounded-full z-0">
+            <div className="absolute top-[36px] left-[60px] right-[60px] h-[3px] bg-[#06C755]/15 rounded-full z-0">
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
                 className="h-full bg-[#06C755] rounded-full origin-left"
               />
             </div>
@@ -87,17 +87,19 @@ export default function Journey() {
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
                 className="relative z-10 flex flex-col items-center text-center w-[180px]"
               >
-                {/* Circle with emoji */}
-                <div className="w-[80px] h-[80px] rounded-full bg-white border-[3px] border-[#06C755] flex items-center justify-center shadow-md">
-                  <span className="text-[32px]">{step.emoji}</span>
+                {/* Circle with gradient green border */}
+                <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center shadow-md" style={{ background: "linear-gradient(135deg, #06C755 0%, #00B048 100%)", padding: "3px" }}>
+                  <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                    <span className="text-[30px]">{step.emoji}</span>
+                  </div>
                 </div>
 
                 {/* Step number */}
-                <div className="mt-3 w-6 h-6 rounded-full bg-[#06C755] flex items-center justify-center">
+                <div className="mt-3 w-7 h-7 rounded-full bg-[#06C755] flex items-center justify-center">
                   <span className="text-white text-[12px] font-bold">{i + 1}</span>
                 </div>
 
-                <h3 className="mt-2 text-[15px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.4 }}>
+                <h3 className="mt-3 text-[15px] sm:text-[16px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.4 }}>
                   {step.title}
                 </h3>
                 <p className="mt-1 text-[13px] text-[#666666]" style={{ lineHeight: 1.5 }}>
@@ -109,15 +111,15 @@ export default function Journey() {
         </div>
 
         {/* Mobile: vertical */}
-        <div className="mt-10 md:hidden">
-          <div className="relative pl-10">
+        <div className="mt-12 md:hidden">
+          <div className="relative pl-12">
             {/* Vertical line */}
-            <div className="absolute left-[19px] top-0 bottom-0 w-[3px] bg-[#06C755]/20 rounded-full">
+            <div className="absolute left-[23px] top-0 bottom-0 w-[3px] bg-[#06C755]/15 rounded-full">
               <motion.div
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
                 className="w-full h-full bg-[#06C755] rounded-full origin-top"
               />
             </div>
@@ -132,12 +134,14 @@ export default function Journey() {
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="relative flex items-start gap-4"
                 >
-                  {/* Circle node */}
-                  <div className="absolute -left-10 w-[40px] h-[40px] rounded-full bg-white border-[3px] border-[#06C755] flex items-center justify-center shadow-sm shrink-0">
-                    <span className="text-[18px]">{step.emoji}</span>
+                  {/* Circle node with gradient border */}
+                  <div className="absolute -left-12 w-[48px] h-[48px] rounded-full flex items-center justify-center shadow-sm shrink-0" style={{ background: "linear-gradient(135deg, #06C755 0%, #00B048 100%)", padding: "3px" }}>
+                    <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                      <span className="text-[20px]">{step.emoji}</span>
+                    </div>
                   </div>
 
-                  <div className="bg-white rounded-xl border border-[#E8E8E8] p-4 flex-1 shadow-sm">
+                  <div className="bg-white rounded-xl border border-[#E8E8E8] p-5 flex-1 shadow-sm">
                     <div className="flex items-center gap-2">
                       <span className="w-5 h-5 rounded-full bg-[#06C755] flex items-center justify-center shrink-0">
                         <span className="text-white text-[10px] font-bold">{i + 1}</span>

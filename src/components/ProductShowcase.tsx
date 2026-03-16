@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 function DashboardMockup() {
   return (
@@ -147,15 +148,23 @@ function LineChatMockup() {
 }
 
 export default function ProductShowcase() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const dashboardY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const chatY = useTransform(scrollYProgress, [0, 1], [50, -20]);
+
   return (
-    <section className="py-[60px] sm:py-[80px] px-6 bg-white">
+    <section ref={sectionRef} className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-white">
       <div className="max-w-[1100px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           プロダクト
         </motion.p>
@@ -164,8 +173,8 @@ export default function ProductShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           管理画面もLINE対応も、これひとつ。
         </motion.h2>
@@ -174,36 +183,50 @@ export default function ProductShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-4 text-center text-[16px] sm:text-[18px] text-[#666666] max-w-[600px] mx-auto"
+          className="mt-4 text-center text-[16px] sm:text-[18px] text-[#666666] max-w-[640px] mx-auto"
           style={{ lineHeight: 1.8 }}
         >
           ダッシュボードで予約・顧客・会話ログを一元管理
         </motion.p>
 
-        <div className="mt-10 sm:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
-          {/* Dashboard mockup */}
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 items-start">
+          {/* Dashboard mockup with parallax */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.15 }}
+            style={{ y: dashboardY }}
           >
-            <DashboardMockup />
-            <p className="mt-3 text-center text-[13px] text-[#999999]">
+            <div className="relative">
+              {/* Glow */}
+              <div className="absolute -inset-4 rounded-3xl bg-[#06C755]/5 blur-2xl" />
+              <div className="relative">
+                <DashboardMockup />
+              </div>
+            </div>
+            <p className="mt-4 text-center text-[13px] text-[#999999]">
               📊 ダッシュボード &#8212; 予約・顧客を一目で確認
             </p>
           </motion.div>
 
-          {/* LINE chat mockup */}
+          {/* LINE chat mockup with parallax */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="max-w-[360px] mx-auto lg:mx-0 lg:mt-8"
+            className="max-w-[360px] mx-auto lg:mx-0 lg:mt-12"
+            style={{ y: chatY }}
           >
-            <LineChatMockup />
-            <p className="mt-3 text-center text-[13px] text-[#999999]">
+            <div className="relative">
+              {/* Glow */}
+              <div className="absolute -inset-4 rounded-3xl bg-[#06C755]/5 blur-2xl" />
+              <div className="relative">
+                <LineChatMockup />
+              </div>
+            </div>
+            <p className="mt-4 text-center text-[13px] text-[#999999]">
               💬 LINE &#8212; AIスタッフがお客様に即対応
             </p>
           </motion.div>
@@ -215,7 +238,7 @@ export default function ProductShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10 flex flex-wrap justify-center gap-3"
+          className="mt-12 flex flex-wrap justify-center gap-3"
         >
           {[
             "予約の自動確定",
@@ -227,7 +250,7 @@ export default function ProductShowcase() {
           ].map((feature) => (
             <span
               key={feature}
-              className="bg-[#F5FBF7] border border-[#D4EDD8] text-[#1A1A1A] text-[13px] sm:text-[14px] font-medium px-4 py-2 rounded-full"
+              className="bg-[#F5FBF7] border border-[#D4EDD8] text-[#1A1A1A] text-[13px] sm:text-[14px] font-medium px-5 py-2.5 rounded-full hover:border-[#06C755]/50 transition-colors duration-300"
             >
               {feature}
             </span>

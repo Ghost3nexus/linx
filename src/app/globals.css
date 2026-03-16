@@ -67,10 +67,11 @@ p, h1, h2, h3, h4, li, span, a {
 
 /* Section label (green small text) */
 .section-label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: #06C755;
+  text-transform: uppercase;
 }
 
 /* CTA button glow */
@@ -80,6 +81,105 @@ p, h1, h2, h3, h4, li, span, a {
 
 .cta-glow:hover {
   box-shadow: 0 4px 24px rgba(6, 199, 85, 0.4);
+}
+
+/* Premium typography */
+h1, h2, h3 {
+  font-feature-settings: "palt";
+  letter-spacing: -0.02em;
+}
+
+/* Smooth scroll-triggered animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Premium button hover with arrow animation */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #06C755;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 18px 40px;
+  border-radius: 60px;
+  transition: all 0.3s cubic-bezier(.25,1,.5,1);
+  box-shadow: 0 4px 20px rgba(6,199,85,0.25);
+}
+
+.btn-primary:hover {
+  background: #05B04A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(6,199,85,0.35);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-arrow {
+  transition: transform 0.3s cubic-bezier(.25,1,.5,1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: #1A1A1A;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 18px 40px;
+  border: 2px solid #1A1A1A;
+  border-radius: 60px;
+  transition: all 0.3s cubic-bezier(.25,1,.5,1);
+}
+
+.btn-secondary:hover {
+  background: #1A1A1A;
+  color: white;
+}
+
+/* Gradient text for emphasis */
+.text-gradient-green {
+  background: linear-gradient(135deg, #06C755 0%, #00B048 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section divider with subtle gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E0E0E0 20%, #E0E0E0 80%, transparent);
+}
+
+/* Count-up animation placeholder for JS */
+.count-up-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dot pattern background */
+.dot-pattern {
+  background-image: radial-gradient(circle, #06C755 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+  opacity: 0.04;
 }
 
 /* Alternating section background */

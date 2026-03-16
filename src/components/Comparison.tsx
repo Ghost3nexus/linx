@@ -23,12 +23,12 @@ const competitors = [
 function CellValue({ value }: { value: boolean | string }) {
   if (typeof value === "boolean") {
     return value ? (
-      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#E8F5E9]">
-        <Check size={16} className="text-[#06C755]" />
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#E8F5E9]">
+        <Check size={18} className="text-[#06C755]" />
       </span>
     ) : (
-      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#FFF0F0]">
-        <X size={16} className="text-[#E53935]" />
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FFF0F0]">
+        <X size={18} className="text-[#E53935]" />
       </span>
     );
   }
@@ -37,14 +37,14 @@ function CellValue({ value }: { value: boolean | string }) {
 
 export default function Comparison() {
   return (
-    <section className="py-[60px] sm:py-[80px] px-6">
+    <section className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-white">
       <div className="max-w-[900px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           他サービスとの比較
         </motion.p>
@@ -53,8 +53,8 @@ export default function Comparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           LINXが選ばれる理由
         </motion.h2>
@@ -65,17 +65,17 @@ export default function Comparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-10 hidden sm:block"
+          className="mt-12 hidden sm:block"
         >
           <div className="overflow-x-auto bg-white rounded-2xl border border-[#E8E8E8] shadow-sm">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-[#F0F0F0]">
-                  <th className="text-left text-[14px] text-[#999999] font-medium p-5 w-[200px]" />
+                  <th className="text-left text-[14px] text-[#999999] font-medium p-5 sm:p-6 w-[200px]" />
                   {competitors.map((c) => (
                     <th
                       key={c.key}
-                      className={`text-center text-[15px] font-bold p-5 ${
+                      className={`text-center text-[15px] font-bold p-5 sm:p-6 ${
                         c.highlight
                           ? "text-[#06C755] bg-[#F5FBF7]"
                           : "text-[#666666]"
@@ -93,12 +93,12 @@ export default function Comparison() {
               </thead>
               <tbody>
                 {features.map((feature) => (
-                  <tr key={feature.label} className="border-b border-[#F5F5F5] last:border-b-0">
-                    <td className="text-[15px] text-[#333333] p-5 font-medium">{feature.label}</td>
+                  <tr key={feature.label} className="border-b border-[#F5F5F5] last:border-b-0 hover:bg-[#FAFAFA] transition-colors duration-200">
+                    <td className="text-[15px] text-[#333333] p-5 sm:p-6 font-medium">{feature.label}</td>
                     {competitors.map((c) => (
                       <td
                         key={c.key}
-                        className={`text-center p-5 ${c.highlight ? "bg-[#F5FBF7]" : ""}`}
+                        className={`text-center p-5 sm:p-6 ${c.highlight ? "bg-[#F5FBF7]" : ""}`}
                       >
                         <CellValue value={feature[c.key as keyof typeof feature] as boolean | string} />
                       </td>
@@ -116,10 +116,10 @@ export default function Comparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 sm:hidden"
+          className="mt-10 sm:hidden"
         >
-          <div className="bg-white border-2 border-[#06C755] rounded-2xl p-6 shadow-md">
-            <div className="flex items-center gap-3 mb-5">
+          <div className="bg-white border-2 border-[#06C755] rounded-2xl p-7 shadow-md">
+            <div className="flex items-center gap-3 mb-6">
               <span className="text-[20px] font-bold text-[#1A1A1A]">
                 LIN<span className="text-[#06C755]">X</span>
               </span>
@@ -129,7 +129,7 @@ export default function Comparison() {
             </div>
             <div className="divide-y divide-[#F0F0F0]">
               {features.map((f) => (
-                <div key={f.label} className="flex items-center justify-between py-3.5">
+                <div key={f.label} className="flex items-center justify-between py-4">
                   <span className="text-[15px] text-[#666666]">{f.label}</span>
                   <span className="text-[15px] font-bold text-[#1A1A1A] shrink-0 ml-3">
                     {typeof f.linx === "boolean" ? (
@@ -149,14 +149,14 @@ export default function Comparison() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-8 text-center"
+          className="mt-10 text-center"
         >
           <a
             href="/login"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all active:scale-95 cta-glow"
+            className="btn-primary text-[16px] px-10 py-[18px]"
           >
             無料ではじめる
-            <ArrowRight size={16} />
+            <ArrowRight size={16} className="btn-arrow" />
           </a>
         </motion.div>
       </div>

@@ -31,14 +31,14 @@ const cases = [
 
 export default function UseCases() {
   return (
-    <section id="usecases" className="py-[60px] sm:py-[80px] px-6">
+    <section id="usecases" className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-[#F8F9FA]">
       <div className="max-w-[960px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
-          className="section-label text-center mb-3"
+          className="section-label text-center mb-4"
         >
           こんな業種で使われています
         </motion.p>
@@ -47,13 +47,13 @@ export default function UseCases() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[24px] sm:text-[32px] md:text-[40px] font-bold text-center text-[#1A1A1A]"
-          style={{ lineHeight: 1.4 }}
+          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          style={{ lineHeight: 1.3 }}
         >
           あなたのお店でも、すぐ使えます。
         </motion.h2>
 
-        <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {cases.map((c, i) => (
             <motion.div
               key={c.title}
@@ -61,16 +61,17 @@ export default function UseCases() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white border-2 border-[#F0F0F0] rounded-2xl p-7 hover:border-[#06C755]/40 hover:shadow-lg transition-all duration-300 text-center"
+              className="bg-white border-2 border-[#F0F0F0] rounded-2xl p-8 sm:p-9 hover:border-[#06C755]/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center"
+              style={{ transition: "all 0.3s cubic-bezier(.25,1,.5,1)" }}
             >
-              <span className="text-[44px]">{c.emoji}</span>
-              <h3 className="mt-4 text-[18px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.4 }}>
+              <span className="text-[52px]">{c.emoji}</span>
+              <h3 className="mt-5 text-[18px] sm:text-[20px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.4 }}>
                 {c.title}
               </h3>
-              <p className="mt-2 text-[15px] text-[#666666]" style={{ lineHeight: 1.7 }}>
+              <p className="mt-3 text-[15px] text-[#666666]" style={{ lineHeight: 1.7 }}>
                 {c.description}
               </p>
-              <p className="mt-4 text-[14px] font-bold text-[#06C755] bg-[#E8F5E9] inline-block px-3 py-1 rounded-full">
+              <p className="mt-5 text-[14px] sm:text-[15px] font-bold text-[#06C755] bg-[#E8F5E9] inline-block px-4 py-1.5 rounded-full">
                 {c.effect}
               </p>
             </motion.div>
