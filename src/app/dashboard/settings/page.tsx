@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSettings, updateSettings, updateLineSettings, getWebhookUrl, type Settings } from "@/lib/apiClient";
-import { Save, Bot, Volume2, Bell, Link2, ExternalLink, Copy, Check } from "lucide-react";
+import { getSettings, updateSettings, updateLineSettings, getWebhookUrl, importCustomersCSV, importReservationsCSV, type Settings } from "@/lib/apiClient";
+import { Save, Bot, Volume2, Bell, Link2, ExternalLink, Copy, Check, CreditCard, Globe, Upload } from "lucide-react";
 
 const toneOptions = [
     { value: "professional", label: "プロフェッショナル", desc: "丁寧でありつつ親しみやすい" },
@@ -30,6 +30,25 @@ export default function SettingsPage() {
     const [lineError, setLineError] = useState("");
     const [lineSuccess, setLineSuccess] = useState("");
     const [copied, setCopied] = useState(false);
+
+    // CSVインポート
+    const [importLoading, setImportLoading] = useState(false);
+    const [importResult, setImportResult] = useState<{ type: string; imported: number; total: number; errors: string[] } | null>(null);
+
+    async function handleCSVImport(type: "customers" | "reservations", file: File) {
+        setImportLoading(true);
+        setImportResult(null);
+        try {
+            const result = type === "customers"
+                ? await importCustomersCSV(file)
+                : await importReservationsCSV(file);
+            setImportResult({ type, imported: result.imported, total: result.total, errors: result.errors });
+        } catch (e: unknown) {
+            setImportResult({ type, imported: 0, total: 0, errors: [e instanceof Error ? e.message : "インポートに失敗しました"] });
+        } finally {
+            setImportLoading(false);
+        }
+    }
 
     useEffect(() => {
         getSettings()
@@ -279,6 +298,62 @@ export default function SettingsPage() {
                         >
                             LINE Developers <ExternalLink size={11} />
                         </a>
+                    </div>
+                </div>
+
+                {/* Stripe連携 */}
+                <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#635BFF]/10 flex items-center justify-center">
+                            <CreditCard size={18} className="text-[#635BFF]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">決済連携（Stripe）</h3>
+                            <p className="text-[12px] text-[#999999]">予約時に自動で決済リンクを送信します</p>
+                        </div>
+                    </div>
+                    {settings?.stripeCustomerId ? (
+                        <div className="flex items-center gap-2 text-[14px] text-[#06C755]">
+                            <Check size={16} />
+                            Stripe接続済み
+                        </div>
+                    ) : (
+                        <p className="text-[14px] text-[#999999]">
+                            プラン・課金ページからプランをアップグレードすると自動的にStripeと接続されます。
+                        </p>
+                    )}
+                </div>
+
+                {/* LP・LINE連携 */}
+                <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#06C755]/10 flex items-center justify-center">
+                            <Globe size={18} className="text-[#06C755]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">LP・LINE連携</h3>
+                            <p className="text-[12px] text-[#999999]">お客様がLINEで友だち追加できる導線を設置します</p>
+                        </div>
+                    </div>
+                    <div className="space-y-3">
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">LINE友だち追加URL</label>
+                            <input
+                                type="text"
+                                placeholder="https://lin.ee/xxxxx"
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2.5 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none transition-colors font-mono"
+                            />
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">LINE Official Account Manager → 友だち追加 → URLから取得</p>
+                        </div>
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">LP埋め込みコード</label>
+                            <div className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg p-3">
+                                <code className="text-[12px] text-[#666666] break-all">
+                                    {`<a href="LINE_URL" style="background:#06C755;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;">LINEで予約する</a>`}
+                                </code>
+                            </div>
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">このコードをホームページに貼り付けると、LINE友だち追加ボタンが表示されます</p>
+                        </div>
                     </div>
                 </div>
 

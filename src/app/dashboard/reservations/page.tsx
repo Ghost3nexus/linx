@@ -55,6 +55,7 @@ export default function ReservationsPage() {
             openTime: "09:00",
             closeTime: "18:00",
             isClosed: i === 0,
+            slotDuration: 30,
         }))
     );
 
@@ -92,6 +93,7 @@ export default function ReservationsPage() {
                     openTime: h.openTime || h.open_time || "09:00",
                     closeTime: h.closeTime || h.close_time || "18:00",
                     isClosed: h.isClosed ?? h.is_closed ?? false,
+                    slotDuration: h.slotDuration ?? h.slot_duration ?? 30,
                 } as BusinessHour));
 
                 setBusinessHoursState(normalizedHours);
@@ -157,7 +159,7 @@ export default function ReservationsPage() {
         }
     }
 
-    function updateEditHour(dayOfWeek: number, field: string, value: string | boolean) {
+    function updateEditHour(dayOfWeek: number, field: string, value: string | boolean | number) {
         setEditHours(prev => prev.map(h =>
             h.dayOfWeek === dayOfWeek ? { ...h, [field]: value } : h
         ));
@@ -201,6 +203,7 @@ export default function ReservationsPage() {
             {showHoursEditor && (
                 <div className="mt-6 bg-white border border-[#E8E8E8] rounded-xl p-6 shadow-sm">
                     <h2 className="text-[16px] font-bold text-[#1A1A1A] mb-4">営業時間の設定</h2>
+                    <p className="text-[12px] text-[#999999] mb-3">各曜日の営業時間と予約枠の長さを設定できます</p>
                     <div className="space-y-3">
                         {editHours.map((h) => (
                             <div key={h.dayOfWeek} className="flex items-center gap-3 flex-wrap">
@@ -231,6 +234,18 @@ export default function ReservationsPage() {
                                             onChange={(e) => updateEditHour(h.dayOfWeek, "closeTime", e.target.value)}
                                             className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none"
                                         />
+                                        <select
+                                            value={h.slotDuration || 30}
+                                            onChange={(e) => updateEditHour(h.dayOfWeek, "slotDuration", parseInt(e.target.value))}
+                                            className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none"
+                                        >
+                                            <option value={30}>30分</option>
+                                            <option value={40}>40分</option>
+                                            <option value={50}>50分</option>
+                                            <option value={60}>60分</option>
+                                            <option value={90}>90分</option>
+                                            <option value={120}>120分</option>
+                                        </select>
                                     </>
                                 )}
                             </div>

@@ -252,6 +252,7 @@ export interface BusinessHour {
     openTime: string;
     closeTime: string;
     isClosed: boolean;
+    slotDuration?: number;
 }
 
 export async function getReservations(from: string, to: string): Promise<Reservation[]> {
@@ -325,6 +326,74 @@ export async function updateCustomer(id: string, updates: Partial<Customer>): Pr
         body: JSON.stringify(updates),
     });
     return data.data;
+}
+
+// ── CSV Import ──
+
+export async function importCustomersCSV(file: File): Promise<{ success: boolean; imported: number; total: number; errors: string[] }> {
+    const token = getToken();
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(`${API_BASE}/linx/import/customers/${getAccountId()}`, {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: formData,
+    });
+    if (!res.ok) { const err = await res.json().catch(() => ({ error: res.statusText })); throw new Error(err.error); }
+    return res.json();
+}
+
+export async function importReservationsCSV(file: File): Promise<{ success: boolean; imported: number; total: number; errors: string[] }> {
+    const token = getToken();
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(`${API_BASE}/linx/import/reservations/${getAccountId()}`, {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: formData,
+    });
+    if (!res.ok) { const err = await res.json().catch(() => ({ error: res.statusText })); throw new Error(err.error); }
+    return res.json();
+}
+
+// ── Services ──
+
+export interface Service {
+    id: string;
+    accountId: string;
+    name: string;
+    duration: number;
+    price: number;
+    maxParticipants: number;
+    description?: string;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+}
+
+export async function getServices(): Promise<Service[]> {
+    const data = await api<{ success: boolean; data: Service[] }>(`/linx/services/${getAccountId()}`);
+    return data.data || [];
+}
+
+export async function createService(service: { name: string; duration: number; price: number; maxParticipants?: number; description?: string }): Promise<Service> {
+    const data = await api<{ success: boolean; data: Service }>(`/linx/services/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(service),
+    });
+    return data.data;
+}
+
+export async function updateService(id: string, updates: Partial<Service>): Promise<Service> {
+    const data = await api<{ success: boolean; data: Service }>(`/linx/services/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
+    return data.data;
+}
+
+export async function deleteService(id: string): Promise<void> {
+    await api(`/linx/services/${getAccountId()}/${id}`, { method: 'DELETE' });
 }
 
 // ── Stats ──
