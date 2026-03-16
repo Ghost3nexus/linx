@@ -35,7 +35,7 @@ export default function DocumentsPage() {
                     </a>
                     <div className="flex items-center gap-3">
                         <a
-                            href="https://calendar.app.google/AJXwDSRvDQEWTxjb7"
+                            href="https://calendar.app.google/p334NDqkf4gaqMxMA"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hidden sm:inline-flex items-center gap-2 border-2 border-[#1A1A1A] text-[#1A1A1A] font-bold px-5 py-2.5 rounded-full text-[14px] hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
@@ -203,7 +203,7 @@ export default function DocumentsPage() {
                                         お気軽にご相談ください。
                                     </p>
                                     <a
-                                        href="https://calendar.app.google/AJXwDSRvDQEWTxjb7"
+                                        href="https://calendar.app.google/p334NDqkf4gaqMxMA"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="w-full flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold py-3.5 rounded-full text-[15px] transition-all duration-300"

@@ -21,7 +21,7 @@ export default function Footer() {
             AI免責事項
           </a>
           <a
-            href="https://calendar.app.google/AJXwDSRvDQEWTxjb7"
+            href="https://calendar.app.google/p334NDqkf4gaqMxMA"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#06C755] transition-colors duration-300 touch-manipulation"
