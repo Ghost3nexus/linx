@@ -397,6 +397,164 @@ export async function deleteService(id: string): Promise<void> {
     await api(`/linx/services/${getAccountId()}/${id}`, { method: 'DELETE' });
 }
 
+// ── Staff ──
+
+export interface Staff {
+    id: string;
+    accountId: string;
+    name: string;
+    role?: string;
+    isActive: boolean;
+    createdAt: string;
+}
+
+export async function getStaff(): Promise<Staff[]> {
+    const data = await api<{ success: boolean; data: Staff[] }>(`/linx/staff/${getAccountId()}`);
+    return data.data || [];
+}
+
+export async function createStaff(staff: { name: string; role?: string }): Promise<Staff> {
+    const data = await api<{ success: boolean; data: Staff }>(`/linx/staff/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(staff),
+    });
+    return data.data;
+}
+
+export async function updateStaff(id: string, updates: Partial<Staff>): Promise<Staff> {
+    const data = await api<{ success: boolean; data: Staff }>(`/linx/staff/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
+    return data.data;
+}
+
+export async function deleteStaff(id: string): Promise<void> {
+    await api(`/linx/staff/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
+// ── Resources ──
+
+export interface Resource {
+    id: string;
+    accountId: string;
+    name: string;
+    type?: string;
+    capacity: number;
+    isActive: boolean;
+    createdAt: string;
+}
+
+export async function getResources(): Promise<Resource[]> {
+    const data = await api<{ success: boolean; data: Resource[] }>(`/linx/resources/${getAccountId()}`);
+    return data.data || [];
+}
+
+export async function createResource(resource: { name: string; type?: string; capacity?: number }): Promise<Resource> {
+    const data = await api<{ success: boolean; data: Resource }>(`/linx/resources/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(resource),
+    });
+    return data.data;
+}
+
+export async function updateResource(id: string, updates: Partial<Resource>): Promise<Resource> {
+    const data = await api<{ success: boolean; data: Resource }>(`/linx/resources/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
+    return data.data;
+}
+
+export async function deleteResource(id: string): Promise<void> {
+    await api(`/linx/resources/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
+// ── Schedule Templates ──
+
+export interface ScheduleTemplate {
+    id: string;
+    accountId: string;
+    dayOfWeek: number;
+    startTime: string;
+    endTime: string;
+    serviceId?: string;
+    staffId?: string;
+    resourceId?: string;
+    maxParticipants: number;
+    isActive: boolean;
+    createdAt: string;
+    // Joined fields
+    serviceName?: string;
+    serviceDuration?: number;
+    servicePrice?: number;
+    staffName?: string;
+    resourceName?: string;
+}
+
+export async function getScheduleTemplates(dayOfWeek?: number): Promise<ScheduleTemplate[]> {
+    const params = dayOfWeek !== undefined ? `?dayOfWeek=${dayOfWeek}` : '';
+    const data = await api<{ success: boolean; data: ScheduleTemplate[] }>(`/linx/schedule/${getAccountId()}${params}`);
+    return data.data || [];
+}
+
+export async function createScheduleTemplate(template: {
+    dayOfWeek: number;
+    startTime: string;
+    endTime: string;
+    serviceId?: string;
+    staffId?: string;
+    resourceId?: string;
+    maxParticipants?: number;
+}): Promise<ScheduleTemplate> {
+    const data = await api<{ success: boolean; data: ScheduleTemplate }>(`/linx/schedule/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify(template),
+    });
+    return data.data;
+}
+
+export async function updateScheduleTemplate(id: string, updates: Partial<ScheduleTemplate>): Promise<ScheduleTemplate> {
+    const data = await api<{ success: boolean; data: ScheduleTemplate }>(`/linx/schedule/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
+    return data.data;
+}
+
+export async function deleteScheduleTemplate(id: string): Promise<void> {
+    await api(`/linx/schedule/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
+export interface SmartSlot {
+    templateId: string;
+    startTime: string;
+    endTime: string;
+    serviceName: string;
+    serviceDuration?: number;
+    servicePrice?: number;
+    staffName?: string;
+    staffId?: string;
+    resourceName?: string;
+    resourceId?: string;
+    maxParticipants: number;
+    remainingSpots: number;
+    isAvailable: boolean;
+}
+
+export async function getSmartAvailability(date: string): Promise<SmartSlot[]> {
+    const data = await api<{ success: boolean; data: SmartSlot[] }>(`/linx/schedule/${getAccountId()}/availability?date=${date}`);
+    return data.data || [];
+}
+
+export async function copyDaySchedule(fromDay: number, toDay: number): Promise<ScheduleTemplate[]> {
+    const data = await api<{ success: boolean; data: ScheduleTemplate[] }>(`/linx/schedule/${getAccountId()}/copy`, {
+        method: 'POST',
+        body: JSON.stringify({ fromDay, toDay }),
+    });
+    return data.data || [];
+}
+
 // ── Stats ──
 
 export interface Stats {
