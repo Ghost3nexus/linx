@@ -1,8 +1,126 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, MessageSquare, CalendarDays, Users, TrendingUp } from "lucide-react";
+
+function DashboardMockup() {
+  return (
+    <div className="relative w-full">
+      {/* Browser frame */}
+      <div className="bg-white rounded-xl sm:rounded-2xl border border-[#E0E0E0] shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
+        {/* Browser top bar */}
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F8F8F8] border-b border-[#E8E8E8]">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+            <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+            <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+          </div>
+          <div className="flex-1 mx-8">
+            <div className="bg-white rounded-md border border-[#E0E0E0] px-3 py-1 text-[11px] text-[#AAAAAA] text-center truncate">
+              linx-rouge.vercel.app/dashboard
+            </div>
+          </div>
+        </div>
+
+        {/* Dashboard content */}
+        <div className="flex min-h-[260px] sm:min-h-[300px]">
+          {/* Sidebar */}
+          <div className="hidden sm:flex w-[140px] bg-[#FAFAFA] border-r border-[#F0F0F0] flex-col py-4 px-3 gap-1">
+            <div className="flex items-center gap-2 px-2 py-1.5 mb-3">
+              <div className="w-5 h-5 rounded bg-[#06C755] flex items-center justify-center">
+                <span className="text-white text-[8px] font-bold">L</span>
+              </div>
+              <span className="text-[11px] font-bold text-[#1A1A1A]">LINX</span>
+            </div>
+            {[
+              { label: "ダッシュボード", active: true },
+              { label: "予約管理", active: false },
+              { label: "顧客管理", active: false },
+              { label: "お店の情報", active: false },
+              { label: "会話ログ", active: false },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className={`px-2 py-1.5 rounded-md text-[10px] ${
+                  item.active
+                    ? "bg-[#06C755]/10 text-[#06C755] font-bold"
+                    : "text-[#999999]"
+                }`}
+              >
+                {item.label}
+              </div>
+            ))}
+          </div>
+
+          {/* Main content */}
+          <div className="flex-1 p-4 sm:p-5">
+            <p className="text-[12px] sm:text-[13px] font-bold text-[#1A1A1A] mb-3">ダッシュボード</p>
+            {/* Stats cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4">
+              {[
+                { icon: MessageSquare, label: "月間応答", value: "1,248", color: "#06C755" },
+                { icon: CalendarDays, label: "今月の予約", value: "89", color: "#06C755" },
+                { icon: Users, label: "顧客数", value: "342", color: "#06C755" },
+                { icon: TrendingUp, label: "自動化率", value: "94%", color: "#06C755" },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-[#F9FAFB] rounded-lg p-2.5 sm:p-3 border border-[#F0F0F0]">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <stat.icon size={12} style={{ color: stat.color }} />
+                    <span className="text-[9px] sm:text-[10px] text-[#999999]">{stat.label}</span>
+                  </div>
+                  <span className="text-[16px] sm:text-[20px] font-bold text-[#1A1A1A]">{stat.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Recent reservations */}
+            <div className="bg-[#F9FAFB] rounded-lg p-3 border border-[#F0F0F0]">
+              <p className="text-[10px] font-bold text-[#666666] mb-2">直近の予約</p>
+              {[
+                { time: "14:00", name: "田中様", service: "体験トレーニング", status: "確定" },
+                { time: "15:30", name: "佐藤様", service: "セミパーソナル", status: "確定" },
+                { time: "17:00", name: "山田様", service: "マンツーマン", status: "確定" },
+              ].map((res) => (
+                <div key={res.time} className="flex items-center justify-between py-1.5 border-b border-[#F0F0F0] last:border-b-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold text-[#06C755]">{res.time}</span>
+                    <span className="text-[10px] text-[#1A1A1A]">{res.name}</span>
+                    <span className="text-[9px] text-[#999999]">{res.service}</span>
+                  </div>
+                  <span className="text-[8px] font-bold text-[#06C755] bg-[#E8F5E9] px-1.5 py-0.5 rounded-full">{res.status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating LINE chat card */}
+      <motion.div
+        initial={{ opacity: 0, x: 20, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-4 w-[200px] sm:w-[240px] bg-white rounded-xl border border-[#E0E0E0] shadow-[0_12px_40px_rgba(0,0,0,0.1)] overflow-hidden"
+      >
+        <div className="bg-[#06C755] px-3 py-1.5 text-center">
+          <span className="text-white text-[10px] font-bold">公式LINE</span>
+        </div>
+        <div className="p-2.5 space-y-1.5 bg-[#7494A5]">
+          <div className="flex justify-end">
+            <div className="bg-[#A4DB59] text-[#1A1A1A] text-[9px] px-2.5 py-1.5 rounded-xl rounded-tr-sm max-w-[85%]">
+              体験予約できますか？
+            </div>
+          </div>
+          <div className="flex justify-start">
+            <div className="bg-white text-[#1A1A1A] text-[9px] px-2.5 py-1.5 rounded-xl rounded-tl-sm max-w-[85%] leading-relaxed">
+              はい！🕐 空き枠はこちら<br />14:00〜 ○ 残り3名<br />17:00〜 ○ 残り2名
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
@@ -12,7 +130,7 @@ export default function Hero() {
         className="absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(6,199,85,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 20% 60%, rgba(200,200,200,0.08) 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(6,199,85,0.05) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 20% 60%, rgba(200,200,200,0.06) 0%, transparent 50%)",
         }}
       />
 
@@ -89,26 +207,14 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Product Visual */}
+          {/* Right: CSS Product Mockup */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5 }}
-            className="flex-shrink-0 w-full max-w-[560px] lg:max-w-[540px]"
-            style={{ animation: "floatY 6s ease-in-out infinite" }}
+            className="flex-shrink-0 w-full max-w-[580px] lg:max-w-[560px] relative"
           >
-            <div className="relative">
-              {/* Glow effect behind image */}
-              <div className="absolute inset-0 rounded-3xl bg-[#06C755]/10 blur-3xl scale-95" />
-              <Image
-                src="/hero-visual.png"
-                alt="LINXのダッシュボードとLINEチャット画面"
-                width={1024}
-                height={576}
-                className="relative w-full h-auto rounded-2xl shadow-2xl"
-                priority
-              />
-            </div>
+            <DashboardMockup />
           </motion.div>
         </div>
       </div>
