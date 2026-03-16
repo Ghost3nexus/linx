@@ -70,7 +70,8 @@ export default function ReservationsPage() {
         ])
             .then(([res, hours]) => {
                 // snake_case → camelCase 変換（DBから直接返る場合の対応）
-                const normalizedRes = (Array.isArray(res) ? res : []).map((r: Record<string, unknown>) => ({
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const normalizedRes = (Array.isArray(res) ? res : []).map((r: any) => ({
                     id: r.id,
                     customerName: r.customerName || r.customer_name,
                     customerLineUserId: r.customerLineUserId || r.customer_line_user_id,
@@ -85,7 +86,8 @@ export default function ReservationsPage() {
                 } as Reservation));
                 setReservations(normalizedRes);
 
-                const normalizedHours = (Array.isArray(hours) ? hours : []).map((h: Record<string, unknown>) => ({
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const normalizedHours = (Array.isArray(hours) ? hours : []).map((h: any) => ({
                     dayOfWeek: h.dayOfWeek ?? h.day_of_week,
                     openTime: h.openTime || h.open_time || "09:00",
                     closeTime: h.closeTime || h.close_time || "18:00",
