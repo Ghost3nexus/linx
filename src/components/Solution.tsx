@@ -6,7 +6,7 @@ import { ArrowRight, Bot, Bell, Clock, Sparkles } from "lucide-react";
 const points = [
   { icon: Bot, text: "よくある質問はAIが自動で回答", sub: "同じ質問に何度も答える必要なし" },
   { icon: Clock, text: "24時間365日、すぐに返信", sub: "夜中も休日も、お客様を待たせません" },
-  { icon: Bell, text: "大事な質問はあなたに通知", sub: "AIが判断できないときは即座にお知らせ" },
+  { icon: Bell, text: "体験後のフォローアップも自動", sub: "体験完了→入会案内→3日後リマインドまで全自動" },
   { icon: Sparkles, text: "あなたのお店の情報で回答", sub: "登録した内容をもとに正確に答えます" },
 ];
 

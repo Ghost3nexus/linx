@@ -245,8 +245,8 @@ export default function ProductShowcase() {
             "顧客カルテ管理",
             "会話ログ閲覧",
             "AIナレッジ登録",
-            "通知設定",
-            "売上レポート",
+            "体験後フォローアップ自動化",
+            "LINE決済リンク送信",
           ].map((feature) => (
             <span
               key={feature}
