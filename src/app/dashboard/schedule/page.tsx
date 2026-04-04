@@ -20,8 +20,9 @@ import {
 } from "@/lib/apiClient";
 import {
     Plus, X, Trash2, Copy, CalendarClock, Save, Users, MapPin,
-    ChevronLeft, ChevronRight,
+    ChevronLeft, ChevronRight, CalendarDays,
 } from "lucide-react";
+import ScheduleCalendar from "./ScheduleCalendar";
 
 const DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 const DAY_LABELS_FULL = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"];
@@ -99,7 +100,7 @@ function formatTime(t: string): string {
 
 // ── Tab type ──
 
-type Tab = "schedule" | "staff" | "resources";
+type Tab = "schedule" | "staff" | "resources" | "calendar";
 
 export default function SchedulePage() {
     const [tab, setTab] = useState<Tab>("schedule");
@@ -346,6 +347,7 @@ export default function SchedulePage() {
             <div className="flex items-center gap-1 mt-6 bg-[#F5F5F5] rounded-lg p-1 w-fit">
                 {([
                     { key: "schedule" as Tab, label: "週間スケジュール", icon: CalendarClock },
+                    { key: "calendar" as Tab, label: "カレンダー", icon: CalendarDays },
                     { key: "staff" as Tab, label: "スタッフ", icon: Users },
                     { key: "resources" as Tab, label: "リソース", icon: MapPin },
                 ]).map((t) => (
@@ -427,6 +429,56 @@ export default function SchedulePage() {
                             </p>
                         </div>
                     )}
+                </>
+            )}
+
+            {/* ═══ Calendar Tab ═══ */}
+            {tab === "calendar" && (
+                <>
+                    {/* Day selector */}
+                    <div className="flex items-center justify-between mt-6">
+                        <button
+                            onClick={() => setSelectedDay((selectedDay + 6) % 7)}
+                            className="p-2 text-[#666666] hover:text-[#1A1A1A]"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <div className="flex items-center gap-1">
+                            {[1, 2, 3, 4, 5, 6, 0].map((day) => (
+                                <button
+                                    key={day}
+                                    onClick={() => setSelectedDay(day)}
+                                    className={`w-10 h-10 rounded-lg text-[13px] font-medium transition-colors ${
+                                        selectedDay === day
+                                            ? "bg-[#06C755] text-white"
+                                            : (day === 0 || day === 6)
+                                                ? "text-[#E53935] hover:bg-[#FFF5F5]"
+                                                : "text-[#666666] hover:bg-[#F5F5F5]"
+                                    }`}
+                                >
+                                    {DAY_LABELS[day]}
+                                </button>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => setSelectedDay((selectedDay + 1) % 7)}
+                            className="p-2 text-[#666666] hover:text-[#1A1A1A]"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
+
+                    <ScheduleCalendar
+                        selectedDay={selectedDay}
+                        templates={templates}
+                        staffList={staffList}
+                        services={services}
+                        onAddTemplate={(day, staffId) => {
+                            openAddForm(day);
+                            if (staffId) setFormStaffId(staffId);
+                        }}
+                        onDeleteTemplate={handleDeleteTemplate}
+                    />
                 </>
             )}
 
