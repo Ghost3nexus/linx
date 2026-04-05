@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINX 取扱説明書 - GOOD LIFE GYM様</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; line-height: 1.8; background: #FAFAFA; }
+  .cover { background: linear-gradient(135deg, #06C755 0%, #04A648 100%); color: white; padding: 80px 40px; text-align: center; }
+  .cover h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+  .cover .subtitle { font-size: 18px; opacity: 0.9; margin-bottom: 40px; }
+  .cover .meta { font-size: 14px; opacity: 0.7; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+  h2 { font-size: 24px; font-weight: 800; color: #1A1A1A; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 3px solid #06C755; }
+  h3 { font-size: 18px; font-weight: 700; color: #333; margin: 32px 0 12px; }
+  h4 { font-size: 15px; font-weight: 700; color: #06C755; margin: 24px 0 8px; }
+  p { margin: 8px 0; font-size: 15px; }
+  .step-list { counter-reset: step; list-style: none; padding: 0; }
+  .step-list li { counter-increment: step; padding: 16px 16px 16px 56px; margin: 12px 0; background: white; border: 1px solid #E8E8E8; border-radius: 12px; position: relative; }
+  .step-list li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; background: #06C755; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; }
+  .note { background: #FFF8E1; border-left: 4px solid #F59E0B; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 14px; }
+  .note strong { color: #F59E0B; }
+  .important { background: #FFF5F5; border-left: 4px solid #E53935; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 14px; }
+  .important strong { color: #E53935; }
+  .tip { background: #E8F5E9; border-left: 4px solid #06C755; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 14px; }
+  .tip strong { color: #06C755; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th { background: #1A1A1A; color: white; padding: 12px 16px; text-align: left; font-weight: 700; }
+  td { padding: 12px 16px; border-bottom: 1px solid #E8E8E8; background: white; }
+  tr:hover td { background: #F9FAFB; }
+  .url-box { background: #F0F0F0; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin: 8px 0; word-break: break-all; }
+  .flow-diagram { background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 24px; margin: 16px 0; text-align: center; }
+  .flow-arrow { color: #06C755; font-size: 20px; margin: 4px 0; display: block; }
+  .flow-box { display: inline-block; background: #F9FAFB; border: 1px solid #E8E8E8; border-radius: 8px; padding: 8px 20px; margin: 4px; font-size: 14px; font-weight: 600; }
+  .flow-box.auto { background: #E8F5E9; border-color: #06C755; color: #06C755; }
+  .flow-box.manual { background: #E3F2FD; border-color: #2196F3; color: #2196F3; }
+  .screen-section { background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+  .badge-auto { background: #E8F5E9; color: #06C755; }
+  .badge-manual { background: #E3F2FD; color: #2196F3; }
+  @media print { .cover { padding: 60px 40px; } body { background: white; } }
+  @media (max-width: 600px) { .cover h1 { font-size: 24px; } .container { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover">
+  <h1>LINX 取扱説明書</h1>
+  <p class="subtitle">LINE予約・顧客管理・会員決済システム</p>
+  <p class="meta">GOOD LIFE GYM 様向け | 2026年4月 | TomorrowProof</p>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<h2>目次</h2>
+<ol style="padding-left: 24px; font-size: 15px;">
+  <li><a href="#overview" style="color: #06C755;">システム概要</a></li>
+  <li><a href="#login" style="color: #06C755;">ログイン方法</a></li>
+  <li><a href="#dashboard" style="color: #06C755;">ダッシュボード画面一覧</a></li>
+  <li><a href="#schedule" style="color: #06C755;">スケジュール管理</a></li>
+  <li><a href="#staff" style="color: #06C755;">スタッフ管理</a></li>
+  <li><a href="#reservation" style="color: #06C755;">予約管理</a></li>
+  <li><a href="#customer" style="color: #06C755;">顧客管理・会員登録</a></li>
+  <li><a href="#notification" style="color: #06C755;">通知の仕組み</a></li>
+  <li><a href="#followup" style="color: #06C755;">自動フォローアップ</a></li>
+  <li><a href="#line-setup" style="color: #06C755;">LINE公式アカウント連携</a></li>
+  <li><a href="#faq" style="color: #06C755;">よくある質問</a></li>
+</ol>
+
+<!-- 1. Overview -->
+<h2 id="overview">1. システム概要</h2>
+
+<p>LINXは、LINE公式アカウントと連携した予約・顧客管理・会員決済の統合システムです。</p>
+
+<div class="flow-diagram">
+  <div class="flow-box">お客様がLINEで体験予約</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box auto">AIが自動で空き確認・予約作成</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box auto">スタッフにLINE通知</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box manual">体験レッスン実施</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box manual">予約ステータスを「完了」に変更</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box auto">自動で入会案内+決済リンク送信</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box auto">3日後、未入会者に自動フォロー</div>
+</div>
+
+<p><span class="badge badge-auto">自動</span> = システムが自動実行 &nbsp; <span class="badge badge-manual">手動</span> = スタッフが操作</p>
+
+<table>
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td>管理画面URL</td><td><div class="url-box">https://linx-rouge.vercel.app</div></td></tr>
+  <tr><td>対応ブラウザ</td><td>Chrome / Safari / Edge（最新版）</td></tr>
+  <tr><td>スマートフォン</td><td>対応（レスポンシブ）</td></tr>
+</table>
+
+<!-- 2. Login -->
+<h2 id="login">2. ログイン方法</h2>
+
+<ol class="step-list">
+  <li>ブラウザで管理画面URLにアクセス</li>
+  <li>メールアドレスとパスワードを入力</li>
+  <li>「ログイン」をクリック</li>
+</ol>
+
+<div class="important">
+  <strong>重要:</strong> ログイン情報は初期設定時にお渡しします。パスワードは定期的に変更してください。
+</div>
+
+<!-- 3. Dashboard -->
+<h2 id="dashboard">3. ダッシュボード画面一覧</h2>
+
+<table>
+  <tr><th>メニュー</th><th>機能</th><th>主な用途</th></tr>
+  <tr><td>Schedule</td><td>スケジュール管理</td><td>スタッフのシフト・予約枠の設定</td></tr>
+  <tr><td>Reservations</td><td>予約管理</td><td>予約の確認・ステータス変更</td></tr>
+  <tr><td>顧客管理</td><td>顧客一覧</td><td>顧客情報・会員登録</td></tr>
+  <tr><td>Knowledge</td><td>ナレッジ管理</td><td>AIが回答に使う情報の登録</td></tr>
+  <tr><td>Logs</td><td>会話ログ</td><td>LINEでのお客様とのやり取り確認</td></tr>
+  <tr><td>Services</td><td>サービス管理</td><td>提供メニューの登録</td></tr>
+  <tr><td>Settings</td><td>設定</td><td>LINE連携・通知設定</td></tr>
+</table>
+
+<!-- 4. Schedule -->
+<h2 id="schedule">4. スケジュール管理</h2>
+
+<p>スタッフごとの週間スケジュールをカレンダー形式で管理します。</p>
+
+<h3>営業時間の設定</h3>
+<ol class="step-list">
+  <li>画面右上の「Hours」ボタンをクリック</li>
+  <li>各曜日の営業開始・終了時間を設定</li>
+  <li>定休日は「Off」にチェック</li>
+  <li>「Save」で保存</li>
+</ol>
+
+<h3>予約枠の追加</h3>
+<ol class="step-list">
+  <li>カレンダー上の空いている枠をクリック</li>
+  <li>開始時間・終了時間・サービス・担当スタッフを選択</li>
+  <li>定員（Max Participants）を設定</li>
+  <li>「Save」で保存</li>
+</ol>
+
+<h3>曜日コピー機能</h3>
+<p>「Copy Day」ボタンで、ある曜日のスケジュールを別の曜日にコピーできます。同じ時間割の曜日が多い場合に便利です。</p>
+
+<!-- 5. Staff -->
+<h2 id="staff">5. スタッフ管理</h2>
+
+<h3>スタッフの追加</h3>
+<ol class="step-list">
+  <li>Schedule画面右上の「Staff」ボタンをクリック</li>
+  <li>「+ Add Staff」をクリック</li>
+  <li>名前（必須）・役職・メール・LINE User IDを入力</li>
+  <li>「追加」をクリック</li>
+</ol>
+
+<div class="tip">
+  <strong>LINE User IDの設定:</strong> LINE User IDを設定すると、そのスタッフの担当予約が入った時にLINEで自動通知されます。
+</div>
+
+<h4>LINE User IDの取得方法</h4>
+<ol class="step-list">
+  <li>スタッフ本人がジムのLINE公式アカウントを友だち追加</li>
+  <li>何かメッセージを1通送ってもらう</li>
+  <li>管理画面の「Logs（会話ログ）」画面を開く</li>
+  <li>そのスタッフのメッセージを見つけ、User ID（U始まりの文字列）をコピー</li>
+  <li>Staff ManagementでそのIDを入力</li>
+</ol>
+
+<h3>出勤時間の設定</h3>
+<ol class="step-list">
+  <li>スタッフ一覧の歯車アイコン（⚙）をクリック</li>
+  <li>曜日ごとに出勤可能な時間帯を設定</li>
+  <li>「Save」で保存</li>
+</ol>
+
+<h3>休みの申請</h3>
+<ol class="step-list">
+  <li>スタッフの歯車アイコンをクリック</li>
+  <li>「Day Off」セクションで日付を選択</li>
+  <li>理由（任意）を入力して登録</li>
+</ol>
+
+<div class="note">
+  <strong>自動反映:</strong> 休みに設定した日は、LINE予約時の空き枠からそのスタッフの枠が自動的に非表示になります。
+</div>
+
+<!-- 6. Reservation -->
+<h2 id="reservation">6. 予約管理</h2>
+
+<h3>予約の確認</h3>
+<p>Reservations画面で今週の予約を一覧で確認できます。前週・次週のナビゲーションで週を切り替えられます。</p>
+
+<h3>予約ステータスの変更</h3>
+<table>
+  <tr><th>ステータス</th><th>意味</th><th>操作</th></tr>
+  <tr><td>confirmed</td><td>予約確定</td><td>LINE予約時に自動設定</td></tr>
+  <tr><td>completed</td><td>来店完了</td><td>体験後にスタッフが変更 → 自動フォローアップ発動</td></tr>
+  <tr><td>cancelled</td><td>キャンセル</td><td>お客様からのキャンセル時</td></tr>
+  <tr><td>no_show</td><td>無断キャンセル</td><td>来店がなかった場合</td></tr>
+</table>
+
+<div class="important">
+  <strong>重要:</strong> 体験レッスン後は必ずステータスを「completed」に変更してください。これが入会案内の自動送信トリガーになります。
+</div>
+
+<h3>手動予約の追加</h3>
+<p>Reservations画面の「手動予約追加」フォームから、電話予約などLINE以外の予約も登録できます。</p>
+
+<!-- 7. Customer -->
+<h2 id="customer">7. 顧客管理・会員登録</h2>
+
+<h3>顧客一覧</h3>
+<p>LINEから予約したお客様は自動的に顧客一覧に登録されます。名前・メール・電話番号で検索できます。</p>
+
+<h3>会員登録（Stripe決済）</h3>
+<ol class="step-list">
+  <li>顧客管理画面で、入会させたいお客様のカードアイコン（💳）をクリック</li>
+  <li>プランを選択
+    <br>・セミパーソナル（通い放題）: ¥19,800/月
+    <br>・マンツーマン: ¥34,800/月
+  </li>
+  <li>入会金を選択
+    <br>・体験当日入会キャンペーン: ¥10,000
+    <br>・通常入会: ¥30,000
+  </li>
+  <li>初月合計金額を確認</li>
+  <li>「決済リンクを作成」をクリック</li>
+  <li>Stripe決済ページが新しいタブで開くので、お客様にURLを共有 or その場で入力</li>
+</ol>
+
+<table>
+  <tr><th>プラン</th><th>月額</th><th>入会金（キャンペーン）</th><th>初月合計</th></tr>
+  <tr><td>セミパーソナル（通い放題）</td><td>¥19,800</td><td>¥10,000</td><td>¥29,800</td></tr>
+  <tr><td>セミパーソナル（通い放題）</td><td>¥19,800</td><td>¥30,000（通常）</td><td>¥49,800</td></tr>
+  <tr><td>マンツーマン</td><td>¥34,800</td><td>¥10,000</td><td>¥44,800</td></tr>
+  <tr><td>マンツーマン</td><td>¥34,800</td><td>¥30,000（通常）</td><td>¥64,800</td></tr>
+</table>
+
+<!-- 8. Notification -->
+<h2 id="notification">8. 通知の仕組み</h2>
+
+<h3>予約通知（LINE経由の予約）</h3>
+<div class="flow-diagram">
+  <div class="flow-box">お客様がLINEで予約</div>
+  <span class="flow-arrow">↓</span>
+  <div class="flow-box auto">担当スタッフのLINEに通知</div>
+  <span class="flow-arrow">↓ スタッフ未設定の場合</span>
+  <div class="flow-box auto">全スタッフ（LINE ID登録済み）に通知</div>
+  <span class="flow-arrow">↓ スタッフがいない場合</span>
+  <div class="flow-box auto">管理者に通知</div>
+</div>
+
+<h3>予約通知（管理画面からの予約）</h3>
+<p>管理画面から手動で予約を作成した場合も、管理者と担当スタッフにLINE通知が送られます。</p>
+
+<h3>通知メッセージの内容</h3>
+<div style="background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 16px; margin: 12px 0; font-size: 14px;">
+  <p style="margin:0;">📩 新しい予約が入りました</p>
+  <br>
+  <p style="margin:0;">お客様: 田中 太郎</p>
+  <p style="margin:0;">日時: 2026-04-10 15:00〜16:00</p>
+  <p style="margin:0;">サービス: 無料体験レッスン</p>
+  <p style="margin:0;">予約ID: res_xxxxx</p>
+  <br>
+  <p style="margin:0;">管理画面で確認してください。</p>
+</div>
+
+<!-- 9. Follow-up -->
+<h2 id="followup">9. 自動フォローアップ</h2>
+
+<p>体験レッスン後の入会促進を自動化します。</p>
+
+<table>
+  <tr><th>タイミング</th><th>内容</th><th>条件</th></tr>
+  <tr><td>体験完了直後</td><td>お礼メッセージ + 全プランの決済リンク</td><td>予約ステータスを「completed」に変更</td></tr>
+  <tr><td>3日後</td><td>「いかがでしょうか？」フォローアップ</td><td>まだ入会していない場合のみ</td></tr>
+</table>
+
+<h4>体験完了直後のメッセージ例</h4>
+<div style="background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 16px; margin: 12px 0; font-size: 14px;">
+  <p>田中 太郎様</p>
+  <p>本日はご体験いただきありがとうございました！🙏<br>トレーニングはいかがでしたか？</p>
+  <p>✨ ご入会プランのご案内<br>下記よりご希望のプランをお選びください。</p>
+  <p>▶ セミパーソナル（通い放題）<br>&nbsp;&nbsp;月額¥19,800 + 入会金¥10,000<br>&nbsp;&nbsp;初月合計: ¥29,800<br>&nbsp;&nbsp;[決済リンク]</p>
+  <p>▶ マンツーマン<br>&nbsp;&nbsp;月額¥34,800 + 入会金¥10,000<br>&nbsp;&nbsp;初月合計: ¥44,800<br>&nbsp;&nbsp;[決済リンク]</p>
+</div>
+
+<div class="tip">
+  <strong>ポイント:</strong> この自動メッセージは体験当日キャンペーン価格（入会金¥10,000）で案内されます。通常価格での入会は管理画面から個別に対応してください。
+</div>
+
+<!-- 10. LINE Setup -->
+<h2 id="line-setup">10. LINE公式アカウント連携</h2>
+
+<h3>初期設定（TomorrowProofが実施）</h3>
+<p>以下はシステム導入時にTomorrowProofが設定します。</p>
+<ul style="padding-left: 24px;">
+  <li>LINE Developersでチャネル作成</li>
+  <li>Webhook URL設定</li>
+  <li>管理画面のSettings画面でChannel ID / Secret / Access Token入力</li>
+</ul>
+
+<h3>ナレッジの登録</h3>
+<p>AIが正確に回答するために、ジムの情報をナレッジとして登録してください。</p>
+
+<ol class="step-list">
+  <li>Knowledge画面を開く</li>
+  <li>「追加」をクリック</li>
+  <li>タイトルと内容を入力（例: 「営業時間」「料金プラン」「アクセス」「よくある質問」）</li>
+  <li>保存</li>
+</ol>
+
+<div class="note">
+  <strong>登録推奨情報:</strong>
+  <ul style="padding-left: 20px; margin-top: 8px;">
+    <li>営業時間・定休日</li>
+    <li>料金プラン一覧</li>
+    <li>アクセス（住所・最寄駅）</li>
+    <li>体験レッスンの流れ</li>
+    <li>持ち物・注意事項</li>
+    <li>よくある質問</li>
+  </ul>
+</div>
+
+<!-- 11. FAQ -->
+<h2 id="faq">11. よくある質問</h2>
+
+<h4>Q. お客様がLINEで予約したのに通知が来ません</h4>
+<p>スタッフのLINE User IDが登録されているか確認してください。Schedule → Staff → 該当スタッフの設定で確認できます。管理者への通知は Settings → Escalation User ID に管理者のLINE User IDが設定されている必要があります。</p>
+
+<h4>Q. 体験後に自動メッセージが送られません</h4>
+<p>予約のステータスが「completed」になっているか確認してください。ステータスが「confirmed」のままだと、フォローアップは発動しません。Reservations画面でステータスを変更してください。</p>
+
+<h4>Q. 決済リンクが作成できません</h4>
+<p>Stripe Secret Keyが正しく設定されているか確認してください。テスト環境では「sk_test_」で始まるキーが必要です。Settings画面またはTomorrowProofにお問い合わせください。</p>
+
+<h4>Q. AIが正しく回答しません</h4>
+<p>Knowledge画面に正確な情報が登録されているか確認してください。ナレッジにない質問は「担当者に確認いたします」と回答し、管理者にエスカレーション通知が送られます。</p>
+
+<h4>Q. 予約枠が表示されません</h4>
+<p>Schedule画面で該当曜日に予約枠が登録されているか、またその日が定休日になっていないか確認してください。スタッフの休み設定も影響します。</p>
+
+<h4>Q. 複数店舗で使えますか？</h4>
+<p>はい。店舗ごとにアカウントを作成し、それぞれのLINE公式アカウントと紐づけます。詳細はTomorrowProofにお問い合わせください。</p>
+
+<hr style="margin: 48px 0; border: none; border-top: 1px solid #E8E8E8;">
+
+<div style="text-align: center; color: #999999; font-size: 13px;">
+  <p><strong>LINX</strong> by TomorrowProof</p>
+  <p>お問い合わせ: tomorrowprooftokyo@gmail.com</p>
+  <p style="margin-top: 8px;">© 2026 TomorrowProof Inc.</p>
+</div>
+
+</div>
+</body>
+</html>
