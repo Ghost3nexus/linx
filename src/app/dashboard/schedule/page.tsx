@@ -160,6 +160,8 @@ export default function SchedulePage() {
     const [showStaffForm, setShowStaffForm] = useState(false);
     const [staffFormName, setStaffFormName] = useState("");
     const [staffFormRole, setStaffFormRole] = useState("");
+    const [staffFormEmail, setStaffFormEmail] = useState("");
+    const [staffFormLineId, setStaffFormLineId] = useState("");
 
     // Business hours editor
     const [editHoursMap, setEditHoursMap] = useState<Record<number, { openTime: string; closeTime: string }[]>>({});
@@ -516,10 +518,17 @@ export default function SchedulePage() {
         setSaving(true);
         setError("");
         try {
-            await createStaff({ name: staffFormName, role: staffFormRole || undefined });
+            await createStaff({
+                name: staffFormName,
+                role: staffFormRole || undefined,
+                email: staffFormEmail || undefined,
+                lineUserId: staffFormLineId || undefined,
+            });
             setShowStaffForm(false);
             setStaffFormName("");
             setStaffFormRole("");
+            setStaffFormEmail("");
+            setStaffFormLineId("");
             load();
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "Failed to add staff");
@@ -681,21 +690,26 @@ export default function SchedulePage() {
 
                     {showStaffForm && (
                         <div className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl p-4 mb-4">
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <input type="text" value={staffFormName} onChange={(e) => setStaffFormName(e.target.value)}
-                                    placeholder="Name" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
+                                    placeholder="名前 *" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
                                 <input type="text" value={staffFormRole} onChange={(e) => setStaffFormRole(e.target.value)}
-                                    placeholder="Role (optional)" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
-                                <div className="flex gap-2">
-                                    <button onClick={handleAddStaff} disabled={saving || !staffFormName.trim()}
-                                        className="flex-1 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-3 py-2 rounded-lg text-[12px] transition-colors">
-                                        {saving ? "..." : "Add"}
-                                    </button>
-                                    <button onClick={() => setShowStaffForm(false)} className="text-[#999999] hover:text-[#1A1A1A] px-2">
-                                        <X size={14} />
-                                    </button>
-                                </div>
+                                    placeholder="役職（任意）" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
+                                <input type="email" value={staffFormEmail} onChange={(e) => setStaffFormEmail(e.target.value)}
+                                    placeholder="メールアドレス（任意）" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
+                                <input type="text" value={staffFormLineId} onChange={(e) => setStaffFormLineId(e.target.value)}
+                                    placeholder="LINE User ID（通知用）" className="bg-white border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
                             </div>
+                            <div className="flex gap-2 mt-3">
+                                <button onClick={handleAddStaff} disabled={saving || !staffFormName.trim()}
+                                    className="bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-4 py-2 rounded-lg text-[12px] transition-colors">
+                                    {saving ? "..." : "追加"}
+                                </button>
+                                <button onClick={() => setShowStaffForm(false)} className="text-[#999999] hover:text-[#1A1A1A] px-2">
+                                    <X size={14} />
+                                </button>
+                            </div>
+                            <p className="text-[11px] text-[#999999] mt-2">※ LINE User IDを設定すると、予約が入った時にスタッフへ自動通知されます</p>
                         </div>
                     )}
 
@@ -715,6 +729,7 @@ export default function SchedulePage() {
                                     <div className="flex-1 min-w-0">
                                         <p className="text-[13px] font-bold text-[#1A1A1A] truncate">{s.name}</p>
                                         {s.role && <p className="text-[11px] text-[#999999]">{s.role}</p>}
+                                        {s.lineUserId && <p className="text-[10px] text-[#06C755]">LINE通知ON</p>}
                                     </div>
                                     <button onClick={() => openAvailabilityModal(s)}
                                         className="text-[#06C755] hover:bg-[#06C755]/5 p-1.5 rounded-lg transition-colors" title="Availability">

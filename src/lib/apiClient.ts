@@ -413,6 +413,8 @@ export interface Staff {
     accountId: string;
     name: string;
     role?: string;
+    email?: string;
+    lineUserId?: string;
     isActive: boolean;
     createdAt: string;
 }
@@ -422,7 +424,7 @@ export async function getStaff(): Promise<Staff[]> {
     return data.data || [];
 }
 
-export async function createStaff(staff: { name: string; role?: string }): Promise<Staff> {
+export async function createStaff(staff: { name: string; role?: string; email?: string; lineUserId?: string }): Promise<Staff> {
     const data = await api<{ success: boolean; data: Staff }>(`/linx/staff/${getAccountId()}`, {
         method: 'POST',
         body: JSON.stringify(staff),
