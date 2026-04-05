@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { getCustomers, createCustomer, updateCustomer, type Customer } from "@/lib/apiClient";
-import { Users, Plus, X, Search, User, Mail, Phone, Edit2, Save } from "lucide-react";
+import { getCustomers, createCustomer, updateCustomer, createMembershipCheckout, type Customer } from "@/lib/apiClient";
+import { Users, Plus, X, Search, User, Mail, Phone, Edit2, Save, CreditCard } from "lucide-react";
 
 export default function CustomersPage() {
     const [customers, setCustomers] = useState<Customer[]>([]);
@@ -23,6 +23,12 @@ export default function CustomersPage() {
     // Edit form
     const [editNotes, setEditNotes] = useState("");
     const [editPlan, setEditPlan] = useState("");
+
+    // Membership modal
+    const [membershipTarget, setMembershipTarget] = useState<Customer | null>(null);
+    const [membershipPlan, setMembershipPlan] = useState("semi_personal");
+    const [enrollmentType, setEnrollmentType] = useState("campaign");
+    const [membershipLoading, setMembershipLoading] = useState(false);
 
     const load = useCallback(() => {
         setLoading(true);
@@ -104,6 +110,29 @@ export default function CustomersPage() {
         setEditingId(customer.id);
         setEditNotes(customer.notes || "");
         setEditPlan(customer.plan || "");
+    }
+
+    async function handleMembershipCheckout() {
+        if (!membershipTarget) return;
+        setMembershipLoading(true);
+        setError("");
+        try {
+            const result = await createMembershipCheckout({
+                customerId: membershipTarget.id,
+                customerName: membershipTarget.name,
+                customerEmail: membershipTarget.email || undefined,
+                plan: membershipPlan,
+                enrollmentType,
+            });
+            if (result.url) {
+                window.open(result.url, '_blank');
+            }
+            setMembershipTarget(null);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "決済リンクの作成に失敗しました");
+        } finally {
+            setMembershipLoading(false);
+        }
     }
 
     return (
@@ -265,18 +294,125 @@ export default function CustomersPage() {
                                             <p className="text-[12px] text-[#AAAAAA] mt-1">{customer.notes}</p>
                                         )}
                                     </div>
-                                    <button
-                                        onClick={() => startEdit(customer)}
-                                        className="shrink-0 p-2 text-[#CCCCCC] hover:text-[#06C755] hover:bg-[#E8F5E9] rounded-lg transition-colors"
-                                    >
-                                        <Edit2 size={16} />
-                                    </button>
+                                    <div className="flex gap-1 shrink-0">
+                                        <button
+                                            onClick={() => { setMembershipTarget(customer); setMembershipPlan("semi_personal"); setEnrollmentType("campaign"); }}
+                                            className="p-2 text-[#CCCCCC] hover:text-[#2196F3] hover:bg-[#E3F2FD] rounded-lg transition-colors"
+                                            title="会員登録"
+                                        >
+                                            <CreditCard size={16} />
+                                        </button>
+                                        <button
+                                            onClick={() => startEdit(customer)}
+                                            className="p-2 text-[#CCCCCC] hover:text-[#06C755] hover:bg-[#E8F5E9] rounded-lg transition-colors"
+                                        >
+                                            <Edit2 size={16} />
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         </div>
                     ))
                 )}
             </div>
+
+            {/* Membership Checkout Modal */}
+            {membershipTarget && (
+                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4" onClick={() => setMembershipTarget(null)}>
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center justify-between mb-5">
+                            <h2 className="text-[18px] font-bold text-[#1A1A1A]">会員登録</h2>
+                            <button onClick={() => setMembershipTarget(null)} className="text-[#999999] hover:text-[#1A1A1A]"><X size={20} /></button>
+                        </div>
+
+                        <div className="bg-[#F9FAFB] rounded-xl p-4 mb-4">
+                            <p className="text-[14px] font-bold text-[#1A1A1A]">{membershipTarget.name}</p>
+                            {membershipTarget.email && <p className="text-[12px] text-[#999999]">{membershipTarget.email}</p>}
+                        </div>
+
+                        {/* Plan Selection */}
+                        <div className="mb-4">
+                            <label className="block text-[13px] font-bold text-[#666666] mb-2">プラン</label>
+                            <div className="space-y-2">
+                                <label className={`flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-colors ${membershipPlan === "semi_personal" ? "border-[#06C755] bg-[#E8F5E9]" : "border-[#E8E8E8]"}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="radio" name="plan" value="semi_personal" checked={membershipPlan === "semi_personal"} onChange={(e) => setMembershipPlan(e.target.value)} className="accent-[#06C755]" />
+                                        <div>
+                                            <p className="text-[14px] font-bold text-[#1A1A1A]">セミパーソナル（通い放題）</p>
+                                            <p className="text-[12px] text-[#999999]">少人数制トレーニング</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[16px] font-bold text-[#06C755]">¥19,800<span className="text-[11px] text-[#999999] font-normal">/月</span></span>
+                                </label>
+                                <label className={`flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-colors ${membershipPlan === "mantoMan" ? "border-[#06C755] bg-[#E8F5E9]" : "border-[#E8E8E8]"}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="radio" name="plan" value="mantoMan" checked={membershipPlan === "mantoMan"} onChange={(e) => setMembershipPlan(e.target.value)} className="accent-[#06C755]" />
+                                        <div>
+                                            <p className="text-[14px] font-bold text-[#1A1A1A]">マンツーマン</p>
+                                            <p className="text-[12px] text-[#999999]">1対1の集中トレーニング</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[16px] font-bold text-[#06C755]">¥34,800<span className="text-[11px] text-[#999999] font-normal">/月</span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        {/* Enrollment Fee */}
+                        <div className="mb-5">
+                            <label className="block text-[13px] font-bold text-[#666666] mb-2">入会金</label>
+                            <div className="space-y-2">
+                                <label className={`flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-colors ${enrollmentType === "campaign" ? "border-[#F59E0B] bg-[#FFFBEB]" : "border-[#E8E8E8]"}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="radio" name="enrollment" value="campaign" checked={enrollmentType === "campaign"} onChange={(e) => setEnrollmentType(e.target.value)} className="accent-[#F59E0B]" />
+                                        <div>
+                                            <p className="text-[14px] font-bold text-[#1A1A1A]">体験当日入会キャンペーン</p>
+                                            <p className="text-[12px] text-[#F59E0B]">¥20,000 OFF!</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[16px] font-bold text-[#F59E0B]">¥10,000</span>
+                                </label>
+                                <label className={`flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-colors ${enrollmentType === "normal" ? "border-[#999999] bg-[#F9FAFB]" : "border-[#E8E8E8]"}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="radio" name="enrollment" value="normal" checked={enrollmentType === "normal"} onChange={(e) => setEnrollmentType(e.target.value)} className="accent-[#999999]" />
+                                        <p className="text-[14px] text-[#1A1A1A]">通常入会</p>
+                                    </div>
+                                    <span className="text-[16px] font-bold text-[#666666]">¥30,000</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        {/* Summary */}
+                        <div className="bg-[#1A1A1A] rounded-xl p-4 mb-5 text-white">
+                            <div className="flex justify-between text-[13px] mb-1">
+                                <span className="text-[#AAAAAA]">入会金</span>
+                                <span>¥{enrollmentType === "campaign" ? "10,000" : "30,000"}</span>
+                            </div>
+                            <div className="flex justify-between text-[13px] mb-2">
+                                <span className="text-[#AAAAAA]">月会費</span>
+                                <span>¥{membershipPlan === "semi_personal" ? "19,800" : "34,800"}/月</span>
+                            </div>
+                            <div className="border-t border-[#333333] pt-2 flex justify-between text-[15px] font-bold">
+                                <span>初月合計</span>
+                                <span className="text-[#06C755]">
+                                    ¥{(
+                                        (enrollmentType === "campaign" ? 10000 : 30000) +
+                                        (membershipPlan === "semi_personal" ? 19800 : 34800)
+                                    ).toLocaleString()}
+                                </span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={handleMembershipCheckout}
+                            disabled={membershipLoading}
+                            className="w-full bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold py-3 rounded-xl text-[15px] transition-colors"
+                        >
+                            {membershipLoading ? "作成中..." : "決済リンクを作成"}
+                        </button>
+                        <p className="text-[11px] text-[#999999] text-center mt-2">Stripe決済ページが新しいタブで開きます</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -191,6 +191,39 @@ export async function createPortalSession(customerId: string): Promise<{ url: st
     });
 }
 
+// ── Membership ──
+
+export interface MembershipPlan {
+    id: string;
+    name: string;
+    monthlyPrice: number;
+}
+
+export interface EnrollmentFee {
+    id: string;
+    name: string;
+    price: number;
+}
+
+export async function getMembershipPlans(): Promise<{ plans: MembershipPlan[]; enrollmentFees: EnrollmentFee[] }> {
+    const res = await api<{ success: boolean; data: { plans: MembershipPlan[]; enrollmentFees: EnrollmentFee[] } }>('/linx/billing/membership-plans');
+    return res.data;
+}
+
+export async function createMembershipCheckout(params: {
+    customerId?: string;
+    customerName?: string;
+    customerEmail?: string;
+    plan: string;
+    enrollmentType: string;
+}): Promise<{ sessionId: string; url: string }> {
+    const res = await api<{ success: boolean; data: { sessionId: string; url: string } }>('/linx/billing/membership-checkout', {
+        method: 'POST',
+        body: JSON.stringify(params),
+    });
+    return res.data;
+}
+
 // ── Logs ──
 
 export interface LogEntry {
