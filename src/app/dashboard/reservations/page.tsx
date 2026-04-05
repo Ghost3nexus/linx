@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import {
-    getReservations, createReservation, cancelReservation,
-    getBusinessHours, setBusinessHours,
-    type Reservation, type BusinessHour,
+    getReservations, createReservation, cancelReservation, updateReservation,
+    getBusinessHours, setBusinessHours, getStaff,
+    type Reservation, type BusinessHour, type Staff,
 } from "@/lib/apiClient";
-import { CalendarDays, Plus, X, Clock, User, ChevronLeft, ChevronRight, Save } from "lucide-react";
+import { CalendarDays, Plus, X, Clock, User, Users, ChevronLeft, ChevronRight, Save, CheckCircle2 } from "lucide-react";
 
 const DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 
@@ -33,12 +33,14 @@ function getWeekDates(offset: number) {
 export default function ReservationsPage() {
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const [businessHours, setBusinessHoursState] = useState<BusinessHour[]>([]);
+    const [staffList, setStaffList] = useState<Staff[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [weekOffset, setWeekOffset] = useState(0);
     const [showNewForm, setShowNewForm] = useState(false);
     const [showHoursEditor, setShowHoursEditor] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [updatingId, setUpdatingId] = useState<string | null>(null);
 
     // New reservation form
     const [newName, setNewName] = useState("");
@@ -68,8 +70,10 @@ export default function ReservationsPage() {
         Promise.all([
             getReservations(from, to).catch(() => []),
             getBusinessHours().catch(() => []),
+            getStaff().catch(() => []),
         ])
-            .then(([res, hours]) => {
+            .then(([res, hours, staff]) => {
+                setStaffList(Array.isArray(staff) ? staff : []);
                 // snake_case → camelCase 変換（DBから直接返る場合の対応）
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const normalizedRes = (Array.isArray(res) ? res : []).map((r: any) => ({
@@ -80,6 +84,8 @@ export default function ReservationsPage() {
                     startTime: r.startTime || r.start_time,
                     endTime: r.endTime || r.end_time,
                     service: r.service,
+                    staffId: r.staffId || r.staff_id,
+                    staffName: r.staffName || r.staff_name,
                     note: r.note,
                     status: r.status,
                     createdAt: r.createdAt || r.created_at,
@@ -143,6 +149,28 @@ export default function ReservationsPage() {
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "キャンセルに失敗しました");
         }
+    }
+
+    async function handleComplete(id: string) {
+        setUpdatingId(id);
+        setError("");
+        try {
+            await updateReservation(id, { status: "completed" });
+            load();
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "ステータスの更新に失敗しました");
+        } finally {
+            setUpdatingId(null);
+        }
+    }
+
+    function getStaffName(res: Reservation): string | undefined {
+        if (res.staffName) return res.staffName;
+        if (res.staffId) {
+            const s = staffList.find(st => st.id === res.staffId);
+            return s?.name;
+        }
+        return undefined;
     }
 
     async function handleSaveHours() {
@@ -356,7 +384,9 @@ export default function ReservationsPage() {
                                 <div className="space-y-2">
                                     {dayReservations
                                         .sort((a, b) => a.startTime.localeCompare(b.startTime))
-                                        .map((res) => (
+                                        .map((res) => {
+                                        const staffName = getStaffName(res);
+                                        return (
                                         <div key={res.id} className="bg-white border border-[#E8E8E8] rounded-xl p-4 flex items-center gap-4 hover:shadow-sm transition-shadow">
                                             <div className="w-[70px] shrink-0 text-center">
                                                 <p className="text-[18px] font-bold text-[#06C755]">{res.startTime.slice(0, 5)}</p>
@@ -368,28 +398,45 @@ export default function ReservationsPage() {
                                                     <p className="text-[15px] font-bold text-[#1A1A1A] truncate">{res.customerName}</p>
                                                 </div>
                                                 {res.service && <p className="text-[13px] text-[#666666] mt-0.5">{res.service}</p>}
+                                                {staffName && (
+                                                    <p className="text-[12px] text-[#06C755] mt-0.5 flex items-center gap-1">
+                                                        <Users size={11} />
+                                                        {staffName}
+                                                    </p>
+                                                )}
                                                 {res.note && <p className="text-[12px] text-[#999999] mt-0.5">{res.note}</p>}
                                             </div>
                                             <div className="shrink-0 flex items-center gap-2">
-                                                <span className={`text-[11px] font-bold px-2 py-1 rounded-full ${
+                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${
                                                     res.status === "confirmed" ? "bg-[#E8F5E9] text-[#06C755]" :
-                                                    res.status === "completed" ? "bg-[#F5F5F5] text-[#999999]" :
-                                                    "bg-[#FFF3E0] text-[#F9A825]"
+                                                    res.status === "completed" ? "bg-[#E3F2FD] text-[#1976D2]" :
+                                                    "bg-[#FFEBEE] text-[#E53935]"
                                                 }`}>
                                                     {res.status === "confirmed" ? "確定" : res.status === "completed" ? "完了" : "キャンセル"}
                                                 </span>
                                                 {res.status === "confirmed" && (
-                                                    <button
-                                                        onClick={() => handleCancel(res.id)}
-                                                        className="text-[#CCCCCC] hover:text-[#E53935] transition-colors p-1"
-                                                        title="キャンセル"
-                                                    >
-                                                        <X size={16} />
-                                                    </button>
+                                                    <>
+                                                        <button
+                                                            onClick={() => handleComplete(res.id)}
+                                                            disabled={updatingId === res.id}
+                                                            className="text-[#CCCCCC] hover:text-[#1976D2] transition-colors p-1 disabled:opacity-50"
+                                                            title="完了にする"
+                                                        >
+                                                            <CheckCircle2 size={16} />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleCancel(res.id)}
+                                                            className="text-[#CCCCCC] hover:text-[#E53935] transition-colors p-1"
+                                                            title="キャンセル"
+                                                        >
+                                                            <X size={16} />
+                                                        </button>
+                                                    </>
                                                 )}
                                             </div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         );

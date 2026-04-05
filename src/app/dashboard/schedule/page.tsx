@@ -13,14 +13,24 @@ import {
     deleteStaff,
     createResource,
     deleteResource,
+    getBusinessHours,
+    setBusinessHours,
+    getStaffAvailability,
+    setStaffAvailability,
+    getStaffDayOffs,
+    addStaffDayOff,
+    deleteStaffDayOff,
     type ScheduleTemplate,
     type Service,
     type Staff,
     type Resource,
+    type BusinessHour,
+    type StaffAvailability,
+    type StaffDayOff,
 } from "@/lib/apiClient";
 import {
     Plus, X, Trash2, Copy, CalendarClock, Save, Users, MapPin,
-    ChevronLeft, ChevronRight, CalendarDays,
+    ChevronLeft, ChevronRight, CalendarDays, Clock, Calendar, AlertTriangle,
 } from "lucide-react";
 import ScheduleCalendar from "./ScheduleCalendar";
 
@@ -100,7 +110,7 @@ function formatTime(t: string): string {
 
 // ── Tab type ──
 
-type Tab = "schedule" | "staff" | "resources" | "calendar";
+type Tab = "schedule" | "staff" | "resources" | "calendar" | "hours";
 
 export default function SchedulePage() {
     const [tab, setTab] = useState<Tab>("schedule");
@@ -141,19 +151,61 @@ export default function SchedulePage() {
     const [resourceFormType, setResourceFormType] = useState("");
     const [resourceFormCapacity, setResourceFormCapacity] = useState(1);
 
+    // Business hours
+    const [businessHours, setBusinessHoursState] = useState<BusinessHour[]>(
+        DAY_LABELS.map((_, i) => ({
+            dayOfWeek: i,
+            openTime: "09:00",
+            closeTime: "18:00",
+            isClosed: i === 0,
+            slotDuration: 30,
+        }))
+    );
+    // Multi-slot business hours: each day can have multiple time slots
+    const [editHoursMap, setEditHoursMap] = useState<Record<number, { openTime: string; closeTime: string }[]>>({});
+    const [editClosedDays, setEditClosedDays] = useState<Record<number, boolean>>({});
+
+    // Staff availability modal
+    const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
+    const [availabilityStaff, setAvailabilityStaff] = useState<Staff | null>(null);
+    const [staffAvailSlots, setStaffAvailSlots] = useState<Record<number, { startTime: string; endTime: string }[]>>({});
+    const [staffDayOffs, setStaffDayOffs] = useState<StaffDayOff[]>([]);
+    const [newDayOffDate, setNewDayOffDate] = useState("");
+    const [newDayOffReason, setNewDayOffReason] = useState("");
+    const [availSaving, setAvailSaving] = useState(false);
+
+    // Buffer time for template form
+    const [formBufferBefore, setFormBufferBefore] = useState(0);
+    const [formBufferAfter, setFormBufferAfter] = useState(0);
+
     const load = useCallback(async () => {
         setLoading(true);
         try {
-            const [tmpl, svc, stf, rsc] = await Promise.all([
+            const [tmpl, svc, stf, rsc, bh] = await Promise.all([
                 getScheduleTemplates(),
                 getServices(),
                 getStaff(),
                 getResources(),
+                getBusinessHours().catch(() => []),
             ]);
             setTemplates((Array.isArray(tmpl) ? tmpl : []).map(normalizeTemplate));
             setServices((Array.isArray(svc) ? svc : []).map(normalizeService));
             setStaffList((Array.isArray(stf) ? stf : []).map(normalizeStaff));
             setResourceList((Array.isArray(rsc) ? rsc : []).map(normalizeResource));
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const normalizedHours = (Array.isArray(bh) ? bh : []).map((h: any) => ({
+                dayOfWeek: h.dayOfWeek ?? h.day_of_week,
+                openTime: h.openTime || h.open_time || "09:00",
+                closeTime: h.closeTime || h.close_time || "18:00",
+                isClosed: h.isClosed ?? h.is_closed ?? false,
+                slotDuration: h.slotDuration ?? h.slot_duration ?? 30,
+            } as BusinessHour));
+            if (normalizedHours.length > 0) {
+                setBusinessHoursState(normalizedHours);
+            }
+            // Initialize editHoursMap from business hours
+            initEditHoursFromBH(normalizedHours.length > 0 ? normalizedHours : businessHours);
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "読み込みに失敗しました");
         } finally {
@@ -162,6 +214,196 @@ export default function SchedulePage() {
     }, []);
 
     useEffect(() => { load(); }, [load]);
+
+    // ── Business hours helpers ──
+
+    function initEditHoursFromBH(hours: BusinessHour[]) {
+        const map: Record<number, { openTime: string; closeTime: string }[]> = {};
+        const closed: Record<number, boolean> = {};
+        for (let d = 0; d < 7; d++) {
+            const h = hours.find(bh => bh.dayOfWeek === d);
+            if (h) {
+                closed[d] = h.isClosed;
+                map[d] = h.isClosed ? [] : [{ openTime: h.openTime, closeTime: h.closeTime }];
+            } else {
+                closed[d] = d === 0;
+                map[d] = d === 0 ? [] : [{ openTime: "09:00", closeTime: "18:00" }];
+            }
+        }
+        setEditHoursMap(map);
+        setEditClosedDays(closed);
+    }
+
+    function addSlotToDay(day: number) {
+        setEditHoursMap(prev => ({
+            ...prev,
+            [day]: [...(prev[day] || []), { openTime: "10:00", closeTime: "18:00" }],
+        }));
+    }
+
+    function removeSlotFromDay(day: number, index: number) {
+        setEditHoursMap(prev => ({
+            ...prev,
+            [day]: (prev[day] || []).filter((_, i) => i !== index),
+        }));
+    }
+
+    function updateSlot(day: number, index: number, field: "openTime" | "closeTime", value: string) {
+        setEditHoursMap(prev => ({
+            ...prev,
+            [day]: (prev[day] || []).map((s, i) => i === index ? { ...s, [field]: value } : s),
+        }));
+    }
+
+    function toggleClosed(day: number, isClosed: boolean) {
+        setEditClosedDays(prev => ({ ...prev, [day]: isClosed }));
+        if (isClosed) {
+            setEditHoursMap(prev => ({ ...prev, [day]: [] }));
+        } else if (!editHoursMap[day] || editHoursMap[day].length === 0) {
+            setEditHoursMap(prev => ({ ...prev, [day]: [{ openTime: "09:00", closeTime: "18:00" }] }));
+        }
+    }
+
+    async function handleSaveBusinessHours() {
+        setSaving(true);
+        setError("");
+        try {
+            // Build hours array: for multi-slot days, use the first slot as primary
+            const hours: BusinessHour[] = [];
+            for (let d = 0; d < 7; d++) {
+                const slots = editHoursMap[d] || [];
+                const isClosed = editClosedDays[d] || false;
+                if (isClosed || slots.length === 0) {
+                    hours.push({ dayOfWeek: d, openTime: "09:00", closeTime: "18:00", isClosed: true });
+                } else {
+                    // Use earliest open to latest close as the main range
+                    const earliest = slots.reduce((a, b) => a.openTime < b.openTime ? a : b);
+                    const latest = slots.reduce((a, b) => a.closeTime > b.closeTime ? a : b);
+                    hours.push({
+                        dayOfWeek: d,
+                        openTime: earliest.openTime,
+                        closeTime: latest.closeTime,
+                        isClosed: false,
+                    });
+                }
+            }
+            await setBusinessHours(hours);
+            setBusinessHoursState(hours);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "営業時間の保存に失敗しました");
+        } finally {
+            setSaving(false);
+        }
+    }
+
+    // ── Staff availability helpers ──
+
+    async function openAvailabilityModal(staff: Staff) {
+        setAvailabilityStaff(staff);
+        setShowAvailabilityModal(true);
+        setAvailSaving(false);
+        setNewDayOffDate("");
+        setNewDayOffReason("");
+        try {
+            const [avail, offs] = await Promise.all([
+                getStaffAvailability(staff.id).catch(() => []),
+                getStaffDayOffs(staff.id).catch(() => []),
+            ]);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const normalizedAvail = (Array.isArray(avail) ? avail : []).map((a: any) => ({
+                dayOfWeek: a.dayOfWeek ?? a.day_of_week,
+                startTime: a.startTime || a.start_time || "09:00",
+                endTime: a.endTime || a.end_time || "18:00",
+            }));
+            const map: Record<number, { startTime: string; endTime: string }[]> = {};
+            for (let d = 0; d < 7; d++) {
+                map[d] = normalizedAvail.filter((a: { dayOfWeek: number }) => a.dayOfWeek === d).map((a: { startTime: string; endTime: string }) => ({
+                    startTime: a.startTime,
+                    endTime: a.endTime,
+                }));
+            }
+            setStaffAvailSlots(map);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setStaffDayOffs((Array.isArray(offs) ? offs : []).map((o: any) => ({
+                id: o.id,
+                staffId: o.staffId || o.staff_id,
+                date: o.date,
+                reason: o.reason,
+                createdAt: o.createdAt || o.created_at,
+            })));
+        } catch {
+            // Initialize empty
+            const map: Record<number, { startTime: string; endTime: string }[]> = {};
+            for (let d = 0; d < 7; d++) map[d] = [];
+            setStaffAvailSlots(map);
+            setStaffDayOffs([]);
+        }
+    }
+
+    function updateAvailSlot(day: number, index: number, field: "startTime" | "endTime", value: string) {
+        setStaffAvailSlots(prev => ({
+            ...prev,
+            [day]: (prev[day] || []).map((s, i) => i === index ? { ...s, [field]: value } : s),
+        }));
+    }
+
+    function addAvailSlot(day: number) {
+        setStaffAvailSlots(prev => ({
+            ...prev,
+            [day]: [...(prev[day] || []), { startTime: "09:00", endTime: "18:00" }],
+        }));
+    }
+
+    function removeAvailSlot(day: number, index: number) {
+        setStaffAvailSlots(prev => ({
+            ...prev,
+            [day]: (prev[day] || []).filter((_, i) => i !== index),
+        }));
+    }
+
+    async function handleSaveAvailability() {
+        if (!availabilityStaff) return;
+        setAvailSaving(true);
+        setError("");
+        try {
+            const slots: { dayOfWeek: number; startTime: string; endTime: string }[] = [];
+            for (let d = 0; d < 7; d++) {
+                for (const s of (staffAvailSlots[d] || [])) {
+                    slots.push({ dayOfWeek: d, startTime: s.startTime, endTime: s.endTime });
+                }
+            }
+            await setStaffAvailability(availabilityStaff.id, slots);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "出勤設定の保存に失敗しました");
+        } finally {
+            setAvailSaving(false);
+        }
+    }
+
+    async function handleAddDayOff() {
+        if (!availabilityStaff || !newDayOffDate) return;
+        setAvailSaving(true);
+        try {
+            const off = await addStaffDayOff(availabilityStaff.id, newDayOffDate, newDayOffReason || undefined);
+            setStaffDayOffs(prev => [...prev, off]);
+            setNewDayOffDate("");
+            setNewDayOffReason("");
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "休み登録に失敗しました");
+        } finally {
+            setAvailSaving(false);
+        }
+    }
+
+    async function handleDeleteDayOff(dayOffId: string) {
+        if (!availabilityStaff) return;
+        try {
+            await deleteStaffDayOff(availabilityStaff.id, dayOffId);
+            setStaffDayOffs(prev => prev.filter(o => o.id !== dayOffId));
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "休み削除に失敗しました");
+        }
+    }
 
     // ── Schedule Template actions ──
 
@@ -348,6 +590,7 @@ export default function SchedulePage() {
                 {([
                     { key: "schedule" as Tab, label: "週間スケジュール", icon: CalendarClock },
                     { key: "calendar" as Tab, label: "カレンダー", icon: CalendarDays },
+                    { key: "hours" as Tab, label: "営業時間", icon: Clock },
                     { key: "staff" as Tab, label: "スタッフ", icon: Users },
                     { key: "resources" as Tab, label: "リソース", icon: MapPin },
                 ]).map((t) => (
@@ -482,6 +725,85 @@ export default function SchedulePage() {
                 </>
             )}
 
+            {/* ═══ Business Hours Tab ═══ */}
+            {tab === "hours" && (
+                <div className="mt-6">
+                    <div className="bg-white border border-[#E8E8E8] rounded-xl p-6 shadow-sm">
+                        <h2 className="text-[16px] font-bold text-[#1A1A1A] mb-1">営業時間の設定</h2>
+                        <p className="text-[12px] text-[#999999] mb-5">各曜日の営業時間を設定します。1曜日に複数の時間帯を追加できます。</p>
+                        <div className="space-y-4">
+                            {[1, 2, 3, 4, 5, 6, 0].map((d) => {
+                                const isClosed = editClosedDays[d] || false;
+                                const slots = editHoursMap[d] || [];
+                                return (
+                                    <div key={d} className="border border-[#F0F0F0] rounded-lg p-4">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <span className={`w-10 text-[14px] font-bold ${d === 0 ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
+                                                {DAY_LABELS_FULL[d]}
+                                            </span>
+                                            <label className="flex items-center gap-2 cursor-pointer ml-auto">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isClosed}
+                                                    onChange={(e) => toggleClosed(d, e.target.checked)}
+                                                    className="w-4 h-4 accent-[#E53935]"
+                                                />
+                                                <span className="text-[13px] text-[#999999]">定休日</span>
+                                            </label>
+                                        </div>
+                                        {!isClosed && (
+                                            <div className="space-y-2 ml-0 sm:ml-12">
+                                                {slots.map((slot, idx) => (
+                                                    <div key={idx} className="flex items-center gap-2 flex-wrap">
+                                                        <input
+                                                            type="time"
+                                                            value={slot.openTime}
+                                                            onChange={(e) => updateSlot(d, idx, "openTime", e.target.value)}
+                                                            className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none"
+                                                        />
+                                                        <span className="text-[#999999] text-[14px]">〜</span>
+                                                        <input
+                                                            type="time"
+                                                            value={slot.closeTime}
+                                                            onChange={(e) => updateSlot(d, idx, "closeTime", e.target.value)}
+                                                            className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none"
+                                                        />
+                                                        <button
+                                                            onClick={() => removeSlotFromDay(d, idx)}
+                                                            className="text-[#CCCCCC] hover:text-[#E53935] transition-colors p-1"
+                                                            title="この枠を削除"
+                                                        >
+                                                            <Trash2 size={14} />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                                <button
+                                                    onClick={() => addSlotToDay(d)}
+                                                    className="flex items-center gap-1 text-[12px] text-[#06C755] hover:text-[#05B04A] transition-colors py-1"
+                                                >
+                                                    <Plus size={12} />
+                                                    枠を追加
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="flex gap-3 mt-6 justify-end">
+                            <button
+                                onClick={handleSaveBusinessHours}
+                                disabled={saving}
+                                className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-lg text-[14px] transition-colors"
+                            >
+                                <Save size={14} />
+                                {saving ? "保存中..." : "営業時間を保存"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* ═══ Staff Tab ═══ */}
             {tab === "staff" && (
                 <div className="mt-6">
@@ -541,6 +863,13 @@ export default function SchedulePage() {
                                     <p className="text-[15px] font-bold text-[#1A1A1A]">{s.name}</p>
                                     {s.role && <p className="text-[13px] text-[#999999]">{s.role}</p>}
                                 </div>
+                                <button
+                                    onClick={() => openAvailabilityModal(s)}
+                                    className="flex items-center gap-1.5 text-[13px] text-[#06C755] border border-[#06C755]/30 hover:bg-[#06C755]/5 px-3 py-1.5 rounded-lg transition-colors"
+                                >
+                                    <Calendar size={13} />
+                                    出勤設定
+                                </button>
                                 <button onClick={() => handleDeleteStaff(s.id)}
                                     className="text-[#CCCCCC] hover:text-[#E53935] transition-colors p-1.5" title="削除">
                                     <Trash2 size={16} />
@@ -664,14 +993,20 @@ export default function SchedulePage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-[13px] text-[#666666] mb-1.5">担当スタッフ</label>
+                                <label className="block text-[13px] text-[#666666] mb-1.5">担当スタッフ（推奨）</label>
                                 <select value={formStaffId} onChange={(e) => setFormStaffId(e.target.value)}
-                                    className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none">
+                                    className={`w-full bg-[#F9FAFB] border rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none ${!formStaffId ? "border-[#FFB800]" : "border-[#E8E8E8]"}`}>
                                     <option value="">指定なし</option>
                                     {staffList.map((s) => (
                                         <option key={s.id} value={s.id}>{s.name}{s.role ? ` (${s.role})` : ""}</option>
                                     ))}
                                 </select>
+                                {!formStaffId && (
+                                    <p className="text-[11px] text-[#FFB800] mt-1 flex items-center gap-1">
+                                        <AlertTriangle size={11} />
+                                        スタッフを指定すると予約管理がしやすくなります
+                                    </p>
+                                )}
                             </div>
                             <div>
                                 <label className="block text-[13px] text-[#666666] mb-1.5">リソース</label>
@@ -689,6 +1024,27 @@ export default function SchedulePage() {
                                     onChange={(e) => setFormMaxParticipants(Number(e.target.value))} min={1} max={100}
                                     className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none" />
                             </div>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-[13px] text-[#666666] mb-1.5">前バッファ（分）</label>
+                                    <input type="number" value={formBufferBefore}
+                                        onChange={(e) => setFormBufferBefore(Number(e.target.value))} min={0} max={120}
+                                        placeholder="0"
+                                        className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none" />
+                                </div>
+                                <div>
+                                    <label className="block text-[13px] text-[#666666] mb-1.5">後バッファ（分）</label>
+                                    <input type="number" value={formBufferAfter}
+                                        onChange={(e) => setFormBufferAfter(Number(e.target.value))} min={0} max={120}
+                                        placeholder="0"
+                                        className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none" />
+                                </div>
+                            </div>
+                            {(formBufferBefore > 0 || formBufferAfter > 0) && (
+                                <p className="text-[11px] text-[#999999]">
+                                    準備・片付け時間として前後にバッファを設けます
+                                </p>
+                            )}
                         </div>
                         <div className="flex gap-3 mt-6 justify-end">
                             <button onClick={() => setShowForm(false)} className="px-4 py-2.5 text-[14px] text-[#999999]">
@@ -738,6 +1094,133 @@ export default function SchedulePage() {
                             <button onClick={handleCopyDay} disabled={saving || copyFrom === copyTo}
                                 className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-lg text-[14px] transition-colors">
                                 <Copy size={14} /> {saving ? "コピー中..." : "コピー"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ═══ Staff Availability Modal ═══ */}
+            {showAvailabilityModal && availabilityStaff && (
+                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4 overflow-y-auto">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl my-8">
+                        <div className="flex items-center justify-between mb-5">
+                            <h2 className="text-[18px] font-bold text-[#1A1A1A]">
+                                出勤設定 — {availabilityStaff.name}
+                            </h2>
+                            <button onClick={() => setShowAvailabilityModal(false)} className="text-[#999999] hover:text-[#1A1A1A]"><X size={20} /></button>
+                        </div>
+
+                        {/* Weekly availability */}
+                        <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2">
+                            <Clock size={14} className="text-[#06C755]" />
+                            曜日別出勤時間
+                        </h3>
+                        <div className="space-y-3 mb-6">
+                            {[1, 2, 3, 4, 5, 6, 0].map((d) => {
+                                const slots = staffAvailSlots[d] || [];
+                                return (
+                                    <div key={d} className="flex items-start gap-3">
+                                        <span className={`w-8 pt-2 text-[13px] font-bold shrink-0 ${d === 0 ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
+                                            {DAY_LABELS[d]}
+                                        </span>
+                                        <div className="flex-1 space-y-1.5">
+                                            {slots.length === 0 && (
+                                                <span className="text-[12px] text-[#CCCCCC] py-2 block">休み</span>
+                                            )}
+                                            {slots.map((slot, idx) => (
+                                                <div key={idx} className="flex items-center gap-2">
+                                                    <input
+                                                        type="time"
+                                                        value={slot.startTime}
+                                                        onChange={(e) => updateAvailSlot(d, idx, "startTime", e.target.value)}
+                                                        className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]"
+                                                    />
+                                                    <span className="text-[#999999] text-[13px]">〜</span>
+                                                    <input
+                                                        type="time"
+                                                        value={slot.endTime}
+                                                        onChange={(e) => updateAvailSlot(d, idx, "endTime", e.target.value)}
+                                                        className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]"
+                                                    />
+                                                    <button onClick={() => removeAvailSlot(d, idx)} className="text-[#CCCCCC] hover:text-[#E53935] p-0.5">
+                                                        <Trash2 size={12} />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            <button onClick={() => addAvailSlot(d)} className="flex items-center gap-1 text-[11px] text-[#06C755] hover:text-[#05B04A] py-0.5">
+                                                <Plus size={10} /> 追加
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <div className="flex justify-end mb-6">
+                            <button
+                                onClick={handleSaveAvailability}
+                                disabled={availSaving}
+                                className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-5 py-2 rounded-lg text-[13px] transition-colors"
+                            >
+                                <Save size={13} /> {availSaving ? "保存中..." : "出勤時間を保存"}
+                            </button>
+                        </div>
+
+                        {/* Day offs */}
+                        <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2 border-t border-[#F0F0F0] pt-5">
+                            <Calendar size={14} className="text-[#E53935]" />
+                            休み登録
+                        </h3>
+                        <div className="flex items-end gap-2 mb-4 flex-wrap">
+                            <div>
+                                <label className="block text-[12px] text-[#666666] mb-1">日付</label>
+                                <input
+                                    type="date"
+                                    value={newDayOffDate}
+                                    onChange={(e) => setNewDayOffDate(e.target.value)}
+                                    className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[12px] text-[#666666] mb-1">理由（任意）</label>
+                                <input
+                                    type="text"
+                                    value={newDayOffReason}
+                                    onChange={(e) => setNewDayOffReason(e.target.value)}
+                                    placeholder="体調不良 等"
+                                    className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none w-[160px]"
+                                />
+                            </div>
+                            <button
+                                onClick={handleAddDayOff}
+                                disabled={availSaving || !newDayOffDate}
+                                className="flex items-center gap-1 bg-[#E53935] hover:bg-[#D32F2F] disabled:opacity-50 text-white font-bold px-4 py-2 rounded-lg text-[13px] transition-colors"
+                            >
+                                <Plus size={13} /> 休み追加
+                            </button>
+                        </div>
+
+                        {staffDayOffs.length > 0 && (
+                            <div className="space-y-2">
+                                {staffDayOffs.sort((a, b) => a.date.localeCompare(b.date)).map((off) => (
+                                    <div key={off.id} className="flex items-center gap-3 bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg px-3 py-2">
+                                        <span className="text-[13px] font-bold text-[#E53935]">{off.date}</span>
+                                        {off.reason && <span className="text-[12px] text-[#999999]">{off.reason}</span>}
+                                        <button onClick={() => handleDeleteDayOff(off.id)} className="ml-auto text-[#CCCCCC] hover:text-[#E53935] p-0.5">
+                                            <Trash2 size={12} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="flex justify-end mt-5">
+                            <button
+                                onClick={() => setShowAvailabilityModal(false)}
+                                className="px-4 py-2 text-[14px] text-[#999999] hover:text-[#1A1A1A] transition-colors"
+                            >
+                                閉じる
                             </button>
                         </div>
                     </div>

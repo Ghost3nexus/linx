@@ -237,6 +237,8 @@ export interface Reservation {
     startTime: string;
     endTime: string;
     service?: string;
+    staffId?: string;
+    staffName?: string;
     note?: string;
     status: 'confirmed' | 'cancelled' | 'completed';
     createdAt: string;
@@ -267,6 +269,13 @@ export async function createReservation(reservation: { customerName: string; dat
         body: JSON.stringify(reservation),
     });
     return data.data;
+}
+
+export async function updateReservation(id: string, updates: { status?: string }): Promise<void> {
+    await api(`/linx/reservations/${getAccountId()}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+    });
 }
 
 export async function cancelReservation(id: string): Promise<void> {
@@ -431,6 +440,53 @@ export async function updateStaff(id: string, updates: Partial<Staff>): Promise<
 
 export async function deleteStaff(id: string): Promise<void> {
     await api(`/linx/staff/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
+// ── Staff Availability ──
+
+export interface StaffAvailability {
+    id?: string;
+    staffId: string;
+    dayOfWeek: number;
+    startTime: string;
+    endTime: string;
+}
+
+export interface StaffDayOff {
+    id: string;
+    staffId: string;
+    date: string;
+    reason?: string;
+    createdAt?: string;
+}
+
+export async function getStaffAvailability(staffId: string): Promise<StaffAvailability[]> {
+    const data = await api<{ success: boolean; data: StaffAvailability[] }>(`/linx/staff/${getAccountId()}/${staffId}/availability`);
+    return data.data || [];
+}
+
+export async function setStaffAvailability(staffId: string, slots: Omit<StaffAvailability, 'id' | 'staffId'>[]): Promise<void> {
+    await api(`/linx/staff/${getAccountId()}/${staffId}/availability`, {
+        method: 'PUT',
+        body: JSON.stringify(slots),
+    });
+}
+
+export async function getStaffDayOffs(staffId: string): Promise<StaffDayOff[]> {
+    const data = await api<{ success: boolean; data: StaffDayOff[] }>(`/linx/staff/${getAccountId()}/${staffId}/day-off`);
+    return data.data || [];
+}
+
+export async function addStaffDayOff(staffId: string, date: string, reason?: string): Promise<StaffDayOff> {
+    const data = await api<{ success: boolean; data: StaffDayOff }>(`/linx/staff/${getAccountId()}/${staffId}/day-off`, {
+        method: 'POST',
+        body: JSON.stringify({ date, reason }),
+    });
+    return data.data;
+}
+
+export async function deleteStaffDayOff(staffId: string, dayOffId: string): Promise<void> {
+    await api(`/linx/staff/${getAccountId()}/${staffId}/day-off/${dayOffId}`, { method: 'DELETE' });
 }
 
 // ── Resources ──
