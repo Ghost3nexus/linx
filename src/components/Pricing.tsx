@@ -10,7 +10,7 @@ const plans = [
     period: "円 / 月",
     description: "まずは無料で試してみたい方に",
     features: [
-      "LINEアカウント 1件",
+      "1店舗まで",
       "月50回までAI回答",
       "お店情報の登録 1件",
       "ずっと無料・カード不要",
@@ -26,7 +26,7 @@ const plans = [
     period: "円 / 月",
     description: "個人のお店・小規模事業に",
     features: [
-      "LINEアカウント 3件",
+      "3店舗まで",
       "月500回までAI回答",
       "顧客管理",
       "メールサポート",
@@ -42,7 +42,7 @@ const plans = [
     period: "円 / 月",
     description: "店舗運営に必要な機能をすべて",
     features: [
-      "LINEアカウント 10件",
+      "10店舗まで",
       "月2,000回までAI回答",
       "AIが予約受付・空き確認を自動化",
       "会員管理・ステータス管理",
@@ -67,7 +67,7 @@ const plans = [
     description: "チェーン展開・本格AI活用に",
     features: [
       "すべてのStandard機能",
-      "LINEアカウント 無制限",
+      "店舗数 無制限",
       "月10,000回までAI回答",
       "AI顧客分析・離脱予測",
       "AIシフト自動生成",
