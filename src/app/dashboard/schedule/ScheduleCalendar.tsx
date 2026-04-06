@@ -43,6 +43,7 @@ interface ScheduleCalendarProps {
     onAddTemplate: (day: number, staffId?: string) => void;
     onEditTemplate: (template: ScheduleTemplate) => void;
     onDeleteTemplate: (id: string) => void;
+    onUpdateStaff?: (templateId: string, staffId: string | null) => void;
 }
 
 export default function ScheduleCalendar({
@@ -54,6 +55,7 @@ export default function ScheduleCalendar({
     onAddTemplate,
     onEditTemplate,
     onDeleteTemplate,
+    onUpdateStaff,
 }: ScheduleCalendarProps) {
     const CELL_HEIGHT = 48; // px per 30min
     const START_HOUR = 6;
@@ -269,10 +271,11 @@ export default function ScheduleCalendar({
                                             const svcName = t.serviceName || "Slot";
                                             const durationMin = endMin - startMin;
 
+                                            const staffName = t.staffId ? staffList.find(s => s.id === t.staffId)?.name : null;
                                             return (
                                                 <div
                                                     key={t.id}
-                                                    className="absolute left-1 right-1 rounded-lg px-2 py-1.5 z-[5] cursor-pointer hover:shadow-md transition-shadow overflow-hidden group"
+                                                    className="absolute left-1 right-1 rounded-lg px-2 py-1 z-[5] cursor-pointer hover:shadow-md transition-shadow overflow-hidden group"
                                                     style={{
                                                         top,
                                                         height: Math.max(height, 24),
@@ -283,24 +286,41 @@ export default function ScheduleCalendar({
                                                         e.stopPropagation();
                                                         onEditTemplate(t);
                                                     }}
-                                                    title={`${svcName}\n${t.startTime} - ${t.endTime}\nMax: ${t.maxParticipants}`}
+                                                    title={`${svcName}\n${t.startTime} - ${t.endTime}\n担当: ${staffName || '未定'}`}
                                                 >
                                                     <p className="text-[11px] font-bold truncate" style={{ color: style.text }}>
                                                         {svcName}
                                                     </p>
-                                                    {height >= 40 && (
+                                                    {height >= 36 && (
                                                         <p className="text-[10px] text-[#999999] truncate">
-                                                            {t.startTime}-{t.endTime}
+                                                            {t.startTime}〜{t.endTime}
                                                         </p>
                                                     )}
-                                                    {height >= 56 && (
-                                                        <p className="text-[10px] text-[#BBBBBB]">
-                                                            {durationMin}min / Max {t.maxParticipants}
+                                                    {/* Staff quick-assign dropdown */}
+                                                    {height >= 50 && onUpdateStaff && (
+                                                        <select
+                                                            value={t.staffId || ""}
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            onChange={(e) => {
+                                                                e.stopPropagation();
+                                                                onUpdateStaff(t.id, e.target.value || null);
+                                                            }}
+                                                            className="mt-0.5 w-full bg-white/80 border border-[#E8E8E8] rounded text-[10px] text-[#1A1A1A] py-0.5 px-1 focus:outline-none focus:border-[#06C755] cursor-pointer"
+                                                        >
+                                                            <option value="">担当を選択</option>
+                                                            {staffList.filter(s => s.isActive !== false).map(s => (
+                                                                <option key={s.id} value={s.id}>{s.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    )}
+                                                    {height < 50 && staffName && (
+                                                        <p className="text-[9px] text-[#06C755] truncate flex items-center gap-0.5">
+                                                            <Users size={8} />{staffName}
                                                         </p>
                                                     )}
-                                                    {/* Hover tooltip - delete hint */}
+                                                    {/* Hover tooltip */}
                                                     <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <span className="text-[9px] bg-white/80 text-[#999999] px-1 py-0.5 rounded">Edit</span>
+                                                        <span className="text-[9px] bg-white/80 text-[#999] px-1 py-0.5 rounded">編集</span>
                                                     </div>
                                                 </div>
                                             );

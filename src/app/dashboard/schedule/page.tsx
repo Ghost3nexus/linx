@@ -941,6 +941,14 @@ export default function SchedulePage() {
                 onAddTemplate={(day, staffId) => openAddTemplateModal(day, staffId)}
                 onEditTemplate={openEditTemplateModal}
                 onDeleteTemplate={handleDeleteTemplate}
+                onUpdateStaff={async (templateId, staffId) => {
+                    try {
+                        await updateScheduleTemplate(templateId, { staffId: staffId || undefined });
+                        loadData();
+                    } catch (e: unknown) {
+                        setError(e instanceof Error ? e.message : "スタッフ変更に失敗");
+                    }
+                }}
             />
 
             {/* ── Add/Edit Template Modal ── */}
