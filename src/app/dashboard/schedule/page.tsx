@@ -1096,156 +1096,151 @@ export default function SchedulePage() {
                 </div>
             )}
 
-            {/* ── Staff Availability Modal ── */}
+            {/* ── Staff Shift Management (Full-page inline) ── */}
             {showAvailabilityModal && availabilityStaff && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4 overflow-y-auto" onClick={() => setShowAvailabilityModal(false)}>
-                    <div className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl my-8" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center justify-between mb-5">
-                            <h2 className="text-[18px] font-bold text-[#1A1A1A]">
-                                {availabilityStaff.name} のシフト管理
-                            </h2>
-                            <button onClick={() => setShowAvailabilityModal(false)} className="text-[#999999] hover:text-[#1A1A1A]"><X size={20} /></button>
-                        </div>
+                <div className="mt-6 bg-white border border-[#06C755]/30 rounded-xl shadow-sm overflow-hidden">
+                    {/* Header */}
+                    <div className="bg-[#06C755] px-5 py-3 flex items-center justify-between">
+                        <h2 className="text-[16px] font-bold text-white flex items-center gap-2">
+                            <Users size={16} />
+                            {availabilityStaff.name} のシフト管理
+                        </h2>
+                        <button onClick={() => setShowAvailabilityModal(false)} className="text-white/80 hover:text-white"><X size={20} /></button>
+                    </div>
 
-                        {/* Weekly availability */}
-                        <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2">
-                            <Clock size={14} className="text-[#06C755]" />
-                            出勤スケジュール（毎週の基本シフト）
-                        </h3>
-                        <div className="space-y-2 mb-6">
-                            {[1, 2, 3, 4, 5, 6, 0].map((d) => {
-                                const slots = staffAvailSlots[d] || [];
-                                const weekDate = jstCal.getThisWeekDate(d);
-                                const holiday = jstCal.getHoliday(weekDate.dateStr);
-                                const isHolidayOrSun = !!holiday || d === 0;
-                                return (
-                                    <div key={d} className={`flex items-start gap-3 p-2 rounded-lg ${slots.length === 0 ? "bg-[#FAFAFA]" : "bg-white"}`}>
-                                        <div className="w-[60px] pt-1 shrink-0">
-                                            <span className={`text-[14px] font-bold ${isHolidayOrSun ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
-                                                {jstCal.DAY_LABELS[d]}
-                                            </span>
-                                            <span className={`text-[11px] ml-1 ${weekDate.isToday ? "text-[#06C755] font-bold" : "text-[#999]"}`}>
-                                                {weekDate.month}/{weekDate.date}
-                                            </span>
-                                            {holiday && <p className="text-[9px] text-[#E53935]">{holiday.shortName}</p>}
-                                        </div>
-                                        <div className="flex-1 space-y-1.5">
-                                            {slots.length === 0 && <span className="text-[12px] text-[#CCCCCC] py-1.5 block">休み</span>}
-                                            {slots.map((slot, idx) => (
-                                                <div key={idx} className="flex items-center gap-2">
-                                                    <input type="time" value={slot.startTime} onChange={(e) => updateAvailSlot(d, idx, "startTime", e.target.value)}
-                                                        className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]" />
-                                                    <span className="text-[#999] text-[13px]">〜</span>
-                                                    <input type="time" value={slot.endTime} onChange={(e) => updateAvailSlot(d, idx, "endTime", e.target.value)}
-                                                        className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]" />
-                                                    <button onClick={() => removeAvailSlot(d, idx)} className="text-[#CCCCCC] hover:text-[#E53935] p-0.5"><Trash2 size={12} /></button>
-                                                </div>
-                                            ))}
-                                            <button onClick={() => addAvailSlot(d)} className="flex items-center gap-1 text-[11px] text-[#06C755] hover:text-[#05B04A] py-0.5">
-                                                <Plus size={10} /> 時間枠を追加
-                                            </button>
-                                        </div>
+                    <div className="p-5">
+                        {/* 2段構成: 左=週間シフトグリッド、右=休みカレンダー */}
+                        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-5">
+                            {/* Left: 週間シフトグリッド */}
+                            <div>
+                                <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2">
+                                    <Clock size={14} className="text-[#06C755]" />
+                                    基本シフト（毎週繰り返し）
+                                </h3>
+                                <div className="bg-white border border-[#E8E8E8] rounded-xl overflow-hidden">
+                                    {/* Grid Header */}
+                                    <div className="grid grid-cols-[70px_1fr] bg-[#F9FAFB] border-b border-[#E8E8E8]">
+                                        <div className="p-2 text-[11px] text-[#999] font-bold text-center">曜日</div>
+                                        <div className="p-2 text-[11px] text-[#999] font-bold">出勤時間</div>
                                     </div>
-                                );
-                            })}
-                        </div>
-
-                        <div className="flex justify-end mb-6">
-                            <button onClick={handleSaveAvailability} disabled={availSaving}
-                                className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-5 py-2 rounded-xl text-[13px] transition-colors">
-                                <Save size={13} /> {availSaving ? "保存中..." : "シフトを保存"}
-                            </button>
-                        </div>
-
-                        {/* Day offs — カレンダー形式 */}
-                        <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2 border-t border-[#F0F0F0] pt-5">
-                            <Calendar size={14} className="text-[#E53935]" />
-                            休み設定（カレンダーで日付をタップ）
-                        </h3>
-                        <div className="flex items-end gap-2 mb-3 flex-wrap">
-                            <div className="flex-1">
-                                <label className="block text-[12px] text-[#666666] mb-1">理由（任意）</label>
-                                <input type="text" value={newDayOffReason} onChange={(e) => setNewDayOffReason(e.target.value)}
-                                    placeholder="研修・有休など" className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
-                            </div>
-                        </div>
-                        {/* Mini Calendar (today ~ 1 month) */}
-                        {(() => {
-                            const now = jstCal.nowJST();
-                            const calMonths: { year: number; month: number }[] = [];
-                            for (let i = 0; i < 2; i++) {
-                                const d = new Date(now);
-                                d.setMonth(d.getMonth() + i);
-                                calMonths.push({ year: d.getFullYear(), month: d.getMonth() });
-                            }
-                            const offDates = new Set(staffDayOffs.map(o => o.date));
-                            return (
-                                <div className="grid grid-cols-2 gap-3 mb-4">
-                                    {calMonths.map(({ year, month }) => {
-                                        const firstDay = new Date(year, month, 1).getDay();
-                                        const daysInMonth = new Date(year, month + 1, 0).getDate();
-                                        const cells: (number | null)[] = Array(firstDay).fill(null);
-                                        for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                                    {/* Grid Rows */}
+                                    {[1, 2, 3, 4, 5, 6, 0].map((d) => {
+                                        const slots = staffAvailSlots[d] || [];
+                                        const weekDate = jstCal.getThisWeekDate(d);
+                                        const holiday = jstCal.getHoliday(weekDate.dateStr);
+                                        const isHolidayOrSun = !!holiday || d === 0;
                                         return (
-                                            <div key={`${year}-${month}`}>
-                                                <p className="text-[13px] font-bold text-[#1A1A1A] text-center mb-2">{year}年{month + 1}月</p>
-                                                <div className="grid grid-cols-7 gap-0.5 text-center text-[11px]">
-                                                    {jstCal.DAY_LABELS.map(d => <span key={d} className="text-[10px] text-[#999] font-bold">{d}</span>)}
-                                                    {cells.map((day, i) => {
-                                                        if (!day) return <span key={i} />;
-                                                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                                                        const isOff = offDates.has(dateStr);
-                                                        const holiday = jstCal.getHoliday(dateStr);
-                                                        const isPast = dateStr < jstCal.todayJST();
-                                                        return (
-                                                            <button
-                                                                key={i}
-                                                                disabled={isPast}
-                                                                onClick={async () => {
-                                                                    if (isOff) {
-                                                                        const off = staffDayOffs.find(o => o.date === dateStr);
-                                                                        if (off) await handleDeleteDayOff(off.id);
-                                                                    } else {
-                                                                        await handleAddDayOff(dateStr);
-                                                                    }
-                                                                }}
-                                                                className={`py-1 rounded-md text-[12px] transition-colors ${
-                                                                    isOff ? "bg-[#E53935] text-white font-bold" :
-                                                                    isPast ? "text-[#DDD]" :
-                                                                    holiday ? "text-[#E53935] hover:bg-[#FFF5F5]" :
-                                                                    "text-[#1A1A1A] hover:bg-[#F5F5F5]"
-                                                                }`}
-                                                                title={holiday ? holiday.name : isOff ? "クリックで解除" : "クリックで休み追加"}
-                                                            >
-                                                                {day}
-                                                            </button>
-                                                        );
-                                                    })}
+                                            <div key={d} className={`grid grid-cols-[70px_1fr] border-b border-[#F0F0F0] last:border-b-0 ${slots.length === 0 ? "bg-[#FAFAFA]" : ""}`}>
+                                                <div className={`p-3 text-center border-r border-[#F0F0F0] ${weekDate.isToday ? "bg-[#E8F5E9]" : ""}`}>
+                                                    <p className={`text-[15px] font-bold ${isHolidayOrSun ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
+                                                        {jstCal.DAY_LABELS[d]}
+                                                    </p>
+                                                    <p className={`text-[11px] ${weekDate.isToday ? "text-[#06C755] font-bold" : "text-[#999]"}`}>
+                                                        {weekDate.month}/{weekDate.date}
+                                                    </p>
+                                                    {holiday && <p className="text-[8px] text-[#E53935] font-bold">{holiday.shortName}</p>}
+                                                </div>
+                                                <div className="p-2 flex items-center gap-2 flex-wrap">
+                                                    {slots.length === 0 && <span className="text-[12px] text-[#CCC] italic">休み</span>}
+                                                    {slots.map((slot, idx) => (
+                                                        <div key={idx} className="flex items-center gap-1 bg-[#E8F5E9] border border-[#06C755]/20 rounded-lg px-2 py-1">
+                                                            <input type="time" value={slot.startTime} onChange={(e) => updateAvailSlot(d, idx, "startTime", e.target.value)}
+                                                                className="bg-transparent text-[13px] text-[#1A1A1A] font-bold w-[70px] focus:outline-none" />
+                                                            <span className="text-[#06C755] text-[12px]">〜</span>
+                                                            <input type="time" value={slot.endTime} onChange={(e) => updateAvailSlot(d, idx, "endTime", e.target.value)}
+                                                                className="bg-transparent text-[13px] text-[#1A1A1A] font-bold w-[70px] focus:outline-none" />
+                                                            <button onClick={() => removeAvailSlot(d, idx)} className="text-[#CCC] hover:text-[#E53935] ml-1"><X size={12} /></button>
+                                                        </div>
+                                                    ))}
+                                                    <button onClick={() => addAvailSlot(d)} className="flex items-center gap-1 text-[11px] text-[#06C755] hover:text-[#05B04A] border border-dashed border-[#06C755]/30 rounded-lg px-2 py-1.5 hover:bg-[#E8F5E9] transition-colors">
+                                                        <Plus size={10} /> 追加
+                                                    </button>
                                                 </div>
                                             </div>
                                         );
                                     })}
                                 </div>
-                            );
-                        })()}
-                        <p className="text-[11px] text-[#999] mb-3">🔴 = 休み設定済み（タップで解除）　空白日タップで休み追加</p>
-                        {staffDayOffs.length > 0 && (
-                            <div className="space-y-1.5 max-h-[120px] overflow-y-auto">
-                                {staffDayOffs.sort((a, b) => a.date.localeCompare(b.date)).map((off) => (
-                                    <div key={off.id} className="flex items-center gap-3 bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg px-3 py-1.5">
-                                        <span className="text-[12px] font-bold text-[#E53935]">{off.date}</span>
-                                        {off.reason && <span className="text-[11px] text-[#999999]">{off.reason}</span>}
-                                        <button onClick={() => handleDeleteDayOff(off.id)} className="ml-auto text-[#CCCCCC] hover:text-[#E53935] p-0.5">
-                                            <Trash2 size={12} />
-                                        </button>
-                                    </div>
-                                ))}
+                                <div className="flex justify-end mt-3">
+                                    <button onClick={handleSaveAvailability} disabled={availSaving}
+                                        className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-5 py-2.5 rounded-xl text-[13px] transition-colors">
+                                        <Save size={14} /> {availSaving ? "保存中..." : "シフトを保存"}
+                                    </button>
+                                </div>
                             </div>
-                        )}
 
-                        <div className="flex justify-end mt-5">
-                            <button onClick={() => setShowAvailabilityModal(false)}
-                                className="px-4 py-2 text-[14px] text-[#999999] hover:text-[#1A1A1A] transition-colors">Close</button>
+                            {/* Right: 休みカレンダー */}
+                            <div>
+                                <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2">
+                                    <Calendar size={14} className="text-[#E53935]" />
+                                    休み設定
+                                </h3>
+                                <p className="text-[11px] text-[#999] mb-2">日付タップで休みON/OFF</p>
+                                {(() => {
+                                    const now = jstCal.nowJST();
+                                    const calMonths: { year: number; month: number }[] = [];
+                                    for (let i = 0; i < 2; i++) {
+                                        const d = new Date(now);
+                                        d.setMonth(d.getMonth() + i);
+                                        calMonths.push({ year: d.getFullYear(), month: d.getMonth() });
+                                    }
+                                    const offDates = new Set(staffDayOffs.map(o => o.date));
+                                    return (
+                                        <div className="space-y-4">
+                                            {calMonths.map(({ year, month }) => {
+                                                const firstDay = new Date(year, month, 1).getDay();
+                                                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                                const cells: (number | null)[] = Array(firstDay).fill(null);
+                                                for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                                                return (
+                                                    <div key={`${year}-${month}`} className="bg-[#F9FAFB] rounded-xl p-3">
+                                                        <p className="text-[13px] font-bold text-[#1A1A1A] text-center mb-2">{year}年{month + 1}月</p>
+                                                        <div className="grid grid-cols-7 gap-1 text-center">
+                                                            {jstCal.DAY_LABELS.map((dl, di) => (
+                                                                <span key={dl} className={`text-[10px] font-bold pb-1 ${di === 0 ? "text-[#E53935]" : di === 6 ? "text-[#2196F3]" : "text-[#999]"}`}>{dl}</span>
+                                                            ))}
+                                                            {cells.map((day, i) => {
+                                                                if (!day) return <span key={i} />;
+                                                                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                                                const isOff = offDates.has(dateStr);
+                                                                const holiday = jstCal.getHoliday(dateStr);
+                                                                const isPast = dateStr < jstCal.todayJST();
+                                                                return (
+                                                                    <button key={i} disabled={isPast}
+                                                                        onClick={async () => {
+                                                                            if (isOff) { const off = staffDayOffs.find(o => o.date === dateStr); if (off) await handleDeleteDayOff(off.id); }
+                                                                            else { await handleAddDayOff(dateStr); }
+                                                                        }}
+                                                                        className={`w-8 h-8 rounded-full text-[12px] mx-auto flex items-center justify-center transition-colors ${
+                                                                            isOff ? "bg-[#E53935] text-white font-bold" :
+                                                                            isPast ? "text-[#DDD]" :
+                                                                            holiday ? "text-[#E53935] hover:bg-[#FFCDD2]" :
+                                                                            "text-[#1A1A1A] hover:bg-[#E8E8E8]"
+                                                                        }`}
+                                                                        title={holiday ? holiday.name : isOff ? "解除" : "休み追加"}
+                                                                    >
+                                                                        {day}
+                                                                    </button>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })()}
+                                {staffDayOffs.length > 0 && (
+                                    <div className="mt-3 space-y-1 max-h-[100px] overflow-y-auto">
+                                        {staffDayOffs.sort((a, b) => a.date.localeCompare(b.date)).map((off) => (
+                                            <div key={off.id} className="flex items-center gap-2 text-[11px]">
+                                                <span className="text-[#E53935] font-bold">{off.date}</span>
+                                                {off.reason && <span className="text-[#999]">{off.reason}</span>}
+                                                <button onClick={() => handleDeleteDayOff(off.id)} className="ml-auto text-[#CCC] hover:text-[#E53935]"><X size={10} /></button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
