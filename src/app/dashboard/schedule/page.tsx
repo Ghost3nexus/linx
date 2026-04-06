@@ -628,17 +628,11 @@ export default function SchedulePage() {
                         <Clock size={14} />
                         Hours
                     </button>
-                    <button
-                        onClick={() => setShowStaffPanel(!showStaffPanel)}
-                        className={`flex items-center gap-2 border px-3 py-2 rounded-xl text-[13px] transition-colors ${
-                            showStaffPanel
-                                ? "border-[#06C755] text-[#06C755] bg-[#06C755]/5"
-                                : "border-[#E8E8E8] text-[#666666] hover:border-[#06C755] hover:text-[#06C755]"
-                        }`}
-                    >
+                    <a href="/dashboard/staff"
+                        className="flex items-center gap-2 border border-[#E8E8E8] text-[#666666] hover:border-[#06C755] hover:text-[#06C755] px-3 py-2 rounded-xl text-[13px] transition-colors">
                         <Users size={14} />
-                        Staff
-                    </button>
+                        スタッフ管理
+                    </a>
                     <button
                         onClick={() => { setShowClosurePanel(!showClosurePanel); if (!showClosurePanel) loadStoreClosures(); }}
                         className={`flex items-center gap-2 border px-3 py-2 rounded-xl text-[13px] transition-colors ${
