@@ -524,6 +524,44 @@ export async function deleteStaffDayOff(staffId: string, dayOffId: string): Prom
     await api(`/linx/staff/${getAccountId()}/${staffId}/day-off/${dayOffId}`, { method: 'DELETE' });
 }
 
+export async function addStaffDayOffBulk(staffId: string, dates: string[], reason?: string): Promise<StaffDayOff[]> {
+    const data = await api<{ success: boolean; data: StaffDayOff[]; count: number }>(`/linx/staff/${getAccountId()}/${staffId}/day-off/bulk`, {
+        method: 'POST',
+        body: JSON.stringify({ dates, reason }),
+    });
+    return data.data || [];
+}
+
+// ── Store Closures（店舗臨時休業） ──
+
+export interface StoreClosure {
+    id: string;
+    account_id: string;
+    date: string;
+    reason: string | null;
+    created_at: string;
+}
+
+export async function getStoreClosures(from?: string, to?: string): Promise<StoreClosure[]> {
+    const params = new URLSearchParams();
+    if (from) params.set('from', from);
+    if (to) params.set('to', to);
+    const data = await api<{ success: boolean; data: StoreClosure[] }>(`/linx/store-closures/${getAccountId()}?${params}`);
+    return data.data || [];
+}
+
+export async function addStoreClosures(dates: string[], reason?: string): Promise<StoreClosure[]> {
+    const data = await api<{ success: boolean; data: StoreClosure[] }>(`/linx/store-closures/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify({ dates, reason }),
+    });
+    return data.data || [];
+}
+
+export async function deleteStoreClosure(id: string): Promise<void> {
+    await api(`/linx/store-closures/${getAccountId()}/${id}`, { method: 'DELETE' });
+}
+
 // ── Resources ──
 
 export interface Resource {

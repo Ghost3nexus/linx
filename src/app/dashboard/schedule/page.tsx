@@ -19,12 +19,16 @@ import {
     getStaffDayOffs,
     addStaffDayOff,
     deleteStaffDayOff,
+    getStoreClosures,
+    addStoreClosures,
+    deleteStoreClosure,
     type ScheduleTemplate,
     type Service,
     type Staff,
     type Resource,
     type BusinessHour,
     type StaffDayOff,
+    type StoreClosure,
 } from "@/lib/apiClient";
 import {
     Plus, X, Trash2, Copy, Save, Users, Clock, Calendar,
@@ -138,6 +142,10 @@ export default function SchedulePage() {
     // Panels
     const [showStaffPanel, setShowStaffPanel] = useState(false);
     const [showHoursPanel, setShowHoursPanel] = useState(false);
+    const [showClosurePanel, setShowClosurePanel] = useState(false);
+    const [storeClosures, setStoreClosures] = useState<StoreClosure[]>([]);
+    const [closureReason, setClosureReason] = useState("");
+    const [closureSaving, setClosureSaving] = useState(false);
 
     // Add/Edit template modal
     const [showTemplateModal, setShowTemplateModal] = useState(false);
@@ -385,14 +393,14 @@ export default function SchedulePage() {
         }
     }
 
-    async function handleAddDayOff() {
-        if (!availabilityStaff || !newDayOffDate) return;
+    async function handleAddDayOff(dateOverride?: string) {
+        const date = dateOverride || newDayOffDate;
+        if (!availabilityStaff || !date) return;
         setAvailSaving(true);
         try {
-            const off = await addStaffDayOff(availabilityStaff.id, newDayOffDate, newDayOffReason || undefined);
+            const off = await addStaffDayOff(availabilityStaff.id, date, newDayOffReason || undefined);
             setStaffDayOffs(prev => [...prev, off]);
-            setNewDayOffDate("");
-            setNewDayOffReason("");
+            if (!dateOverride) { setNewDayOffDate(""); setNewDayOffReason(""); }
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "Failed to add day off");
         } finally {
@@ -407,6 +415,33 @@ export default function SchedulePage() {
             setStaffDayOffs(prev => prev.filter(o => o.id !== dayOffId));
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "Failed to delete day off");
+        }
+    }
+
+    // ── Store closures ──
+    async function loadStoreClosures() {
+        try {
+            const data = await getStoreClosures();
+            setStoreClosures(data.map(c => ({ ...c, date: c.date?.split("T")[0] || c.date })));
+        } catch { /* ignore */ }
+    }
+
+    async function handleAddClosure(dateStr: string) {
+        setClosureSaving(true);
+        try {
+            const result = await addStoreClosures([dateStr], closureReason || undefined);
+            setStoreClosures(prev => [...prev, ...result.map(c => ({ ...c, date: c.date?.split("T")[0] || c.date }))]);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "臨時休業の登録に失敗しました");
+        } finally { setClosureSaving(false); }
+    }
+
+    async function handleDeleteClosure(id: string) {
+        try {
+            await deleteStoreClosure(id);
+            setStoreClosures(prev => prev.filter(c => c.id !== id));
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "削除に失敗しました");
         }
     }
 
@@ -604,6 +639,17 @@ export default function SchedulePage() {
                         <Users size={14} />
                         Staff
                     </button>
+                    <button
+                        onClick={() => { setShowClosurePanel(!showClosurePanel); if (!showClosurePanel) loadStoreClosures(); }}
+                        className={`flex items-center gap-2 border px-3 py-2 rounded-xl text-[13px] transition-colors ${
+                            showClosurePanel
+                                ? "border-[#E53935] text-[#E53935] bg-[#E53935]/5"
+                                : "border-[#E8E8E8] text-[#666666] hover:border-[#E53935] hover:text-[#E53935]"
+                        }`}
+                    >
+                        <AlertTriangle size={14} />
+                        臨時休業
+                    </button>
                 </div>
             </div>
 
@@ -612,6 +658,96 @@ export default function SchedulePage() {
                 <div className="mt-4 bg-[#E53935]/10 border border-[#E53935]/30 rounded-xl p-4 text-[#E53935] text-[14px] flex items-center justify-between">
                     {error}
                     <button onClick={() => setError("")}><X size={16} /></button>
+                </div>
+            )}
+
+            {/* ── Store Closures Panel ── */}
+            {showClosurePanel && (
+                <div className="mt-4 bg-white border border-[#E53935]/20 rounded-xl p-5 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-[16px] font-bold text-[#1A1A1A] flex items-center gap-2">
+                            <AlertTriangle size={16} className="text-[#E53935]" />
+                            臨時休業・特別休日
+                        </h2>
+                        <button onClick={() => setShowClosurePanel(false)} className="text-[#999] hover:text-[#1A1A1A]"><X size={18} /></button>
+                    </div>
+                    <p className="text-[12px] text-[#999] mb-3">カレンダーで日付をタップして臨時休業を登録（6ヶ月先まで）</p>
+                    <div className="mb-3">
+                        <label className="block text-[12px] text-[#666] mb-1">理由（任意）</label>
+                        <input type="text" value={closureReason} onChange={e => setClosureReason(e.target.value)}
+                            placeholder="棚卸し・社員研修・年末年始など"
+                            className="w-full max-w-[300px] bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] focus:border-[#E53935] focus:outline-none" />
+                    </div>
+                    {(() => {
+                        const now = jstCal.nowJST();
+                        const calMonths: { year: number; month: number }[] = [];
+                        for (let i = 0; i < 6; i++) {
+                            const d = new Date(now);
+                            d.setMonth(d.getMonth() + i);
+                            calMonths.push({ year: d.getFullYear(), month: d.getMonth() });
+                        }
+                        const closedDates = new Set(storeClosures.map(c => c.date));
+                        return (
+                            <div className="grid grid-cols-3 gap-3 mb-4">
+                                {calMonths.map(({ year, month }) => {
+                                    const firstDay = new Date(year, month, 1).getDay();
+                                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                    const cells: (number | null)[] = Array(firstDay).fill(null);
+                                    for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                                    return (
+                                        <div key={`${year}-${month}`}>
+                                            <p className="text-[12px] font-bold text-[#1A1A1A] text-center mb-1">{year}年{month + 1}月</p>
+                                            <div className="grid grid-cols-7 gap-0.5 text-center">
+                                                {jstCal.DAY_LABELS.map(d => <span key={d} className="text-[9px] text-[#999] font-bold">{d}</span>)}
+                                                {cells.map((day, i) => {
+                                                    if (!day) return <span key={i} />;
+                                                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                                    const isClosed = closedDates.has(dateStr);
+                                                    const holiday = jstCal.getHoliday(dateStr);
+                                                    const isPast = dateStr < jstCal.todayJST();
+                                                    return (
+                                                        <button
+                                                            key={i}
+                                                            disabled={isPast || closureSaving}
+                                                            onClick={async () => {
+                                                                if (isClosed) {
+                                                                    const cl = storeClosures.find(c => c.date === dateStr);
+                                                                    if (cl) await handleDeleteClosure(cl.id);
+                                                                } else {
+                                                                    await handleAddClosure(dateStr);
+                                                                }
+                                                            }}
+                                                            className={`py-0.5 rounded text-[11px] transition-colors ${
+                                                                isClosed ? "bg-[#E53935] text-white font-bold" :
+                                                                isPast ? "text-[#DDD]" :
+                                                                holiday ? "text-[#E53935] hover:bg-[#FFF5F5]" :
+                                                                "text-[#1A1A1A] hover:bg-[#FFF5F5]"
+                                                            }`}
+                                                            title={isClosed ? "クリックで解除" : holiday ? holiday.name : "クリックで臨時休業追加"}
+                                                        >
+                                                            {day}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })()}
+                    <p className="text-[11px] text-[#999] mb-3">🔴 = 臨時休業（タップで解除）</p>
+                    {storeClosures.length > 0 && (
+                        <div className="space-y-1.5 max-h-[150px] overflow-y-auto">
+                            {storeClosures.sort((a, b) => a.date.localeCompare(b.date)).map(cl => (
+                                <div key={cl.id} className="flex items-center gap-3 bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg px-3 py-1.5">
+                                    <span className="text-[12px] font-bold text-[#E53935]">{cl.date}</span>
+                                    {cl.reason && <span className="text-[11px] text-[#999]">{cl.reason}</span>}
+                                    <button onClick={() => handleDeleteClosure(cl.id)} className="ml-auto text-[#CCC] hover:text-[#E53935]"><Trash2 size={12} /></button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -1012,34 +1148,84 @@ export default function SchedulePage() {
                             </button>
                         </div>
 
-                        {/* Day offs */}
+                        {/* Day offs — カレンダー形式 */}
                         <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2 border-t border-[#F0F0F0] pt-5">
                             <Calendar size={14} className="text-[#E53935]" />
-                            Day Offs
+                            休み設定（カレンダーで日付をタップ）
                         </h3>
-                        <div className="flex items-end gap-2 mb-4 flex-wrap">
-                            <div>
-                                <label className="block text-[12px] text-[#666666] mb-1">Date</label>
-                                <input type="date" value={newDayOffDate} onChange={(e) => setNewDayOffDate(e.target.value)}
-                                    className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none" />
-                            </div>
-                            <div>
-                                <label className="block text-[12px] text-[#666666] mb-1">Reason</label>
+                        <div className="flex items-end gap-2 mb-3 flex-wrap">
+                            <div className="flex-1">
+                                <label className="block text-[12px] text-[#666666] mb-1">理由（任意）</label>
                                 <input type="text" value={newDayOffReason} onChange={(e) => setNewDayOffReason(e.target.value)}
-                                    placeholder="Optional" className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none w-[160px]" />
+                                    placeholder="研修・有休など" className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-3 py-2 text-[13px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none" />
                             </div>
-                            <button onClick={handleAddDayOff} disabled={availSaving || !newDayOffDate}
-                                className="flex items-center gap-1 bg-[#E53935] hover:bg-[#D32F2F] disabled:opacity-50 text-white font-bold px-4 py-2 rounded-lg text-[13px] transition-colors">
-                                <Plus size={13} /> Add
-                            </button>
                         </div>
-
+                        {/* Mini Calendar (today ~ 1 month) */}
+                        {(() => {
+                            const now = jstCal.nowJST();
+                            const calMonths: { year: number; month: number }[] = [];
+                            for (let i = 0; i < 2; i++) {
+                                const d = new Date(now);
+                                d.setMonth(d.getMonth() + i);
+                                calMonths.push({ year: d.getFullYear(), month: d.getMonth() });
+                            }
+                            const offDates = new Set(staffDayOffs.map(o => o.date));
+                            return (
+                                <div className="grid grid-cols-2 gap-3 mb-4">
+                                    {calMonths.map(({ year, month }) => {
+                                        const firstDay = new Date(year, month, 1).getDay();
+                                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                        const cells: (number | null)[] = Array(firstDay).fill(null);
+                                        for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                                        return (
+                                            <div key={`${year}-${month}`}>
+                                                <p className="text-[13px] font-bold text-[#1A1A1A] text-center mb-2">{year}年{month + 1}月</p>
+                                                <div className="grid grid-cols-7 gap-0.5 text-center text-[11px]">
+                                                    {jstCal.DAY_LABELS.map(d => <span key={d} className="text-[10px] text-[#999] font-bold">{d}</span>)}
+                                                    {cells.map((day, i) => {
+                                                        if (!day) return <span key={i} />;
+                                                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                                        const isOff = offDates.has(dateStr);
+                                                        const holiday = jstCal.getHoliday(dateStr);
+                                                        const isPast = dateStr < jstCal.todayJST();
+                                                        return (
+                                                            <button
+                                                                key={i}
+                                                                disabled={isPast}
+                                                                onClick={async () => {
+                                                                    if (isOff) {
+                                                                        const off = staffDayOffs.find(o => o.date === dateStr);
+                                                                        if (off) await handleDeleteDayOff(off.id);
+                                                                    } else {
+                                                                        await handleAddDayOff(dateStr);
+                                                                    }
+                                                                }}
+                                                                className={`py-1 rounded-md text-[12px] transition-colors ${
+                                                                    isOff ? "bg-[#E53935] text-white font-bold" :
+                                                                    isPast ? "text-[#DDD]" :
+                                                                    holiday ? "text-[#E53935] hover:bg-[#FFF5F5]" :
+                                                                    "text-[#1A1A1A] hover:bg-[#F5F5F5]"
+                                                                }`}
+                                                                title={holiday ? holiday.name : isOff ? "クリックで解除" : "クリックで休み追加"}
+                                                            >
+                                                                {day}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        })()}
+                        <p className="text-[11px] text-[#999] mb-3">🔴 = 休み設定済み（タップで解除）　空白日タップで休み追加</p>
                         {staffDayOffs.length > 0 && (
-                            <div className="space-y-2">
+                            <div className="space-y-1.5 max-h-[120px] overflow-y-auto">
                                 {staffDayOffs.sort((a, b) => a.date.localeCompare(b.date)).map((off) => (
-                                    <div key={off.id} className="flex items-center gap-3 bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg px-3 py-2">
-                                        <span className="text-[13px] font-bold text-[#E53935]">{off.date}</span>
-                                        {off.reason && <span className="text-[12px] text-[#999999]">{off.reason}</span>}
+                                    <div key={off.id} className="flex items-center gap-3 bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg px-3 py-1.5">
+                                        <span className="text-[12px] font-bold text-[#E53935]">{off.date}</span>
+                                        {off.reason && <span className="text-[11px] text-[#999999]">{off.reason}</span>}
                                         <button onClick={() => handleDeleteDayOff(off.id)} className="ml-auto text-[#CCCCCC] hover:text-[#E53935] p-0.5">
                                             <Trash2 size={12} />
                                         </button>
