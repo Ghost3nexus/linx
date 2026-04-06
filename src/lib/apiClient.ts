@@ -562,6 +562,66 @@ export async function deleteStoreClosure(id: string): Promise<void> {
     await api(`/linx/store-closures/${getAccountId()}/${id}`, { method: 'DELETE' });
 }
 
+// ── Attendance (出席管理) ──
+
+export interface Attendance {
+    id: string;
+    account_id: string;
+    customer_id: string;
+    customer_name?: string;
+    customer_plan?: string;
+    reservation_id?: string;
+    check_in_at: string;
+    service?: string;
+    staff_id?: string;
+    note?: string;
+}
+
+export async function checkinCustomer(customerId: string, params?: { service?: string; staffId?: string; reservationId?: string; note?: string }): Promise<Attendance> {
+    const data = await api<{ success: boolean; data: Attendance }>(`/linx/customers/${getAccountId()}/${customerId}/checkin`, {
+        method: 'POST',
+        body: JSON.stringify(params || {}),
+    });
+    return data.data;
+}
+
+export async function getCustomerAttendance(customerId: string): Promise<Attendance[]> {
+    const data = await api<{ success: boolean; data: Attendance[] }>(`/linx/customers/${getAccountId()}/${customerId}/attendance`);
+    return data.data || [];
+}
+
+export async function getAttendanceList(from?: string, to?: string): Promise<Attendance[]> {
+    const params = new URLSearchParams();
+    if (from) params.set('from', from);
+    if (to) params.set('to', to);
+    const data = await api<{ success: boolean; data: Attendance[] }>(`/linx/attendance/${getAccountId()}?${params}`);
+    return data.data || [];
+}
+
+// ── Broadcast (LINE一斉配信) ──
+
+export interface Broadcast {
+    id: string;
+    message: string;
+    target_status: string;
+    sent_count: number;
+    failed_count: number;
+    created_at: string;
+}
+
+export async function sendBroadcast(message: string, targetStatus?: string): Promise<{ sentCount: number; failedCount: number; total: number }> {
+    const data = await api<{ success: boolean; data: { sentCount: number; failedCount: number; total: number } }>(`/linx/broadcast/${getAccountId()}`, {
+        method: 'POST',
+        body: JSON.stringify({ message, targetStatus }),
+    });
+    return data.data;
+}
+
+export async function getBroadcasts(): Promise<Broadcast[]> {
+    const data = await api<{ success: boolean; data: Broadcast[] }>(`/linx/broadcasts/${getAccountId()}`);
+    return data.data || [];
+}
+
 // ── Resources ──
 
 export interface Resource {

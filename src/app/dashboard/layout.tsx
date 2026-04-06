@@ -12,7 +12,7 @@ const navItems = [
     { href: "/dashboard/schedule", label: "スケジュール", icon: CalendarClock },
     { href: "/dashboard/reservations", label: "予約管理", icon: CalendarDays },
     { href: "/dashboard/staff", label: "スタッフ管理", icon: Zap },
-    { href: "/dashboard/customers", label: "顧客管理", icon: Users },
+    { href: "/dashboard/customers", label: "会員管理", icon: Users },
     { href: "/dashboard/services", label: "メニュー管理", icon: ClipboardList },
     { href: "/dashboard/logs", label: "会話ログ", icon: MessageSquare },
     { href: "/dashboard/settings", label: "設定", icon: Settings },
