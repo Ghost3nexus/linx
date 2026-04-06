@@ -10,9 +10,9 @@ const plans = [
     period: "円 / 月",
     description: "まずは無料で試してみたい方に",
     features: [
-      "1店舗まで",
+      "管理者 1名",
+      "顧客 50名まで",
       "月50回までAI回答",
-      "お店情報の登録 1件",
       "ずっと無料・カード不要",
     ],
     cta: "無料ではじめる",
@@ -21,28 +21,14 @@ const plans = [
     highlight: true,
   },
   {
-    name: "Starter",
-    price: "4,980",
-    period: "円 / 月",
-    description: "個人のお店・小規模事業に",
-    features: [
-      "3店舗まで",
-      "月500回までAI回答",
-      "顧客管理",
-      "メールサポート",
-    ],
-    cta: "このプランではじめる",
-    href: "/login",
-    popular: false,
-    highlight: false,
-  },
-  {
     name: "Standard",
     price: "12,800",
     period: "円 / 月",
     description: "店舗運営に必要な機能をすべて",
     features: [
-      "10店舗まで",
+      "管理者 5名",
+      "スタッフ 20名まで",
+      "顧客 無制限",
       "月2,000回までAI回答",
       "AIが予約受付・空き確認を自動化",
       "会員管理・ステータス管理",
@@ -67,7 +53,8 @@ const plans = [
     description: "チェーン展開・本格AI活用に",
     features: [
       "すべてのStandard機能",
-      "店舗数 無制限",
+      "管理者 無制限",
+      "スタッフ 無制限",
       "月10,000回までAI回答",
       "AI顧客分析・離脱予測",
       "AIシフト自動生成",
@@ -116,7 +103,7 @@ export default function Pricing() {
           クレジットカード不要。いつでもプラン変更・解約OK。
         </motion.p>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-[960px] mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
