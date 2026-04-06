@@ -28,28 +28,8 @@ const plans = [
     features: [
       "LINEアカウント 3件",
       "月500回までAI回答",
-      "お店情報の登録 5件",
+      "顧客管理",
       "メールサポート",
-    ],
-    cta: "このプランではじめる",
-    href: "/login",
-    popular: true,
-    highlight: false,
-  },
-  {
-    name: "Standard",
-    price: "9,800",
-    period: "円 / 月",
-    description: "複数店舗・成長中のビジネスに",
-    features: [
-      "LINEアカウント 10件",
-      "月2,000回までAI回答",
-      "お店情報の登録 無制限",
-      "AIが予約受付・空き確認を自動化",
-      "LINE上で決済リンク送信",
-      "Web検索で最新情報も回答",
-      "大事な質問は通知でお知らせ",
-      "優先サポート",
     ],
     cta: "このプランではじめる",
     href: "/login",
@@ -57,19 +37,45 @@ const plans = [
     highlight: false,
   },
   {
+    name: "Standard",
+    price: "12,800",
+    period: "円 / 月",
+    description: "店舗運営に必要な機能をすべて",
+    features: [
+      "LINEアカウント 10件",
+      "月2,000回までAI回答",
+      "AIが予約受付・空き確認を自動化",
+      "会員管理・ステータス管理",
+      "出席管理（チェックイン）",
+      "スタッフ管理・シフト設定",
+      "Stripe決済連携（入会金+月額）",
+      "LINE一斉配信",
+      "体験後の自動フォローアップ",
+      "週間カレンダー予約管理",
+      "祝日・臨時休業管理",
+      "優先サポート",
+    ],
+    cta: "初月無料で試す",
+    href: "/login",
+    popular: true,
+    highlight: false,
+  },
+  {
     name: "Pro",
     price: "29,800",
     period: "円 / 月",
-    description: "本格運用・チェーン展開に",
+    description: "チェーン展開・本格AI活用に",
     features: [
+      "すべてのStandard機能",
       "LINEアカウント 無制限",
       "月10,000回までAI回答",
-      "お店情報の登録 無制限",
-      "すべてのStandard機能",
-      "複雑な問い合わせをスタッフに自動転送",
+      "AI顧客分析・離脱予測",
+      "AIシフト自動生成",
+      "入会提案書の自動生成",
+      "マルチ店舗ダッシュボード",
       "専任サポート担当",
     ],
-    cta: "このプランではじめる",
+    cta: "お問い合わせ",
     href: "/login",
     popular: false,
     highlight: false,
@@ -193,10 +199,10 @@ export default function Pricing() {
           className="mt-10 text-center"
         >
           <p className="text-[#999999] text-[14px] sm:text-[15px]">
-            全プラン共通: AI自動応答 / 情報登録 / 会話ログ / 予約リマインド / 体験後フォローアップ / 管理画面
+            全プラン共通: AI自動応答 / お店情報登録 / 会話ログ / 管理画面 / AES-256暗号化 / SSL通信
           </p>
           <p className="mt-2 text-[#AAAAAA] text-[13px] sm:text-[14px]">
-            合わなければいつでも解約。解約金はありません。
+            初月無料トライアル。合わなければいつでも解約。解約金はありません。
           </p>
         </motion.div>
       </div>

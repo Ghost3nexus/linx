@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { ShieldCheck, BadgeCheck, Server } from "lucide-react";
 
 const badges = [
-  { icon: ShieldCheck, label: "SSL暗号化で安全" },
+  { icon: ShieldCheck, label: "AES-256暗号化 + SSL通信" },
   { icon: BadgeCheck, label: "LINE公式API連携" },
-  { icon: Server, label: "国内サーバーで管理" },
+  { icon: Server, label: "顧客情報の漏洩防止対策済み" },
 ];
 
 export default function SecurityBadges() {

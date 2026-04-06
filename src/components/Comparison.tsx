@@ -4,20 +4,25 @@ import { motion } from "framer-motion";
 import { Check, X, ArrowRight } from "lucide-react";
 
 const features = [
-  { label: "月額料金", linx: "0円〜", lineAi: "3,000円〜", pecochat: "9,800円〜" },
-  { label: "AIの賢さ（生成AI）", linx: true, lineAi: false, pecochat: true },
-  { label: "グループチャット対応", linx: true, lineAi: false, pecochat: false },
-  { label: "ナレッジ学習", linx: true, lineAi: false, pecochat: true },
-  { label: "Web検索回答", linx: true, lineAi: false, pecochat: false },
-  { label: "担当者への通知", linx: true, lineAi: false, pecochat: true },
-  { label: "導入にかかる時間", linx: "5分", lineAi: "30分〜", pecochat: "数分" },
-  { label: "無料プラン", linx: "あり", lineAi: "なし", pecochat: "14日間のみ" },
+  { label: "月額料金", linx: "12,800円〜", hacomono: "33,000円〜", lstep: "5,000円〜" },
+  { label: "AI自動応対（24時間）", linx: true, hacomono: false, lstep: false },
+  { label: "LINE予約管理", linx: true, hacomono: true, lstep: false },
+  { label: "会員管理・ステータス", linx: true, hacomono: true, lstep: false },
+  { label: "Stripe決済連携", linx: true, hacomono: true, lstep: false },
+  { label: "スタッフ・シフト管理", linx: true, hacomono: true, lstep: false },
+  { label: "出席管理", linx: true, hacomono: true, lstep: false },
+  { label: "LINE一斉配信", linx: true, hacomono: false, lstep: true },
+  { label: "体験→入会の自動化", linx: true, hacomono: false, lstep: false },
+  { label: "AI提案書自動生成", linx: "予定", hacomono: false, lstep: false },
+  { label: "AIシフト自動生成", linx: "予定", hacomono: false, lstep: false },
+  { label: "初月無料", linx: "あり", hacomono: "なし", lstep: "なし" },
+  { label: "初期費用", linx: "0円", hacomono: "要問合せ", lstep: "0円" },
 ];
 
 const competitors = [
   { key: "linx", label: "LINX", highlight: true },
-  { key: "lineAi", label: "LINE公式 AIチャットボット", highlight: false },
-  { key: "pecochat", label: "PecoChat", highlight: false },
+  { key: "hacomono", label: "hacomono", highlight: false },
+  { key: "lstep", label: "Lステップ", highlight: false },
 ];
 
 function CellValue({ value }: { value: boolean | string }) {
