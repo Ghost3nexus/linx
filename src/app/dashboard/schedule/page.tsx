@@ -752,6 +752,14 @@ export default function SchedulePage() {
                     const bh = getBusinessHoursForDay(day);
                     const isClosed = bh?.isClosed;
                     const count = dayTemplateCount(day);
+                    // 今週の該当曜日の日付を計算
+                    const today = new Date();
+                    const todayDay = today.getDay();
+                    const diff = day - todayDay;
+                    const targetDate = new Date(today);
+                    targetDate.setDate(today.getDate() + diff);
+                    const dateLabel = `${targetDate.getMonth() + 1}/${targetDate.getDate()}`;
+                    const isToday = diff === 0;
                     return (
                         <button
                             key={day}
@@ -767,9 +775,12 @@ export default function SchedulePage() {
                             }`}
                         >
                             <span className="text-[14px] font-bold">{DAY_LABELS[day]}</span>
+                            <span className={`text-[11px] ${selectedDay === day ? "text-white/90" : isToday ? "text-[#06C755] font-bold" : "text-[#999999]"}`}>
+                                {dateLabel}
+                            </span>
                             {count > 0 && (
-                                <span className={`text-[10px] mt-0.5 ${selectedDay === day ? "text-white/80" : "text-[#999999]"}`}>
-                                    {count}
+                                <span className={`text-[10px] ${selectedDay === day ? "text-white/70" : "text-[#CCCCCC]"}`}>
+                                    {count}枠
                                 </span>
                             )}
                             {isClosed && selectedDay !== day && (
