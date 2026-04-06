@@ -1102,7 +1102,7 @@ export default function SchedulePage() {
                     <div className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl my-8" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-5">
                             <h2 className="text-[18px] font-bold text-[#1A1A1A]">
-                                {availabilityStaff.name} - Availability
+                                {availabilityStaff.name} のシフト管理
                             </h2>
                             <button onClick={() => setShowAvailabilityModal(false)} className="text-[#999999] hover:text-[#1A1A1A]"><X size={20} /></button>
                         </div>
@@ -1110,30 +1110,39 @@ export default function SchedulePage() {
                         {/* Weekly availability */}
                         <h3 className="text-[14px] font-bold text-[#1A1A1A] mb-3 flex items-center gap-2">
                             <Clock size={14} className="text-[#06C755]" />
-                            Weekly Schedule
+                            出勤スケジュール（毎週の基本シフト）
                         </h3>
-                        <div className="space-y-3 mb-6">
+                        <div className="space-y-2 mb-6">
                             {[1, 2, 3, 4, 5, 6, 0].map((d) => {
                                 const slots = staffAvailSlots[d] || [];
+                                const weekDate = jstCal.getThisWeekDate(d);
+                                const holiday = jstCal.getHoliday(weekDate.dateStr);
+                                const isHolidayOrSun = !!holiday || d === 0;
                                 return (
-                                    <div key={d} className="flex items-start gap-3">
-                                        <span className={`w-8 pt-2 text-[13px] font-bold shrink-0 ${d === 0 ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
-                                            {DAY_LABELS[d]}
-                                        </span>
+                                    <div key={d} className={`flex items-start gap-3 p-2 rounded-lg ${slots.length === 0 ? "bg-[#FAFAFA]" : "bg-white"}`}>
+                                        <div className="w-[60px] pt-1 shrink-0">
+                                            <span className={`text-[14px] font-bold ${isHolidayOrSun ? "text-[#E53935]" : d === 6 ? "text-[#2196F3]" : "text-[#1A1A1A]"}`}>
+                                                {jstCal.DAY_LABELS[d]}
+                                            </span>
+                                            <span className={`text-[11px] ml-1 ${weekDate.isToday ? "text-[#06C755] font-bold" : "text-[#999]"}`}>
+                                                {weekDate.month}/{weekDate.date}
+                                            </span>
+                                            {holiday && <p className="text-[9px] text-[#E53935]">{holiday.shortName}</p>}
+                                        </div>
                                         <div className="flex-1 space-y-1.5">
-                                            {slots.length === 0 && <span className="text-[12px] text-[#CCCCCC] py-2 block">Day off</span>}
+                                            {slots.length === 0 && <span className="text-[12px] text-[#CCCCCC] py-1.5 block">休み</span>}
                                             {slots.map((slot, idx) => (
                                                 <div key={idx} className="flex items-center gap-2">
                                                     <input type="time" value={slot.startTime} onChange={(e) => updateAvailSlot(d, idx, "startTime", e.target.value)}
                                                         className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]" />
-                                                    <span className="text-[#999999] text-[13px]">-</span>
+                                                    <span className="text-[#999] text-[13px]">〜</span>
                                                     <input type="time" value={slot.endTime} onChange={(e) => updateAvailSlot(d, idx, "endTime", e.target.value)}
                                                         className="bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-2 py-1.5 text-[13px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none w-[100px]" />
                                                     <button onClick={() => removeAvailSlot(d, idx)} className="text-[#CCCCCC] hover:text-[#E53935] p-0.5"><Trash2 size={12} /></button>
                                                 </div>
                                             ))}
                                             <button onClick={() => addAvailSlot(d)} className="flex items-center gap-1 text-[11px] text-[#06C755] hover:text-[#05B04A] py-0.5">
-                                                <Plus size={10} /> Add
+                                                <Plus size={10} /> 時間枠を追加
                                             </button>
                                         </div>
                                     </div>
@@ -1144,7 +1153,7 @@ export default function SchedulePage() {
                         <div className="flex justify-end mb-6">
                             <button onClick={handleSaveAvailability} disabled={availSaving}
                                 className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05B04A] disabled:opacity-50 text-white font-bold px-5 py-2 rounded-xl text-[13px] transition-colors">
-                                <Save size={13} /> {availSaving ? "Saving..." : "Save Schedule"}
+                                <Save size={13} /> {availSaving ? "保存中..." : "シフトを保存"}
                             </button>
                         </div>
 

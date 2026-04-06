@@ -46,19 +46,24 @@ export function getWeekDatesJST(weekOffset: number): string[] {
     return dates;
 }
 
-/** 指定曜日の今週の日付を返す（JST基準） */
+/** 指定曜日の今週の日付を返す（JST基準、月曜始まり） */
 export function getThisWeekDate(dayOfWeek: number): { month: number; date: number; dateStr: string; isToday: boolean } {
     const today = nowJST();
-    const todayDow = today.getDay();
-    const diff = dayOfWeek - todayDow;
-    const target = new Date(today);
-    target.setDate(today.getDate() + diff);
+    const todayStr = toDateStr(today);
+    // 今週の月曜日を基準に計算（getWeekDatesJSTと同じロジック）
+    const todayDow = today.getDay(); // 0=日, 1=月, ...
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - ((todayDow + 6) % 7));
+    // 月曜からのオフセット: 月=0, 火=1, ..., 土=5, 日=6
+    const offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const target = new Date(monday);
+    target.setDate(monday.getDate() + offset);
     const dateStr = toDateStr(target);
     return {
         month: target.getMonth() + 1,
         date: target.getDate(),
         dateStr,
-        isToday: diff === 0,
+        isToday: dateStr === todayStr,
     };
 }
 
