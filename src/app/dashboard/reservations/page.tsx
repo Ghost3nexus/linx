@@ -7,32 +7,9 @@ import {
     type Reservation, type Staff,
 } from "@/lib/apiClient";
 import { Plus, X, User, ChevronLeft, ChevronRight, CheckCircle2, CalendarDays } from "lucide-react";
+import { todayJST, formatDateShort, getWeekDatesJST, getHoliday, DAY_LABELS } from "@/lib/jstCalendar";
 
-const DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 9); // 9:00 - 22:00
-
-function toDateStr(d: Date) {
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-function formatDateShort(dateStr: string) {
-    const d = new Date(dateStr + "T00:00:00");
-    return `${d.getMonth() + 1}/${d.getDate()}`;
-}
-
-function getWeekDates(offset: number) {
-    const today = new Date();
-    today.setDate(today.getDate() + offset * 7);
-    const monday = new Date(today);
-    monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
-    const dates: string[] = [];
-    for (let i = 0; i < 7; i++) {
-        const d = new Date(monday);
-        d.setDate(monday.getDate() + i);
-        dates.push(toDateStr(d));
-    }
-    return dates;
-}
 
 function timeToRow(time: string): number {
     const [h, m] = time.split(":").map(Number);
@@ -70,8 +47,8 @@ export default function ReservationsPage() {
     const [newService, setNewService] = useState("");
     const [newNote, setNewNote] = useState("");
 
-    const weekDates = getWeekDates(weekOffset);
-    const todayStr = toDateStr(new Date());
+    const weekDates = getWeekDatesJST(weekOffset);
+    const todayStr = todayJST();
 
     const load = useCallback(() => {
         setLoading(true);
@@ -250,18 +227,22 @@ export default function ReservationsPage() {
                             <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-[#E8E8E8]">
                                 <div className="p-2" />
                                 {weekDates.map((date) => {
-                                    const d = new Date(date + "T00:00:00");
+                                    const [, m, dd] = date.split("-");
+                                    const dayIdx = new Date(date + "T00:00:00").getDay();
                                     const isToday = date === todayStr;
-                                    const dayIdx = d.getDay();
+                                    const holiday = getHoliday(date);
+                                    const isHolidayOrSun = !!holiday || dayIdx === 0;
                                     return (
-                                        <div key={date} className={`text-center py-3 border-l border-[#E8E8E8] ${isToday ? "bg-[#E8F5E9]" : ""}`}>
-                                            <p className={`text-[11px] font-bold ${dayIdx === 0 ? "text-[#E53935]" : dayIdx === 6 ? "text-[#2196F3]" : "text-[#999]"}`}>
+                                        <div key={date} className={`text-center py-2 border-l border-[#E8E8E8] ${isToday ? "bg-[#E8F5E9]" : holiday ? "bg-[#FFF5F5]" : ""}`}>
+                                            <p className={`text-[11px] font-bold ${isHolidayOrSun ? "text-[#E53935]" : dayIdx === 6 ? "text-[#2196F3]" : "text-[#999]"}`}>
                                                 {DAY_LABELS[dayIdx]}
                                             </p>
-                                            <p className={`text-[18px] font-bold ${isToday ? "text-[#06C755]" : "text-[#1A1A1A]"}`}>
-                                                {d.getDate()}
+                                            <p className={`text-[18px] font-bold ${isToday ? "text-[#06C755]" : isHolidayOrSun ? "text-[#E53935]" : "text-[#1A1A1A]"}`}>
+                                                {Number(dd)}
                                             </p>
-                                            {isToday && <div className="w-1.5 h-1.5 bg-[#06C755] rounded-full mx-auto mt-1" />}
+                                            <p className="text-[10px] text-[#999]">{Number(m)}月</p>
+                                            {holiday && <p className="text-[9px] text-[#E53935] font-bold mt-0.5">{holiday.shortName}</p>}
+                                            {isToday && !holiday && <div className="w-1.5 h-1.5 bg-[#06C755] rounded-full mx-auto mt-0.5" />}
                                         </div>
                                     );
                                 })}

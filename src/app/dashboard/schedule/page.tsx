@@ -31,6 +31,7 @@ import {
     AlertTriangle, Settings, ChevronRight, MessageSquare, Edit3,
 } from "lucide-react";
 import ScheduleCalendar from "./ScheduleCalendar";
+import * as jstCal from "@/lib/jstCalendar";
 
 const DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 const DAY_LABELS_FULL = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"];
@@ -752,38 +753,41 @@ export default function SchedulePage() {
                     const bh = getBusinessHoursForDay(day);
                     const isClosed = bh?.isClosed;
                     const count = dayTemplateCount(day);
-                    // 今週の該当曜日の日付を計算
-                    const today = new Date();
-                    const todayDay = today.getDay();
-                    const diff = day - todayDay;
-                    const targetDate = new Date(today);
-                    targetDate.setDate(today.getDate() + diff);
-                    const dateLabel = `${targetDate.getMonth() + 1}/${targetDate.getDate()}`;
-                    const isToday = diff === 0;
+                    // JST基準で今週の該当曜日の日付を計算
+                    const weekDate = jstCal.getThisWeekDate(day);
+                    const holiday = jstCal.getHoliday(weekDate.dateStr);
+                    const isHolidayOrSun = !!holiday || day === 0;
                     return (
                         <button
                             key={day}
                             onClick={() => setSelectedDay(day)}
-                            className={`relative flex flex-col items-center min-w-[48px] px-2 py-2 rounded-xl text-[13px] font-medium transition-all ${
+                            className={`relative flex flex-col items-center min-w-[50px] px-2 py-2 rounded-xl text-[13px] font-medium transition-all ${
                                 selectedDay === day
                                     ? "bg-[#06C755] text-white shadow-md shadow-[#06C755]/20"
                                     : isClosed
                                         ? "text-[#CCCCCC] bg-[#F9FAFB] hover:bg-[#F0F0F0]"
-                                        : (day === 0 || day === 6)
+                                        : isHolidayOrSun
                                             ? "text-[#E53935] hover:bg-[#FFF5F5]"
-                                            : "text-[#666666] hover:bg-[#F5F5F5]"
+                                            : day === 6
+                                                ? "text-[#2196F3] hover:bg-[#E3F2FD]"
+                                                : "text-[#666666] hover:bg-[#F5F5F5]"
                             }`}
                         >
-                            <span className="text-[14px] font-bold">{DAY_LABELS[day]}</span>
-                            <span className={`text-[11px] ${selectedDay === day ? "text-white/90" : isToday ? "text-[#06C755] font-bold" : "text-[#999999]"}`}>
-                                {dateLabel}
+                            <span className="text-[14px] font-bold">{jstCal.DAY_LABELS[day]}</span>
+                            <span className={`text-[11px] ${selectedDay === day ? "text-white/90" : weekDate.isToday ? "text-[#06C755] font-bold" : isHolidayOrSun ? "text-[#E53935]" : "text-[#999999]"}`}>
+                                {weekDate.month}/{weekDate.date}
                             </span>
-                            {count > 0 && (
+                            {holiday && (
+                                <span className={`text-[9px] ${selectedDay === day ? "text-white/80" : "text-[#E53935]"} font-bold`}>
+                                    {holiday.shortName}
+                                </span>
+                            )}
+                            {count > 0 && !holiday && (
                                 <span className={`text-[10px] ${selectedDay === day ? "text-white/70" : "text-[#CCCCCC]"}`}>
                                     {count}枠
                                 </span>
                             )}
-                            {isClosed && selectedDay !== day && (
+                            {isClosed && selectedDay !== day && !holiday && (
                                 <span className="text-[9px] text-[#CCCCCC]">OFF</span>
                             )}
                         </button>
