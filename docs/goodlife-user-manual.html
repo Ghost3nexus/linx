@@ -78,6 +78,7 @@
   <li><a href="#migration" style="color: #06C755;">既存会員の移行方法</a></li>
   <li><a href="#closure" style="color: #06C755;">臨時休業・祝日管理</a></li>
   <li><a href="#faq" style="color: #06C755;">よくある質問</a></li>
+  <li><a href="#security" style="color: #06C755;">セキュリティ・個人情報保護</a></li>
   <li><a href="#roadmap" style="color: #06C755;">今後のロードマップ</a></li>
 </ol>
 
@@ -336,8 +337,71 @@
   hacomono（¥33,000/月）の約40%の価格で、AI自動応対・提案書自動生成など独自機能を搭載。
 </div>
 
-<!-- 17. Roadmap -->
-<h2 id="roadmap">17. 今後のロードマップ</h2>
+<!-- 17. Security -->
+<h2 id="security">17. セキュリティ・個人情報保護</h2>
+<p>LINXはお客様の個人情報を扱うシステムです。以下のセキュリティ対策を実施しています。</p>
+
+<h3>データ保護</h3>
+<table>
+  <tr><th>対策</th><th>内容</th></tr>
+  <tr><td>通信暗号化</td><td>全通信HTTPS（TLS 1.2以上）。平文通信なし</td></tr>
+  <tr><td>データベース暗号化</td><td>Stripe秘密鍵・LINEアクセストークンはAES-256-GCMで暗号化して保存</td></tr>
+  <tr><td>秘密鍵の非公開</td><td>API応答にStripe/LINE秘密鍵を含めない。設定済みかどうかのフラグのみ返却</td></tr>
+  <tr><td>パスワード</td><td>bcryptハッシュ化。平文保存なし</td></tr>
+  <tr><td>JWT認証</td><td>全APIリクエストにJWTトークン必須。アカウント間のデータ分離を保証</td></tr>
+</table>
+
+<h3>アクセス制御</h3>
+<table>
+  <tr><th>対策</th><th>内容</th></tr>
+  <tr><td>アカウント分離</td><td>各店舗は独立したアカウント。他店舗のデータにアクセス不可</td></tr>
+  <tr><td>所有権チェック</td><td>全API操作でアカウント所有権を検証</td></tr>
+  <tr><td>Rate Limiting</td><td>API呼び出し回数制限でブルートフォース攻撃を防止</td></tr>
+  <tr><td>Helmet</td><td>セキュリティヘッダー自動設定（XSS, Clickjacking防止）</td></tr>
+  <tr><td>CORS制限</td><td>許可されたオリジンからのリクエストのみ受付</td></tr>
+</table>
+
+<h3>Stripe決済セキュリティ</h3>
+<ul>
+  <li>カード情報はLINXサーバーを通過しません（Stripe Checkoutで直接処理）</li>
+  <li>Webhook署名検証でなりすましを防止</li>
+  <li>PCI DSS準拠（Stripeが担保）</li>
+</ul>
+
+<h3>LINE連携セキュリティ</h3>
+<ul>
+  <li>Webhook署名検証（X-Line-Signature）で不正リクエストを拒否</li>
+  <li>チャネルシークレットは暗号化して保存</li>
+  <li>LINE内の通信はLINE社のセキュリティポリシーに準拠</li>
+</ul>
+
+<h3>ログ管理</h3>
+<ul>
+  <li>ログに顧客名・個人情報を記録しない（IDのみ）</li>
+  <li>エラーレスポンスに内部情報（DB構造、スタックトレース）を含めない</li>
+  <li>会話ログは管理画面でのみ閲覧可能（認証必須）</li>
+</ul>
+
+<h3>競合サービスとのセキュリティ比較</h3>
+<table>
+  <tr><th>項目</th><th>LINX</th><th>hacomono</th><th>Lステップ</th></tr>
+  <tr><td>データ暗号化</td><td>✅ AES-256-GCM</td><td>✅</td><td>不明</td></tr>
+  <tr><td>HTTPS</td><td>✅ 全通信</td><td>✅</td><td>✅</td></tr>
+  <tr><td>カード情報非通過</td><td>✅ Stripe Checkout</td><td>✅</td><td>N/A</td></tr>
+  <tr><td>アカウント分離</td><td>✅ マルチテナント</td><td>✅</td><td>✅</td></tr>
+  <tr><td>API秘密鍵の保護</td><td>✅ 暗号化+非公開</td><td>✅</td><td>不明</td></tr>
+  <tr><td>IT導入補助金対象</td><td>申請予定</td><td>✅</td><td>不明</td></tr>
+</table>
+
+<div class="important">
+  <strong>⚠️ 個人情報の取り扱いについて</strong><br>
+  LINXで管理する会員情報（氏名・連絡先・来店履歴）は、サービス提供目的でのみ使用します。
+  第三者への提供は行いません。データの削除要求にも対応します。
+  詳細は利用規約・プライバシーポリシーをご参照ください。
+</div>
+
+<!-- 18. Roadmap -->
+<h2 id="roadmap">18. 今後のロードマップ</h2>
 <p>LINXは継続的に機能拡張を予定しています。以下は今後の開発計画です。</p>
 
 <div class="roadmap">
