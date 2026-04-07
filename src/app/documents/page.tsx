@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Calendar, ArrowRight, Download, Mail, Building2, User, Phone } from "lucide-react";
+import { FileText, Calendar, ArrowRight, Download, Mail, Building2, User, Phone, Globe, Briefcase } from "lucide-react";
 
 export default function DocumentsPage() {
     const [showForm, setShowForm] = useState(true);
@@ -10,6 +10,8 @@ export default function DocumentsPage() {
     const [company, setCompany] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [industry, setIndustry] = useState("");
+    const [website, setWebsite] = useState("");
     const [sending, setSending] = useState(false);
 
     // Simple form — no backend needed for now, just gates the content
@@ -130,6 +132,45 @@ export default function DocumentsPage() {
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
                                             placeholder="090-1234-5678"
+                                            className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl pl-11 pr-4 py-3.5 text-[16px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none transition-colors"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-[14px] font-medium text-[#333333] mb-2">
+                                        業種 <span className="text-[#E53935]">*</span>
+                                    </label>
+                                    <div className="relative">
+                                        <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#CCCCCC]" />
+                                        <select
+                                            value={industry}
+                                            onChange={(e) => setIndustry(e.target.value)}
+                                            required
+                                            className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl pl-11 pr-4 py-3.5 text-[16px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none transition-colors appearance-none"
+                                        >
+                                            <option value="">業種を選択してください</option>
+                                            <option value="gym">パーソナルジム・フィットネス</option>
+                                            <option value="yoga">ヨガスタジオ</option>
+                                            <option value="pilates">ピラティススタジオ</option>
+                                            <option value="clinic">クリニック・医療</option>
+                                            <option value="sauna">サウナ・スパ</option>
+                                            <option value="pickleball">ピックルボール・テニス</option>
+                                            <option value="studio">ダンス・レッスンスタジオ</option>
+                                            <option value="other">その他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-[14px] font-medium text-[#333333] mb-2">
+                                        WEBサイトURL
+                                    </label>
+                                    <div className="relative">
+                                        <Globe size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#CCCCCC]" />
+                                        <input
+                                            type="url"
+                                            value={website}
+                                            onChange={(e) => setWebsite(e.target.value)}
+                                            placeholder="https://example.com"
                                             className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl pl-11 pr-4 py-3.5 text-[16px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none transition-colors"
                                         />
                                     </div>

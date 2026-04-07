@@ -18,6 +18,7 @@ import FinalCTA from "@/components/FinalCTA";
 import SecurityBadges from "@/components/SecurityBadges";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
+import PhonePopup from "@/components/PhonePopup";
 
 export default function Home() {
   return (
@@ -44,6 +45,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingCTA />
+      <PhonePopup />
     </>
   );
 }
