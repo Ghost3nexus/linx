@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINX × GOOD LIFE GYM ご提案書</title>
+<title>LINX — LINE AI予約・会員管理・入退館 統合システム</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; background: #fff; line-height: 1.7; }
@@ -46,7 +46,7 @@
 <body>
 
 <div class="cover">
-  <h1>LINX × GOOD LIFE GYM</h1>
+  <h1>LINX</h1>
   <p class="sub">LINE AI予約・会員管理・入退館 統合システム ご提案書</p>
   <p class="meta">2026年4月 | 株式会社TomorrowProof</p>
 </div>
@@ -55,13 +55,13 @@
 
 <!-- 1. 提案概要 -->
 <h2>1. ご提案概要</h2>
-<p>GOOD LIFE GYM様の運営をAIで効率化する3つの導入パターンをご提案します。</p>
+<p>ジムチェーン様の運営をAIで効率化する3つの導入パターンをご提案します。</p>
 
 <table>
   <tr><th>パターン</th><th>対象</th><th>内容</th><th>月額</th></tr>
   <tr class="highlight">
     <td><strong>A. LINE連携</strong></td>
-    <td>既存GOOD LIFE店舗</td>
+    <td>既存既存店舗店舗</td>
     <td>現行システムはそのまま。LINE AI予約+事前フォーム+自動フォローアップを追加</td>
     <td>¥12,800/店舗</td>
   </tr>
@@ -83,8 +83,8 @@
 <h2>2. 既存予約管理システムとの連携 <span class="badge badge-new">実証済み</span></h2>
 
 <div class="box box-green">
-  <h4>技術検証完了: GOOD LIFE GYM 既存システムのリアルタイムデータ取得に成功</h4>
-  <p>goodlifegymjapan.com の管理画面APIから、代々木店の予約データ（52件/週）をリアルタイムで取得済み。<br>トレーナー名・サービス・残席数・定員のパースも完了。</p>
+  <h4>技術検証完了: ジムチェーン 既存システムのリアルタイムデータ取得に成功</h4>
+  <p>既存管理システム の管理画面APIから、テスト店舗の予約データ（52件/週）をリアルタイムで取得済み。<br>トレーナー名・サービス・残席数・定員のパースも完了。</p>
 </div>
 
 <h3>連携の仕組み</h3>
@@ -176,7 +176,7 @@
 <h2>4. 競合サービス比較</h2>
 
 <table>
-  <tr><th>機能</th><th>LINX</th><th>hacomono<br>(¥33,000/月)</th><th>Lステップ<br>(¥5,000〜/月)</th><th>GOOD LIFE<br>現行システム</th></tr>
+  <tr><th>機能</th><th>LINX</th><th>hacomono<br>(¥33,000/月)</th><th>Lステップ<br>(¥5,000〜/月)</th><th>既存システム<br>（カスタム開発）</th></tr>
   <tr class="highlight"><td>月額料金</td><td class="yes">¥12,800</td><td>¥33,000〜</td><td>¥5,000〜</td><td>開発済み</td></tr>
   <tr><td>AI自動応対（24h）</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
   <tr><td>LINE予約（AI）</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
@@ -207,14 +207,14 @@
   </table>
 </div>
 
-<h4>取得できたデータ例（代々木店・4/8〜4/14）</h4>
+<h4>取得できたデータ例（テスト店舗・4/8〜4/14）</h4>
 <table>
   <tr><th>日時</th><th>メニュー</th><th>トレーナー</th><th>残席</th></tr>
-  <tr><td>4/9 19:20</td><td>セミパ（40分）</td><td>太田杜彦</td><td>3/4名</td></tr>
-  <tr><td>4/9 20:10</td><td>セミパ（40分）</td><td>太田杜彦</td><td>3/4名</td></tr>
-  <tr><td>4/10 12:00</td><td>セミパ（40分）</td><td>豊川博明</td><td>1/4名</td></tr>
-  <tr><td>4/10 15:00</td><td>マンツーマン（50分）</td><td>豊川博明</td><td>1/1名</td></tr>
-  <tr><td>4/10 19:20</td><td>セミパ（40分）</td><td>豊川博明</td><td>2/4名</td></tr>
+  <tr><td>4/9 19:20</td><td>セミパ（40分）</td><td>トレーナーA</td><td>3/4名</td></tr>
+  <tr><td>4/9 20:10</td><td>セミパ（40分）</td><td>トレーナーA</td><td>3/4名</td></tr>
+  <tr><td>4/10 12:00</td><td>セミパ（40分）</td><td>トレーナーB</td><td>1/4名</td></tr>
+  <tr><td>4/10 15:00</td><td>マンツーマン（50分）</td><td>トレーナーB</td><td>1/1名</td></tr>
+  <tr><td>4/10 19:20</td><td>セミパ（40分）</td><td>トレーナーB</td><td>2/4名</td></tr>
 </table>
 <p>→ このデータをLINE AIが参照し、お客様に「明日19:20のセミパ、残り3名です」と案内可能。</p>
 
@@ -278,7 +278,7 @@
 </table>
 
 <div class="box box-green">
-  <p><strong>本部（GOOD LIFE GYM本社）は3ヶ月無料。</strong>FC各店舗への導入を推進いただくためのパートナーシップ。</p>
+  <p><strong>本部（ジムチェーン本社）は3ヶ月無料。</strong>FC各店舗への導入を推進いただくためのパートナーシップ。</p>
 </div>
 
 <!-- Footer -->
