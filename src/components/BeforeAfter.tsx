@@ -8,25 +8,25 @@ const items = [
     icon: MessageSquare,
     before: "毎朝30件の未読LINE",
     after: "AIが24時間自動応答",
-    emoji: "📩",
+    color: "#E53935",
   },
   {
     icon: CalendarCheck,
     before: "予約はExcel手入力",
     after: "AIが自動で予約確定",
-    emoji: "📅",
+    color: "#2196F3",
   },
   {
     icon: UserCheck,
     before: "返信忘れでお客様を逃す",
     after: "取りこぼしゼロ",
-    emoji: "🤝",
+    color: "#F59E0B",
   },
   {
     icon: Timer,
     before: "事務作業に1日2時間",
     after: "事務作業ほぼゼロ",
-    emoji: "⏱️",
+    color: "#9333EA",
   },
 ];
 
@@ -78,7 +78,9 @@ export default function BeforeAfter() {
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                 {/* Before */}
                 <div className="flex-1 w-full sm:w-auto flex items-center gap-4 bg-[#FFF5F5] rounded-xl px-5 py-4">
-                  <span className="text-[32px] shrink-0">{item.emoji}</span>
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${item.color}15` }}>
+                    <item.icon size={20} style={{ color: item.color }} />
+                  </div>
                   <div>
                     <span className="text-[11px] font-bold text-[#CC3333] tracking-wider uppercase">Before</span>
                     <p className="text-[15px] sm:text-[17px] font-bold text-[#993333] mt-0.5" style={{ lineHeight: 1.5 }}>

@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 type Tab = "gym" | "salon" | "restaurant" | "clinic" | "ec";
 
 const tabs: { id: Tab; label: string; emoji: string }[] = [
-  { id: "gym", label: "ジム", emoji: "🏋️" },
-  { id: "salon", label: "美容院", emoji: "💇" },
-  { id: "restaurant", label: "飲食店", emoji: "🍽️" },
-  { id: "clinic", label: "クリニック", emoji: "🏥" },
-  { id: "ec", label: "ネットショップ", emoji: "🛒" },
+  { id: "gym", label: "ジム", emoji: "" },
+  { id: "salon", label: "美容院", emoji: "" },
+  { id: "restaurant", label: "飲食店", emoji: "" },
+  { id: "clinic", label: "クリニック", emoji: "" },
+  { id: "ec", label: "ネットショップ", emoji: "" },
 ];
 
 const groupNames: Record<Tab, string> = {
@@ -24,21 +24,21 @@ const groupNames: Record<Tab, string> = {
 const conversations: Record<Tab, { sender: string; text: string }[]> = {
   gym: [
     { sender: "user", text: "体験トレーニングを受けたいです！" },
-    { sender: "bot", text: "ありがとうございます！🏋️\n体験トレーニングのご案内です。\n\n📋 セミパーソナル体験\n・料金: 無料\n・時間: 約60分\n・持ち物: 運動着・室内シューズ・タオル\n\n直近の空き枠はこちらです：\n🕐 3/18（火）10:00〜 ○\n🕐 3/18（火）19:00〜 ○\n🕐 3/19（水）11:00〜 ○\n\nご希望の日時はありますか？" },
+    { sender: "bot", text: "ありがとうございます！\n体験トレーニングのご案内です。\n\n セミパーソナル体験\n・料金: 無料\n・時間: 約60分\n・持ち物: 運動着・室内シューズ・タオル\n\n直近の空き枠はこちらです：\n 3/18（火）10:00〜 ○\n 3/18（火）19:00〜 ○\n 3/19（水）11:00〜 ○\n\nご希望の日時はありますか？" },
     { sender: "user", text: "18日の19時でお願いします！" },
-    { sender: "bot", text: "3/18（火）19:00〜の体験予約、承りました！✨\n\n📍 GOOD LIFE GYM 渋谷店\n東京都渋谷区〇〇 1-2-3\n\n前日にリマインドをお送りしますね。\nお待ちしております！💪" },
+    { sender: "bot", text: "3/18（火）19:00〜の体験予約、承りました！\n\n GOOD LIFE GYM 渋谷店\n東京都渋谷区〇〇 1-2-3\n\n前日にリマインドをお送りしますね。\nお待ちしております！" },
   ],
   salon: [
     { sender: "user", text: "来週の水曜日、カットできますか？" },
-    { sender: "bot", text: "来週水曜の空き状況です！\n\n💇 3/19（水）\n・10:00〜 ○\n・13:00〜 ○\n・15:00〜 △（残り1枠）\n\nご希望の時間はありますか？" },
+    { sender: "bot", text: "来週水曜の空き状況です！\n\n 3/19（水）\n・10:00〜 ○\n・13:00〜 ○\n・15:00〜 △（残り1枠）\n\nご希望の時間はありますか？" },
     { sender: "user", text: "13時でお願いします！" },
     { sender: "bot", text: "13:00〜のカット、ご予約承りました！\n担当は佐藤が対応いたします。\n\nお待ちしております😊" },
   ],
   restaurant: [
     { sender: "user", text: "今日の夜、2名で予約できますか？" },
-    { sender: "bot", text: "本日のご予約ありがとうございます！\n\n🕐 本日の空き状況\n・18:00〜 ○（テーブル席）\n・19:30〜 ○（カウンター席）\n・20:00〜 △（残り1席）\n\nご希望のお時間はございますか？" },
+    { sender: "bot", text: "本日のご予約ありがとうございます！\n\n 本日の空き状況\n・18:00〜 ○（テーブル席）\n・19:30〜 ○（カウンター席）\n・20:00〜 △（残り1席）\n\nご希望のお時間はございますか？" },
     { sender: "user", text: "19:30でお願いします！" },
-    { sender: "bot", text: "19:30〜2名様、テーブル席でご予約承りました！✨\n\n当日のキャンセルはお電話ください。\nお待ちしております！" },
+    { sender: "bot", text: "19:30〜2名様、テーブル席でご予約承りました！\n\n当日のキャンセルはお電話ください。\nお待ちしております！" },
   ],
   clinic: [
     { sender: "user", text: "虫歯の治療って保険使えますか？" },

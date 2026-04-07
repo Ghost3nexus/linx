@@ -4,22 +4,22 @@ import { motion } from "framer-motion";
 
 const steps = [
   {
-    emoji: "📱",
+    emoji: "",
     title: "LP・SNSを見る",
     description: "あなたのお店を見つける",
   },
   {
-    emoji: "➕",
+    emoji: "",
     title: "LINEで友だち追加",
     description: "ワンタップで友だちに",
   },
   {
-    emoji: "🤖",
+    emoji: "",
     title: "AIチャットで予約",
     description: "24時間いつでも予約可能",
   },
   {
-    emoji: "🏪",
+    emoji: "",
     title: "来店・体験",
     description: "お店でサービスを満喫",
   },

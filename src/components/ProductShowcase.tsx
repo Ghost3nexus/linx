@@ -25,7 +25,7 @@ function DashboardMockup() {
             <span className="text-white text-[12px] font-bold">L</span>
           </div>
           <div className="w-6 h-1 bg-[#E0E0E0] rounded-full" />
-          {["📊", "📅", "👥", "💬", "⚙️"].map((icon, i) => (
+          {["", "", "", "", ""].map((icon, i) => (
             <div
               key={i}
               className={`w-8 h-8 rounded-lg flex items-center justify-center text-[14px] ${
@@ -106,7 +106,7 @@ function LineChatMockup() {
           <div className="bg-white text-[#1a1a1a] rounded-2xl rounded-tl-sm px-3 py-2 text-[12px] max-w-[80%]" style={{ lineHeight: 1.6 }}>
             明日の午後の空き状況です！
             <br /><br />
-            💇 3/17（月）
+             3/17（月）
             <br />
             ・13:00〜 ○
             <br />
@@ -124,7 +124,7 @@ function LineChatMockup() {
         {/* Bot confirm */}
         <div className="flex justify-start">
           <div className="bg-white text-[#1a1a1a] rounded-2xl rounded-tl-sm px-3 py-2 text-[12px] max-w-[80%]" style={{ lineHeight: 1.6 }}>
-            13:00〜 カット、ご予約完了です！✨
+            13:00〜 カット、ご予約完了です！
             <br />
             お待ちしております。
           </div>
@@ -206,7 +206,7 @@ export default function ProductShowcase() {
               </div>
             </div>
             <p className="mt-4 text-center text-[13px] text-[#999999]">
-              📊 ダッシュボード &#8212; 予約・顧客を一目で確認
+               ダッシュボード &#8212; 予約・顧客を一目で確認
             </p>
           </motion.div>
 
@@ -227,7 +227,7 @@ export default function ProductShowcase() {
               </div>
             </div>
             <p className="mt-4 text-center text-[13px] text-[#999999]">
-              💬 LINE &#8212; AIスタッフがお客様に即対応
+               LINE &#8212; AIスタッフがお客様に即対応
             </p>
           </motion.div>
         </div>
