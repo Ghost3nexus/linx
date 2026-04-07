@@ -34,6 +34,10 @@ export default function SettingsPage() {
     // Client Stripe key
     const [clientStripeKey, setClientStripeKey] = useState("");
 
+    // Square連携
+    const [squareAccessToken, setSquareAccessToken] = useState("");
+    const [squareLocationId, setSquareLocationId] = useState("");
+
     // CSVインポート
     const [importLoading, setImportLoading] = useState(false);
     const [importResult, setImportResult] = useState<{ type: string; imported: number; total: number; errors: string[] } | null>(null);
@@ -79,9 +83,12 @@ export default function SettingsPage() {
                 tone: tone as Settings["tone"],
                 escalationUserId,
                 ...(clientStripeKey ? { clientStripeSecretKey: clientStripeKey } : {}),
+                ...(squareAccessToken ? { squareAccessToken } : {}),
+                ...(squareLocationId ? { squareLocationId } : {}),
             });
             setSettings(updated);
-            setClientStripeKey(""); // Clear after save — key is stored server-side
+            setClientStripeKey("");
+            setSquareAccessToken("");
             setSuccess("設定を保存しました");
             setTimeout(() => setSuccess(""), 3000);
         } catch (e: unknown) {
@@ -347,6 +354,61 @@ export default function SettingsPage() {
                         <div className="bg-[#FFF8E1] border border-[#FFE082] rounded-lg p-3">
                             <p className="text-[12px] text-[#F57F17]">
                                 Stripe APIキーは暗号化して保存されます。第三者に共有しないでください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Square連携 */}
+                <div className="bg-white border border-[#E8E8E8] rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-[#1A1A1A]/10 flex items-center justify-center">
+                            <CreditCard size={18} className="text-[#1A1A1A]" />
+                        </div>
+                        <div>
+                            <h3 className="text-[15px] font-medium text-[#1A1A1A]">決済連携（Square）</h3>
+                            <p className="text-[12px] text-[#999999]">Squareをお使いの場合はこちらを設定してください（Stripeとどちらか一方でOK）</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-3">
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">Square Access Token</label>
+                            <input
+                                type="password"
+                                value={squareAccessToken}
+                                onChange={(e) => setSquareAccessToken(e.target.value)}
+                                placeholder="EAAAxxxxxxxxxxxxxxxx"
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none font-mono"
+                            />
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">
+                                Square Developer → Applications → Access Token をコピー
+                            </p>
+                        </div>
+                        <div>
+                            <label className="block text-[12px] text-[#999999] mb-1.5">Square Location ID</label>
+                            <input
+                                type="text"
+                                value={squareLocationId}
+                                onChange={(e) => setSquareLocationId(e.target.value)}
+                                placeholder="LxxxxxxxxxxxxxxX"
+                                className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-lg px-4 py-3 text-[14px] text-[#1A1A1A] placeholder:text-[#CCCCCC] focus:border-[#06C755] focus:outline-none font-mono"
+                            />
+                            <p className="text-[11px] text-[#AAAAAA] mt-1">
+                                Square Dashboard → 店舗情報 → Location ID をコピー
+                            </p>
+                        </div>
+
+                        {settings && (settings as Record<string, unknown>).squareConnected && (
+                            <div className="flex items-center gap-2 text-[14px] text-[#06C755]">
+                                <Check size={16} />
+                                Square接続済み
+                            </div>
+                        )}
+
+                        <div className="bg-[#FFF8E1] border border-[#FFE082] rounded-lg p-3">
+                            <p className="text-[12px] text-[#F57F17]">
+                                Square APIキーは暗号化して保存されます。Stripeと両方設定した場合、Squareが優先されます。
                             </p>
                         </div>
                     </div>
