@@ -3,50 +3,54 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Tab = "gym" | "salon" | "restaurant" | "clinic" | "ec";
+type Tab = "gym" | "yoga" | "pilates" | "clinic" | "sauna";
 
-const tabs: { id: Tab; label: string; emoji: string }[] = [
-  { id: "gym", label: "ジム", emoji: "" },
-  { id: "salon", label: "美容院", emoji: "" },
-  { id: "restaurant", label: "飲食店", emoji: "" },
-  { id: "clinic", label: "クリニック", emoji: "" },
-  { id: "ec", label: "ネットショップ", emoji: "" },
+const tabs: { id: Tab; label: string }[] = [
+  { id: "gym", label: "ジム" },
+  { id: "yoga", label: "ヨガ" },
+  { id: "pilates", label: "ピラティス" },
+  { id: "clinic", label: "クリニック" },
+  { id: "sauna", label: "サウナ" },
 ];
 
 const groupNames: Record<Tab, string> = {
-  gym: "GOOD LIFE GYM 公式LINE",
-  salon: "Hair Salon BLOOM 公式LINE",
-  restaurant: "イタリアン SORA 公式LINE",
-  clinic: "さくら歯科 公式LINE",
-  ec: "STYLE STORE 公式LINE",
+  gym: "パーソナルジム 公式LINE",
+  yoga: "ヨガスタジオ 公式LINE",
+  pilates: "ピラティススタジオ 公式LINE",
+  clinic: "整体院 公式LINE",
+  sauna: "サウナ施設 公式LINE",
 };
 
 const conversations: Record<Tab, { sender: string; text: string }[]> = {
   gym: [
-    { sender: "user", text: "体験トレーニングを受けたいです！" },
-    { sender: "bot", text: "ありがとうございます！\n体験トレーニングのご案内です。\n\n セミパーソナル体験\n・料金: 無料\n・時間: 約60分\n・持ち物: 運動着・室内シューズ・タオル\n\n直近の空き枠はこちらです：\n 3/18（火）10:00〜 ○\n 3/18（火）19:00〜 ○\n 3/19（水）11:00〜 ○\n\nご希望の日時はありますか？" },
-    { sender: "user", text: "18日の19時でお願いします！" },
-    { sender: "bot", text: "3/18（火）19:00〜の体験予約、承りました！\n\n GOOD LIFE GYM 渋谷店\n東京都渋谷区〇〇 1-2-3\n\n前日にリマインドをお送りしますね。\nお待ちしております！" },
+    { sender: "user", text: "体験トレーニングを受けたいです" },
+    { sender: "bot", text: "ありがとうございます！\n無料体験レッスンのご案内です。\n\n・料金: 無料\n・時間: 約60分\n・持ち物: 運動着・室内シューズ・タオル\n\n直近の空き枠はこちらです：\n1. 4/10（木）14:00〜\n2. 4/10（木）18:00〜\n3. 4/11（金）10:00〜\n\nご希望の番号とお名前を教えてください。" },
+    { sender: "user", text: "2番でお願いします。田中太郎です" },
+    { sender: "bot", text: "ご予約を承りました！\n\n4/10（木）18:00〜19:00\n無料体験レッスン\n田中太郎様\n\n前日にリマインドをお送りします。\nお会いできることを楽しみにしております！" },
   ],
-  salon: [
-    { sender: "user", text: "来週の水曜日、カットできますか？" },
-    { sender: "bot", text: "来週水曜の空き状況です！\n\n 3/19（水）\n・10:00〜 ○\n・13:00〜 ○\n・15:00〜 △（残り1枠）\n\nご希望の時間はありますか？" },
-    { sender: "user", text: "13時でお願いします！" },
-    { sender: "bot", text: "13:00〜のカット、ご予約承りました！\n担当は佐藤が対応いたします。\n\nお待ちしております😊" },
+  yoga: [
+    { sender: "user", text: "明日の朝ヨガに参加できますか？" },
+    { sender: "bot", text: "明日の朝ヨガクラスの空き状況です。\n\n1. 7:00〜 モーニングフロー（残3名）\n2. 9:00〜 ハタヨガ（残5名）\n3. 10:30〜 リストラティブ（残2名）\n\nご希望の番号とお名前をお願いします。" },
+    { sender: "user", text: "1番、鈴木花子です" },
+    { sender: "bot", text: "ご予約完了です！\n\n明日 7:00〜 モーニングフロー\n鈴木花子様\n\nヨガマットは無料レンタルございます。\nお待ちしております！" },
   ],
-  restaurant: [
-    { sender: "user", text: "今日の夜、2名で予約できますか？" },
-    { sender: "bot", text: "本日のご予約ありがとうございます！\n\n 本日の空き状況\n・18:00〜 ○（テーブル席）\n・19:30〜 ○（カウンター席）\n・20:00〜 △（残り1席）\n\nご希望のお時間はございますか？" },
-    { sender: "user", text: "19:30でお願いします！" },
-    { sender: "bot", text: "19:30〜2名様、テーブル席でご予約承りました！\n\n当日のキャンセルはお電話ください。\nお待ちしております！" },
+  pilates: [
+    { sender: "user", text: "リフォーマーの体験したいです" },
+    { sender: "bot", text: "リフォーマーピラティス体験のご案内です。\n\n・料金: 3,300円（税込）\n・時間: 50分\n・定員: 4名\n\n空き枠：\n1. 4/9（水）11:00〜\n2. 4/9（水）15:00〜\n3. 4/10（木）13:00〜\n\nご希望の番号とお名前をお願いします。" },
+    { sender: "user", text: "3でお願いします。山田美咲" },
+    { sender: "bot", text: "ご予約完了です！\n\n4/10（木）13:00〜13:50\nリフォーマー体験\n山田美咲様\n\nグリップソックスをお持ちください。\n当日お待ちしております！" },
   ],
   clinic: [
-    { sender: "user", text: "虫歯の治療って保険使えますか？" },
-    { sender: "bot", text: "はい、虫歯の治療は保険適用です！🦷\n\n初診の場合の目安：\n・初診料 + レントゲン：約3,000円\n・治療費（1回）：約1,500〜3,000円\n\n※ 3割負担の場合の目安です。\n\nご予約はお電話またはこちらから承ります。" },
+    { sender: "user", text: "腰痛がひどいのですが予約できますか" },
+    { sender: "bot", text: "お辛い状況ですね。\n初回カウンセリングのご案内です。\n\n・料金: 初回 3,980円\n・時間: 約60分（検査+施術）\n\n空き枠：\n1. 4/9（水）14:00〜\n2. 4/10（木）10:00〜\n3. 4/10（木）16:00〜\n\nご希望の番号とお名前をお願いします。" },
+    { sender: "user", text: "2番で。佐藤健一です" },
+    { sender: "bot", text: "ご予約完了です！\n\n4/10（木）10:00〜\n初回カウンセリング\n佐藤健一様\n\n事前アンケートをお送りしますので\nご来院前にご記入ください。" },
   ],
-  ec: [
-    { sender: "user", text: "Mサイズのブラックはまだありますか？" },
-    { sender: "bot", text: "お問い合わせありがとうございます！\n\n「オーバーサイズTee / Black / M」\n📦 現在 残り3点 です！\n\nご注文はこちらから▼\nstylestore.example.com/item/123\n\n売り切れ前にぜひどうぞ！" },
+  sauna: [
+    { sender: "user", text: "今日の混雑状況を教えてください" },
+    { sender: "bot", text: "現在の状況です。\n\n・サウナ室: 空き（現在3名/定員10名）\n・水風呂: 空き\n・外気浴: 空き\n\n本日の予約状況：\n・14:00〜 空きあり\n・16:00〜 空きあり\n・18:00〜 混雑予想\n\nご予約されますか？" },
+    { sender: "user", text: "14時で1名お願いします。中村です" },
+    { sender: "bot", text: "ご予約完了です！\n\n本日 14:00〜（2時間）\n中村様 1名\n\nタオルセットは受付でお渡しします。\nごゆっくりお過ごしください！" },
   ],
 };
 
@@ -145,7 +149,7 @@ export default function Demo() {
               }`}
               style={{ transition: "all 0.3s cubic-bezier(.25,1,.5,1)" }}
             >
-              {tab.emoji} {tab.label}
+              {tab.label}
             </button>
           ))}
         </div>

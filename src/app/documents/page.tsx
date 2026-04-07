@@ -205,7 +205,7 @@ export default function DocumentsPage() {
                         <div className="flex-1">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-[20px] font-bold text-[#1A1A1A]">
-                                    📄 LINX サービス資料
+                                    LINX サービス資料
                                 </h2>
                                 <a
                                     href="/linx-product-overview.html"
@@ -222,6 +222,28 @@ export default function DocumentsPage() {
                                     className="w-full h-full"
                                     title="LINX サービス資料"
                                 />
+                            </div>
+
+                            {/* Industry-specific documents */}
+                            <div className="mt-8">
+                                <h3 className="text-[18px] font-bold text-[#1A1A1A] mb-4">業種別ソリューション資料</h3>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {[
+                                        { label: "パーソナルジム", href: "/solutions/gym" },
+                                        { label: "ヨガスタジオ", href: "/solutions/yoga" },
+                                        { label: "ピラティス", href: "/solutions/pilates" },
+                                        { label: "クリニック", href: "/solutions/clinic" },
+                                        { label: "サウナ", href: "/solutions/sauna" },
+                                        { label: "ピックルボール", href: "/solutions/pickleball" },
+                                        { label: "ダンススタジオ", href: "/solutions/studio" },
+                                    ].map(doc => (
+                                        <a key={doc.label} href={doc.href}
+                                            className="flex items-center gap-2 bg-[#F9FAFB] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl px-4 py-3 text-[14px] font-medium text-[#1A1A1A] hover:text-[#06C755] transition-all">
+                                            <FileText size={16} className="shrink-0" />
+                                            {doc.label}
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
@@ -257,16 +279,16 @@ export default function DocumentsPage() {
 
                                 {/* Quick start */}
                                 <div className="bg-white border border-[#E8E8E8] rounded-2xl p-6">
-                                    <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">今すぐ試す</h3>
+                                    <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">初月無料トライアル</h3>
                                     <p className="text-[14px] text-[#666666] mb-4">
-                                        無料プランで即日利用開始できます。<br />
-                                        クレジットカード不要。
+                                        全機能を1ヶ月間無料でお試し。<br />
+                                        最短1日で導入完了。
                                     </p>
                                     <a
                                         href="/login"
                                         className="w-full flex items-center justify-center gap-2 border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white font-bold py-3.5 rounded-full text-[15px] transition-all duration-300"
                                     >
-                                        無料ではじめる
+                                        初月無料で始める
                                         <ArrowRight size={16} />
                                     </a>
                                 </div>
