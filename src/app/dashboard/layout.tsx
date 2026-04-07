@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle } from "lucide-react";
+import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen } from "lucide-react";
 import { isLoggedIn, getMe, clearAuth, type Me } from "@/lib/apiClient";
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
     { href: "/dashboard/schedule", label: "スケジュール", icon: CalendarClock },
     { href: "/dashboard/reservations", label: "予約管理", icon: CalendarDays },
     { href: "/dashboard/staff", label: "スタッフ管理", icon: Zap },
+    { href: "/dashboard/entry", label: "入退館管理", icon: DoorOpen },
     { href: "/dashboard/customers", label: "会員管理", icon: Users },
     { href: "/dashboard/services", label: "メニュー管理", icon: ClipboardList },
     { href: "/dashboard/logs", label: "会話ログ", icon: MessageSquare },
