@@ -1,26 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, BadgeCheck, Server } from "lucide-react";
+import { ShieldCheck, Lock, Server, Eye } from "lucide-react";
 
 const badges = [
-  { icon: ShieldCheck, label: "AES-256暗号化 + SSL通信" },
-  { icon: BadgeCheck, label: "LINE公式API連携" },
-  { icon: Server, label: "顧客情報の漏洩防止対策済み" },
+  { icon: ShieldCheck, label: "AES-256暗号化", sub: "データを軍事レベルで保護" },
+  { icon: Lock, label: "SSL/TLS通信", sub: "全通信を暗号化" },
+  { icon: Eye, label: "PII保護", sub: "個人情報をログに記録しない" },
+  { icon: Server, label: "PCI DSS準拠", sub: "カード情報はStripe/Square経由" },
 ];
 
 export default function SecurityBadges() {
   return (
-    <section className="py-10 sm:py-12 px-6">
-      <div className="section-divider mb-10 sm:mb-12" />
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6 }}
-        className="max-w-[800px] mx-auto"
-      >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
+    <section className="py-16 sm:py-20 px-6 bg-[#1A1A1A]">
+      <div className="max-w-[900px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center text-white/40 text-[13px] font-bold tracking-wider mb-8"
+        >
+          SECURITY
+        </motion.p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {badges.map((badge, i) => (
             <motion.div
               key={badge.label}
@@ -28,18 +31,17 @@ export default function SecurityBadges() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="flex items-center gap-3"
+              className="text-center"
             >
-              <div className="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center shrink-0">
-                <badge.icon size={20} className="text-[#06C755]" />
+              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-3">
+                <badge.icon size={22} className="text-[#06C755]" />
               </div>
-              <p className="text-[14px] sm:text-[15px] text-[#666666] font-medium">
-                {badge.label}
-              </p>
+              <p className="text-white text-[14px] font-bold">{badge.label}</p>
+              <p className="text-white/40 text-[12px] mt-1">{badge.sub}</p>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
