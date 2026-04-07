@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINX vs hacomono サービス比較表</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; background: #FAFAFA; }
+  .header { background: linear-gradient(135deg, #06C755 0%, #04A648 100%); color: white; padding: 40px 30px; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 800; }
+  .header p { font-size: 14px; opacity: 0.8; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  th { padding: 14px 16px; text-align: left; font-weight: 700; }
+  td { padding: 12px 16px; border-top: 1px solid #F0F0F0; }
+  .col-label { width: 220px; background: #F9FAFB; font-weight: 600; color: #333; }
+  .col-linx { background: #F5FBF7; }
+  .col-haco { background: white; }
+  .head-linx { background: #06C755; color: white; text-align: center; font-size: 16px; }
+  .head-haco { background: #1A1A1A; color: white; text-align: center; font-size: 16px; }
+  .head-label { background: #E8E8E8; color: #666; text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .yes { color: #06C755; font-weight: 700; }
+  .no { color: #E53935; }
+  .planned { color: #2196F3; font-weight: 600; }
+  .unknown { color: #999; }
+  .section-row td { background: #F0F0F0; font-weight: 700; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 16px; }
+  .highlight-row td { background: #FFFBEB; }
+  .winner { position: relative; }
+  .winner::after { content: '★'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #F59E0B; font-size: 14px; }
+  .footer { text-align: center; padding: 30px; color: #999; font-size: 12px; }
+  .price-highlight { font-size: 20px; font-weight: 800; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; margin-left: 4px; }
+  .badge-green { background: #E8F5E9; color: #06C755; }
+  .badge-blue { background: #E3F2FD; color: #2196F3; }
+  .badge-red { background: #FFEBEE; color: #E53935; }
+  .summary { margin: 24px 0; padding: 20px; background: white; border: 2px solid #06C755; border-radius: 12px; }
+  .summary h3 { color: #06C755; font-size: 16px; margin-bottom: 10px; }
+  .summary ul { padding-left: 20px; }
+  .summary li { margin: 6px 0; font-size: 13px; line-height: 1.6; }
+  @media print { body { background: white; } .container { padding: 10px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>LINX vs hacomono サービス比較表</h1>
+  <p>2026年4月時点 | 株式会社TomorrowProof</p>
+</div>
+
+<div class="container">
+
+<table>
+  <thead>
+    <tr>
+      <th class="head-label">比較項目</th>
+      <th class="head-linx">LINX</th>
+      <th class="head-haco">hacomono</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 料金 -->
+    <tr class="section-row"><td colspan="3">料金</td></tr>
+    <tr class="highlight-row">
+      <td class="col-label">月額料金</td>
+      <td class="col-linx winner"><span class="price-highlight" style="color:#06C755">¥12,800</span><span class="badge badge-green">60%OFF</span></td>
+      <td class="col-haco"><span class="price-highlight">¥33,000</span>〜</td>
+    </tr>
+    <tr>
+      <td class="col-label">初期費用</td>
+      <td class="col-linx winner"><span class="yes">¥0</span></td>
+      <td class="col-haco">要問合せ</td>
+    </tr>
+    <tr>
+      <td class="col-label">無料トライアル</td>
+      <td class="col-linx winner"><span class="yes">初月無料</span></td>
+      <td class="col-haco"><span class="no">なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">解約金</td>
+      <td class="col-linx"><span class="yes">なし</span></td>
+      <td class="col-haco">要確認</td>
+    </tr>
+
+    <!-- AI機能 -->
+    <tr class="section-row"><td colspan="3">AI機能（LINXの独自強み）</td></tr>
+    <tr>
+      <td class="col-label">AI自動応対（24時間）</td>
+      <td class="col-linx winner"><span class="yes">✅ Claude AI搭載</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">LINE上で予約受付（AI）</td>
+      <td class="col-linx winner"><span class="yes">✅ 空き確認→予約確定まで自動</span></td>
+      <td class="col-haco"><span class="no">✗ 手動対応</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">体験→入会の自動化</td>
+      <td class="col-linx winner"><span class="yes">✅ 完了→入会案内→決済リンク→3日後リマインド</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">AI入会提案書 自動生成</td>
+      <td class="col-linx"><span class="planned">開発予定</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">AIシフト 自動生成</td>
+      <td class="col-linx"><span class="planned">開発予定</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">AI顧客分析・離脱予測</td>
+      <td class="col-linx"><span class="planned">開発予定</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+
+    <!-- 予約・会員管理 -->
+    <tr class="section-row"><td colspan="3">予約・会員管理</td></tr>
+    <tr>
+      <td class="col-label">予約管理（カレンダー）</td>
+      <td class="col-linx"><span class="yes">✅ 週間カレンダー+祝日表示</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">会員ステータス管理</td>
+      <td class="col-linx"><span class="yes">✅ アクティブ/休会/退会/体験</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">出席管理（チェックイン）</td>
+      <td class="col-linx"><span class="yes">✅ ワンタップ</span></td>
+      <td class="col-haco"><span class="yes">✅ QR/ICカード</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">顧客CSV一括インポート</td>
+      <td class="col-linx"><span class="yes">✅ 日本語ヘッダー対応</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+
+    <!-- スタッフ -->
+    <tr class="section-row"><td colspan="3">スタッフ管理</td></tr>
+    <tr>
+      <td class="col-label">スタッフ管理</td>
+      <td class="col-linx"><span class="yes">✅ 独立ページ</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">シフト管理</td>
+      <td class="col-linx"><span class="yes">✅ 曜日別+休みカレンダー</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">スタッフへのLINE通知</td>
+      <td class="col-linx winner"><span class="yes">✅ 予約時に自動Push</span></td>
+      <td class="col-haco"><span class="no">✗ アプリ通知のみ</span></td>
+    </tr>
+
+    <!-- 決済 -->
+    <tr class="section-row"><td colspan="3">決済</td></tr>
+    <tr>
+      <td class="col-label">クレジットカード決済</td>
+      <td class="col-linx"><span class="yes">✅ Stripe（3.6%）</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">口座振替</td>
+      <td class="col-linx"><span class="planned">対応予定</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">入会金+月額サブスク一括処理</td>
+      <td class="col-linx winner"><span class="yes">✅ 1セッションで完結</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+
+    <!-- LINE連携 -->
+    <tr class="section-row"><td colspan="3">LINE連携</td></tr>
+    <tr>
+      <td class="col-label">LINE公式アカウント連携</td>
+      <td class="col-linx winner"><span class="yes">✅ 既存アカウントをそのまま使用</span></td>
+      <td class="col-haco"><span class="unknown">限定的</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">LINE一斉配信</td>
+      <td class="col-linx winner"><span class="yes">✅ ステータス別ターゲティング</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">LINEで決済リンク送信</td>
+      <td class="col-linx winner"><span class="yes">✅ 自動送信</span></td>
+      <td class="col-haco"><span class="no">✗ なし</span></td>
+    </tr>
+
+    <!-- 施設 -->
+    <tr class="section-row"><td colspan="3">施設管理</td></tr>
+    <tr>
+      <td class="col-label">入退館管理（QR/ICカード）</td>
+      <td class="col-linx"><span class="planned">開発予定</span></td>
+      <td class="col-haco winner"><span class="yes">✅ 専用端末</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">体組成データ連携</td>
+      <td class="col-linx"><span class="planned">開発予定</span></td>
+      <td class="col-haco winner"><span class="yes">✅ InBody等</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">ロッカー・施設予約</td>
+      <td class="col-linx"><span class="planned">対応予定</span></td>
+      <td class="col-haco winner"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">専用会員アプリ</td>
+      <td class="col-linx"><span class="yes">LINEで完結（アプリ不要）</span></td>
+      <td class="col-haco"><span class="yes">✅ 専用アプリ</span></td>
+    </tr>
+
+    <!-- セキュリティ -->
+    <tr class="section-row"><td colspan="3">セキュリティ</td></tr>
+    <tr>
+      <td class="col-label">通信暗号化</td>
+      <td class="col-linx"><span class="yes">✅ SSL/TLS</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">データ暗号化</td>
+      <td class="col-linx"><span class="yes">✅ AES-256-GCM</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">カード情報非通過</td>
+      <td class="col-linx"><span class="yes">✅ Stripe Checkout</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+
+    <!-- 導入 -->
+    <tr class="section-row"><td colspan="3">導入・サポート</td></tr>
+    <tr>
+      <td class="col-label">導入までの時間</td>
+      <td class="col-linx winner"><span class="yes">最短即日</span></td>
+      <td class="col-haco">数週間〜</td>
+    </tr>
+    <tr>
+      <td class="col-label">既存会員データ移行</td>
+      <td class="col-linx"><span class="yes">✅ CSV+LINE+段階移行</span></td>
+      <td class="col-haco"><span class="yes">✅</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">IT導入補助金</td>
+      <td class="col-linx"><span class="planned">申請予定</span></td>
+      <td class="col-haco"><span class="yes">✅ 対象</span></td>
+    </tr>
+    <tr>
+      <td class="col-label">マルチ店舗管理</td>
+      <td class="col-linx"><span class="planned">Enterprise（開発予定）</span></td>
+      <td class="col-haco"><span class="yes">✅ 本部ダッシュボード</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Summary -->
+<div class="summary">
+  <h3>LINXの優位性まとめ</h3>
+  <ul>
+    <li><strong>価格:</strong> hacomonoの約40%（¥12,800 vs ¥33,000）。初期費用¥0、初月無料</li>
+    <li><strong>AI:</strong> 24時間AI自動応対はLINXだけ。体験→入会の完全自動化もLINXだけ</li>
+    <li><strong>LINE:</strong> 既存のLINE公式アカウントをそのまま活用。一斉配信・決済リンク送信が可能</li>
+    <li><strong>スピード:</strong> 最短即日で導入可能。専用アプリのダウンロード不要（LINE完結）</li>
+    <li><strong>将来性:</strong> AI提案書自動生成・AIシフト自動生成・顧客分析を開発予定</li>
+  </ul>
+</div>
+
+<div class="summary" style="border-color: #E53935;">
+  <h3 style="color: #E53935;">hacomonoが優れている点（正直な比較）</h3>
+  <ul>
+    <li><strong>入退館管理:</strong> QR/ICカードによる入退館。LINXは未対応（開発予定）</li>
+    <li><strong>体組成データ:</strong> InBody等との連携。LINXは未対応（開発予定）</li>
+    <li><strong>専用アプリ:</strong> 会員向けスマホアプリ。LINXはLINEで完結する設計</li>
+    <li><strong>導入実績:</strong> 大手チェーン多数の実績。LINXは新規サービス</li>
+    <li><strong>口座振替:</strong> 対応済み。LINXは対応予定</li>
+  </ul>
+</div>
+
+</div>
+
+<div class="footer">
+  LINX — LINE予約・会員管理・決済 統合システム | 株式会社TomorrowProof | tomorrowprooftokyo@gmail.com
+</div>
+
+</body>
+</html>
