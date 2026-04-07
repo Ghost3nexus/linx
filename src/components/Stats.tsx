@@ -56,7 +56,7 @@ function CountUp({ target, duration = 1.5 }: { target: number; duration?: number
 
 export default function Stats() {
   return (
-    <section className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-[#1A1A1A]">
+    <section className="py-[50px] sm:py-[80px] md:py-[100px] px-6 bg-[#1A1A1A]">
       <div className="max-w-[1000px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}

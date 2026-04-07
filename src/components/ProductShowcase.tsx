@@ -157,7 +157,7 @@ export default function ProductShowcase() {
   const chatY = useTransform(scrollYProgress, [0, 1], [50, -20]);
 
   return (
-    <section ref={sectionRef} className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-white">
+    <section ref={sectionRef} className="py-[50px] sm:py-[80px] md:py-[100px] px-6 bg-white">
       <div className="max-w-[1100px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}

@@ -63,7 +63,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-[80px] sm:py-[120px] md:py-[160px] px-6 section-alt">
+    <section id="pricing" className="py-[50px] sm:py-[80px] md:py-[100px] px-6 section-alt">
       <div className="max-w-[1100px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
@@ -138,7 +138,7 @@ export default function Pricing() {
               </div>
 
               <div className="mt-6">
-                <span className="text-[44px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1 }}>
+                <span className="text-[32px] sm:text-[40px] font-extrabold text-[#1A1A1A]" style={{ lineHeight: 1 }}>
                   {plan.price === "0" ? "¥0" : `¥${plan.price}`}
                 </span>
                 <span className="text-[14px] text-[#999999] ml-1">{plan.period}</span>

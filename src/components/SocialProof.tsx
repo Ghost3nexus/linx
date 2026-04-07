@@ -29,7 +29,7 @@ const testimonials = [
 
 export default function SocialProof() {
   return (
-    <section className="py-[80px] sm:py-[120px] md:py-[160px] px-6 section-alt">
+    <section className="py-[50px] sm:py-[80px] md:py-[100px] px-6 section-alt">
       <div className="max-w-[1000px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}

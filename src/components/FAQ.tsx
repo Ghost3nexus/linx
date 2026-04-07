@@ -66,7 +66,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-[80px] sm:py-[120px] md:py-[160px] px-6 bg-white">
+    <section id="faq" className="py-[50px] sm:py-[80px] md:py-[100px] px-6 bg-white">
       <div className="max-w-[760px] mx-auto">
         <motion.p
           initial={{ opacity: 0 }}

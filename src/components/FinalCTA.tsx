@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section id="cta" className="relative py-[100px] sm:py-[140px] md:py-[180px] px-6 overflow-hidden" style={{ background: "linear-gradient(180deg, #F5FBF7 0%, #FFFFFF 100%)" }}>
+    <section id="cta" className="relative py-[60px] sm:py-[80px] md:py-[100px] px-6 overflow-hidden" style={{ background: "linear-gradient(180deg, #F5FBF7 0%, #FFFFFF 100%)" }}>
       {/* Dot pattern background */}
       <div className="absolute inset-0 dot-pattern" />
 
