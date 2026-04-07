@@ -28,6 +28,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const [authChecked, setAuthChecked] = useState(false);
 
     useEffect(() => {
+        // LINEログインからのリダイレクト: クエリパラメータからトークン保存
+        const params = new URLSearchParams(window.location.search);
+        const lineToken = params.get("token");
+        const lineAccountId = params.get("accountId");
+        if (lineToken && lineAccountId) {
+            localStorage.setItem("linx_token", lineToken);
+            localStorage.setItem("linx_account_id", lineAccountId);
+            // クエリパラメータをURLから削除
+            window.history.replaceState({}, "", pathname);
+        }
+
         // JWTの存在チェック（クライアント側）
         if (!isLoggedIn()) {
             router.replace("/login");
