@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINX 入退館ソリューション — SwitchBotスマートロック連携</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; background: #fff; line-height: 1.7; }
+  .cover { background: linear-gradient(135deg, #06C755, #04A648); color: white; padding: 60px 40px; text-align: center; }
+  .cover h1 { font-size: 30px; font-weight: 800; }
+  .cover .sub { font-size: 16px; opacity: 0.9; margin-top: 10px; }
+  .cover .meta { font-size: 13px; opacity: 0.7; margin-top: 20px; }
+  .container { max-width: 850px; margin: 0 auto; padding: 40px 24px; }
+  h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 3px solid #06C755; }
+  h3 { font-size: 17px; font-weight: 700; color: #333; margin: 28px 0 10px; }
+  p, li { font-size: 14px; margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { background: #1A1A1A; color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid #E8E8E8; }
+  .yes { color: #06C755; font-weight: 700; }
+  .highlight { background: #E8F5E9; }
+  .price { font-size: 20px; font-weight: 800; color: #06C755; }
+  .product-card { border: 1px solid #E8E8E8; border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .product-card h3 { margin-top: 0; color: #1A1A1A; }
+  .product-card .price-tag { font-size: 24px; font-weight: 800; color: #06C755; }
+  .product-card .features { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .product-card .feature { background: #F5F5F5; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .product-card .feature.key { background: #E8F5E9; color: #06C755; font-weight: 700; }
+  .recommend { border-color: #06C755; border-width: 2px; position: relative; }
+  .recommend::after { content: 'おすすめ'; position: absolute; top: -10px; right: 16px; background: #06C755; color: white; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; align-items: center; font-size: 13px; }
+  .flow-box { background: white; border: 2px solid #06C755; border-radius: 8px; padding: 8px 14px; font-weight: 700; text-align: center; }
+  .flow-box.auto { border-color: #2196F3; color: #2196F3; }
+  .flow-arrow { color: #CCC; font-size: 18px; }
+  .box { background: #F9FAFB; border: 1px solid #E8E8E8; border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .box-green { background: #F0FFF4; border-color: #06C755; }
+  @media print { .cover { padding: 40px 30px; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>LINX 入退館ソリューション</h1>
+  <p class="sub">SwitchBotスマートロック × LINE AIで実現する次世代入退館管理</p>
+  <p class="meta">2026年4月 | 株式会社TomorrowProof</p>
+</div>
+
+<div class="container">
+
+<!-- 概要 -->
+<h2>LINXの入退館管理とは</h2>
+<p>会員がLINEで「チェックイン」するだけでドアが自動解錠。専用端末不要、工事不要、LINEで完結する入退館管理システムです。</p>
+
+<div class="flow">
+  <div class="flow-box">会員がLINEで「チェックイン」</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">LINX AIが会員ステータス確認</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">SwitchBotスマートロック解錠</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">10秒後に自動施錠</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">入館記録をダッシュボードに保存</div>
+</div>
+
+<div class="box box-green">
+  <strong>LINE以外でも入退室可能:</strong> SwitchBot本体の機能として、暗証番号・指紋認証・NFCカード・顔認証・Apple Watch・Suicaタッチにも対応。LINE + 物理認証の二重対応で、スマホを忘れた会員もアクセス可能。
+</div>
+
+<!-- 機能 -->
+<h2>入退館管理の機能</h2>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>LINEチェックイン</td><td>会員がLINEで「チェックイン」→ 自動解錠</td></tr>
+  <tr><td>会員ステータス連動</td><td>アクティブ会員のみ入館許可。休会・退会は自動ブロック</td></tr>
+  <tr><td>自動施錠</td><td>解錠10秒後に自動施錠。閉め忘れ防止</td></tr>
+  <tr><td>入館ログ</td><td>日時・会員名・プランをダッシュボードに記録</td></tr>
+  <tr><td>来館率</td><td>アクティブ会員に対する来館率をリアルタイム表示</td></tr>
+  <tr><td>日別来館ログ</td><td>過去の日付の来館記録も確認可能</td></tr>
+  <tr><td>物理認証バックアップ</td><td>暗証番号・指紋・カード・顔認証で LINE不要でも入館可能</td></tr>
+</table>
+
+<!-- 製品カタログ -->
+<h2>SwitchBot スマートロック 製品カタログ</h2>
+<p>以下の全製品がLINX APIと連携可能です。施設の要件に合わせてお選びください。</p>
+
+<!-- Lock -->
+<div class="product-card">
+  <h3>SwitchBot ロック</h3>
+  <div class="price-tag">¥11,980</div>
+  <p>後付けスマートロックのエントリーモデル。工事不要で既存のドアに取り付け可能。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature">後付け・工事不要</span>
+    <span class="feature">オートロック</span>
+    <span class="feature">アプリ操作</span>
+    <span class="feature">Alexa/Google対応</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock + 指紋認証パッド -->
+<div class="product-card">
+  <h3>SwitchBot ドアロックセット（指紋認証パッド付き）</h3>
+  <div class="price-tag">¥18,980</div>
+  <p>ロック + 指紋認証パッド（Suicaタッチ対応）のセット。指紋・暗証番号・Suicaカードで解錠可能。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">指紋認証</span>
+    <span class="feature key">Suicaタッチ</span>
+    <span class="feature">暗証番号</span>
+    <span class="feature">NFCカード</span>
+    <span class="feature">後付け・工事不要</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/lock-starter-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock Pro -->
+<div class="product-card">
+  <h3>SwitchBot ロック Pro</h3>
+  <div class="price-tag">¥17,980</div>
+  <p>上位モデル。より静音で高速な解錠。Matter対応でスマートホーム連携も。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature">Matter対応</span>
+    <span class="feature">静音設計</span>
+    <span class="feature">Apple Home</span>
+    <span class="feature">後付け・工事不要</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-pro" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock Pro + 顔認証 -->
+<div class="product-card recommend">
+  <h3>SwitchBot ドアロックProセット（顔認証パッド付き）</h3>
+  <div class="price-tag">¥33,180</div>
+  <p>ロックPro + 顔認証パッドのセット。顔認証・指紋・暗証番号・NFCカード全対応。24時間ジムに最適。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">顔認証</span>
+    <span class="feature key">指紋認証</span>
+    <span class="feature">暗証番号</span>
+    <span class="feature">NFCカード</span>
+    <span class="feature">Matter対応</span>
+    <span class="feature">静音設計</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-pro-starter-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock Ultra -->
+<div class="product-card">
+  <h3>SwitchBot ロック Ultra</h3>
+  <div class="price-tag">¥22,980</div>
+  <p>最上位モデル。超高速解錠、Apple Home Key対応。7種類の解錠方法。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">Apple Home Key</span>
+    <span class="feature">超高速解錠</span>
+    <span class="feature">7-in-1アクセス</span>
+    <span class="feature">後付け・工事不要</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-ultra" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock Ultra + 指紋認証 -->
+<div class="product-card">
+  <h3>SwitchBot ドアロックUltra 指紋認証セット</h3>
+  <div class="price-tag">¥28,980</div>
+  <p>ロックUltra + 指紋認証パッド（Suicaタッチ）のセット。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">指紋認証</span>
+    <span class="feature key">Suicaタッチ</span>
+    <span class="feature">Apple Home Key</span>
+    <span class="feature">超高速解錠</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-ultra-touch-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- Lock Ultra + 顔認証 -->
+<div class="product-card">
+  <h3>SwitchBot ドアロックUltra 顔認証セット</h3>
+  <div class="price-tag">¥34,980</div>
+  <p>最上位ロック + 顔認証パッドのセット。全認証方式対応のフラッグシップ。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">顔認証</span>
+    <span class="feature key">指紋認証</span>
+    <span class="feature key">Apple Home Key</span>
+    <span class="feature">暗証番号</span>
+    <span class="feature">NFCカード</span>
+    <span class="feature">超高速解錠</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-ultra-vision-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- ダブルロック -->
+<div class="product-card">
+  <h3>SwitchBot ダブルロックProセット</h3>
+  <div class="price-tag">¥49,980</div>
+  <p>ロックPro×2 + 顔認証パッド。ダブルロックのドアに対応。ワンタッチで両方同時解錠。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">ダブルロック対応</span>
+    <span class="feature key">顔認証</span>
+    <span class="feature">同時解錠</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-2lock-pro-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- 遠隔操作セット -->
+<div class="product-card">
+  <h3>SwitchBot 遠隔操作ドアロックProセット</h3>
+  <div class="price-tag">¥47,380</div>
+  <p>ロックPro + 顔認証パッド + ハブ3。遠隔操作対応。管理者がダッシュボードから遠隔解錠可能。</p>
+  <div class="features">
+    <span class="feature key">LINX API対応</span>
+    <span class="feature key">遠隔操作</span>
+    <span class="feature key">顔認証</span>
+    <span class="feature">ハブ3付属</span>
+    <span class="feature">Wi-Fi直結</span>
+  </div>
+  <p><a href="https://www.switchbot.jp/products/switchbot-lock-pro-hub2-combo" style="color:#06C755">→ 商品ページ</a></p>
+</div>
+
+<!-- アクセサリ -->
+<h2>アクセサリ</h2>
+<table>
+  <tr><th>製品</th><th>価格</th><th>用途</th></tr>
+  <tr><td><a href="https://www.switchbot.jp/products/switchbot-card" style="color:#06C755">SwitchBot カード（3枚入り）</a></td><td>¥1,980</td><td>会員用NFCカード。カードをかざすだけで解錠</td></tr>
+  <tr><td><a href="https://www.switchbot.jp/products/switchbot-wallet-finder-card" style="color:#06C755">スマートトラッカーカード</a></td><td>¥3,480</td><td>紛失防止機能付きNFCカード</td></tr>
+</table>
+
+<!-- コスト比較 -->
+<h2>コスト比較（65店舗の場合）</h2>
+<table>
+  <tr><th>構成</th><th>1店舗</th><th>65店舗</th><th>特徴</th></tr>
+  <tr><td>ロック（最安）</td><td>¥11,980</td><td>¥778,700</td><td>LINE解錠のみ</td></tr>
+  <tr><td>ロック+指紋認証</td><td>¥18,980</td><td>¥1,233,700</td><td>LINE+指紋+Suica</td></tr>
+  <tr class="highlight"><td><strong>ロックPro+顔認証（推奨）</strong></td><td><strong>¥33,180</strong></td><td><strong>¥2,156,700</strong></td><td><strong>LINE+顔+指紋+暗証番号+カード</strong></td></tr>
+  <tr><td>ロックUltra+顔認証</td><td>¥34,980</td><td>¥2,273,700</td><td>最上位+Apple Home Key</td></tr>
+  <tr><td>hacomono専用端末（参考）</td><td>数十万円</td><td>数千万円</td><td>専用ハードウェア</td></tr>
+</table>
+
+<div class="box box-green">
+  <strong>全製品共通:</strong> 後付け・工事不要。既存のドアに取り付けるだけ。LINX APIで全機種のlock/unlockを制御可能。
+</div>
+
+<!-- 導入 -->
+<h2>導入の流れ</h2>
+<ol style="padding-left: 20px;">
+  <li><strong>製品選定</strong> — 施設の要件に合わせてロック+認証パッドを選択</li>
+  <li><strong>設置</strong> — ドアに取り付け（工事不要、約15分）</li>
+  <li><strong>SwitchBotアカウント設定</strong> — APIトークン・シークレットを取得</li>
+  <li><strong>LINX設定</strong> — ダッシュボードの設定画面でSwitchBot情報を入力</li>
+  <li><strong>テスト</strong> — LINEから「チェックイン」で解錠テスト</li>
+  <li><strong>運用開始</strong> — 会員にLINEチェックイン方法を案内</li>
+</ol>
+
+<hr style="margin: 40px 0; border: none; border-top: 1px solid #E8E8E8;">
+<p style="text-align: center; color: #999; font-size: 12px;">
+  LINX × SwitchBot 入退館ソリューション<br>
+  株式会社TomorrowProof | tomorrowprooftokyo@gmail.com<br><br>
+  SwitchBot製品の詳細: <a href="https://www.switchbot.jp/collections/security-lock-solution" style="color:#06C755">switchbot.jp/collections/security-lock-solution</a>
+</p>
+
+</div>
+</body>
+</html>
