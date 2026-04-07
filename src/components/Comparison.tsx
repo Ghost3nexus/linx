@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Check, X, ArrowRight } from "lucide-react";
 
 const features = [
-  { label: "月額料金", linx: "12,800円〜", hacomono: "33,000円〜", lstep: "5,000円〜" },
+  { label: "月額料金", linx: "29,800円〜", hacomono: "33,000円〜", lstep: "5,000円〜" },
   { label: "AI自動応対（24時間）", linx: true, hacomono: false, lstep: false },
   { label: "LINE予約管理", linx: true, hacomono: true, lstep: false },
   { label: "会員管理・ステータス", linx: true, hacomono: true, lstep: false },
