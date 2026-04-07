@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINX × GOOD LIFE GYM ご提案書</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; background: #fff; line-height: 1.7; }
+  .cover { background: linear-gradient(135deg, #06C755, #04A648); color: white; padding: 80px 40px; text-align: center; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; }
+  .cover h1 { font-size: 36px; font-weight: 800; }
+  .cover .sub { font-size: 18px; opacity: 0.9; margin-top: 12px; }
+  .cover .meta { font-size: 14px; opacity: 0.7; margin-top: 30px; }
+  .container { max-width: 850px; margin: 0 auto; padding: 40px 24px; }
+  h2 { font-size: 24px; font-weight: 800; margin: 50px 0 16px; padding-bottom: 8px; border-bottom: 3px solid #06C755; }
+  h3 { font-size: 18px; font-weight: 700; color: #333; margin: 30px 0 10px; }
+  h4 { font-size: 15px; font-weight: 700; color: #06C755; margin: 20px 0 6px; }
+  p, li { font-size: 14px; margin: 6px 0; }
+  ul, ol { padding-left: 20px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { background: #1A1A1A; color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid #E8E8E8; }
+  .yes { color: #06C755; font-weight: 700; }
+  .no { color: #E53935; }
+  .plan { color: #2196F3; font-weight: 600; }
+  .highlight { background: #E8F5E9; }
+  .box { background: #F9FAFB; border: 1px solid #E8E8E8; border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .box-green { background: #F0FFF4; border-color: #06C755; }
+  .box-red { background: #FFF5F5; border-color: #E53935; }
+  .price { font-size: 32px; font-weight: 800; color: #06C755; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; align-items: center; }
+  .flow-box { background: white; border: 2px solid #06C755; border-radius: 8px; padding: 8px 14px; font-weight: 700; font-size: 13px; text-align: center; }
+  .flow-box.auto { border-color: #2196F3; color: #2196F3; }
+  .flow-arrow { color: #CCC; font-size: 18px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+  .badge-new { background: #E8F5E9; color: #06C755; }
+  .badge-ai { background: #E3F2FD; color: #2196F3; }
+  .roadmap { position: relative; padding-left: 30px; margin: 20px 0; }
+  .roadmap::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #06C755; }
+  .rm-item { position: relative; margin: 16px 0; }
+  .rm-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; background: #06C755; border-radius: 50%; }
+  .rm-item.future::before { background: #E0E0E0; }
+  @media print { .cover { min-height: auto; padding: 50px 30px; } .container { padding: 20px; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>LINX × GOOD LIFE GYM</h1>
+  <p class="sub">LINE AI予約・会員管理・入退館 統合システム ご提案書</p>
+  <p class="meta">2026年4月 | 株式会社TomorrowProof</p>
+</div>
+
+<div class="container">
+
+<!-- 1. 提案概要 -->
+<h2>1. ご提案概要</h2>
+<p>GOOD LIFE GYM様の運営をAIで効率化する3つの導入パターンをご提案します。</p>
+
+<table>
+  <tr><th>パターン</th><th>対象</th><th>内容</th><th>月額</th></tr>
+  <tr class="highlight">
+    <td><strong>A. LINE連携</strong></td>
+    <td>既存GOOD LIFE店舗</td>
+    <td>現行システムはそのまま。LINE AI予約+事前フォーム+自動フォローアップを追加</td>
+    <td>¥12,800/店舗</td>
+  </tr>
+  <tr>
+    <td><strong>B. フル採用</strong></td>
+    <td>新規24時間ジム</td>
+    <td>LINX全機能＋SwitchBot入退館</td>
+    <td>¥12,800+SwitchBot</td>
+  </tr>
+  <tr>
+    <td><strong>C. Enterprise</strong></td>
+    <td>FC一括導入</td>
+    <td>マルチ店舗管理+カスタマイズ+セットアップ支援</td>
+    <td>要相談</td>
+  </tr>
+</table>
+
+<!-- 2. 既存システム連携 -->
+<h2>2. 既存予約管理システムとの連携 <span class="badge badge-new">実証済み</span></h2>
+
+<div class="box box-green">
+  <h4>技術検証完了: GOOD LIFE GYM 既存システムのリアルタイムデータ取得に成功</h4>
+  <p>goodlifegymjapan.com の管理画面APIから、代々木店の予約データ（52件/週）をリアルタイムで取得済み。<br>トレーナー名・サービス・残席数・定員のパースも完了。</p>
+</div>
+
+<h3>連携の仕組み</h3>
+<div class="flow">
+  <div class="flow-box">お客様がLINEで予約希望</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">LINX AIが既存システムの空きを確認</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">空き枠を提示・予約確定</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box auto">既存システムにも自動反映</div>
+</div>
+
+<table>
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td>既存システムの変更</td><td><strong>不要</strong>。現行システムはそのまま使い続けられます</td></tr>
+  <tr><td>データ同期</td><td>LINX → 既存システムへの双方向同期</td></tr>
+  <tr><td>空き状況</td><td>既存システムのリアルタイム空き状況をLINE AIが参照</td></tr>
+  <tr><td>移行作業</td><td><strong>ゼロ</strong>。LINE公式アカウントのWebhook設定のみ</td></tr>
+  <tr><td>導入期間</td><td>最短1週間</td></tr>
+</table>
+
+<!-- 3. 機能一覧 -->
+<h2>3. 実装済み機能一覧</h2>
+
+<h3>LINE AI予約（コア機能）</h3>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>AI自動応対</td><td>24時間365日、Claude AIがLINEで自動回答</td></tr>
+  <tr><td>予約受付</td><td>空き確認→枠提示→名前確認→即確定。最短3往復</td></tr>
+  <tr><td>予約変更・キャンセル</td><td>LINEから「日程変更したい」で自動リスケ</td></tr>
+  <tr><td>空きがない場合</td><td>代替候補3枠を自動提示。お客様を離さない</td></tr>
+  <tr><td>事前アンケート</td><td>予約確定5秒後に自動送信（氏名/性別/住所/メール/電話/目的/経験/悩み/持病）</td></tr>
+  <tr><td>前日リマインド</td><td>日時+曜日+持ち物+変更案内を自動送信</td></tr>
+  <tr><td>No-show検出</td><td>予約時間2時間後に来店なし→リスケ案内を自動送信+スタッフ通知</td></tr>
+  <tr><td>入会案内</td><td>体験完了→入会案内+全プラン決済リンクを即自動送信</td></tr>
+  <tr><td>3日後フォロー</td><td>未入会者に自動フォローアップ</td></tr>
+</table>
+
+<h3>会員管理</h3>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>ステータス管理</td><td>アクティブ/休会/退会/体験の4ステータス</td></tr>
+  <tr><td>出席チェックイン</td><td>ワンタップで来店記録+来館回数自動カウント</td></tr>
+  <tr><td>CSV一括インポート</td><td>既存会員データの移行（日本語ヘッダー対応）</td></tr>
+  <tr><td>LINE一斉配信</td><td>ステータス別にターゲティング配信</td></tr>
+  <tr><td>会員検索・フィルタ</td><td>名前/ステータスで即検索</td></tr>
+</table>
+
+<h3>スタッフ・スケジュール管理</h3>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>スタッフ管理</td><td>追加/編集/LINE通知設定（独立ページ）</td></tr>
+  <tr><td>シフト管理</td><td>曜日別出勤時間+2ヶ月カレンダーで休み管理</td></tr>
+  <tr><td>週間予約カレンダー</td><td>Googleカレンダー風グリッドビュー+祝日表示</td></tr>
+  <tr><td>スタッフ通知</td><td>予約が入ると担当スタッフにLINE Push</td></tr>
+  <tr><td>臨時休業</td><td>6ヶ月先までカレンダーで管理</td></tr>
+</table>
+
+<h3>入退館管理 <span class="badge badge-ai">SwitchBot連携</span></h3>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>LINEチェックイン</td><td>会員がLINEで「チェックイン」→ステータス確認→SwitchBot解錠</td></tr>
+  <tr><td>自動施錠</td><td>解錠10秒後に自動施錠</td></tr>
+  <tr><td>休会/退会ブロック</td><td>非アクティブ会員は入館拒否</td></tr>
+  <tr><td>来館ログ</td><td>日時・サービス別の来館記録をダッシュボードで確認</td></tr>
+  <tr><td>来館率</td><td>アクティブ会員に対する来館率をリアルタイム表示</td></tr>
+</table>
+
+<h3>決済（Stripe）</h3>
+<table>
+  <tr><th>機能</th><th>内容</th></tr>
+  <tr><td>入会金+月額</td><td>1セッションで入会金（¥10,000〜¥30,000）+月額（¥19,800〜¥34,800）を処理</td></tr>
+  <tr><td>自動送信</td><td>体験完了→Stripe決済リンクをLINE自動送信</td></tr>
+  <tr><td>管理画面から</td><td>会員カードの💳ボタンからいつでも決済リンク作成</td></tr>
+</table>
+
+<h3>セキュリティ</h3>
+<table>
+  <tr><th>対策</th><th>内容</th></tr>
+  <tr><td>暗号化</td><td>AES-256-GCM（保存時）+ SSL/TLS（通信時）</td></tr>
+  <tr><td>秘密鍵保護</td><td>LINE/Stripe秘密鍵はAPIレスポンスに含めない</td></tr>
+  <tr><td>PII保護</td><td>ログに個人情報を記録しない。エラーに内部情報を含めない</td></tr>
+  <tr><td>カード情報</td><td>Stripe Checkout経由。LINXサーバーを通過しない</td></tr>
+  <tr><td>アカウント分離</td><td>店舗ごとに完全分離。他店舗のデータにアクセス不可</td></tr>
+</table>
+
+<!-- 4. 競合比較 -->
+<h2>4. 競合サービス比較</h2>
+
+<table>
+  <tr><th>機能</th><th>LINX</th><th>hacomono<br>(¥33,000/月)</th><th>Lステップ<br>(¥5,000〜/月)</th><th>GOOD LIFE<br>現行システム</th></tr>
+  <tr class="highlight"><td>月額料金</td><td class="yes">¥12,800</td><td>¥33,000〜</td><td>¥5,000〜</td><td>開発済み</td></tr>
+  <tr><td>AI自動応対（24h）</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>LINE予約（AI）</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>事前フォーム自動送信</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>体験→入会の自動化</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>No-show自動リスケ</td><td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>LINE一斉配信</td><td class="yes">✅</td><td class="no">✗</td><td class="yes">✅</td><td class="no">✗</td></tr>
+  <tr><td>予約管理</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td><td class="yes">✅</td></tr>
+  <tr><td>会員管理</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td><td class="yes">✅</td></tr>
+  <tr><td>Stripe決済</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td><td>?</td></tr>
+  <tr><td>スタッフ管理</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td><td class="yes">✅</td></tr>
+  <tr><td>入退館（SwitchBot）</td><td class="yes">✅ ¥11,980/店</td><td>✅ 専用端末（数十万）</td><td class="no">✗</td><td class="no">✗</td></tr>
+  <tr><td>既存システム連携</td><td class="yes">✅ API連携実証済み</td><td class="no">✗</td><td class="no">✗</td><td>—</td></tr>
+  <tr class="highlight"><td>初期費用</td><td class="yes">¥0</td><td>要問合せ</td><td>¥0</td><td>¥2,000,000</td></tr>
+  <tr class="highlight"><td>初月無料</td><td class="yes">あり</td><td class="no">なし</td><td class="no">なし</td><td>—</td></tr>
+</table>
+
+<!-- 5. 既存システムAPI連携 -->
+<h2>5. 既存システムAPI連携の技術詳細</h2>
+
+<div class="box">
+  <h4>検証済みAPI</h4>
+  <table>
+    <tr><th>API</th><th>用途</th><th>ステータス</th></tr>
+    <tr><td>GET /admin/home/events</td><td>予約データ取得（日付範囲指定）</td><td class="yes">✅ 取得成功</td></tr>
+    <tr><td>GET /admin/store/switch/:id</td><td>店舗切り替え</td><td class="yes">✅ 動作確認済み</td></tr>
+    <tr><td>POST /admin/login</td><td>認証</td><td class="yes">✅ セッション確立済み</td></tr>
+  </table>
+</div>
+
+<h4>取得できたデータ例（代々木店・4/8〜4/14）</h4>
+<table>
+  <tr><th>日時</th><th>メニュー</th><th>トレーナー</th><th>残席</th></tr>
+  <tr><td>4/9 19:20</td><td>セミパ（40分）</td><td>太田杜彦</td><td>3/4名</td></tr>
+  <tr><td>4/9 20:10</td><td>セミパ（40分）</td><td>太田杜彦</td><td>3/4名</td></tr>
+  <tr><td>4/10 12:00</td><td>セミパ（40分）</td><td>豊川博明</td><td>1/4名</td></tr>
+  <tr><td>4/10 15:00</td><td>マンツーマン（50分）</td><td>豊川博明</td><td>1/1名</td></tr>
+  <tr><td>4/10 19:20</td><td>セミパ（40分）</td><td>豊川博明</td><td>2/4名</td></tr>
+</table>
+<p>→ このデータをLINE AIが参照し、お客様に「明日19:20のセミパ、残り3名です」と案内可能。</p>
+
+<!-- 6. コスト比較 -->
+<h2>6. コスト比較（65店舗の場合）</h2>
+
+<table>
+  <tr><th></th><th>LINX</th><th>hacomono</th></tr>
+  <tr><td>月額</td><td class="yes">¥12,800 × 65 = ¥832,000</td><td>¥33,000 × 65 = ¥2,145,000</td></tr>
+  <tr><td>年間</td><td class="yes">¥9,152,000（初月無料）</td><td>¥25,740,000</td></tr>
+  <tr class="highlight"><td><strong>年間差額</strong></td><td colspan="2"><strong class="price">¥16,588,000 の削減</strong></td></tr>
+  <tr><td>入退館ハードウェア</td><td class="yes">SwitchBot ¥11,980×65 = ¥778,700</td><td>専用端末 数千万円</td></tr>
+  <tr><td>初期費用</td><td class="yes">¥0</td><td>要問合せ</td></tr>
+</table>
+
+<!-- 7. 導入ステップ -->
+<h2>7. 導入ステップ</h2>
+
+<h4>パターンA: 既存店舗へのLINE連携</h4>
+<div class="roadmap">
+  <div class="rm-item"><h4>Week 1 — セットアップ</h4><p>LINE公式アカウントのWebhook設定、ナレッジ登録、既存API連携設定</p></div>
+  <div class="rm-item"><h4>Week 2 — テスト運用</h4><p>1店舗でテスト。スタッフ研修。予約フローの動作確認</p></div>
+  <div class="rm-item"><h4>Week 3-4 — 全店舗展開</h4><p>残り店舗へのセットアップ。会員データ移行（必要に応じて）</p></div>
+</div>
+
+<h4>パターンB: 新規24時間ジム</h4>
+<div class="roadmap">
+  <div class="rm-item"><h4>Week 1 — フル設定</h4><p>LINX全機能設定+SwitchBotロック設置+Stripe決済設定</p></div>
+  <div class="rm-item"><h4>Week 2 — テスト</h4><p>入退館〜予約〜入会〜チェックインの全フロー動作確認</p></div>
+  <div class="rm-item"><h4>Week 3 — 運用開始</h4><p>会員募集開始。LINE友だち追加→体験予約→入会の導線確立</p></div>
+</div>
+
+<!-- 8. ロードマップ -->
+<h2>8. 今後の開発ロードマップ</h2>
+
+<div class="roadmap">
+  <div class="rm-item"><h4>✅ Phase 1（現在）</h4><p>LINE AI予約、会員管理、スタッフ管理、決済、チェックイン、LINE配信、事前フォーム、リマインド、No-showリスケ、既存システム連携</p></div>
+  <div class="rm-item future"><h4>📋 Phase 2 — 提案書自動生成</h4><p>事前フォーム+体組成データからAIがパーソナライズされた入会提案書をダッシュボード上で自動生成。スタッフはワンクリックでLINE送信</p></div>
+  <div class="rm-item future"><h4>📊 Phase 3 — 顧客分析</h4><p>来館頻度・継続率・離脱予測・LTV・フォーム回答率をダッシュボードで可視化。休会予備軍を自動検出</p></div>
+  <div class="rm-item future"><h4>👥 Phase 4 — AIシフト自動生成</h4><p>月初にAIがシフト案を生成→各スタッフのLINEに配信→休み希望収集→自動調整→確定</p></div>
+  <div class="rm-item future"><h4>🏢 Phase 5 — マルチ店舗統合</h4><p>本部ダッシュボード。全FC店舗のKPI一元管理。店舗間ベンチマーク比較</p></div>
+</div>
+
+<!-- 9. 料金 -->
+<h2>9. 料金プラン</h2>
+
+<table>
+  <tr><th></th><th>Standard</th><th>Enterprise</th></tr>
+  <tr><td>月額</td><td><span class="price">¥12,800</span>/店舗</td><td>要相談</td></tr>
+  <tr><td>管理者</td><td>5名</td><td>無制限</td></tr>
+  <tr><td>スタッフ</td><td>20名</td><td>無制限</td></tr>
+  <tr><td>顧客</td><td>無制限</td><td>無制限</td></tr>
+  <tr><td>AI回答</td><td>2,000回/月</td><td>10,000+回/月</td></tr>
+  <tr><td>AI顧客分析</td><td>—</td><td class="yes">✅</td></tr>
+  <tr><td>AIシフト自動生成</td><td>—</td><td class="yes">✅</td></tr>
+  <tr><td>カスタマイズ</td><td>—</td><td class="yes">✅ 企業向け対応</td></tr>
+  <tr><td>セットアップ支援</td><td>—</td><td class="yes">✅</td></tr>
+  <tr><td>データ移行サポート</td><td>—</td><td class="yes">✅</td></tr>
+  <tr><td>専任サポート</td><td>—</td><td class="yes">✅</td></tr>
+  <tr><td>初月</td><td class="yes">無料</td><td class="yes">無料（本部3ヶ月無料）</td></tr>
+</table>
+
+<div class="box box-green">
+  <p><strong>本部（GOOD LIFE GYM本社）は3ヶ月無料。</strong>FC各店舗への導入を推進いただくためのパートナーシップ。</p>
+</div>
+
+<!-- Footer -->
+<hr style="margin: 50px 0 20px; border: none; border-top: 1px solid #E8E8E8;">
+<p style="text-align: center; color: #999; font-size: 12px;">
+  LINX — LINE AI予約・会員管理・入退館 統合システム<br>
+  株式会社TomorrowProof | tomorrowprooftokyo@gmail.com
+</p>
+
+</div>
+</body>
+</html>
