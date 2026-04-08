@@ -28,14 +28,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const [authChecked, setAuthChecked] = useState(false);
 
     useEffect(() => {
-        // LINEログインからのリダイレクト: クエリパラメータからトークン保存
+        // LINEログインからのリダイレクト: cookieからトークンをlocalStorageに移動
         const params = new URLSearchParams(window.location.search);
-        const lineToken = params.get("token");
-        const lineAccountId = params.get("accountId");
-        if (lineToken && lineAccountId) {
-            localStorage.setItem("linx_token", lineToken);
-            localStorage.setItem("linx_account_id", lineAccountId);
-            // クエリパラメータをURLから削除
+        if (params.get("linx_auth") === "1") {
+            // cookieからトークン取得
+            const cookies = document.cookie.split(";").reduce((acc, c) => {
+                const [k, v] = c.trim().split("=");
+                acc[k] = v;
+                return acc;
+            }, {} as Record<string, string>);
+            if (cookies.linx_token && cookies.linx_account_id) {
+                localStorage.setItem("linx_token", cookies.linx_token);
+                localStorage.setItem("linx_account_id", cookies.linx_account_id);
+                // cookieを削除
+                document.cookie = "linx_token=; path=/; max-age=0";
+                document.cookie = "linx_account_id=; path=/; max-age=0";
+            }
             window.history.replaceState({}, "", pathname);
         }
 
