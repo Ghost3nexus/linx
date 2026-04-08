@@ -34,6 +34,7 @@ const features = [
   { label: "CSV会員一括インポート", linx: true, hacomono: true, stores: true },
   // セキュリティ
   { label: "AES-256暗号化", linx: true, hacomono: true, stores: true },
+  { label: "AI脆弱性自動監視", linx: true, hacomono: false, stores: false },
   // 将来
   { label: "AI顧客分析・離脱予測", linx: "開発予定", hacomono: false, stores: false },
   { label: "AIシフト自動生成", linx: "開発予定", hacomono: false, stores: false },

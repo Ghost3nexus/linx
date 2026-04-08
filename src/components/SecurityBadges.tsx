@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Lock, Server, Eye } from "lucide-react";
 
 const badges = [
-  { icon: ShieldCheck, label: "AES-256暗号化", sub: "データを軍事レベルで保護" },
-  { icon: Lock, label: "SSL/TLS通信", sub: "全通信を暗号化" },
-  { icon: Eye, label: "PII保護", sub: "個人情報をログに記録しない" },
-  { icon: Server, label: "PCI DSS準拠", sub: "カード情報はStripe/Square経由" },
+  { icon: ShieldCheck, label: "AI脆弱性監視", sub: "最新AIが24時間セキュリティを自動監査" },
+  { icon: Lock, label: "AES-256 + SSL", sub: "軍事レベルの暗号化で全データを保護" },
+  { icon: Eye, label: "PII保護", sub: "個人情報をログに記録しない設計" },
+  { icon: Server, label: "PCI DSS準拠", sub: "カード情報は決済プロバイダ経由" },
 ];
 
 export default function SecurityBadges() {
