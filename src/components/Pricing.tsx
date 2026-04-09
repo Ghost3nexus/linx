@@ -5,6 +5,24 @@ import { Check } from "lucide-react";
 
 const plans = [
   {
+    name: "Free",
+    price: "0",
+    period: "円 / 月",
+    description: "まずは試したい個人店・小規模店向け",
+    features: [
+      "管理者 1名 / スタッフ 3名",
+      "顧客 100名まで",
+      "月50回までAI回答",
+      "LINE連携・基本予約管理",
+      "管理画面アクセス",
+      "メールサポート",
+    ],
+    cta: "無料で始める",
+    href: "/login",
+    popular: false,
+    highlight: true,
+  },
+  {
     name: "Standard",
     price: "29,800",
     period: "円 / 月",
@@ -56,7 +74,7 @@ const plans = [
       "専任サポート担当",
     ],
     cta: "お問い合わせ",
-    href: "/login",
+    href: "/documents",
     popular: false,
     highlight: false,
   },
@@ -83,7 +101,7 @@ export default function Pricing() {
           className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
           style={{ lineHeight: 1.3 }}
         >
-          初月無料で、すべての機能をお試しください。
+          クレカ不要。今すぐ無料で始められます。
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -93,10 +111,10 @@ export default function Pricing() {
           className="mt-4 text-center text-[#666666] text-[16px] sm:text-[18px] max-w-[640px] mx-auto"
           style={{ lineHeight: 1.8 }}
         >
-          初月無料。2ヶ月目から課金開始。いつでも解約OK・解約金なし。
+          Freeプランはずっと無料。クレジットカード登録も不要。必要になったら有料プランへアップグレードできます。
         </motion.p>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-[760px] mx-auto">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-[1100px] mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -182,7 +200,7 @@ export default function Pricing() {
             全プラン共通: AI自動応答 / お店情報登録 / 会話ログ / 管理画面 / AES-256暗号化 / SSL通信
           </p>
           <p className="mt-2 text-[#AAAAAA] text-[13px] sm:text-[14px]">
-            初月無料トライアル。合わなければいつでも解約。解約金はありません。
+            クレカ登録不要で今すぐ開始。合わなければいつでも解約OK・解約金なし。
           </p>
         </motion.div>
       </div>

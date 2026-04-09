@@ -281,7 +281,7 @@ export default function SetupPage() {
                                     <div className="bg-[#F5FBF7] border border-[#06C755]/20 rounded-lg p-3 text-center">
                                         <p className="text-[13px] text-[#666666]">
                                             😵 それでもわからない場合は
-                                            <a href="https://calendar.app.google/p334NDqkf4gaqMxMA" target="_blank" rel="noopener noreferrer" className="text-[#06C755] font-bold underline ml-1">
+                                            <a href="https://calendar.app.google/2aFsQTibv5HJKivE9" target="_blank" rel="noopener noreferrer" className="text-[#06C755] font-bold underline ml-1">
                                                 オンラインで一緒に設定しましょう（無料）
                                             </a>
                                         </p>

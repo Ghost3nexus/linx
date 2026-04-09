@@ -49,7 +49,7 @@ export default function LoginPage() {
                     </h1>
                     <p className="text-[14px] text-[#999999] mt-2">
                         {mode === "register"
-                            ? "1週間無料お試し。クレジットカード不要。"
+                            ? "Freeプランでずっと無料。クレジットカード不要。"
                             : "アカウントにログイン"}
                     </p>
                 </div>

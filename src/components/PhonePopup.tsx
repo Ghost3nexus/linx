@@ -66,7 +66,7 @@ export default function PhonePopup() {
 
               {/* Google Meet CTA */}
               <a
-                href="https://calendar.google.com/calendar/appointments"
+                href="https://calendar.app.google/2aFsQTibv5HJKivE9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 flex items-center justify-center gap-3 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold py-3.5 rounded-xl text-[15px] transition-all duration-300 hover:shadow-lg"

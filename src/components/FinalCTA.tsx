@@ -73,7 +73,7 @@ export default function FinalCTA() {
             または
           </p>
           <a
-            href="https://calendar.google.com/calendar/appointments"
+            href="https://calendar.app.google/2aFsQTibv5HJKivE9"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-flex items-center gap-3 border-2 border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white text-[#1A1A1A] font-bold px-10 py-4 rounded-full text-[16px] transition-all duration-300"
