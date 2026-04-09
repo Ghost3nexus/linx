@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Calendar, ArrowRight, Download, Mail, Building2, User, Phone, Globe, Briefcase } from "lucide-react";
+import { FileText, ArrowRight, Download, Mail, Building2, User, Phone, Globe, Briefcase, CheckCircle2 } from "lucide-react";
 
 export default function DocumentsPage() {
     const [showForm, setShowForm] = useState(true);
@@ -14,17 +14,31 @@ export default function DocumentsPage() {
     const [website, setWebsite] = useState("");
     const [sending, setSending] = useState(false);
 
-    // Simple form — no backend needed for now, just gates the content
-    function handleSubmit(e: React.FormEvent) {
+    const [error, setError] = useState("");
+
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!name || !email) return;
         setSending(true);
-        // Simulate brief delay
-        setTimeout(() => {
+        setError("");
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_LINX_API_URL || "https://linx-server-production.up.railway.app/api";
+            const res = await fetch(`${apiUrl}/documents/request`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, company, phone, industry, website }),
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || "送信に失敗しました");
+            }
             setFormSubmitted(true);
             setShowForm(false);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "送信に失敗しました");
+        } finally {
             setSending(false);
-        }, 800);
+        }
     }
 
     return (
@@ -36,15 +50,6 @@ export default function DocumentsPage() {
                         LIN<span className="text-[#06C755]">X</span>
                     </a>
                     <div className="flex items-center gap-3">
-                        <a
-                            href="https://calendar.app.google/2aFsQTibv5HJKivE9"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hidden sm:inline-flex items-center gap-2 border-2 border-[#1A1A1A] text-[#1A1A1A] font-bold px-5 py-2.5 rounded-full text-[14px] hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
-                        >
-                            <Calendar size={15} />
-                            オンライン相談
-                        </a>
                         <a
                             href="/login"
                             className="inline-flex items-center gap-2 bg-[#06C755] text-white font-bold px-5 py-2.5 rounded-full text-[14px] hover:bg-[#05B04A] transition-all duration-300"
@@ -73,6 +78,11 @@ export default function DocumentsPage() {
                         </div>
 
                         <form onSubmit={handleSubmit} className="bg-white border border-[#E8E8E8] rounded-2xl p-8 shadow-sm">
+                            {error && (
+                                <div className="mb-4 bg-[#E53935]/10 border border-[#E53935]/30 rounded-lg p-3 text-[#E53935] text-[13px]">
+                                    {error}
+                                </div>
+                            )}
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-[14px] font-medium text-[#333333] mb-2">
@@ -197,111 +207,144 @@ export default function DocumentsPage() {
                 </div>
             )}
 
-            {/* Document Viewer + Meeting CTA */}
+            {/* Success state: Big Thank You + Documents */}
             {formSubmitted && (
-                <div className="max-w-[1200px] mx-auto px-6 py-10">
-                    <div className="flex flex-col lg:flex-row gap-8">
-                        {/* Document Viewer */}
-                        <div className="flex-1">
-                            <div className="flex items-center justify-between mb-4">
-                                <h2 className="text-[20px] font-bold text-[#1A1A1A]">
-                                    LINX サービス資料
-                                </h2>
-                                <a
-                                    href="/linx-product-overview.html"
-                                    target="_blank"
-                                    className="flex items-center gap-1 text-[14px] text-[#06C755] font-medium hover:underline"
-                                >
-                                    <Download size={14} />
-                                    別タブで開く
-                                </a>
+                <>
+                    {/* Big Success Banner */}
+                    <div className="bg-gradient-to-b from-[#F5FBF7] to-white border-b border-[#E8E8E8]">
+                        <div className="max-w-[880px] mx-auto px-6 py-12 sm:py-16 text-center">
+                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#06C755] mb-6 animate-[bounce_1s_ease-in-out_1]">
+                                <CheckCircle2 size={44} className="text-white" strokeWidth={2.5} />
                             </div>
-                            <div className="border border-[#E8E8E8] rounded-2xl overflow-hidden shadow-sm" style={{ height: "75vh" }}>
-                                <iframe
-                                    src="/linx-product-overview.html"
-                                    className="w-full h-full"
-                                    title="LINX サービス資料"
-                                />
-                            </div>
-
-                            {/* Industry-specific documents */}
-                            <div className="mt-8">
-                                <h3 className="text-[18px] font-bold text-[#1A1A1A] mb-4">業種別ソリューション資料</h3>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                    {[
-                                        { label: "パーソナルジム", href: "/solutions/gym" },
-                                        { label: "ヨガスタジオ", href: "/solutions/yoga" },
-                                        { label: "ピラティス", href: "/solutions/pilates" },
-                                        { label: "クリニック", href: "/solutions/clinic" },
-                                        { label: "サウナ", href: "/solutions/sauna" },
-                                        { label: "ピックルボール", href: "/solutions/pickleball" },
-                                        { label: "ダンススタジオ", href: "/solutions/studio" },
-                                    ].map(doc => (
-                                        <a key={doc.label} href={doc.href}
-                                            className="flex items-center gap-2 bg-[#F9FAFB] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl px-4 py-3 text-[14px] font-medium text-[#1A1A1A] hover:text-[#06C755] transition-all">
-                                            <FileText size={16} className="shrink-0" />
-                                            {doc.label}
-                                        </a>
-                                    ))}
-                                </div>
+                            <h1 className="text-[28px] sm:text-[36px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.3 }}>
+                                お問い合わせありがとうございます
+                            </h1>
+                            <p className="mt-4 text-[15px] sm:text-[17px] text-[#666666] leading-relaxed max-w-[560px] mx-auto">
+                                ご入力いただいた内容を確認の上、担当者より<br className="hidden sm:block" />
+                                <span className="font-bold text-[#1A1A1A]">2営業日以内</span>にメールまたはお電話にてご連絡いたします。
+                            </p>
+                            <div className="mt-6 inline-flex items-center gap-2 bg-white border border-[#E8E8E8] rounded-full px-5 py-2.5">
+                                <Mail size={15} className="text-[#06C755]" />
+                                <p className="text-[13px] text-[#666666]">
+                                    確認メールを <span className="font-bold text-[#1A1A1A]">{email}</span> にお送りしました
+                                </p>
                             </div>
                         </div>
+                    </div>
 
-                        {/* Sidebar: Meeting CTA */}
-                        <div className="w-full lg:w-[320px] shrink-0">
-                            <div className="lg:sticky lg:top-[88px] space-y-6">
-                                {/* Meeting booking */}
-                                <div className="bg-[#F5FBF7] border border-[#06C755]/20 rounded-2xl p-6">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-12 h-12 rounded-xl bg-[#06C755] flex items-center justify-center">
-                                            <Calendar size={24} className="text-white" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-[16px] font-bold text-[#1A1A1A]">オンライン相談</h3>
-                                            <p className="text-[13px] text-[#999999]">30分無料</p>
+                    <div className="max-w-[1200px] mx-auto px-6 py-10">
+                        <div className="flex flex-col lg:flex-row gap-8">
+                            {/* Document Viewer */}
+                            <div className="flex-1">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h2 className="text-[20px] font-bold text-[#1A1A1A]">
+                                        LINX サービス資料
+                                    </h2>
+                                    <a
+                                        href="/linx-product-overview.html"
+                                        target="_blank"
+                                        className="flex items-center gap-1 text-[14px] text-[#06C755] font-medium hover:underline"
+                                    >
+                                        <ArrowRight size={14} />
+                                        別タブで開く
+                                    </a>
+                                </div>
+                                <div className="border border-[#E8E8E8] rounded-2xl overflow-hidden shadow-sm" style={{ height: "75vh" }}>
+                                    <iframe
+                                        src="/linx-product-overview.html"
+                                        className="w-full h-full"
+                                        title="LINX サービス資料"
+                                    />
+                                </div>
+
+                                {/* Industry-specific documents */}
+                                <div className="mt-8">
+                                    <h3 className="text-[18px] font-bold text-[#1A1A1A] mb-4">業種別ソリューション資料</h3>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                        {[
+                                            { label: "パーソナルジム", href: "/solutions/gym" },
+                                            { label: "ヨガスタジオ", href: "/solutions/yoga" },
+                                            { label: "ピラティス", href: "/solutions/pilates" },
+                                            { label: "クリニック", href: "/solutions/clinic" },
+                                            { label: "サウナ", href: "/solutions/sauna" },
+                                            { label: "ピックルボール", href: "/solutions/pickleball" },
+                                            { label: "ダンススタジオ", href: "/solutions/studio" },
+                                        ].map(doc => (
+                                            <a key={doc.label} href={doc.href}
+                                                className="flex items-center gap-2 bg-[#F9FAFB] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl px-4 py-3 text-[14px] font-medium text-[#1A1A1A] hover:text-[#06C755] transition-all">
+                                                <FileText size={16} className="shrink-0" />
+                                                {doc.label}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Sidebar */}
+                            <div className="w-full lg:w-[320px] shrink-0">
+                                <div className="lg:sticky lg:top-[88px] space-y-6">
+                                    {/* PDF Downloads */}
+                                    <div className="bg-white border border-[#E8E8E8] rounded-2xl p-6">
+                                        <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-1">PDF資料ダウンロード</h3>
+                                        <p className="text-[12px] text-[#999] mb-4">社内共有・検討用にどうぞ</p>
+                                        <div className="space-y-3">
+                                            <a
+                                                href="/downloads/linx-vs-hacomono.pdf"
+                                                download
+                                                className="flex items-center gap-3 bg-[#F9FAFB] hover:bg-[#F5FBF7] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl p-3 transition-all"
+                                            >
+                                                <div className="w-10 h-10 rounded-lg bg-[#06C755]/10 flex items-center justify-center shrink-0">
+                                                    <Download size={16} className="text-[#06C755]" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-[13px] font-bold text-[#1A1A1A] truncate">LINX vs 競合比較</p>
+                                                    <p className="text-[11px] text-[#999]">PDF · 847 KB</p>
+                                                </div>
+                                            </a>
+                                            <a
+                                                href="/downloads/linx-smartlock-catalog.pdf"
+                                                download
+                                                className="flex items-center gap-3 bg-[#F9FAFB] hover:bg-[#F5FBF7] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl p-3 transition-all"
+                                            >
+                                                <div className="w-10 h-10 rounded-lg bg-[#06C755]/10 flex items-center justify-center shrink-0">
+                                                    <Download size={16} className="text-[#06C755]" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-[13px] font-bold text-[#1A1A1A] truncate">スマートロック連携</p>
+                                                    <p className="text-[11px] text-[#999]">PDF · 826 KB</p>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
-                                    <p className="text-[14px] text-[#666666] mb-5 leading-relaxed">
-                                        デモと導入プランをご説明します。<br />
-                                        お気軽にご相談ください。
-                                    </p>
-                                    <a
-                                        href="https://calendar.app.google/2aFsQTibv5HJKivE9"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-full flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold py-3.5 rounded-full text-[15px] transition-all duration-300"
-                                        style={{ boxShadow: "0 4px 16px rgba(6,199,85,0.25)" }}
-                                    >
-                                        <Calendar size={16} />
-                                        ミーティングを予約する
-                                    </a>
-                                </div>
 
-                                {/* Quick start */}
-                                <div className="bg-white border border-[#E8E8E8] rounded-2xl p-6">
-                                    <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">初月無料トライアル</h3>
-                                    <p className="text-[14px] text-[#666666] mb-4">
-                                        全機能を1ヶ月間無料でお試し。<br />
-                                        最短1日で導入完了。
-                                    </p>
-                                    <a
-                                        href="/login"
-                                        className="w-full flex items-center justify-center gap-2 border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white font-bold py-3.5 rounded-full text-[15px] transition-all duration-300"
-                                    >
-                                        初月無料で始める
-                                        <ArrowRight size={16} />
-                                    </a>
-                                </div>
+                                    {/* Free plan CTA */}
+                                    <div className="bg-[#F5FBF7] border border-[#06C755]/20 rounded-2xl p-6">
+                                        <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-2">Freeプランで今すぐ試す</h3>
+                                        <p className="text-[13px] text-[#666666] mb-4 leading-relaxed">
+                                            連絡を待たずに使ってみたい方は、<br />
+                                            クレカ登録不要のFreeプランで今すぐお試しいただけます。
+                                        </p>
+                                        <a
+                                            href="/login"
+                                            className="w-full flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold py-3.5 rounded-full text-[14px] transition-all duration-300"
+                                            style={{ boxShadow: "0 4px 16px rgba(6,199,85,0.25)" }}
+                                        >
+                                            無料で始める
+                                            <ArrowRight size={15} />
+                                        </a>
+                                        <p className="text-center text-[11px] text-[#999] mt-3">クレジットカード不要 · ずっと無料</p>
+                                    </div>
 
-                                {/* Contact info */}
-                                <div className="text-[13px] text-[#999999] space-y-1">
-                                    <p className="font-bold text-[#1A1A1A]">株式会社TomorrowProof</p>
-                                    <p>tomorrowprooftokyo@gmail.com</p>
+                                    {/* Contact info */}
+                                    <div className="text-[13px] text-[#999999] space-y-1 px-2">
+                                        <p className="font-bold text-[#1A1A1A]">株式会社TomorrowProof</p>
+                                        <p>tomorrowprooftokyo@gmail.com</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

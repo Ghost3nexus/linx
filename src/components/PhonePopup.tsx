@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Video, X, MessageSquare, Calendar } from "lucide-react";
+import { Video, X, MessageSquare, FileText } from "lucide-react";
 
 export default function PhonePopup() {
   const [show, setShow] = useState(false);
@@ -46,11 +46,11 @@ export default function PhonePopup() {
             <div className="bg-[#06C755] px-5 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <Video size={18} className="text-white" />
+                  <FileText size={18} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-[15px]">無料オンライン相談</p>
-                  <p className="text-white/80 text-[12px]">Google Meetで30分無料デモ</p>
+                  <p className="text-white font-bold text-[15px]">無料サービス資料</p>
+                  <p className="text-white/80 text-[12px]">機能・料金・導入事例をまとめて</p>
                 </div>
               </div>
               <button onClick={handleDismiss} className="text-white/60 hover:text-white p-1">
@@ -61,20 +61,18 @@ export default function PhonePopup() {
             {/* Body */}
             <div className="p-5">
               <p className="text-[#1A1A1A] text-[14px] leading-relaxed">
-                導入のご相談、実際の管理画面デモ、お見積もりなど、専門スタッフが丁寧にご案内します。
+                AI自動応答・予約管理・決済・顧客管理の機能と料金をまとめた資料を無料でお送りします。
               </p>
 
-              {/* Google Meet CTA */}
+              {/* Documents CTA */}
               <a
-                href="https://calendar.app.google/2aFsQTibv5HJKivE9"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/documents"
                 className="mt-4 flex items-center justify-center gap-3 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold py-3.5 rounded-xl text-[15px] transition-all duration-300 hover:shadow-lg"
               >
-                <Calendar size={18} />
-                無料デモを予約する
+                <FileText size={18} />
+                資料をダウンロード
               </a>
-              <p className="text-center text-[11px] text-[#999] mt-2">所要時間 約30分 / 平日 10:00〜18:00</p>
+              <p className="text-center text-[11px] text-[#999] mt-2">30秒でご入力いただけます</p>
 
               {/* Divider */}
               <div className="flex items-center gap-3 my-4">
@@ -83,13 +81,13 @@ export default function PhonePopup() {
                 <div className="flex-1 h-px bg-[#E8E8E8]" />
               </div>
 
-              {/* Document CTA */}
+              {/* Login CTA */}
               <a
-                href="/documents"
+                href="/login"
                 className="flex items-center justify-center gap-2 border-2 border-[#E8E8E8] hover:border-[#06C755] text-[#1A1A1A] hover:text-[#06C755] font-bold py-3 rounded-xl text-[14px] transition-all duration-300"
               >
                 <MessageSquare size={16} />
-                資料請求・お問い合わせ
+                今すぐ無料で始める
               </a>
             </div>
           </div>

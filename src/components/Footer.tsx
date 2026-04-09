@@ -24,12 +24,10 @@ export default function Footer() {
             AI免責事項
           </a>
           <a
-            href="https://calendar.app.google/2aFsQTibv5HJKivE9"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/documents"
             className="hover:text-[#06C755] transition-colors duration-300 touch-manipulation"
           >
-            お問い合わせ
+            お問い合わせ・資料請求
           </a>
         </nav>
 
