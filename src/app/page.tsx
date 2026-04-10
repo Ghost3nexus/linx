@@ -10,11 +10,14 @@ import Demo from "@/components/Demo";
 import Journey from "@/components/Journey";
 import Stats from "@/components/Stats";
 import UseCases from "@/components/UseCases";
-import SocialProof from "@/components/SocialProof";
+import RiskFree from "@/components/RiskFree";
+import DataProof from "@/components/DataProof";
 import Comparison from "@/components/Comparison";
 import Pricing from "@/components/Pricing";
+import BetaPartner from "@/components/BetaPartner";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
+import AboutCompany from "@/components/AboutCompany";
 import SecurityBadges from "@/components/SecurityBadges";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -36,11 +39,14 @@ export default function Home() {
         <Journey />
         <Stats />
         <UseCases />
-        <SocialProof />
+        <RiskFree />
+        <DataProof />
         <Comparison />
         <Pricing />
+        <BetaPartner />
         <FAQ />
         <FinalCTA />
+        <AboutCompany />
         <SecurityBadges />
       </main>
       <Footer />
