@@ -1,120 +1,80 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, MessageSquare, CalendarCheck, UserCheck, Timer } from "lucide-react";
+import { MessageCircle, Clock, UserX, Zap } from "lucide-react";
 
-const items = [
+const transforms = [
   {
-    icon: MessageSquare,
-    before: "毎朝30件の未読LINE",
-    after: "AIが24時間自動応答",
-    color: "#E53935",
+    icon: MessageCircle,
+    pain: "毎朝30件のLINE未読",
+    solve: "AIが即回答。未読ゼロへ",
+    metric: "80%",
+    metricLabel: "対応時間削減",
   },
   {
-    icon: CalendarCheck,
-    before: "予約はExcel手入力",
-    after: "AIが自動で予約確定",
-    color: "#2196F3",
+    icon: Clock,
+    pain: "夜の問い合わせを全部逃す",
+    solve: "24時間365日、自動で受付",
+    metric: "24h",
+    metricLabel: "無人対応",
   },
   {
-    icon: UserCheck,
-    before: "返信忘れでお客様を逃す",
-    after: "取りこぼしゼロ",
-    color: "#F59E0B",
-  },
-  {
-    icon: Timer,
-    before: "事務作業に1日2時間",
-    after: "事務作業ほぼゼロ",
-    color: "#9333EA",
+    icon: UserX,
+    pain: "予約はExcel。返信忘れも",
+    solve: "予約確定→リマインドまで自動",
+    metric: "0件",
+    metricLabel: "取りこぼし",
   },
 ];
 
 export default function BeforeAfter() {
   return (
-    <section className="py-[50px] sm:py-[80px] md:py-[100px] px-6 bg-[#F8F9FA]">
+    <section className="py-[60px] sm:py-[90px] px-6 bg-white">
       <div className="max-w-[960px] mx-auto">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
-          className="section-label text-center mb-4"
-        >
-          Before → After
-        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-[28px] sm:text-[36px] md:text-[48px] font-bold text-center text-[#1A1A1A]"
+          className="text-[24px] sm:text-[36px] md:text-[44px] font-bold text-center text-[#1A1A1A]"
           style={{ lineHeight: 1.3 }}
         >
-          LINXを導入すると、こう変わります
+          その悩み、LINXが解決します
         </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-4 text-center text-[16px] sm:text-[18px] text-[#666666] max-w-[640px] mx-auto"
-          style={{ lineHeight: 1.8 }}
-        >
-          面倒な作業はAIに任せて、本業に集中できます
-        </motion.p>
-
-        <div className="mt-12 sm:mt-16 space-y-5 sm:space-y-6">
-          {items.map((item, i) => (
+        <div className="mt-10 sm:mt-14 space-y-4 sm:space-y-5">
+          {transforms.map((t, i) => (
             <motion.div
-              key={item.before}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              key={t.pain}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white rounded-2xl border border-[#E8E8E8] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300"
+              className="flex flex-col sm:flex-row items-stretch rounded-2xl overflow-hidden border border-[#E8E8E8] hover:shadow-lg transition-shadow duration-300"
             >
-              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-                {/* Before */}
-                <div className="flex-1 w-full sm:w-auto flex items-center gap-4 bg-[#FFF5F5] rounded-xl px-5 py-4">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${item.color}15` }}>
-                    <item.icon size={20} style={{ color: item.color }} />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#CC3333] tracking-wider uppercase">Before</span>
-                    <p className="text-[15px] sm:text-[17px] font-bold text-[#993333] mt-0.5" style={{ lineHeight: 1.5 }}>
-                      {item.before}
-                    </p>
-                  </div>
+              {/* Pain */}
+              <div className="flex-1 flex items-center gap-4 px-6 py-5 bg-[#FAFAFA]">
+                <div className="w-10 h-10 rounded-xl bg-[#E53935]/10 flex items-center justify-center shrink-0">
+                  <t.icon size={20} className="text-[#E53935]" />
                 </div>
+                <p className="text-[15px] sm:text-[16px] text-[#999] line-through decoration-[#E53935]/40">
+                  {t.pain}
+                </p>
+              </div>
 
-                {/* Arrow with progress bar */}
-                <div className="shrink-0 flex flex-col items-center justify-center gap-1">
-                  <div className="w-10 h-10 rounded-full bg-[#06C755] flex items-center justify-center shadow-md rotate-90 sm:rotate-0">
-                    <ArrowRight size={20} className="text-white" />
-                  </div>
-                  {/* Horizontal progress bar (desktop only) */}
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: [0.25, 1, 0.5, 1] }}
-                    className="hidden sm:block w-8 h-[3px] bg-[#06C755] rounded-full origin-left"
-                  />
-                </div>
+              {/* Arrow */}
+              <div className="flex items-center justify-center px-3 py-2 sm:py-0 bg-[#06C755]">
+                <Zap size={18} className="text-white" />
+              </div>
 
-                {/* After */}
-                <div className="flex-1 w-full sm:w-auto flex items-center gap-4 bg-[#E8F5E9] rounded-xl px-5 py-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#06C755] flex items-center justify-center shrink-0">
-                    <item.icon size={20} className="text-white" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#06C755] tracking-wider uppercase">After</span>
-                    <p className="text-[15px] sm:text-[17px] font-bold text-[#1A1A1A] mt-0.5" style={{ lineHeight: 1.5 }}>
-                      {item.after}
-                    </p>
-                  </div>
+              {/* Solve */}
+              <div className="flex-1 flex items-center gap-4 px-6 py-5 bg-white">
+                <p className="text-[15px] sm:text-[16px] font-bold text-[#1A1A1A] flex-1">
+                  {t.solve}
+                </p>
+                <div className="text-right shrink-0">
+                  <p className="text-[24px] sm:text-[28px] font-bold text-[#06C755] leading-none">{t.metric}</p>
+                  <p className="text-[11px] text-[#999] mt-0.5">{t.metricLabel}</p>
                 </div>
               </div>
             </motion.div>

@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
-import Pain from "@/components/Pain";
 import BeforeAfter from "@/components/BeforeAfter";
 import Solution from "@/components/Solution";
 import ProductShowcase from "@/components/ProductShowcase";
@@ -30,7 +29,6 @@ export default function Home() {
       <main>
         <Hero />
         <TrustStrip />
-        <Pain />
         <BeforeAfter />
         <Solution />
         <ProductShowcase />
