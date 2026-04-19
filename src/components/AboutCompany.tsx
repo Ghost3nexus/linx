@@ -36,6 +36,7 @@ export default function AboutCompany() {
                 {[
                   ["所在地", "東京都港区南青山7-1-27-702"],
                   ["代表", "KOZUKI TAKAHIRO"],
+                  ["代表取締役連絡先", "070-8959-7559"],
                   ["設立", "2025年8月"],
                   ["資格", "生成AIパスポート保有（JDLA認定）"],
                 ].map(([label, value]) => (

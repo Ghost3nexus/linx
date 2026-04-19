@@ -28,6 +28,7 @@ export default function Tokushoho() {
                 ["代表者", "KOZUKI TAKAHIRO"],
                 ["設立", "2025年8月"],
                 ["所在地", "東京都港区南青山7丁目1番27-702号"],
+                ["代表取締役連絡先", "070-8959-7559"],
                 ["連絡先メールアドレス", "tomorrowprooftokyo@gmail.com"],
                 ["お問い合わせ受付時間", "平日 10:00 - 18:00（土日祝日・年末年始を除く）"],
               ].map(([label, value]) => (
