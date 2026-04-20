@@ -3,412 +3,896 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINX サービスガイド — 美容室・ヘアサロン向け | 株式会社TomorrowProof</title>
+<title>LINX for SALON — 美容室・ヘアサロン向けサービス資料 | TomorrowProof</title>
 <style>
+  /* ============ Base ============ */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #1A1A1A; line-height: 1.8; background: #FAFAFA; }
-  .cover { background: linear-gradient(135deg, #06C755 0%, #04A648 100%); color: white; padding: 50px 40px; text-align: center; }
-  .cover h1 { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
-  .cover .subtitle { font-size: 16px; opacity: 0.95; margin-bottom: 6px; }
-  .cover .lead { font-size: 14px; opacity: 0.85; margin-bottom: 24px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.8; }
-  .cover .meta { font-size: 13px; opacity: 0.7; }
-  .container { max-width: 820px; margin: 0 auto; padding: 36px 24px; }
-  h2 { font-size: 21px; font-weight: 800; color: #1A1A1A; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 3px solid #06C755; }
-  h3 { font-size: 17px; font-weight: 700; color: #333; margin: 26px 0 10px; }
-  h4 { font-size: 14px; font-weight: 700; color: #06C755; margin: 18px 0 6px; }
-  p, li { font-size: 14px; margin: 6px 0; }
-  ul, ol { padding-left: 20px; }
-  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
-  th { background: #1A1A1A; color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
-  td { padding: 10px 14px; border-bottom: 1px solid #E8E8E8; background: white; vertical-align: top; }
-  .yes { color: #06C755; font-weight: 700; }
-  .no { color: #E53935; }
-  .highlight { background: #F0FFF4; }
-  .box { background: #F9FAFB; border: 1px solid #E8E8E8; border-radius: 12px; padding: 20px; margin: 16px 0; }
-  .box-green { background: #F0FFF4; border-color: #06C755; }
-  .box-blue { background: #EFF6FF; border-color: #2196F3; }
-  .box-amber { background: #FFFBEB; border-color: #F59E0B; }
-  .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
-  .badge-free { background: #E0F2FE; color: #0369A1; }
-  .badge-popular { background: #06C755; color: white; }
-  .badge-enterprise { background: #FEF3C7; color: #92400E; }
-  .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; align-items: center; font-size: 13px; }
-  .flow-box { background: white; border: 2px solid #06C755; border-radius: 8px; padding: 8px 14px; font-weight: 700; text-align: center; }
-  .flow-box.auto { border-color: #2196F3; color: #2196F3; }
-  .flow-arrow { font-size: 18px; color: #CCC; }
-  .step-list { counter-reset: step; list-style: none; padding: 0; }
-  .step-list li { counter-increment: step; padding: 12px 14px 12px 50px; margin: 8px 0; background: white; border: 1px solid #E8E8E8; border-radius: 10px; position: relative; }
-  .step-list li::before { content: counter(step); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; background: #06C755; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
-  .tip { background: #E8F5E9; border-left: 4px solid #06C755; padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 13px; }
-  .tip strong { color: #06C755; }
-  .note { background: #FFF8E1; border-left: 4px solid #F59E0B; padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 13px; }
-  .note strong { color: #F59E0B; }
-  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 18px 0; }
-  .value-card { background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 18px; }
-  .value-card h4 { margin-top: 0; font-size: 15px; color: #06C755; }
-  .value-card p { font-size: 13px; color: #555; }
-  .faq-item { background: white; border: 1px solid #E8E8E8; border-radius: 10px; padding: 14px 18px; margin: 8px 0; }
-  .faq-q { font-weight: 700; color: #06C755; font-size: 14px; margin-bottom: 6px; }
-  .faq-q::before { content: "Q. "; }
-  .faq-a { font-size: 13px; color: #333; }
-  .faq-a::before { content: "A. "; font-weight: 700; color: #1A1A1A; }
-  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
-  .plan-card { background: white; border: 1px solid #E8E8E8; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; }
-  .plan-card.popular { border: 2px solid #06C755; box-shadow: 0 6px 18px rgba(6,199,85,0.12); }
-  .plan-name { font-size: 16px; font-weight: 800; color: #1A1A1A; }
-  .plan-price { font-size: 24px; font-weight: 900; color: #1A1A1A; margin: 6px 0 2px; }
-  .plan-period { font-size: 12px; color: #999; }
-  .plan-desc { font-size: 12px; color: #666; margin: 6px 0 10px; }
-  .plan-features { list-style: none; padding: 0; }
-  .plan-features li { font-size: 12px; padding: 3px 0 3px 16px; position: relative; color: #333; }
-  .plan-features li::before { content: "✓"; position: absolute; left: 0; color: #06C755; font-weight: 800; }
-  .company-table { font-size: 13px; }
-  .company-table td:first-child { background: #F9FAFB; font-weight: 700; width: 32%; }
-  .solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 14px 0; }
-  .solution-card { background: white; border: 1px solid #E8E8E8; border-radius: 10px; padding: 14px; }
-  .solution-card h4 { font-size: 14px; margin: 0 0 4px; color: #06C755; }
-  .solution-card p { font-size: 12px; color: #555; margin: 0; line-height: 1.6; }
-  .solution-card .tag { display: inline-block; font-size: 10px; background: #E8F5E9; color: #06C755; padding: 2px 8px; border-radius: 10px; font-weight: 700; margin-bottom: 6px; }
-  .page-break { page-break-after: always; }
-  @media print { body { background: white; } .container { padding: 20px; } .cover { padding: 40px 30px; } .plan-grid { grid-template-columns: repeat(3, 1fr); } .solution-grid { grid-template-columns: repeat(2, 1fr); } }
+  :root {
+    --green: #06C755; --green-dark: #04A648; --green-light: #E8F5E9; --green-bg: #F5FBF7;
+    --black: #1A1A1A; --gray: #666666; --gray-light: #999999; --gray-bg: #F5F5F5; --gray-border: #E8E8E8;
+    --red: #E53935; --red-bg: #FFF5F5; --blue: #2196F3; --blue-bg: #EFF6FF;
+    --amber: #F59E0B; --amber-bg: #FFFBEB;
+    --line-green: #06C755; --line-bg: #7494A5;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Hiragino Sans', 'Noto Sans JP', -apple-system, sans-serif;
+    color: var(--black); line-height: 1.7; font-size: 14px; background: #FFF;
+  }
+
+  /* ============ Page system (1 page = 1 message) ============ */
+  @page { size: A4 portrait; margin: 0; }
+  .page {
+    width: 210mm; min-height: 297mm;
+    padding: 24mm 18mm;
+    page-break-after: always;
+    position: relative;
+    display: flex; flex-direction: column;
+    background: #FFF;
+  }
+  .page:last-child { page-break-after: auto; }
+  .page-num { position: absolute; bottom: 10mm; right: 18mm; font-size: 10px; color: var(--gray-light); }
+  .page-label { position: absolute; top: 10mm; left: 18mm; font-size: 10px; color: var(--gray-light); letter-spacing: .05em; }
+  .brand-stamp { position: absolute; top: 10mm; right: 18mm; font-size: 10px; color: var(--gray-light); font-weight: 700; letter-spacing: .05em; }
+
+  /* ============ Cover ============ */
+  .cover {
+    background: linear-gradient(160deg, #FFFFFF 0%, var(--green-bg) 40%, var(--green-light) 100%);
+    justify-content: center; align-items: flex-start;
+  }
+  .cover-logo { font-size: 28px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 48px; }
+  .cover-logo span { color: var(--green); }
+  .cover h1 { font-size: 44px; font-weight: 900; line-height: 1.2; letter-spacing: -.03em; margin-bottom: 18px; }
+  .cover h1 em { font-style: normal; color: var(--green); }
+  .cover .tagline { font-size: 18px; color: var(--gray); max-width: 480px; line-height: 1.9; margin-bottom: 40px; }
+  .cover .chip-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 60px; }
+  .cover .chip { background: #FFF; border: 1px solid var(--gray-border); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; color: var(--black); }
+  .cover .chip.green { background: var(--green); color: #FFF; border-color: var(--green); }
+  .cover-footer { position: absolute; bottom: 24mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; align-items: flex-end; }
+  .cover-footer .label { font-size: 11px; color: var(--gray); letter-spacing: .08em; }
+  .cover-footer .date { font-size: 13px; color: var(--black); font-weight: 700; }
+
+  /* ============ Section header ============ */
+  .section-num { font-size: 13px; font-weight: 800; color: var(--green); letter-spacing: .1em; margin-bottom: 10px; }
+  .section-title { font-size: 30px; font-weight: 900; line-height: 1.25; letter-spacing: -.02em; margin-bottom: 16px; }
+  .section-title em { font-style: normal; color: var(--green); }
+  .section-sub { font-size: 15px; color: var(--gray); line-height: 1.9; max-width: 560px; margin-bottom: 28px; }
+
+  /* ============ Big stats (信頼担保の巨大数字) ============ */
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 10px 0 0; }
+  .stat-card { background: #FFF; border: 1px solid var(--gray-border); border-radius: 16px; padding: 22px 20px; }
+  .stat-card .value { font-size: 44px; font-weight: 900; color: var(--green); line-height: 1; letter-spacing: -.02em; }
+  .stat-card .unit { font-size: 18px; color: var(--black); font-weight: 700; margin-left: 2px; }
+  .stat-card .label { font-size: 12px; color: var(--gray); margin-top: 10px; line-height: 1.6; }
+  .stat-card .caption { font-size: 11px; color: var(--gray-light); margin-top: 4px; }
+
+  /* ============ BEFORE / AFTER ============ */
+  .ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 8px 0; }
+  .ba-col { padding: 22px; border-radius: 14px; }
+  .ba-col.before { background: var(--gray-bg); }
+  .ba-col.after { background: var(--green-bg); border: 2px solid var(--green); }
+  .ba-col .tag { font-size: 11px; font-weight: 800; letter-spacing: .1em; padding: 4px 10px; border-radius: 100px; display: inline-block; margin-bottom: 12px; }
+  .ba-col.before .tag { background: #DDD; color: var(--gray); }
+  .ba-col.after .tag { background: var(--green); color: #FFF; }
+  .ba-col h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; line-height: 1.4; }
+  .ba-col ul { list-style: none; padding: 0; }
+  .ba-col li { font-size: 13px; padding: 5px 0 5px 22px; position: relative; line-height: 1.7; }
+  .ba-col.before li { color: var(--gray); }
+  .ba-col.before li::before { content: "✕"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+  .ba-col.after li { color: var(--black); }
+  .ba-col.after li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+
+  /* ============ Pain cards (課題の視覚化) ============ */
+  .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 8px 0; }
+  .pain-card { background: var(--gray-bg); border-radius: 12px; padding: 18px; }
+  .pain-card .icon { font-size: 28px; margin-bottom: 6px; }
+  .pain-card h3 { font-size: 14px; font-weight: 800; margin-bottom: 6px; line-height: 1.4; }
+  .pain-card p { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+  /* ============ Feature page (機能詳細1ページ=1機能) ============ */
+  .feature-layout { display: grid; grid-template-columns: 1fr 280px; gap: 30px; align-items: start; margin-top: 8px; }
+  .feature-content { }
+  .feature-content .feature-badge { font-size: 12px; font-weight: 800; color: var(--green); background: var(--green-light); padding: 5px 12px; border-radius: 100px; display: inline-block; margin-bottom: 14px; }
+  .feature-content .feature-title { font-size: 28px; font-weight: 900; line-height: 1.2; margin-bottom: 10px; letter-spacing: -.02em; }
+  .feature-content .feature-lead { font-size: 14px; color: var(--gray); line-height: 1.9; margin-bottom: 18px; }
+  .feature-points { list-style: none; padding: 0; }
+  .feature-points li { padding: 10px 0 10px 28px; position: relative; font-size: 13px; line-height: 1.7; border-bottom: 1px solid var(--gray-border); }
+  .feature-points li:last-child { border-bottom: none; }
+  .feature-points li::before { content: ""; position: absolute; left: 0; top: 14px; width: 16px; height: 16px; background: var(--green); border-radius: 50%; }
+  .feature-points li::after { content: "✓"; position: absolute; left: 4px; top: 12px; color: #FFF; font-size: 10px; font-weight: 800; }
+
+  /* ============ Phone mockup (LINE chat風) ============ */
+  .phone-mock { width: 260px; background: #1A1A1A; border-radius: 30px; padding: 8px; box-shadow: 0 20px 40px rgba(0,0,0,.15); }
+  .phone-screen { background: var(--line-bg); border-radius: 24px; overflow: hidden; }
+  .phone-header { background: var(--line-green); color: #FFF; padding: 10px 14px; font-size: 12px; font-weight: 800; text-align: center; }
+  .phone-body { padding: 14px 10px; min-height: 360px; }
+  .bubble-user, .bubble-bot { display: flex; margin-bottom: 10px; }
+  .bubble-user { justify-content: flex-end; }
+  .bubble-user .msg { background: #A4DB59; color: var(--black); padding: 8px 12px; border-radius: 14px 4px 14px 14px; max-width: 80%; font-size: 11px; line-height: 1.5; }
+  .bubble-bot .msg { background: #FFF; color: var(--black); padding: 8px 12px; border-radius: 4px 14px 14px 14px; max-width: 80%; font-size: 11px; line-height: 1.5; white-space: pre-line; }
+
+  /* ============ Rich menu mock ============ */
+  .rich-menu { width: 260px; border: 1px solid var(--gray-border); border-radius: 12px; overflow: hidden; }
+  .rich-menu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 80px 80px; }
+  .rm-cell { background: var(--black); color: #FFF; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 11px; font-weight: 700; padding: 6px; text-align: center; border-right: 1px solid #333; border-bottom: 1px solid #333; }
+  .rm-cell:nth-child(3), .rm-cell:nth-child(6) { border-right: none; }
+  .rm-cell:nth-child(4), .rm-cell:nth-child(5), .rm-cell:nth-child(6) { border-bottom: none; }
+  .rm-cell .ico { font-size: 22px; margin-bottom: 4px; }
+
+  /* ============ NFC card mock ============ */
+  .nfc-card { width: 260px; height: 160px; background: linear-gradient(135deg, #1A1A1A 0%, #333 100%); color: #FFF; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 15px 30px rgba(0,0,0,.2); }
+  .nfc-card .n-name { font-size: 18px; font-weight: 800; letter-spacing: .05em; }
+  .nfc-card .n-role { font-size: 11px; opacity: .7; margin-top: 4px; letter-spacing: .1em; }
+  .nfc-card .n-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .nfc-card .n-logo { font-size: 14px; font-weight: 900; letter-spacing: -.02em; }
+  .nfc-card .n-logo span { color: var(--green); }
+  .nfc-card .n-tap { font-size: 10px; opacity: .6; }
+
+  /* ============ Timeline (タイムライン図解) ============ */
+  .timeline-wrap { margin: 12px 0; }
+  .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; top: 30px; left: 10%; right: 10%; height: 2px; background: var(--green); z-index: 0; }
+  .tl-step { text-align: center; position: relative; z-index: 1; }
+  .tl-step .dot { width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px; margin: 0 auto 10px; box-shadow: 0 4px 10px rgba(6,199,85,.3); border: 4px solid #FFF; }
+  .tl-step .time { font-size: 10px; font-weight: 800; color: var(--green); letter-spacing: .08em; margin-bottom: 4px; }
+  .tl-step .title { font-size: 12px; font-weight: 800; line-height: 1.4; margin-bottom: 4px; }
+  .tl-step .desc { font-size: 10px; color: var(--gray); line-height: 1.6; padding: 0 4px; }
+
+  /* ============ Plans (3プラン横並び) ============ */
+  .plans-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 10px 0; }
+  .plan { background: #FFF; border: 1px solid var(--gray-border); border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; position: relative; }
+  .plan.highlight { border: 2px solid var(--green); box-shadow: 0 12px 30px rgba(6,199,85,.15); }
+  .plan .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: #FFF; font-size: 10px; font-weight: 800; padding: 4px 14px; border-radius: 100px; letter-spacing: .08em; }
+  .plan .plan-name { font-size: 16px; font-weight: 800; }
+  .plan .plan-desc { font-size: 11px; color: var(--gray); margin-top: 4px; min-height: 34px; line-height: 1.6; }
+  .plan .plan-price { font-size: 32px; font-weight: 900; color: var(--black); margin-top: 14px; line-height: 1; letter-spacing: -.02em; }
+  .plan .plan-price .yen { font-size: 18px; margin-right: 2px; }
+  .plan .plan-period { font-size: 11px; color: var(--gray); margin-top: 6px; }
+  .plan .plan-features { list-style: none; padding: 0; margin-top: 16px; flex: 1; }
+  .plan .plan-features li { font-size: 11px; padding: 4px 0 4px 18px; position: relative; line-height: 1.5; color: var(--black); }
+  .plan .plan-features li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  .plan-common { background: var(--green-bg); border-left: 4px solid var(--green); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 11px; color: var(--gray); margin-top: 14px; line-height: 1.7; }
+
+  /* ============ Steps (導入フロー) ============ */
+  .step-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+  .step-card { background: #FFF; border: 1px solid var(--gray-border); border-radius: 14px; padding: 18px; position: relative; }
+  .step-card .step-num { font-size: 36px; font-weight: 900; color: var(--green); line-height: 1; letter-spacing: -.03em; }
+  .step-card .step-duration { font-size: 10px; color: var(--gray); background: var(--green-bg); padding: 3px 8px; border-radius: 100px; display: inline-block; margin: 10px 0 6px; font-weight: 700; }
+  .step-card .step-title { font-size: 13px; font-weight: 800; line-height: 1.4; margin-bottom: 4px; }
+  .step-card .step-desc { font-size: 11px; color: var(--gray); line-height: 1.6; }
+
+  /* ============ Solutions grid (他サービス) ============ */
+  .solutions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 10px 0; }
+  .sol-card { background: #FFF; border: 1px solid var(--gray-border); border-radius: 12px; padding: 16px 14px; }
+  .sol-card .ico { font-size: 26px; margin-bottom: 6px; }
+  .sol-card .tag { font-size: 9px; background: var(--green-light); color: var(--green); padding: 2px 8px; border-radius: 100px; font-weight: 800; letter-spacing: .05em; display: inline-block; margin-bottom: 8px; }
+  .sol-card h3 { font-size: 12px; font-weight: 800; margin-bottom: 4px; line-height: 1.4; }
+  .sol-card p { font-size: 10px; color: var(--gray); line-height: 1.6; }
+
+  /* ============ FAQ ============ */
+  .faq { background: #FFF; border: 1px solid var(--gray-border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; }
+  .faq-q { font-size: 13px; font-weight: 800; color: var(--black); padding-left: 26px; position: relative; margin-bottom: 6px; line-height: 1.5; }
+  .faq-q::before { content: "Q"; position: absolute; left: 0; top: -1px; background: var(--green); color: #FFF; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
+  .faq-a { font-size: 12px; color: var(--gray); padding-left: 26px; position: relative; line-height: 1.8; }
+  .faq-a::before { content: "A"; position: absolute; left: 0; top: -1px; background: var(--gray-bg); color: var(--black); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
+
+  /* ============ Coexistence table ============ */
+  .coex-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  .coex-table th { background: var(--black); color: #FFF; padding: 12px 14px; text-align: left; font-weight: 700; font-size: 12px; }
+  .coex-table td { padding: 12px 14px; border-bottom: 1px solid var(--gray-border); background: #FFF; vertical-align: middle; }
+  .coex-table tr:nth-child(even) td { background: #FAFAFA; }
+  .coex-table .status { font-weight: 800; }
+  .coex-table .status.ok { color: var(--green); }
+  .coex-table .status.focus { color: var(--blue); }
+
+  /* ============ Company / Contact ============ */
+  .company-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .company-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-border); vertical-align: top; }
+  .company-table td:first-child { background: #FAFAFA; font-weight: 700; width: 32%; color: var(--gray); font-size: 12px; }
+  .cta-box { background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); color: #FFF; border-radius: 16px; padding: 28px 30px; margin-top: 20px; }
+  .cta-box h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -.02em; }
+  .cta-box p { font-size: 13px; opacity: .95; line-height: 1.8; margin-bottom: 16px; }
+  .cta-box .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .cta-box .contact-item .k { font-size: 10px; opacity: .7; letter-spacing: .1em; }
+  .cta-box .contact-item .v { font-size: 14px; font-weight: 700; margin-top: 2px; }
+
+  /* ============ Helpers ============ */
+  .spacer-sm { height: 12px; }
+  .spacer-md { height: 20px; }
+  .footer-page { text-align: center; font-size: 10px; color: var(--gray-light); margin-top: auto; padding-top: 20px; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Cover -->
-<div class="cover">
-  <h1>LINX サービスガイド</h1>
-  <p class="subtitle">美容室・ヘアサロン向け</p>
-  <p class="lead">LINE × AIで、サロン独自の顧客体験を。<br>Instagramからの流入・施術後の接点・スタイリスト指名強化を、<br>既存の予約システムと共存させながら実現します。</p>
-  <p class="meta">2026年4月 | 株式会社TomorrowProof</p>
-</div>
-
-<div class="container">
-
-<!-- 1. TomorrowProof について -->
-<h2>1. 株式会社TomorrowProof について</h2>
-
-<p><strong>AIで中小企業・個人の可能性を最大化する</strong> ── これを私たちのミッションに、2025年8月に東京・青山で創業したAIソリューション・ファームです。SaaS の自社開発と、法人クライアント様へのAI伴走支援を両輪で行い、成果を最短で届けることに集中しています。</p>
-
-<table class="company-table">
-  <tr><td>商号</td><td>株式会社TomorrowProof</td></tr>
-  <tr><td>代表取締役</td><td>KOZUKI TAKAHIRO</td></tr>
-  <tr><td>設立</td><td>2025年8月</td></tr>
-  <tr><td>所在地</td><td>東京都港区南青山7丁目1番27-702号</td></tr>
-  <tr><td>代表電話</td><td>070-8959-7559</td></tr>
-  <tr><td>メール</td><td>tomorrowprooftokyo@gmail.com</td></tr>
-  <tr><td>法人番号</td><td>9010401192344</td></tr>
-  <tr><td>資格</td><td>生成AIパスポート保有(JDLA認定)</td></tr>
-  <tr><td>事業領域</td><td>AI SaaS開発 / AIコンサルティング / AIソリューション実装 / SNS・コンテンツマーケティング支援</td></tr>
-</table>
-
-<div class="tip">
-  <strong>私たちの強み:</strong> 自社でAIエージェントを用いて会社を運営し、日々のマーケティング・営業・開発・経理までAI実装の現場を自分たちで回しています。「机上の提案」ではなく「実運用ベースのAI導入支援」が、他社にはない信頼の源泉です。
-</div>
-
-<!-- 2. 提供しているAIソリューション -->
-<h2>2. 私たちが提供しているAIソリューション</h2>
-
-<p>LINXは当社が提供する複数のAIソリューションのひとつです。サロン様の課題に応じて、以下のプロダクト・カスタム開発・コンサルティングを組み合わせてご提案できます。</p>
-
-<div class="solution-grid">
-  <div class="solution-card">
-    <span class="tag">SaaS</span>
-    <h4>LINX ── LINE×AI 店舗運営プラットフォーム</h4>
-    <p>本ガイドの主役。美容室・ジム・クリニック等、店舗ビジネス向けのAI自動応答・予約・顧客管理SaaS。</p>
+<!-- ======================================================== -->
+<!-- PAGE 1: COVER                                            -->
+<!-- ======================================================== -->
+<div class="page cover">
+  <div class="cover-logo">LIN<span>X</span></div>
+  <h1>次の美容室体験を、<br><em>LINEで。</em></h1>
+  <p class="tagline">ホットペッパービューティーで終わらない、<br>サロンの美意識を延長するデジタル・コンシェルジュ。</p>
+  <div class="chip-row">
+    <span class="chip green">美容室・ヘアサロン向け</span>
+    <span class="chip">AI × LINE 公式アカウント</span>
+    <span class="chip">既存予約システム共存</span>
   </div>
-  <div class="solution-card">
-    <span class="tag">SaaS</span>
-    <h4>MyPro ── デジタル名刺・NFC連携</h4>
-    <p>スタイリスト様お一人ごとにNFC名刺を発行。タップすると作品ギャラリー・指名予約・LINE友だち追加へ誘導するデジタル名刺SaaS。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">SaaS</span>
-    <h4>Lumina Studio ── AI画像生成・商品ささげ</h4>
-    <p>ファッションEC向けに開発したAIささげ(商品撮影・着用画像生成・説明文生成)。サロンのスタイルフォトや物販商品写真にも転用可能。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">SaaS</span>
-    <h4>ReGen / Atelier ── 自然言語で画像編集</h4>
-    <p>Photoshopの代替となるAI画像編集ツール。11種のAIジョブで、BEFORE/AFTER画像の補正・背景差し替え・色味調整を自然言語指示で実行。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">Production</span>
-    <h4>AI動画・AIクローン制作</h4>
-    <p>スタイリスト様の紹介動画・ヘアカット解説動画・SNS向けリール動画を、AIモデル生成+AI音声合成で量産。撮影コストを大幅削減。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">Consulting</span>
-    <h4>Shopify × AI コマース構築</h4>
-    <p>物販のあるサロン様向けに、Shopify + AI(画像・商品説明・自動応答)で越境ECまで対応する自社EC構築。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">Consulting</span>
-    <h4>Google広告・MEO・SNS運用</h4>
-    <p>AIを活用した広告クリエイティブ生成、Google ビジネスプロフィール最適化、Instagram・TikTok運用の内製化支援。</p>
-  </div>
-  <div class="solution-card">
-    <span class="tag">Custom Dev</span>
-    <h4>カスタムAIエージェント開発</h4>
-    <p>サロン様独自の業務課題に合わせ、請求書処理・シフト調整・スタッフQA・問い合わせ一次応対などを自動化するAIエージェントをゼロから構築。</p>
+  <div class="cover-footer">
+    <div>
+      <div class="label">SERVICE DECK — SALON EDITION</div>
+      <div class="date">2026年4月 版</div>
+    </div>
+    <div style="text-align: right;">
+      <div class="label">POWERED BY</div>
+      <div class="date">株式会社TomorrowProof</div>
+    </div>
   </div>
 </div>
 
-<div class="tip">
-  <strong>サロン様向けの標準パッケージは LINX + MyPro + AI動画</strong>の組み合わせが多くなっています。詳細はご相談いただければ、業態・規模・ご予算に応じて最適な構成をお作りします。
-</div>
+<!-- ======================================================== -->
+<!-- PAGE 2: KEY NUMBERS / 信頼担保の数字                      -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">01 — NUMBERS</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">この資料で伝えたい3つの数字</div>
+  <h2 class="section-title">LINXは、美容室の接客を<br><em>24時間×自動化×ブランド仕様</em>に。</h2>
+  <p class="section-sub">LINE公式アカウント × AI で、サロン様独自の顧客体験をそのままデジタル化します。既存の予約システム(ホットペッパーなど)は一切変えずに、「LINE上で起きていること」だけを飛躍的に豊かにします。</p>
 
-<div class="page-break"></div>
-
-<!-- 3. なぜ今、美容室にLINEか -->
-<h2>3. なぜ今、美容室にLINEなのか</h2>
-
-<p>Instagram からフォロワーを集めているのに、予約はホットペッパーに流れ、サロン独自の顧客関係が築けない — このお悩みを、多くの美容室オーナー様から伺います。</p>
-
-<div class="value-grid">
-  <div class="value-card">
-    <h4>Instagramとサロンを繋ぐ導線がない</h4>
-    <p>世界観に惹かれたフォロワーが、次にどこへ進めばいいか分からない。ホットペッパーに送るとサロンの空気感は伝わらない。</p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div><span class="value">24</span><span class="unit">h</span></div>
+      <div class="label">AIが応対する時間</div>
+      <div class="caption">営業時間外の取りこぼしを防ぐ</div>
+    </div>
+    <div class="stat-card">
+      <div><span class="value">0</span><span class="unit">件</span></div>
+      <div class="label">スタイリストの新規PC学習</div>
+      <div class="caption">現場ワークフローは変わりません</div>
+    </div>
+    <div class="stat-card">
+      <div><span class="value">4–6</span><span class="unit">週</span></div>
+      <div class="label">本番公開までの目安</div>
+      <div class="caption">ブランド設計 + シナリオ構築込み</div>
+    </div>
   </div>
-  <div class="value-card">
-    <h4>施術後の3週間、顧客は忘れる</h4>
-    <p>ホームケア提案・次回来店の最適タイミング・季節の色落ちケアなど、継続的な接点を作る仕組みがない。</p>
+
+  <div class="spacer-md"></div>
+
+  <div style="background: var(--green-bg); border-radius: 12px; padding: 18px 22px; border-left: 4px solid var(--green);">
+    <p style="font-size: 13px; color: var(--black); line-height: 1.9;">
+      <strong style="color: var(--green);">LINXは「置き換える」ツールではなく「広げる」ツールです。</strong><br>
+      ホットペッパー・サロンボード・SALONPOS等の既存システムはそのまま。その外側にある<strong>「来店前と来店後の時間」</strong>を、AIとLINEでサロン様のブランド体験に変えます。
+    </p>
   </div>
-  <div class="value-card">
-    <h4>スタイリスト指名が属人的</h4>
-    <p>スター・スタイリストの個人ブランドがサロンの資産になっていない。指名予約を加速する仕組みが弱い。</p>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
+</div>
+
+<!-- ======================================================== -->
+<!-- PAGE 3: PAIN (美容室オーナーの6つの悩み)                 -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">02 — PAIN</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">美容室オーナーが直面する、6つの現実</div>
+  <h2 class="section-title">Instagramで集まっても、<br><em>サロンの資産</em>にならない。</h2>
+  <p class="section-sub">LINXは、以下のような現場のお悩みを、1つひとつ解いていくサービスです。</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="icon">📷</div>
+      <h3>Instagramからの流入を受け止められない</h3>
+      <p>フォロワーは集まっても、予約は他のシステムに流れてしまう。サロン独自のつながりが築けない。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">⏳</div>
+      <h3>施術後の3週間、顧客は忘れていく</h3>
+      <p>ホームケア提案・次回来店リマインド・季節ケア情報を継続的に届ける仕組みがない。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">💬</div>
+      <h3>LINEのお客様対応がスタッフ負担</h3>
+      <p>返信しきれない。受付業務の片手間で深夜にDM返信、現場の疲弊の原因に。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">⭐</div>
+      <h3>スタイリスト指名が属人的</h3>
+      <p>スター・スタイリストの個人ブランドがサロンの資産化されていない。指名強化の仕組みが弱い。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">📈</div>
+      <h3>広告費は上がり続ける</h3>
+      <p>掲載料・クーポン依存から抜け出せない。顧客データは外部に溜まり、自社に残らない。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🧩</div>
+      <h3>ツールが乱立している</h3>
+      <p>ホットペッパー+Lステップ+InstaDM+紙のカルテ…情報が分散し、体験が細切れに。</p>
+    </div>
   </div>
-  <div class="value-card">
-    <h4>広告費は上がり続ける</h4>
-    <p>ホットペッパーの掲載料は年々上昇。顧客データは外部に溜まり、自社に資産として残らない。</p>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
+</div>
+
+<!-- ======================================================== -->
+<!-- PAGE 4: BEFORE / AFTER                                   -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">03 — BEFORE / AFTER</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">LINX 導入前と導入後</div>
+  <h2 class="section-title">「手動の接客」から、<br><em>「AIとサロンの協奏」</em>へ。</h2>
+  <p class="section-sub">既存システムの延長線ではなく、<strong>LINE上の顧客体験そのものが変わる</strong>のがLINXです。</p>
+
+  <div class="ba-wrap">
+    <div class="ba-col before">
+      <span class="tag">BEFORE</span>
+      <h3>手動運用のサロン</h3>
+      <ul>
+        <li>深夜や定休日のDM対応で、スタッフが疲弊する</li>
+        <li>InstagramからLINEに来ても、そこから先の導線がない</li>
+        <li>「次いつ来ればいい?」の問い合わせに毎回手動で返信</li>
+        <li>施術後のホームケア提案は、個人の気配りに依存</li>
+        <li>LINEの配信は毎月のキャンペーン情報だけ</li>
+        <li>顧客データは紙のカルテ + 担当スタイリストの記憶</li>
+      </ul>
+    </div>
+    <div class="ba-col after">
+      <span class="tag">AFTER — LINX</span>
+      <h3>AIが併走するサロン</h3>
+      <ul>
+        <li>24時間、サロンの世界観でAIが応対</li>
+        <li>Instagramの写真→スタイリスト提案→予約導線まで自動化</li>
+        <li>お客様の来店サイクルに合わせ、次回提案を自動配信</li>
+        <li>施術2日後・2週間後・3週間後…自動リズムでアフターケア</li>
+        <li>LOOK mag.・新色情報・季節ケア…ブランド雑誌のLINE体験</li>
+        <li>履歴+会話+好みがサロンの資産として蓄積される</li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<div class="tip">
-  <strong>LINXがお役に立てる領域:</strong>
-  LINXは、ホットペッパーや既存予約システムを<strong>置き換えるツールではありません</strong>。
-  Instagramで出会った方をLINEで受け止め、施術後も繋がり続け、次回のご来店までの体験を作るための<strong>「併走するデジタルコンシェルジュ」</strong>です。
-</div>
+  <div class="spacer-sm"></div>
 
-<!-- 4. LINXが美容室にもたらす4つの価値 -->
-<h2>4. LINXが美容室にもたらす4つの価値</h2>
-
-<h3>① Silent Concierge ── 24時間対応のAIスタイリスト案内</h3>
-<p>LINE公式アカウントに友だち追加したお客様に対し、AIが24時間、サロンの世界観で応対します。Instagramで見たスタイル写真を送っていただくだけで、AIが「どのスタイリストが得意か」「施術時間と目安料金はどれくらいか」を案内し、そのままご希望の予約システムへお繋ぎします。</p>
-
-<div class="flow">
-  <div class="flow-box">Instagramで写真を見る</div><span class="flow-arrow">→</span>
-  <div class="flow-box">LINEで相談</div><span class="flow-arrow">→</span>
-  <div class="flow-box auto">AIがスタイリスト提案</div><span class="flow-arrow">→</span>
-  <div class="flow-box">既存予約システムへ</div>
-</div>
-
-<h3>② Editorial Rich Menu ── 雑誌のようなLINEメニュー</h3>
-<p>一般的なLINEリッチメニューは「予約」「クーポン」だけですが、LINXではサロンのブランド冊子のような6ブロック構成のメニューを設計します。今月のLOOK、スタイリスト名鑑、ヘアケアコラム、プロダクト情報、ご予約、過去のバックナンバーなど、サロンの世界観をLINEの中で延長します。</p>
-
-<h3>③ AfterCare Ritual ── 施術後のホームケア自動配信</h3>
-<p>施術後2日目・2週間目・次回来店推奨タイミング ── それぞれの節目で、担当スタイリスト様の名前で自動的にメッセージを配信します。ホームケア指南、おすすめプロダクト案内、次回ご予約のご提案まで、サロンとお客様の接点を絶やしません。</p>
-
-<div class="box box-green">
-  <strong>配信はすべてカスタム設計:</strong> サロン様のトーン&マナー、スタイリスト様の口調、AVEDA等ご扱いブランドに合わせて、AIが自然なメッセージを生成します。量販SaaSの定型テンプレートではありません。
-</div>
-
-<h3>④ Stylist Signature ── スタイリスト個人ブランド強化(MyPro NFC連携)</h3>
-<p>弊社のサービス <strong>MyPro</strong> を組み合わせることで、スタイリスト様お一人お一人にNFC名刺(非接触ICカード)を配布し、お客様がスマートフォンにタップするだけで、そのスタイリスト様のデジタル名刺(作品ギャラリー・指名予約・LINE友だち追加)を開けるようになります。</p>
-
-<div class="page-break"></div>
-
-<!-- 5. 既存予約システムとの共存設計 -->
-<h2>5. ホットペッパー等、既存予約システムとの共存設計</h2>
-
-<p>LINXは、サロン様が現在ご利用中の予約システム(ホットペッパービューティー、サロンボード、タカラベルモント SALONPOS 等)に<strong>一切干渉しません</strong>。</p>
-
-<table>
-  <tr><th>項目</th><th>LINX 導入後</th></tr>
-  <tr><td>既存の予約システム</td><td class="yes">そのまま継続利用</td></tr>
-  <tr><td>既存の顧客データ</td><td class="yes">変更なし・移行不要</td></tr>
-  <tr><td>ホットペッパーの掲載</td><td class="yes">そのまま継続</td></tr>
-  <tr><td>受付・会計の電話ワークフロー</td><td class="yes">変更なし</td></tr>
-  <tr><td>スタイリスト様の業務画面</td><td class="yes">変更なし</td></tr>
-  <tr><td>LINXが追加する領域</td><td><strong>LINE上の事前相談・事後ケア・指名強化</strong>のみ</td></tr>
-</table>
-
-<div class="tip">
-  <strong>導入後の現場負担はゼロを目指します。</strong>
-  LINXはスタイリスト様が新しい画面を覚える必要がない設計です。日々の業務フローは一切変えず、LINE上の顧客体験だけが静かに向上します。
-</div>
-
-<!-- 6. 実際のお客様体験フロー -->
-<h2>6. 実際のお客様体験フロー(例)</h2>
-
-<h3>ケース1: Instagramから来店された新規のお客様</h3>
-<ol class="step-list">
-  <li>Instagramでサロンの投稿を見る → LINE友だち追加</li>
-  <li>「このスタイルにしたい」と画像を送信</li>
-  <li>AIが「このスタイルは◯◯店の◯◯様が得意です」と案内</li>
-  <li>所要時間・目安料金・ご予約リンク(ホットペッパーへ)を送付</li>
-  <li>ご来店後、自動で担当スタイリスト様のLINEアカウントに紐付け</li>
-</ol>
-
-<h3>ケース2: 既存のお客様へのアフターケア</h3>
-<ol class="step-list">
-  <li>施術2日後 ── 色落ちケアのTIPSと、おすすめシャンプーのご案内</li>
-  <li>施術2週間後 ── ホームケア状況のチェック、担当スタイリスト様からの近況</li>
-  <li>前回来店から3週間後 ── 次回のベストタイミングをご案内、指名予約リンク送付</li>
-  <li>季節の変わり目 ── トレンドカラーのご提案、LOOK mag. 最新号のご案内</li>
-</ol>
-
-<div class="page-break"></div>
-
-<!-- 7. 料金・プラン -->
-<h2>7. 料金・プラン</h2>
-
-<p>LINXはサロン様の規模に応じて3プランをご用意しています。まずは <strong>Free プラン</strong>(ずっと無料・クレカ登録不要)からお試しいただけます。</p>
-
-<div class="plan-grid">
-  <div class="plan-card">
-    <span class="badge badge-free">Free</span>
-    <p class="plan-name" style="margin-top: 8px;">Free</p>
-    <p class="plan-price">¥0</p>
-    <p class="plan-period">/ 月</p>
-    <p class="plan-desc">まずは試したい個人店・小規模店向け</p>
-    <ul class="plan-features">
-      <li>管理者 1名 / スタッフ 3名</li>
-      <li>顧客 100名まで</li>
-      <li>月50回までAI回答</li>
-      <li>LINE連携・基本予約管理</li>
-      <li>管理画面アクセス</li>
-      <li>メールサポート</li>
-    </ul>
+  <div style="background: #FFF; border: 1px solid var(--gray-border); border-radius: 12px; padding: 18px 22px;">
+    <p style="font-size: 13px; line-height: 1.9;">
+      <strong style="color: var(--green);">💡 ポイント:</strong>
+      AFTER の項目はすべて、<strong>スタイリスト様が新しい画面を覚えることなく</strong>実現できます。現場の業務フローは一切変えません。
+    </p>
   </div>
-  <div class="plan-card popular">
-    <span class="badge badge-popular">人気 No.1</span>
-    <p class="plan-name" style="margin-top: 8px;">Standard</p>
-    <p class="plan-price">¥29,800</p>
-    <p class="plan-period">/ 月(税別)</p>
-    <p class="plan-desc">店舗運営に必要な機能をすべて</p>
-    <ul class="plan-features">
-      <li>管理者 5名 / スタッフ 20名</li>
-      <li>顧客 無制限</li>
-      <li>月2,000回までAI回答</li>
-      <li>24時間AI自動応対(LINE)</li>
-      <li>AI予約受付・空き確認</li>
-      <li>事前アンケート自動送信</li>
-      <li>前日リマインド・No-showリスケ</li>
-      <li>会員管理・スタッフ管理</li>
-      <li>予約カレンダーダッシュボード</li>
-      <li>Stripe / Square 決済連携</li>
-      <li>LINE一斉配信</li>
-      <li>既存システムAPI連携</li>
-      <li>AES-256暗号化・PII保護</li>
-      <li>優先サポート</li>
-    </ul>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
+</div>
+
+<!-- ======================================================== -->
+<!-- PAGE 5: FEATURE ① Silent Concierge                       -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">04 — FEATURE 01</div>
+  <div class="brand-stamp">LINX for SALON</div>
+
+  <div class="feature-layout">
+    <div class="feature-content">
+      <span class="feature-badge">機能 01 — Silent Concierge</span>
+      <h2 class="feature-title">24時間、サロンの世界観でAIが応対する。</h2>
+      <p class="feature-lead">Instagramで見たスタイル写真をLINEに送るだけで、AIが「誰に相談すればいいか」「所要時間・目安料金」を案内し、予約までスムーズに繋げます。サロンのトーン&マナー・NGワード・店舗情報を全てインプット済みで、量販SaaSの定型返信ではありません。</p>
+
+      <ul class="feature-points">
+        <li><strong>写真からスタイル解析</strong> — 得意なスタイリストを複数候補でご提案</li>
+        <li><strong>所要時間・目安料金の即時回答</strong> — サロン様の料金表をそのまま反映</li>
+        <li><strong>予約導線は既存システムへ</strong> — ホットペッパー等への引き渡し</li>
+        <li><strong>想定外の質問は人に切替</strong> — AIがわからない質問はスタッフへエスカレーション</li>
+        <li><strong>多言語対応</strong> — 英語・中国語のお客様もそのままご応対</li>
+      </ul>
+    </div>
+
+    <div class="phone-mock">
+      <div class="phone-screen">
+        <div class="phone-header">ヘアサロン 公式LINE</div>
+        <div class="phone-body">
+          <div class="bubble-user"><div class="msg">Instagramで見たこの髪型にしたいです</div></div>
+          <div class="bubble-bot"><div class="msg">お写真ありがとうございます！
+このスタイルは下記が得意です。
+
+1. SAKURAI YUKO(表参道)
+2. KIMURA HAYATO(青山)
+
+所要 約2時間
+目安 ¥16,500〜</div></div>
+          <div class="bubble-user"><div class="msg">1番でお願いします</div></div>
+          <div class="bubble-bot"><div class="msg">承知しました。
+4/25(金) 14:00〜
+4/26(土) 11:00〜
+4/27(日) 15:00〜
+空きがございます🌸</div></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="plan-card">
-    <span class="badge badge-enterprise">Enterprise</span>
-    <p class="plan-name" style="margin-top: 8px;">Enterprise</p>
-    <p class="plan-price">要相談</p>
-    <p class="plan-period">&nbsp;</p>
-    <p class="plan-desc">FC・チェーン展開・大規模導入に</p>
-    <ul class="plan-features">
-      <li>Standard の全機能</li>
-      <li>管理者・スタッフ 無制限</li>
-      <li>月10,000回以上のAI回答</li>
-      <li>AI顧客分析・離脱予測</li>
-      <li>AIシフト自動生成</li>
-      <li>マルチ店舗統合ダッシュボード</li>
-      <li>企業向けカスタマイズ</li>
-      <li>初期セットアップ支援</li>
-      <li>既存会員データ移行サポート</li>
-      <li>専任サポート担当</li>
-    </ul>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
+</div>
+
+<!-- ======================================================== -->
+<!-- PAGE 6: FEATURE ② Editorial Rich Menu                    -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">04 — FEATURE 02</div>
+  <div class="brand-stamp">LINX for SALON</div>
+
+  <div class="feature-layout">
+    <div class="feature-content">
+      <span class="feature-badge">機能 02 — Editorial Rich Menu</span>
+      <h2 class="feature-title">LINEを「サロンの雑誌」に変える。</h2>
+      <p class="feature-lead">一般的なリッチメニューは「予約」「クーポン」だけですが、LINXでは6ブロック構成で、サロンの世界観をそのままLINEで再現します。LOOK mag. 最新号・スタイリスト名鑑・ヘアケアコラム・新作・ご予約・バックナンバー ── お客様が来店の合間もサロンと繋がり続ける仕掛けです。</p>
+
+      <ul class="feature-points">
+        <li><strong>ブランドビジュアルをそのまま反映</strong> — 既存のブランドガイドラインに忠実</li>
+        <li><strong>コンテンツの定期入れ替えを支援</strong> — 当社で毎月の更新代行も可能</li>
+        <li><strong>タップデータで人気コンテンツが可視化</strong> — 次に作るべきコンテンツが見える</li>
+        <li><strong>各ブロックから個別のシナリオ配信へ</strong> — スタイリスト名鑑→指名予約への導線</li>
+      </ul>
+    </div>
+
+    <div class="rich-menu">
+      <div class="rich-menu-grid">
+        <div class="rm-cell"><span class="ico">📖</span>今月のLOOK</div>
+        <div class="rm-cell"><span class="ico">✂️</span>スタイリスト</div>
+        <div class="rm-cell"><span class="ico">📝</span>ACADEMY</div>
+        <div class="rm-cell"><span class="ico">💧</span>AVEDA</div>
+        <div class="rm-cell"><span class="ico">📅</span>ご予約</div>
+        <div class="rm-cell"><span class="ico">🗂</span>バックナンバー</div>
+      </div>
+    </div>
   </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="tip">
-  <strong>全プラン共通:</strong> AI自動応答 / お店情報登録 / 会話ログ / 管理画面 / AES-256暗号化 / SSL通信。クレカ登録不要で今すぐ開始、合わなければいつでも解約OK(解約金なし)。
+<!-- ======================================================== -->
+<!-- PAGE 7: FEATURE ③ AfterCare Ritual                       -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">04 — FEATURE 03</div>
+  <div class="brand-stamp">LINX for SALON</div>
+
+  <div class="section-num">機能 03 — AfterCare Ritual</div>
+  <h2 class="section-title">施術後も、<br><em>サロンとお客様を切らさない。</em></h2>
+  <p class="section-sub">施術後のどのタイミングで、どんな内容を、誰の名前で送るか ── すべてサロン様と一緒に設計します。お客様には「担当スタイリストからのメッセージ」として届き、量販DM感ゼロの自然な体験になります。</p>
+
+  <div class="timeline-wrap">
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="dot">🎀</div>
+        <div class="time">当日</div>
+        <div class="title">お礼メッセージ</div>
+        <div class="desc">ご来店のお礼 + 施術写真の共有 + ホームケアPDF送付</div>
+      </div>
+      <div class="tl-step">
+        <div class="dot">💧</div>
+        <div class="time">2日後</div>
+        <div class="title">色落ちケア指南</div>
+        <div class="desc">施術メニューに応じた個別ケアTIPS + おすすめ商品</div>
+      </div>
+      <div class="tl-step">
+        <div class="dot">🌸</div>
+        <div class="time">2週間後</div>
+        <div class="title">お気遣いメッセージ</div>
+        <div class="desc">髪の状態ヒアリング + 新メニュー・コラム案内</div>
+      </div>
+      <div class="tl-step">
+        <div class="dot">📅</div>
+        <div class="time">3週間後</div>
+        <div class="title">次回来店提案</div>
+        <div class="desc">お客様の来店サイクルに合わせた指名予約リンク送付</div>
+      </div>
+      <div class="tl-step">
+        <div class="dot">🌼</div>
+        <div class="time">季節ごと</div>
+        <div class="title">ブランド配信</div>
+        <div class="desc">LOOK mag. 最新号 / 季節トレンドカラー / AVEDA新作</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer-md"></div>
+
+  <div style="background: var(--green-bg); border-radius: 12px; padding: 18px 22px;">
+    <p style="font-size: 13px; line-height: 1.9;">
+      <strong style="color: var(--green);">🔑 ポイント:</strong>
+      上記シナリオは初期ブランド設計時にサロン様と一緒に決めます。お客様の来店サイクル(2ヶ月/3ヶ月etc)・扱いブランドに合わせて完全カスタム。<strong>量販テンプレではありません。</strong>
+    </p>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="note">
-  <strong>美容室様の多くは Standard プランから。</strong>
-  複数店舗(3-10店舗)で展開される場合や、AIシフト自動生成・マルチ店舗ダッシュボード等の上位機能をお使いになりたい場合はEnterpriseで個別見積。ブランド設計・シナリオ設計の初期費用(別途お見積)が加わります。
+<!-- ======================================================== -->
+<!-- PAGE 8: FEATURE ④ Stylist Signature                      -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">04 — FEATURE 04</div>
+  <div class="brand-stamp">LINX for SALON</div>
+
+  <div class="feature-layout">
+    <div class="feature-content">
+      <span class="feature-badge">機能 04 — Stylist Signature (MyPro連携)</span>
+      <h2 class="feature-title">スタイリスト個人ブランドを、<br>サロンの資産に。</h2>
+      <p class="feature-lead">弊社姉妹サービス <strong>MyPro</strong> と組み合わせることで、スタイリスト様お一人お一人にNFC名刺を配布。お客様がスマートフォンにタップするだけで、その方のデジタル名刺(作品ギャラリー・指名予約・LINE友だち追加)を瞬時に開けます。</p>
+
+      <ul class="feature-points">
+        <li><strong>NFC名刺カード</strong> — 高級感のあるマット加工カード、原価¥1,970〜</li>
+        <li><strong>タップ → デジタル名刺</strong> — アプリ不要、どのスマホでも動作</li>
+        <li><strong>作品ギャラリー</strong> — Instagram連携でスタイル作品を自動表示</li>
+        <li><strong>指名予約への導線</strong> — そのままLINEで指名相談が開始</li>
+        <li><strong>閲覧データをサロンが保持</strong> — 誰にどれだけ見られたかを可視化</li>
+      </ul>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div class="nfc-card">
+        <div>
+          <div class="n-name">SAKURAI YUKO</div>
+          <div class="n-role">ART DIRECTOR</div>
+        </div>
+        <div class="n-bottom">
+          <div class="n-logo">LIN<span>X</span> × MyPro</div>
+          <div class="n-tap">📱 TAP TO OPEN</div>
+        </div>
+      </div>
+      <div style="font-size: 10px; color: var(--gray); text-align: center; max-width: 240px;">
+        名刺表面イメージ<br>
+        裏面にNFCチップ+QRコードを配置
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<!-- 8. 導入までの流れ -->
-<h2>8. 導入までの流れ</h2>
+<!-- ======================================================== -->
+<!-- PAGE 9: COEXISTENCE                                      -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">05 — COEXISTENCE</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">既存予約システムとの共存設計</div>
+  <h2 class="section-title">ホットペッパーは、<br><em>そのまま使えます。</em></h2>
+  <p class="section-sub">LINXは、サロン様が現在ご利用中の予約システム(ホットペッパービューティー、サロンボード、タカラベルモント SALONPOS 等)に<strong>一切干渉しません</strong>。</p>
 
-<ol class="step-list">
-  <li><strong>初回MTG(60-90分)</strong> ── サロン様の現状・ご要望を伺い、LINXで実現できる範囲をすり合わせ</li>
-  <li><strong>お見積り・ご提案書のご提出(1週間以内)</strong> ── 具体的なプラン・スケジュール・初期費用を文書化してお渡し</li>
-  <li><strong>ご契約・ご発注(ご判断後)</strong> ── 簡潔な業務委託契約書1本のみ</li>
-  <li><strong>ブランド設計・シナリオ設計(2-3週間)</strong> ── サロン様のトーンに合わせたRich Menu・AI対話・AfterCare配信を設計</li>
-  <li><strong>サロン様へのご確認・修正(1週間)</strong> ── ドラフトをご覧いただき、微調整</li>
-  <li><strong>本番公開(所要1日)</strong> ── LINE公式アカウントに反映</li>
-  <li><strong>運用伴走(ご契約期間中ずっと)</strong> ── 月次レポート、シナリオ改善、お客様のフィードバック反映</li>
-</ol>
+  <table class="coex-table">
+    <thead>
+      <tr><th style="width: 45%;">項目</th><th style="width: 30%;">LINX導入後</th><th>影響範囲</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>既存の予約システム</td><td><span class="status ok">そのまま継続</span></td><td>ゼロ</td></tr>
+      <tr><td>既存の顧客データ</td><td><span class="status ok">変更なし</span></td><td>ゼロ(移行不要)</td></tr>
+      <tr><td>ホットペッパー掲載</td><td><span class="status ok">継続</span></td><td>ゼロ</td></tr>
+      <tr><td>受付・会計の業務フロー</td><td><span class="status ok">継続</span></td><td>ゼロ</td></tr>
+      <tr><td>スタイリスト様の業務画面</td><td><span class="status ok">継続</span></td><td>ゼロ</td></tr>
+      <tr><td><strong>LINXが追加する領域</strong></td><td><span class="status focus">LINE上のみ</span></td><td>事前相談 + 事後ケア + 指名強化</td></tr>
+    </tbody>
+  </table>
 
-<div class="tip">
-  <strong>最短4-6週間で本番公開</strong>が可能です。店舗数・連携範囲によって変動します。
+  <div class="spacer-md"></div>
+
+  <div style="display: flex; align-items: center; gap: 14px; background: var(--blue-bg); padding: 18px 22px; border-radius: 12px;">
+    <div style="font-size: 32px;">🛡️</div>
+    <div>
+      <p style="font-size: 14px; font-weight: 800; margin-bottom: 4px;">導入後の現場負担はゼロを目指します</p>
+      <p style="font-size: 12px; color: var(--gray); line-height: 1.8;">
+        LINXはスタイリスト様が新しい画面を覚える必要がない設計です。日々の業務フローは一切変えず、LINE上の顧客体験だけが静かに向上します。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="page-break"></div>
+<!-- ======================================================== -->
+<!-- PAGE 10: PRICING                                         -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">06 — PRICING</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">3つのプランから、まず Free でお試しいただけます</div>
+  <h2 class="section-title">料金プラン</h2>
+  <p class="section-sub">クレジットカード登録不要・いつでも解約可能・解約金なし。規模に応じて Free → Standard → Enterprise とスムーズにアップグレードできます。</p>
 
-<!-- 9. FAQ -->
-<h2>9. よくあるご質問</h2>
+  <div class="plans-grid">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-desc">まずは試したい個人店・小規模店向け</div>
+      <div class="plan-price"><span class="yen">¥</span>0</div>
+      <div class="plan-period">/ 月 ・ ずっと無料</div>
+      <ul class="plan-features">
+        <li>管理者 1名 / スタッフ 3名</li>
+        <li>顧客 100名まで</li>
+        <li>月50回までAI回答</li>
+        <li>LINE連携・基本予約管理</li>
+        <li>管理画面アクセス</li>
+        <li>メールサポート</li>
+      </ul>
+    </div>
 
-<div class="faq-item">
-  <p class="faq-q">ホットペッパービューティーから離脱する必要がありますか?</p>
-  <p class="faq-a">いいえ、一切必要ありません。LINXは既存の予約動線を活かす設計です。むしろ、LINEで事前相談を済ませてからホットペッパーへお進みいただくことで、離脱率の低下と指名率の向上が期待できます。</p>
+    <div class="plan highlight">
+      <span class="popular-badge">人気 No.1</span>
+      <div class="plan-name">Standard</div>
+      <div class="plan-desc">単店舗〜中規模サロン向け・本番運用の核</div>
+      <div class="plan-price"><span class="yen">¥</span>29,800</div>
+      <div class="plan-period">/ 月(税別)</div>
+      <ul class="plan-features">
+        <li>管理者 5名 / スタッフ 20名</li>
+        <li>顧客 無制限</li>
+        <li>月2,000回までAI回答</li>
+        <li>24時間AI自動応対</li>
+        <li>AI予約受付・空き確認</li>
+        <li>事前アンケート送信</li>
+        <li>前日リマインド</li>
+        <li>LINE一斉配信</li>
+        <li>AfterCare Ritual 全機能</li>
+        <li>Editorial Rich Menu 構築</li>
+        <li>Stripe / Square 決済連携</li>
+        <li>AES-256暗号化 / 優先サポート</li>
+      </ul>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-desc">FC・チェーン・複数店舗向け</div>
+      <div class="plan-price"><span class="yen"></span>要相談</div>
+      <div class="plan-period">&nbsp;</div>
+      <ul class="plan-features">
+        <li>Standardの全機能</li>
+        <li>管理者・スタッフ無制限</li>
+        <li>月10,000回以上のAI回答</li>
+        <li>AI顧客分析・離脱予測</li>
+        <li>AIシフト自動生成</li>
+        <li>マルチ店舗統合ダッシュボード</li>
+        <li>個別カスタマイズ対応</li>
+        <li>既存会員データ移行支援</li>
+        <li>専任サポート担当</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="plan-common">
+    <strong style="color: var(--green);">全プラン共通:</strong> AI自動応答 / お店情報登録 / 会話ログ / 管理画面 / AES-256暗号化 / SSL通信 / クレカ登録不要 / 解約金なし
+  </div>
+
+  <p style="font-size: 11px; color: var(--gray-light); margin-top: 10px; line-height: 1.7;">
+    ※ 美容室様の標準はStandardプラン。複数店舗(3-10店舗)展開やAIシフト自動生成等の上位機能をお使いになりたい場合はEnterpriseで個別お見積り。<br>
+    ※ 別途、ブランド設計・シナリオ設計の初期費用が加わります(お見積り別途)。
+  </p>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="faq-item">
-  <p class="faq-q">スタイリストが新しい画面を覚える必要はありますか?</p>
-  <p class="faq-a">原則として不要です。LINXはお客様側のLINE体験を設計するサービスで、サロン内部の業務フロー(POS・受付・施術台ワーク)は一切変更しません。ご希望があれば、スタイリスト様ごとのダッシュボードもご用意できます。</p>
+<!-- ======================================================== -->
+<!-- PAGE 11: HOW TO START / 導入フロー                       -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">07 — HOW TO START</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">導入までの流れ</div>
+  <h2 class="section-title">最短 <em>4–6週間</em> で本番公開。</h2>
+  <p class="section-sub">初回MTGから公開まで、以下の4ステップで進みます。サロン様のご負担は初回MTG + 途中2回のご確認のみ。</p>
+
+  <div class="step-flow">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-duration">週0 / 60-90分</div>
+      <div class="step-title">初回MTG</div>
+      <div class="step-desc">サロン様の現状・既存システム・ご要望をヒアリング。実現範囲をすり合わせ、お見積りの下書きをその場で。</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-duration">週1-3 / TP側作業</div>
+      <div class="step-title">ブランド設計 + シナリオ構築</div>
+      <div class="step-desc">Rich Menu・AI対話シナリオ・AfterCare配信文 ── サロン様のトーンに合わせて全て設計。</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-duration">週4 / サロン様確認</div>
+      <div class="step-title">ご確認 + 微調整</div>
+      <div class="step-desc">ドラフト全量をお見せし、サロン様のフィードバックを反映。口調・コピー・画像を最終化。</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-duration">週5-6 / 本番公開</div>
+      <div class="step-title">公開 + 運用伴走開始</div>
+      <div class="step-desc">LINE公式アカウントに反映。公開後は月次レポート + 継続的なシナリオ改善でずっと伴走します。</div>
+    </div>
+  </div>
+
+  <div class="spacer-md"></div>
+
+  <div style="background: var(--green-bg); border-radius: 12px; padding: 18px 22px; display: flex; gap: 18px; align-items: center;">
+    <div style="font-size: 36px;">🚀</div>
+    <div>
+      <p style="font-size: 14px; font-weight: 800; margin-bottom: 4px;">無料プランなら初回MTGの前にお試しいただけます</p>
+      <p style="font-size: 12px; color: var(--gray); line-height: 1.8;">
+        Freeプランはクレジットカード登録不要で、今すぐLINX管理画面をご利用いただけます。本番導入はMTG後になりますが、先に感触をご確認いただけます。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="faq-item">
-  <p class="faq-q">AIが間違った案内をしないか心配です。</p>
-  <p class="faq-a">Silent Conciergeは、サロン様監修のナレッジベース(店舗情報・スタイリストプロフィール・料金表・NGワード)に基づいて応対します。想定外の質問は「担当者におつなぎします」と切り替える安全設計です。導入前にサロン様と一緒にシナリオを設計するため、意図しない案内は発生しない構造です。</p>
+<!-- ======================================================== -->
+<!-- PAGE 12: OTHER AI SOLUTIONS                              -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">08 — BEYOND LINX</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">TomorrowProof が提供するAIソリューション</div>
+  <h2 class="section-title">LINXは、<em>入口</em>にすぎません。</h2>
+  <p class="section-sub">当社は自社SaaSとAIコンサル・AI実装支援を両輪で運営しています。サロン様の事業全体にまたがるAI活用をワンストップでご相談いただけます。</p>
+
+  <div class="solutions-grid">
+    <div class="sol-card">
+      <div class="ico">💬</div>
+      <span class="tag">SaaS</span>
+      <h3>LINX</h3>
+      <p>LINE × AI 店舗運営。本資料の主役。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">📱</div>
+      <span class="tag">SaaS</span>
+      <h3>MyPro</h3>
+      <p>NFC名刺・デジタル名刺。スタイリスト個人ブランドの資産化。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">🎨</div>
+      <span class="tag">SaaS</span>
+      <h3>Lumina Studio</h3>
+      <p>AI画像生成・AIささげ。スタイル写真・物販商品写真にも活用可能。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">✂️</div>
+      <span class="tag">SaaS</span>
+      <h3>ReGen / Atelier</h3>
+      <p>自然言語でのAI画像編集。BEFORE/AFTER写真加工が一瞬で完成。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">🎬</div>
+      <span class="tag">Production</span>
+      <h3>AI動画制作</h3>
+      <p>スタイリスト紹介動画・カット解説動画をAIで量産。撮影コスト大幅削減。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">🛒</div>
+      <span class="tag">Consulting</span>
+      <h3>Shopify × AI</h3>
+      <p>物販のあるサロン向け。AI商品説明・AI画像生成つき自社EC構築。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">📣</div>
+      <span class="tag">Consulting</span>
+      <h3>広告・MEO・SNS</h3>
+      <p>Google広告・MEO・Instagram/TikTok運用をAI活用で内製化支援。</p>
+    </div>
+    <div class="sol-card">
+      <div class="ico">🧠</div>
+      <span class="tag">Custom</span>
+      <h3>カスタムAI開発</h3>
+      <p>業務独自の課題に合わせて、AIエージェント・ツールをゼロから構築。</p>
+    </div>
+  </div>
+
+  <div class="spacer-md"></div>
+
+  <div style="background: var(--amber-bg); border-left: 4px solid var(--amber); padding: 16px 20px; border-radius: 0 10px 10px 0;">
+    <p style="font-size: 12px; line-height: 1.8;">
+      <strong style="color: var(--amber);">💎 サロン向け推奨パッケージ:</strong>
+      <strong>LINX + MyPro + AI動画</strong> の組み合わせが、ブランディング・指名強化・広告費削減の3点で最大の効果を発揮します。詳細は初回MTGで業態・規模・ご予算に合わせてご提案します。
+    </p>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="faq-item">
-  <p class="faq-q">顧客データはどこに保管されますか?</p>
-  <p class="faq-a">LINE公式アカウントの友だちデータはLINEヤフー株式会社の管理下、LINXが保持する対話履歴・シナリオ設定は国内クラウド(AWS東京)に暗号化(AES-256)して保管します。個人情報保護方針に基づき、お客様同意のない第三者提供は行いません。</p>
+<!-- ======================================================== -->
+<!-- PAGE 13: FAQ                                             -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">09 — FAQ</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">サロン様から多いご質問</div>
+  <h2 class="section-title">よくあるご質問</h2>
+
+  <div class="spacer-sm"></div>
+
+  <div class="faq">
+    <p class="faq-q">ホットペッパービューティーから離脱する必要はありますか?</p>
+    <p class="faq-a">いいえ、一切必要ありません。LINXは既存の予約動線を活かす設計で、HPB経由の予約は今まで通りです。LINEでの事前相談で離脱率が下がり、HPB側の予約成約率が上がる効果が期待できます。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">スタイリストが新しい画面を覚える必要はありますか?</p>
+    <p class="faq-a">原則として不要です。LINXはお客様側のLINE体験を設計するサービスで、サロン内部のPOS・受付・施術台ワークには一切影響しません。ご希望があればスタイリスト別のダッシュボードもご提供できますが、任意オプションです。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">AIが間違った案内をしないか心配です。</p>
+    <p class="faq-a">Silent Conciergeは、サロン様監修のナレッジベース(店舗情報・スタイリストプロフィール・料金表・NGワード)にのみ基づいて応答します。想定外の質問は「担当者におつなぎします」と切り替える安全設計です。ブランド設計時にシナリオを一緒に作るため、意図しない案内は発生しない構造です。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">顧客データの保管場所は?</p>
+    <p class="faq-a">LINE友だちデータはLINEヤフー株式会社の管理下、LINXが保持する対話履歴・シナリオ設定は国内クラウド(AWS東京リージョン)にAES-256暗号化して保管します。第三者提供は行いません。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">既存のLINE公式アカウントを使えますか?</p>
+    <p class="faq-a">はい、そのまま活用できます。既存の友だち・配信履歴・リッチメニューは保持したまま、LINXの機能を上乗せする形で導入します。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">効果測定はどう見えますか?</p>
+    <p class="faq-a">月次レポートで、LINE経由予約数・指名率変化・AfterCare開封率・LOOK mag.閲覧数などの指標を可視化します。導入前のベースラインと比較しながら継続改善します。</p>
+  </div>
+
+  <div class="faq">
+    <p class="faq-q">LINX以外のAIソリューションも相談できますか?</p>
+    <p class="faq-a">もちろんです。当社はAIソリューション・ファームとして、AI画像・AI動画・Shopify構築・カスタムAI開発などサロン様の事業全体にまたがるご相談を承っております。</p>
+  </div>
+
+  <div class="footer-page">© 2026 TomorrowProof, Inc. — LINX for SALON Service Deck</div>
 </div>
 
-<div class="faq-item">
-  <p class="faq-q">既存のLINE公式アカウントを使えますか?</p>
-  <p class="faq-a">はい、既存のLINE公式アカウントをそのまま活用できます。友だち・配信履歴・リッチメニューは保持したまま、LINXの機能を追加する形で導入します。</p>
-</div>
+<!-- ======================================================== -->
+<!-- PAGE 14: COMPANY + CTA (会社概要は最後)                  -->
+<!-- ======================================================== -->
+<div class="page">
+  <div class="page-label">10 — COMPANY & CONTACT</div>
+  <div class="brand-stamp">LINX for SALON</div>
+  <div class="section-num">運営会社のご案内</div>
+  <h2 class="section-title">株式会社TomorrowProof</h2>
+  <p class="section-sub"><strong>AIで中小企業・個人の可能性を最大化する</strong> ── これを私たちのミッションに、2025年8月に東京・青山で創業したAIソリューション・ファームです。</p>
 
-<div class="faq-item">
-  <p class="faq-q">効果測定はどのようにしますか?</p>
-  <p class="faq-a">月次レポートで、LINE経由の予約数・指名率変化・アフターケア開封率・LOOK mag.閲覧数などの指標をお渡しします。導入前のベースラインと比較しながら、シナリオを継続改善します。</p>
-</div>
+  <table class="company-table">
+    <tr><td>商号</td><td>株式会社TomorrowProof</td></tr>
+    <tr><td>代表取締役</td><td>KOZUKI TAKAHIRO</td></tr>
+    <tr><td>設立</td><td>2025年8月</td></tr>
+    <tr><td>法人番号</td><td>9010401192344</td></tr>
+    <tr><td>所在地</td><td>東京都港区南青山7丁目1番27-702号</td></tr>
+    <tr><td>事業領域</td><td>AI SaaS開発 / AIコンサルティング / AI実装支援 / SNS・コンテンツマーケティング</td></tr>
+    <tr><td>保有資格</td><td>生成AIパスポート(JDLA認定)</td></tr>
+    <tr><td>Corporate</td><td>tomorrowproof-ai.com</td></tr>
+  </table>
 
-<div class="faq-item">
-  <p class="faq-q">LINX以外のAIソリューションも相談できますか?</p>
-  <p class="faq-a">もちろんです。TomorrowProofはLINX単独のSaaS会社ではなく、<strong>AIソリューション・ファーム</strong>です。AI画像・AI動画・AIクローン・Shopify構築・カスタムAIエージェント開発など、サロン様の事業全体にまたがるAI活用をワンストップでご相談いただけます。</p>
-</div>
+  <div class="cta-box">
+    <h3>まずは初回MTGから、お気軽にどうぞ。</h3>
+    <p>サロン様の現状と、LINXで実現できる範囲を60-90分でご説明します。お見積りの下書きもその場でお出しします。</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <div class="k">PHONE</div>
+        <div class="v">070-8959-7559</div>
+      </div>
+      <div class="contact-item">
+        <div class="k">EMAIL</div>
+        <div class="v">tomorrowprooftokyo@gmail.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="k">LINX LP</div>
+        <div class="v">linx-rouge.vercel.app/solutions/salon</div>
+      </div>
+      <div class="contact-item">
+        <div class="k">CORPORATE</div>
+        <div class="v">tomorrowproof-ai.com</div>
+      </div>
+    </div>
+  </div>
 
-<!-- 10. お問い合わせ -->
-<h2>10. お問い合わせ・初回MTGのご予約</h2>
-
-<div class="box box-green">
-  <h4 style="margin-top:0;">株式会社TomorrowProof</h4>
-  <p>〒107-0062 東京都港区南青山7丁目1番27-702号</p>
-  <p>代表取締役 KOZUKI TAKAHIRO</p>
-  <p>代表電話: 070-8959-7559</p>
-  <p>メール: tomorrowprooftokyo@gmail.com</p>
-  <p>LINX: <a href="https://linx-rouge.vercel.app/solutions/salon">https://linx-rouge.vercel.app/solutions/salon</a></p>
-  <p>コーポレート: <a href="https://tomorrowproof-ai.com">https://tomorrowproof-ai.com</a></p>
-</div>
-
-<p style="margin-top: 28px; font-size: 13px; color: #888; text-align: center;">
-  本資料の内容は2026年4月時点のものです。プランの詳細・初期費用・個別カスタマイズはサロン様の状況に応じて個別にご案内します。<br>
-  &copy; 2026 TomorrowProof, Inc.
-</p>
-
+  <div class="footer-page">
+    本資料の内容は2026年4月時点のものです。プランの詳細・初期費用・個別カスタマイズはサロン様の状況に応じて個別にご案内します。<br>
+    © 2026 TomorrowProof, Inc. — LINX for SALON Service Deck
+  </div>
 </div>
 
 </body>
