@@ -159,6 +159,7 @@ export default function DocumentsPage() {
                                             className="w-full bg-[#F9FAFB] border border-[#E8E8E8] rounded-xl pl-11 pr-4 py-3.5 text-[16px] text-[#1A1A1A] focus:border-[#06C755] focus:outline-none transition-colors appearance-none"
                                         >
                                             <option value="">業種を選択してください</option>
+                                            <option value="salon">美容室・ヘアサロン</option>
                                             <option value="gym">パーソナルジム・フィットネス</option>
                                             <option value="yoga">ヨガスタジオ</option>
                                             <option value="pilates">ピラティススタジオ</option>
@@ -238,10 +239,10 @@ export default function DocumentsPage() {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between mb-4">
                                     <h2 className="text-[20px] font-bold text-[#1A1A1A]">
-                                        LINX サービス資料
+                                        {industry === "salon" ? "LINX サービスガイド — 美容室・ヘアサロン向け" : "LINX サービス資料"}
                                     </h2>
                                     <a
-                                        href="/linx-product-overview.html"
+                                        href={industry === "salon" ? "/linx-salon-guide.html" : "/linx-product-overview.html"}
                                         target="_blank"
                                         className="flex items-center gap-1 text-[14px] text-[#06C755] font-medium hover:underline"
                                     >
@@ -251,7 +252,7 @@ export default function DocumentsPage() {
                                 </div>
                                 <div className="border border-[#E8E8E8] rounded-2xl overflow-hidden shadow-sm" style={{ height: "75vh" }}>
                                     <iframe
-                                        src="/linx-product-overview.html"
+                                        src={industry === "salon" ? "/linx-salon-guide.html" : "/linx-product-overview.html"}
                                         className="w-full h-full"
                                         title="LINX サービス資料"
                                     />
@@ -262,6 +263,7 @@ export default function DocumentsPage() {
                                     <h3 className="text-[18px] font-bold text-[#1A1A1A] mb-4">業種別ソリューション資料</h3>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                         {[
+                                            { label: "美容室・ヘアサロン", href: "/solutions/salon" },
                                             { label: "パーソナルジム", href: "/solutions/gym" },
                                             { label: "ヨガスタジオ", href: "/solutions/yoga" },
                                             { label: "ピラティス", href: "/solutions/pilates" },
@@ -288,6 +290,21 @@ export default function DocumentsPage() {
                                         <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-1">PDF資料ダウンロード</h3>
                                         <p className="text-[12px] text-[#999] mb-4">社内共有・検討用にどうぞ</p>
                                         <div className="space-y-3">
+                                            {industry === "salon" && (
+                                                <a
+                                                    href="/downloads/linx-salon-guide.pdf"
+                                                    download
+                                                    className="flex items-center gap-3 bg-[#F5FBF7] hover:bg-[#E8F5E9] border-2 border-[#06C755] rounded-xl p-3 transition-all"
+                                                >
+                                                    <div className="w-10 h-10 rounded-lg bg-[#06C755] flex items-center justify-center shrink-0">
+                                                        <Download size={16} className="text-white" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-[13px] font-bold text-[#1A1A1A] truncate">美容室・ヘアサロン向けガイド</p>
+                                                        <p className="text-[11px] text-[#06C755] font-bold">PDF · 1.1 MB · おすすめ</p>
+                                                    </div>
+                                                </a>
+                                            )}
                                             <a
                                                 href="/downloads/linx-vs-hacomono.pdf"
                                                 download

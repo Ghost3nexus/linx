@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const cases = [
+  { image: "/images/hero-salon.png", label: "美容室・ヘアサロン", sub: "スタイリスト相談・指名予約・アフターケア" },
   { image: "/images/hero-gym.png", label: "パーソナルジム", sub: "予約・入退館・会員管理" },
   { image: "/images/usecase-yoga.png", label: "ヨガスタジオ", sub: "レッスン予約・リマインド" },
   { image: "/images/usecase-pilates.png", label: "ピラティス", sub: "少人数予約・シフト管理" },

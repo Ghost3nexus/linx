@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Tab = "gym" | "yoga" | "pilates" | "clinic" | "sauna";
+type Tab = "salon" | "gym" | "yoga" | "pilates" | "clinic" | "sauna";
 
 const tabs: { id: Tab; label: string }[] = [
+  { id: "salon", label: "美容室" },
   { id: "gym", label: "ジム" },
   { id: "yoga", label: "ヨガ" },
   { id: "pilates", label: "ピラティス" },
@@ -14,6 +15,7 @@ const tabs: { id: Tab; label: string }[] = [
 ];
 
 const groupNames: Record<Tab, string> = {
+  salon: "ヘアサロン 公式LINE",
   gym: "パーソナルジム 公式LINE",
   yoga: "ヨガスタジオ 公式LINE",
   pilates: "ピラティススタジオ 公式LINE",
@@ -22,6 +24,12 @@ const groupNames: Record<Tab, string> = {
 };
 
 const conversations: Record<Tab, { sender: string; text: string }[]> = {
+  salon: [
+    { sender: "user", text: "Instagramで見たこのスタイルにしたいのですが、誰に相談できますか?" },
+    { sender: "bot", text: "お写真ありがとうございます！\nこのスタイルは当店の以下のスタイリストが得意としております。\n\n1. サクライ ユウコ(表参道店 / アートディレクター)\n2. キムラ ハヤト(青山店 / カラーディレクター)\n\n所要時間: 約2時間\n目安料金: 16,500円〜\n\nご希望の番号とお名前を教えてください。" },
+    { sender: "user", text: "1番でお願いします。田中美咲です" },
+    { sender: "bot", text: "ありがとうございます。\nサクライ ユウコの空き枠はこちらです:\n\n・4/25(金)14:00〜\n・4/26(土)11:00〜\n・4/27(日)15:00〜\n\nご希望の時間をお選びいただくと、そのままホットペッパービューティーの予約ページへご案内します。" },
+  ],
   gym: [
     { sender: "user", text: "体験トレーニングを受けたいです" },
     { sender: "bot", text: "ありがとうございます！\n無料体験レッスンのご案内です。\n\n・料金: 無料\n・時間: 約60分\n・持ち物: 運動着・室内シューズ・タオル\n\n直近の空き枠はこちらです：\n1. 4/10（木）14:00〜\n2. 4/10（木）18:00〜\n3. 4/11（金）10:00〜\n\nご希望の番号とお名前を教えてください。" },
