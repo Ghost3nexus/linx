@@ -1,0 +1,122 @@
+{
+  "description": "LINX LP 画像。トップLPは業種ニュートラル(hero-main + 5枚 ProductShowcase + industry-logos)、業種別ページ(/solutions/<業種>)は旧 hero-*/usecase-* を継続使用",
+  "assets": [
+    {
+      "file": "hero-main.png",
+      "size": "1.4MB",
+      "aspect_ratio": "3:2",
+      "purpose": "Top LP Hero — LINEチャット + 予約カレンダー + スマートロック の3画面合成モック",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high)",
+      "created": "2026-04-29",
+      "used_in": "src/components/Hero.tsx"
+    },
+    {
+      "file": "phone-line-chat.png",
+      "size": "1.4MB",
+      "aspect_ratio": "2:3",
+      "purpose": "ProductShowcase — iPhone LINEチャット詳細 4ターン会話",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high)",
+      "created": "2026-04-29",
+      "used_in": "src/components/ProductShowcase.tsx"
+    },
+    {
+      "file": "staff-dashboard.png",
+      "size": "1.2MB",
+      "aspect_ratio": "3:2",
+      "purpose": "ProductShowcase — 週次予約カレンダー+KPI(32件/8名/1,234名)",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high)",
+      "created": "2026-04-29",
+      "used_in": "src/components/ProductShowcase.tsx"
+    },
+    {
+      "file": "members-checkin.png",
+      "size": "1.2MB",
+      "aspect_ratio": "3:2",
+      "purpose": "ProductShowcase — 会員チェックイン3ステップ(LINE→本人認証→完了)",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high)",
+      "created": "2026-04-29",
+      "used_in": "src/components/ProductShowcase.tsx"
+    },
+    {
+      "file": "smartlock-entry.png",
+      "size": "1.4MB",
+      "aspect_ratio": "3:2",
+      "purpose": "ProductShowcase — スマホ「鍵を開ける」+スマートロック+解錠完了",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high)",
+      "created": "2026-04-29",
+      "used_in": "src/components/ProductShowcase.tsx"
+    },
+    {
+      "file": "industry-logos.png",
+      "size": "1.0MB",
+      "aspect_ratio": "3:2",
+      "purpose": "UseCases — 8業種ロゴ列(ジム/サロン/サウナ/ピラティス/ヨガ/クリニック/飲食店/小売店)、ジム・サロン緑枠ハイライト",
+      "tool": "openai/gpt-image-2 (Replicate, quality=high) — 2回目生成(初回「髪症」誤字修正)",
+      "created": "2026-04-29",
+      "used_in": "src/components/UseCases.tsx"
+    },
+    {
+      "file": "hero-gym.png",
+      "size": "1.3MB",
+      "purpose": "業種別LP - パーソナルジム Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/gym/page.tsx"
+    },
+    {
+      "file": "hero-salon.png",
+      "size": "2.0MB",
+      "purpose": "業種別LP - 美容室・ヘアサロン Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/salon/page.tsx"
+    },
+    {
+      "file": "usecase-clinic.png",
+      "size": "1.4MB",
+      "purpose": "業種別LP - クリニック Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/clinic/page.tsx"
+    },
+    {
+      "file": "usecase-pickleball.png",
+      "size": "1.3MB",
+      "purpose": "業種別LP - ピックルボール Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/pickleball/page.tsx"
+    },
+    {
+      "file": "usecase-pilates.png",
+      "size": "1.1MB",
+      "purpose": "業種別LP - ピラティス Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/pilates/page.tsx"
+    },
+    {
+      "file": "usecase-sauna.png",
+      "size": "1.1MB",
+      "purpose": "業種別LP - サウナ Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/sauna/page.tsx"
+    },
+    {
+      "file": "usecase-studio.png",
+      "size": "1.5MB",
+      "purpose": "業種別LP - ダンススタジオ Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/studio/page.tsx"
+    },
+    {
+      "file": "usecase-yoga.png",
+      "size": "1.1MB",
+      "purpose": "業種別LP - ヨガスタジオ Hero",
+      "tool": "(legacy / 2026-04 生成)",
+      "used_in": "src/app/solutions/yoga/page.tsx"
+    }
+  ],
+  "_history": [
+    {
+      "date": "2026-04-29",
+      "change": "業種特化Hero廃止 → 業種ニュートラル統合Heroへ刷新。競合12社調査で業界標準と整合(全社が業種ニュートラル)。Hero.tsx + UseCases.tsx 改修",
+      "trigger": "KOZUKI: LINX自体は業界横断なのに業種特化Heroは早すぎ"
+    }
+  ]
+}
