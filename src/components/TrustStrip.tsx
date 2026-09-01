@@ -43,7 +43,7 @@ const badges = [
   {
     icon: "🎓",
     title: "生成AIパスポート保有開発者",
-    sub: "JDLA認定",
+    sub: "GUGA認定",
   },
   {
     icon: "🔒",

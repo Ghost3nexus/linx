@@ -38,7 +38,7 @@ export default function AboutCompany() {
                   ["代表", "KOZUKI TAKAHIRO"],
                   ["代表取締役連絡先", "070-8959-7559"],
                   ["設立", "2025年8月"],
-                  ["資格", "生成AIパスポート保有（JDLA認定）"],
+                  ["資格", "生成AIパスポート保有（GUGA認定）"],
                 ].map(([label, value]) => (
                   <tr key={label}>
                     <td className="py-2 pr-6 text-[#999999] whitespace-nowrap">{label}</td>
