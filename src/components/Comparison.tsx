@@ -6,8 +6,14 @@ import { SUGGESTED_RETAIL } from "@/lib/wholesale";
 
 const features = [
   // 料金
-  { label: "月額料金", linx: `${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円〜`, hacomono: "33,000円〜", stores: "8,790円〜" },
-  { label: "初期費用", linx: "0円", hacomono: "要問合せ", stores: "0円" },
+  // 表面の月額ではなく、実際にかかる総額で並べる
+  { label: "基本の月額", linx: `${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円`, hacomono: "35,000円/店", stores: "8,790円〜" },
+  { label: "初期費用", linx: "0円", hacomono: "150,000円", stores: "0円" },
+  { label: "決済連携（カード）", linx: "込み", hacomono: "+5,000円/店", stores: "込み" },
+  { label: "口座振替", linx: "込み", hacomono: "+5,000円/店", stores: "非対応" },
+  { label: "入退館・スマートロック", linx: "込み", hacomono: "オプション", stores: false },
+  { label: "1店舗の初年度 総額", linx: `${(SUGGESTED_RETAIL * 12).toLocaleString("ja-JP")}円`, hacomono: "786,000円", stores: "要確認" },
+  { label: "初月無料トライアル", linx: true, hacomono: false, stores: "7日間のみ" },
   { label: "初月無料トライアル", linx: true, hacomono: false, stores: "7日間のみ" },
   // AI
   { label: "AI自動応対（24時間LINE）", linx: true, hacomono: false, stores: false },
@@ -62,6 +68,13 @@ function CellValue({ value }: { value: boolean | string }) {
   return <span className="text-[12px] sm:text-[13px] font-medium">{value}</span>;
 }
 
+/**
+ * hacomono の内訳（2026年9月時点・公開情報）
+ *  初期 150,000円（税別・初回のみ）／基本 35,000円/店・月
+ *  カード決済 +5,000／口座振替 +5,000／POS +5,000／独自ドメイン +3,000
+ *  会費商売ならカード決済と口座振替は実質必須のため、初年度総額は
+ *  150,000 + (35,000+5,000+5,000) × 12 = 786,000円 で算出している。
+ */
 export default function Comparison() {
   return (
     <section className="py-[60px] sm:py-[80px] px-4 sm:px-6 bg-white">
@@ -135,6 +148,13 @@ export default function Comparison() {
             </div>
           </div>
         </motion.div>
+
+        <p className="mt-8 text-center text-[12px] leading-relaxed text-[#999999]">
+          ※ 2026年9月時点の各社公開情報より。hacomono の初年度総額は、初期費用150,000円に
+          基本35,000円/店とカード決済5,000円・口座振替5,000円を加えた12ヶ月分で算出しています。
+          <br className="hidden sm:block" />
+          会費商売では決済系のオプションが実質必須になるためです。オプションの要否により金額は変わります。
+        </p>
 
         <motion.div
           initial={{ opacity: 0 }}

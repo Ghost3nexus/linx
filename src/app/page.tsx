@@ -6,7 +6,7 @@ import TwoDoors from "@/components/partner/TwoDoors";
 import WhiteLabelProof from "@/components/partner/WhiteLabelProof";
 import ProductVisual from "@/components/partner/ProductVisual";
 import TryItLive from "@/components/partner/TryItLive";
-import RevenueSimulator from "@/components/partner/RevenueSimulator";
+import RevenueStructure from "@/components/partner/RevenueStructure";
 import SalesKit from "@/components/partner/SalesKit";
 import Industries from "@/components/partner/Industries";
 import Roadmap from "@/components/partner/Roadmap";
@@ -18,10 +18,10 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { partnerFaqs } from "@/lib/partnerFaqs";
 import { SITE } from "@/lib/site";
-import { MARGIN_RATE, SUGGESTED_RETAIL, WHOLESALE_MONTHLY } from "@/lib/wholesale";
 
 const title = "多店舗・FC向け 店舗管理AI OS のOEM提供｜店舗運営 自動化システムの販売代理店募集";
-const description = `多店舗の予約管理・顧客管理・入退館・決済を公式LINE上のAIでつなぐ店舗管理AI OSを、御社ブランドでの販売向けに卸します。店舗運営の自動化システムとして、FC本部・チェーン本部の本部管理にも対応。卸値は1店舗あたり月額${WHOLESALE_MONTHLY.toLocaleString("ja-JP")}円、想定小売${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円で御社の取り分は${Math.round(MARGIN_RATE * 100)}%。エンドユーザーの画面に当社の名前は出ません。`;
+const description =
+  "多店舗の予約管理・顧客管理・入退館・決済を公式LINE上のAIでつなぐ店舗管理AI OSを、御社ブランドでの販売向けに卸します。店舗運営の自動化システムとして、FC本部・チェーン本部の本部管理にも対応。初期費用は0円、販売価格と契約期間は御社が決められます。エンドユーザーの画面に当社の名前は出ません。卸値と条件は個別にご提示します。";
 
 export const metadata: Metadata = {
   title: `${title} | LINX PARTNERS`,
@@ -75,9 +75,12 @@ export default function Home() {
               areaServed: { "@type": "Country", name: "日本" },
               offers: {
                 "@type": "Offer",
-                name: "卸値型（1店舗あたり月額）",
-                price: String(WHOLESALE_MONTHLY),
-                priceCurrency: "JPY",
+                name: "OEM・販売代理店向けの卸提供",
+                availability: "https://schema.org/InStock",
+                priceSpecification: {
+                  "@type": "PriceSpecification",
+                  description: "卸値と掛け率は、商圏と規模に応じて個別にご提示します。",
+                },
               },
             },
           },
@@ -100,7 +103,7 @@ export default function Home() {
         <WhiteLabelProof />
         <ProductVisual />
         <TryItLive />
-        <RevenueSimulator />
+        <RevenueStructure />
         <SalesKit />
         <Industries />
         <Roadmap />

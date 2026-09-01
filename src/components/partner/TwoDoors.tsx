@@ -15,8 +15,8 @@ const doors = [
       "販売価格と契約期間は、御社が決めます",
       "AI応答は実費で仕入れ、上乗せ幅も御社が決めます",
     ],
-    href: "#simulator",
-    cta: "取り分を試算する",
+    href: "#revenue",
+    cta: "収益の立ち方を見る",
     type: "reseller" as const,
   },
   {
@@ -30,8 +30,8 @@ const doors = [
       "店舗数無制限の固定枠プランをご用意しています",
       "既存の予約システムを残したまま、追加で導入できます",
     ],
-    href: "#simulator",
-    cta: "固定枠で試算する",
+    href: "#revenue",
+    cta: "収益の立ち方を見る",
     type: "inhouse" as const,
   },
 ];

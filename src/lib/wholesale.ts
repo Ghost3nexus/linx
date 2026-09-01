@@ -4,11 +4,18 @@
  * 根拠は docs/pricing-structure.pdf を参照。
  */
 
-/** 想定小売価格（代理店は自由に変更できる。あくまで目安として提示する） */
-export const SUGGESTED_RETAIL = 19800;
+/**
+ * 🔴 ここの数字はパートナー向けLPには出さない。
+ * B2Bは相手ごとに条件を組むため、率も額も個別に提示する。
+ * LPで見せるのは条件（初期費用0円・価格は御社が決める・商圏を絞る）だけ。
+ * 実額は資料と打ち合わせで渡す。
+ */
 
-/** 卸値型：1顧客あたりの月額卸値 */
-export const WHOLESALE_MONTHLY = 5000;
+/** 想定小売価格（代理店は自由に変更できる。/product と資料で使う） */
+export const SUGGESTED_RETAIL = 39800;
+
+/** 卸値型：1店舗あたりの月額卸値（掛け率50%） */
+export const WHOLESALE_MONTHLY = 19900;
 
 /** 固定枠型：顧客数無制限の月額固定 */
 export const FLAT_MONTHLY = 50000;

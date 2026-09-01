@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 
 const nav = [
   { label: "売るもの", href: "#whatyouget" },
-  { label: "収益を試算する", href: "#simulator" },
+  { label: "収益の立ち方", href: "#revenue" },
   { label: "売れる業界", href: "#industries" },
   { label: "テリトリー", href: "#territory" },
   { label: "よくある質問", href: "#faq" },

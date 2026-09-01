@@ -3,12 +3,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import LinxChip from "./LinxChip";
-import {
-  AI_UNIT_WHOLESALE,
-  MARGIN_RATE,
-  WHOLESALE_MONTHLY,
-  yen,
-} from "@/lib/wholesale";
+
 
 /** 背景に敷く店舗。業種の広さを、読ませるのでなく見せる */
 const backdrop = [
@@ -22,10 +17,11 @@ const backdrop = [
   { image: "/images/usecase-pickleball.jpg", alt: "ピックルボール施設" },
 ];
 
+/** 出すのは条件だけ。金額と掛け率は相手ごとに組むので、資料と打ち合わせで渡す */
 const facts = [
-  { v: yen(WHOLESALE_MONTHLY), l: "卸値／1店舗・月" },
-  { v: `${Math.round(MARGIN_RATE * 100)}%`, l: "御社の取り分" },
-  { v: `¥${AI_UNIT_WHOLESALE}`, l: "AI応答／1回" },
+  { v: "0円", l: "初期費用・最低販売数" },
+  { v: "御社", l: "販売価格と契約期間を決めるのは" },
+  { v: "非公開", l: "エンドユーザーに当社の名前は" },
 ];
 
 export default function PartnerHero() {
@@ -61,7 +57,7 @@ export default function PartnerHero() {
             <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-bold tracking-wide text-white/85 backdrop-blur sm:text-[13px]">
               初期費用 0円
               <span className="text-white/25">／</span>
-              取り分 {Math.round(MARGIN_RATE * 100)}%
+              御社のブランドで販売
             </p>
 
             <h1 className="mt-6 text-[32px] font-extrabold leading-[1.2] tracking-tight text-white sm:text-[44px] md:text-[52px]">
@@ -80,10 +76,10 @@ export default function PartnerHero() {
 
             <div className="mt-9 flex flex-col gap-3.5 sm:flex-row">
               <a
-                href="#simulator"
+                href="#revenue"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#06C755] px-8 py-4 text-[16px] font-bold text-white transition-colors hover:bg-[#05B04A]"
               >
-                卸値表を見る
+                収益の立ち方を見る
                 <ArrowRight size={18} />
               </a>
               <a
