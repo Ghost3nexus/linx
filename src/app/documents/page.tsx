@@ -74,7 +74,7 @@ export default function DocumentsPage() {
 
             {/* Lead Form Gate */}
             {showForm && !formSubmitted && (
-                <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-6 py-20">
+                <div className="min-h-[calc(100dvh-64px)] flex items-center justify-center px-6 py-20">
                     <div className="w-full max-w-[480px]">
                         <div className="text-center mb-10">
                             <div className="w-16 h-16 rounded-2xl bg-[#E8F5E9] flex items-center justify-center mx-auto mb-5">

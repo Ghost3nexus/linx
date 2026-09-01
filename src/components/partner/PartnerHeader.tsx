@@ -18,7 +18,10 @@ export default function PartnerHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0B0C0E]/92 backdrop-blur border-b border-white/10">
+    <header
+      className="sticky top-0 z-50 bg-[#0B0C0E]/92 backdrop-blur border-b border-white/10"
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
+    >
       <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
         <Link href="/" className="text-[22px] font-bold tracking-tight text-white">
           LIN<span className="text-[#06C755]">X</span>

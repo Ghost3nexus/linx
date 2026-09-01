@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen, Sparkles } from "lucide-react";
+import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen, Sparkles, Menu, X } from "lucide-react";
 import { isLoggedIn, getMe, clearAuth, isDemoMode, exitDemoMode, type Me } from "@/lib/apiClient";
 
 const navItems = [
@@ -24,6 +24,7 @@ const navItems = [
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const [demo, setDemo] = useState(false);
+    const [navOpen, setNavOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
     const [me, setMe] = useState<Me | null>(null);
@@ -49,8 +50,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             window.history.replaceState({}, "", pathname);
         }
 
-        setDemo(isDemoMode());
-
         // JWTの存在チェック（クライアント側）
         if (!isLoggedIn()) {
             router.replace("/login");
@@ -59,6 +58,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         // サーバーでトークン検証
         getMe()
             .then((data) => {
+                setDemo(isDemoMode());
                 setMe(data);
                 setAuthChecked(true);
                 // セットアップ未完了の場合はウィザードへ
@@ -88,7 +88,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
 
     return (
-        <div className="min-h-screen bg-white flex">
+        <div className="min-h-[100dvh] bg-white flex">
             {demo && (
                 <div className="fixed inset-x-0 top-0 z-40 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 bg-[#0B0C0E] px-4 py-2 text-center text-[12px] text-white/85 sm:text-[13px]">
                     <span>
@@ -106,8 +106,43 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </button>
                 </div>
             )}
+            {/* モバイル用のトップバー。サイドバーは画面幅が足りないので引き出しにする */}
+            <div
+                className={`fixed inset-x-0 z-30 flex h-[56px] items-center justify-between border-b border-[#E8E8E8] bg-white px-4 lg:hidden ${demo ? "top-11" : "top-0"}`}
+                style={{ paddingTop: demo ? undefined : "env(safe-area-inset-top)" }}
+            >
+                <Link href="/" className="text-[18px] font-bold tracking-tight text-[#1A1A1A]">
+                    LIN<span className="text-[#06C755]">X</span>
+                </Link>
+                <button
+                    onClick={() => setNavOpen(true)}
+                    aria-label="メニューを開く"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg text-[#1A1A1A]"
+                >
+                    <Menu size={22} />
+                </button>
+            </div>
+
+            {navOpen && (
+                <button
+                    aria-label="メニューを閉じる"
+                    onClick={() => setNavOpen(false)}
+                    className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className={`w-[240px] bg-white border-r border-[#E8E8E8] flex flex-col fixed h-full z-20 ${demo ? "pt-11" : ""}`}>
+            <aside
+                className={`fixed z-50 flex h-full w-[240px] flex-col border-r border-[#E8E8E8] bg-white transition-transform duration-300 lg:z-20 lg:translate-x-0 ${navOpen ? "translate-x-0" : "-translate-x-full"} ${demo ? "pt-11" : ""}`}
+            >
+                <button
+                    onClick={() => setNavOpen(false)}
+                    aria-label="メニューを閉じる"
+                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-[#666666] lg:hidden"
+                    style={{ top: demo ? undefined : "max(env(safe-area-inset-top), 0.75rem)" }}
+                >
+                    <X size={20} />
+                </button>
                 <div className="p-5 border-b border-[#E8E8E8]">
                     <Link href="/" className="flex items-center gap-2 font-bold text-lg">
                         <div className="w-7 h-7 rounded-lg bg-[#06C755] flex items-center justify-center">
@@ -125,6 +160,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <Link
                                 key={item.href}
                                 href={item.href}
+                                onClick={() => setNavOpen(false)}
                                 className={`flex items-center gap-3 px-5 py-3 text-[14px] transition-colors ${isActive
                                     ? "text-[#06C755] bg-[#06C755]/8 border-r-2 border-[#06C755]"
                                     : "text-[#666666] hover:text-[#1A1A1A] hover:bg-gray-50"
@@ -159,7 +195,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </aside>
 
             {/* Main content */}
-            <main className={`flex-1 ml-[240px] p-8 min-h-screen ${demo ? "pt-[76px]" : ""}`}>
+            <main
+                className={`min-h-[100dvh] flex-1 px-5 pb-10 lg:ml-[240px] lg:px-8 lg:pb-8 ${demo ? "pt-[calc(44px+56px+16px)] lg:pt-[76px]" : "pt-[calc(56px+16px)] lg:pt-8"}`}
+            >
                 {children}
             </main>
         </div>
