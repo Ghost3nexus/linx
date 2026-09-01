@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">
+<title>LINX パートナー提案書（社内ドラフト）</title>
+<style>
+@page{size:A4 landscape;margin:12mm 10mm;@bottom-center{content:"株式会社TomorrowProof ／ " counter(page) " / " counter(pages);font-size:8pt;color:#999}}
+*{box-sizing:border-box}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;font-size:9.5pt;color:#1a1a1a;line-height:1.6;margin:0}
+h1{font-size:19pt;margin:0 0 2mm}
+h2{font-size:12pt;margin:7mm 0 2.5mm;padding:1.5mm 0 1.5mm 3mm;border-left:4px solid #06C755;background:#F5FBF7}
+.meta{color:#888;font-size:8pt;border-bottom:1.5px solid #1a1a1a;padding-bottom:2mm;margin-bottom:5mm}
+.lead{font-size:10pt;color:#444;margin:0 0 3mm}
+table{width:100%;border-collapse:collapse;margin:2.5mm 0 3mm;font-size:9pt}
+th{background:#1a1a1a;color:#fff;text-align:left;padding:2mm;border:.5px solid #1a1a1a}
+td{padding:2mm;border:.5px solid #ccc;vertical-align:top}
+tr:nth-child(even) td{background:#FAFAFA}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.c{text-align:center}
+.win{background:#F0FBF4 !important;font-weight:bold;color:#047A34}
+.todo{background:#FFF4F4 !important;color:#C62828;font-weight:bold}
+.box{border:1px solid #06C755;background:#F5FBF7;padding:3.5mm;margin:3mm 0}
+.box.warn{border-color:#C62828;background:#FDF3F3}
+.box p{margin:0 0 1.5mm}.box p:last-child{margin:0}
+.big{font-size:14pt;font-weight:bold}
+.note{font-size:8pt;color:#777}
+.pb{page-break-before:always}
+</style></head><body>
+
+<h1>LINX パートナー提案書</h1>
+<p class="meta">株式会社TomorrowProof ／ 2026年9月2日 (JST) ／ <strong style="color:#C62828">社内ドラフト — 赤の項目が未確定。埋まるまで配布しない</strong></p>
+
+<div class="box warn">
+<p><strong>この資料の位置づけ。</strong>パートナーLPからは卸値も掛け率も外しました。B2Bは相手ごとに条件を組むため、公開すると規模に応じた提示ができなくなるからです。<strong>実額はこの資料と打ち合わせで渡します。</strong></p>
+<p><strong style="color:#C62828">赤で示した4項目はKOZUKIさんの判断が要ります。</strong>そこが埋まるまでは配布できません（LPは「資料を受け取る」と言っているので、埋め次第 public/downloads へ入れます）。</p>
+</div>
+
+<h2>1. 何を卸すか</h2>
+<p class="lead">公式LINE上のAIが、問い合わせに答えるだけでなく<strong>空き枠を確認して予約を確定し、会員を管理し、スマートロックを解錠し、決済リンクを送る</strong>ところまで実行する店舗管理AI OSです。ジム・美容室・ヨガ・ピラティス・クリニック・サウナなどの予約制／会員制店舗が対象です。</p>
+<table>
+<tr><th style="width:26%">項目</th><th>内容</th></tr>
+<tr><td>エンドユーザーの画面</td><td class="win">店舗ごとにLINEチャネルを保持する構成のため、当社の名称は一切表示されません。AIの表示名も店舗単位で設定できます</td></tr>
+<tr><td>データの分離</td><td>会員・予約・会話ログはすべてアカウント単位で分離。他の導入先と混ざりません</td></tr>
+<tr><td>販売価格・契約期間</td><td class="win">御社が決めます。当社は関与しません</td></tr>
+<tr><td>既存システム</td><td>置き換えではなく追加で導入できます。CSVでの会員一括取り込み、API連携に対応</td></tr>
+<tr><td>決済</td><td>Stripe / Square</td></tr>
+</table>
+
+<h2>2. 条件</h2>
+<table>
+<tr><th style="width:22%">項目</th><th style="width:24%">卸値型</th><th style="width:24%">固定枠型</th><th style="width:30%">備考</th></tr>
+<tr><td>想定小売価格</td><td class="n">39,800円 / 店・月</td><td class="c">御社が自由に設定</td><td>あくまで目安。拘束しません</td></tr>
+<tr><td><strong>卸値</strong></td><td class="n win big">19,900円 / 店・月</td><td class="n">要相談（月額固定）</td><td>掛け率50%</td></tr>
+<tr><td>御社の取り分</td><td class="n win">19,900円（50%）</td><td class="c">店舗が増えるほど1店あたりの原価が下がる</td><td>日本のストック型SaaSの代理店マージン相場は20〜30%</td></tr>
+<tr><td>初期費用</td><td class="c win">0円</td><td class="c win">0円</td><td>最低販売数もありません</td></tr>
+<tr><td>AI応答</td><td colspan="2" class="c">実費で仕入れ、上乗せは御社が決める</td><td>従量で請求しても、月額に含めて売っても構いません</td></tr>
+<tr><td class="todo">店舗数による逓減</td><td colspan="2" class="c todo">未確定</td><td class="todo">競合（Trafft）は 1-5／6-15／16-30／31-50／51+ で逓減。当社は「売った実績で上げる」方向を推奨（未実績の相手に最良条件を先に渡さない）</td></tr>
+<tr><td class="todo">最低契約期間・解約</td><td colspan="2" class="c todo">未確定</td><td class="todo">代理店は「抜けられるか」を必ず見ます</td></tr>
+</table>
+
+<div class="box">
+<p><strong>上限に達したときの挙動。</strong>AI応答のみ止まり、定型文での応対に切り替わります。<strong>予約・会員管理・入退館・決済は動き続けます。</strong>入退館が止まると店舗の営業そのものが止まるため、金額の上限で落とさない設計にしています。</p>
+</div>
+
+<h2 class="pb">3. 御社の収益は3つから立ちます</h2>
+<table>
+<tr><th style="width:22%">収益源</th><th style="width:14%">頻度</th><th>内容</th></tr>
+<tr><td><strong>月額の卸差益</strong></td><td class="c">毎月</td><td>卸値で仕入れ、御社が決めた価格で販売。差額が毎月積み上がります</td></tr>
+<tr><td><strong>AI応答の上乗せ</strong></td><td class="c">使った分</td><td>実費で仕入れ、いくらで売るかは御社が決めます。<strong>仕入れは従量、販売は定額という変換自体が利益</strong>になります</td></tr>
+<tr><td><strong>導入支援・運用代行</strong></td><td class="c">都度</td><td>初期設定、ナレッジ整備、LINE配信の設計。店舗が自分でやりたがらない部分は御社の工数として請求できます。当社は関与しません</td></tr>
+</table>
+
+<h2>4. 役割の分担</h2>
+<table>
+<tr><th style="width:26%">項目</th><th style="width:37%">御社</th><th style="width:37%">当社</th></tr>
+<tr><td>販売・価格設定</td><td class="win">すべて</td><td class="c">関与しません</td></tr>
+<tr><td>導入支援・初期設定</td><td class="win">担当（工数を請求できます）</td><td class="c">手順とテンプレートを提供</td></tr>
+<tr><td>エンドユーザーの一次サポート</td><td class="win">担当</td><td class="c">—</td></tr>
+<tr><td>技術調査・不具合対応</td><td class="c">—</td><td class="win">担当（御社向けの二次サポート）</td></tr>
+<tr><td>製品開発・インフラ・セキュリティ</td><td class="c">—</td><td class="win">担当</td></tr>
+<tr><td class="todo">サポート窓口・受付時間</td><td colspan="2" class="c todo">未確定 — 実際に守れる範囲で決める（競合は「平日10:00-18:00／電話・チャット・メール」等を明示）</td></tr>
+</table>
+<p class="note">※ 一次サポートを御社に担っていただく前提で、掛け率を厚く設定しています。</p>
+
+<h2>5. 導入までの流れ</h2>
+<table>
+<tr><th style="width:6%">段</th><th style="width:26%">やること</th><th style="width:16%">期間</th><th>備考</th></tr>
+<tr><td class="c">1</td><td>打ち合わせ</td><td class="c todo">未確定</td><td>実際のLINEと管理画面を動かしながら、御社の商圏で成り立つかを確認します</td></tr>
+<tr><td class="c">2</td><td>商圏と条件のすり合わせ</td><td class="c todo">未確定</td><td>地域・業種・想定店舗数から条件を組みます</td></tr>
+<tr><td class="c">3</td><td>契約</td><td class="c todo">未確定</td><td>テリトリーを契約書に明記します</td></tr>
+<tr><td class="c">4</td><td>初期設定と操作研修</td><td class="c todo">未確定</td><td>御社側で導入支援ができる状態にします</td></tr>
+<tr><td class="c">5</td><td>初案件</td><td class="c todo">未確定</td><td>最初の1件は当社が同席します</td></tr>
+</table>
+<div class="box warn">
+<p><strong style="color:#C62828">各段の日数が未確定です。</strong>競合は SimplyBook.me が「数週間で開始」、使えるねっとが「約1〜1.5ヶ月」と明示しています。<strong>実際に用意できる日数</strong>を入れてください。ここが空欄だと、相手は次に何が起きるか分かりません。</p>
+</div>
+
+<h2 class="pb">6. いま動いているもの / これから作るもの</h2>
+<table>
+<tr><th style="width:34%">項目</th><th style="width:12%">状態</th><th>内容</th></tr>
+<tr><td>エンド側の完全ホワイトラベル</td><td class="c win">動いています</td><td>店舗ごとの公式LINE。当社の名称は出ません</td></tr>
+<tr><td>テナント単位のデータ分離</td><td class="c win">動いています</td><td>会員・予約・会話ログ</td></tr>
+<tr><td>多店舗の権限管理</td><td class="c win">動いています</td><td>店舗ごとのロール</td></tr>
+<tr><td>CSV一括取り込み・API連携</td><td class="c win">動いています</td><td>既存の会員データの移行</td></tr>
+<tr><td>利用規約・プライバシーポリシーの出し分け</td><td class="c">開発中</td><td><strong>OEMでは御社が契約主体になるため必須。初回のご契約前に提供します</strong></td></tr>
+<tr><td>管理画面のブランディング（ロゴ・配色）</td><td class="c">開発中</td><td>現在は当社の画面のまま。エンド側のLINEには影響しません</td></tr>
+<tr><td>管理画面の独自ドメイン</td><td class="c">開発中</td><td>御社ドメインでの提供</td></tr>
+<tr><td>パートナー管理画面</td><td class="c">開発中</td><td>御社が導入先店舗を一覧・管理する画面</td></tr>
+<tr><td>卸値請求の自動化</td><td class="c">開発中</td><td>当面は月次のご請求で対応します</td></tr>
+</table>
+<p class="note">契約後に「実はできない」が出ないよう、現在地をそのまま書いています。</p>
+
+<h2>7. テリトリー</h2>
+<table>
+<tr><th style="width:26%">方針</th><th>内容</th></tr>
+<tr><td>商圏を絞ります</td><td>地域と業種でパートナー数を制限します。同じ商圏で複数の代理店が競合して値崩れする状態を避けるためです。区分けは契約書に明記します</td></tr>
+<tr><td>当社は直販しません</td><td>御社が獲得したお客様に、当社が後から直接アプローチすることはありません</td></tr>
+<tr><td>現在の条件について</td><td>掲載している条件は<strong>立ち上げ期のもの</strong>です。枠が埋まり次第見直しますが、ご契約済みの分は契約期間中そのまま据え置きます</td></tr>
+<tr><td class="todo">応募の要件</td><td class="todo">未確定 — 「誰にでも卸すわけではない」と言う以上、基準が要ります。満たさなくても相談可と添えるのが無難です</td></tr>
+</table>
+
+<h2>8. 実績について</h2>
+<div class="box">
+<p><strong>有償での提供実績は、まだありません。</strong>隠しても仕方がないので先に書きます。</p>
+<p>そのぶん<strong>地域と業種のテリトリーが空いています</strong>。また、実績の代わりに<strong>動くものをそのままお見せします</strong>——管理画面はログイン不要のURLでいつでも開けますし、実機のLINEは打ち合わせの場で動かします。</p>
+</div>
+
+<h2>9. 提供元</h2>
+<table>
+<tr><td style="width:22%;background:#FAFAFA"><strong>会社名</strong></td><td>株式会社TomorrowProof</td></tr>
+<tr><td style="background:#FAFAFA"><strong>法人番号</strong></td><td>9010401192344</td></tr>
+<tr><td style="background:#FAFAFA"><strong>設立</strong></td><td>2025年8月8日</td></tr>
+<tr><td style="background:#FAFAFA"><strong>所在地</strong></td><td>東京都港区南青山7-1-27-702</td></tr>
+<tr><td style="background:#FAFAFA"><strong>代表取締役</strong></td><td>上月 貴博</td></tr>
+<tr><td style="background:#FAFAFA"><strong>連絡先</strong></td><td>kozuki@tomorrowproof-ai.com</td></tr>
+<tr><td style="background:#FAFAFA"><strong>セキュリティ</strong></td><td>保存データはAES-256で暗号化。全通信はSSL。APIレスポンスに秘密鍵を含めない設計で、ログに個人情報を記録しません。カード情報はStripeが直接処理し、当社のサーバーを通過しません</td></tr>
+</table>
+
+</body></html>

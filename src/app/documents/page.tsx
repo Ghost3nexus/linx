@@ -357,21 +357,6 @@ export default function DocumentsPage() {
                                         <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-1">PDF資料ダウンロード</h3>
                                         <p className="text-[12px] text-[#999] mb-4">社内共有・検討用にどうぞ</p>
                                         <div className="space-y-3">
-                                            {industry === "salon" && (
-                                                <a
-                                                    href="/downloads/linx-salon-guide.pdf"
-                                                    download
-                                                    className="flex items-center gap-3 bg-[#F5FBF7] hover:bg-[#E8F5E9] border-2 border-[#06C755] rounded-xl p-3 transition-all"
-                                                >
-                                                    <div className="w-10 h-10 rounded-lg bg-[#06C755] flex items-center justify-center shrink-0">
-                                                        <Download size={16} className="text-white" />
-                                                    </div>
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="text-[13px] font-bold text-[#1A1A1A] truncate">美容室・ヘアサロン向けガイド</p>
-                                                        <p className="text-[11px] text-[#06C755] font-bold">PDF · 1.1 MB · おすすめ</p>
-                                                    </div>
-                                                </a>
-                                            )}
                                             <a
                                                 href="/downloads/linx-vs-hacomono.pdf"
                                                 download
@@ -381,23 +366,11 @@ export default function DocumentsPage() {
                                                     <Download size={16} className="text-[#06C755]" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-[13px] font-bold text-[#1A1A1A] truncate">LINX vs 競合比較</p>
-                                                    <p className="text-[11px] text-[#999]">PDF · 847 KB</p>
+                                                    <p className="text-[13px] font-bold text-[#1A1A1A] truncate">店舗管理システムの費用比較</p>
+                                                    <p className="text-[11px] text-[#999]">初年度の総額で比べています · PDF</p>
                                                 </div>
                                             </a>
-                                            <a
-                                                href="/downloads/linx-smartlock-catalog.pdf"
-                                                download
-                                                className="flex items-center gap-3 bg-[#F9FAFB] hover:bg-[#F5FBF7] border border-[#E8E8E8] hover:border-[#06C755] rounded-xl p-3 transition-all"
-                                            >
-                                                <div className="w-10 h-10 rounded-lg bg-[#06C755]/10 flex items-center justify-center shrink-0">
-                                                    <Download size={16} className="text-[#06C755]" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-[13px] font-bold text-[#1A1A1A] truncate">スマートロック連携</p>
-                                                    <p className="text-[11px] text-[#999]">PDF · 826 KB</p>
-                                                </div>
-                                            </a>
+                                            
                                         </div>
                                     </div>
 

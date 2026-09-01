@@ -12,7 +12,7 @@ const features = [
   { label: "決済連携（カード）", linx: "込み", hacomono: "+5,000円/店", stores: "込み" },
   { label: "口座振替", linx: "込み", hacomono: "+5,000円/店", stores: "非対応" },
   { label: "入退館・スマートロック", linx: "込み", hacomono: "オプション", stores: false },
-  { label: "1店舗の初年度 総額", linx: `${(SUGGESTED_RETAIL * 12).toLocaleString("ja-JP")}円`, hacomono: "786,000円", stores: "要確認" },
+  { label: "1店舗の初年度 総額", linx: `${(SUGGESTED_RETAIL * 12).toLocaleString("ja-JP")}円`, hacomono: "690,000円", stores: "要確認" },
   { label: "初月無料トライアル", linx: true, hacomono: false, stores: "7日間のみ" },
   { label: "初月無料トライアル", linx: true, hacomono: false, stores: "7日間のみ" },
   // AI
@@ -73,7 +73,8 @@ function CellValue({ value }: { value: boolean | string }) {
  *  初期 150,000円（税別・初回のみ）／基本 35,000円/店・月
  *  カード決済 +5,000／口座振替 +5,000／POS +5,000／独自ドメイン +3,000
  *  会費商売ならカード決済と口座振替は実質必須のため、初年度総額は
- *  150,000 + (35,000+5,000+5,000) × 12 = 786,000円 で算出している。
+ *  150,000 + (35,000+5,000+5,000) × 12 = 690,000円 で算出する（保守的に POS は含めない）。
+ *  POS まで入れると 150,000 + 50,000 × 12 = 750,000円。
  */
 export default function Comparison() {
   return (
@@ -153,7 +154,7 @@ export default function Comparison() {
           ※ 2026年9月時点の各社公開情報より。hacomono の初年度総額は、初期費用150,000円に
           基本35,000円/店とカード決済5,000円・口座振替5,000円を加えた12ヶ月分で算出しています。
           <br className="hidden sm:block" />
-          会費商売では決済系のオプションが実質必須になるためです。オプションの要否により金額は変わります。
+          会費商売では決済系のオプションが実質必須になるためです。POS機能（+5,000円/店）まで含めると750,000円になります。
         </p>
 
         <motion.div
