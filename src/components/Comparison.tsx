@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Check, X, ArrowRight } from "lucide-react";
+import { SUGGESTED_RETAIL } from "@/lib/wholesale";
 
 const features = [
   // 料金
-  { label: "月額料金", linx: "29,800円〜", hacomono: "33,000円〜", stores: "8,790円〜" },
+  { label: "月額料金", linx: `${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円〜`, hacomono: "33,000円〜", stores: "8,790円〜" },
   { label: "初期費用", linx: "0円", hacomono: "要問合せ", stores: "0円" },
   { label: "初月無料トライアル", linx: true, hacomono: false, stores: "7日間のみ" },
   // AI

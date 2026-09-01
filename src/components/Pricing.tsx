@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { SUGGESTED_RETAIL } from "@/lib/wholesale";
 
 const plans = [
   {
@@ -24,7 +25,7 @@ const plans = [
   },
   {
     name: "Standard",
-    price: "29,800",
+    price: SUGGESTED_RETAIL.toLocaleString("ja-JP"),
     period: "円 / 月",
     description: "店舗運営に必要な機能をすべて",
     features: [

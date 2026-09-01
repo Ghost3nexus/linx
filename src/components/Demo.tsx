@@ -74,7 +74,7 @@ function TypingIndicator() {
   );
 }
 
-export default function Demo() {
+export default function Demo({ embedded = false }: { embedded?: boolean } = {}) {
   const [activeTab, setActiveTab] = useState<Tab>("gym");
   const [visibleCount, setVisibleCount] = useState(0);
   const [showTyping, setShowTyping] = useState(false);
@@ -112,8 +112,17 @@ export default function Demo() {
   }, [activeTab]);
 
   return (
-    <section id="demo" className="py-[50px] sm:py-[80px] md:py-[100px] px-6 section-alt">
+    <section
+      id="demo"
+      className={
+        embedded
+          ? "pt-2 pb-8 px-6"
+          : "py-[50px] sm:py-[80px] md:py-[100px] px-6 section-alt"
+      }
+    >
       <div className="max-w-[800px] mx-auto">
+        {!embedded && (
+          <>
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -143,9 +152,11 @@ export default function Demo() {
         >
           業種をタップすると、会話の例が変わります
         </motion.p>
+          </>
+        )}
 
         {/* Tab buttons - bigger */}
-        <div className="mt-10 grid grid-cols-2 sm:flex sm:justify-center gap-3 sm:flex-wrap">
+        <div className={`${embedded ? "mt-0" : "mt-10"} grid grid-cols-2 sm:flex sm:justify-center gap-3 sm:flex-wrap`}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -185,7 +196,7 @@ export default function Demo() {
             </div>
 
             {/* Chat area */}
-            <div className="p-4 space-y-3 min-h-[300px] bg-[#7494A5]">
+            <div className="p-4 space-y-3 min-h-[420px] sm:min-h-[560px] bg-[#7494A5]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}

@@ -1,29 +1,47 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import TrustStrip from "@/components/TrustStrip";
-import BeforeAfter from "@/components/BeforeAfter";
-import Solution from "@/components/Solution";
-import ProductShowcase from "@/components/ProductShowcase";
-import HowItWorks from "@/components/HowItWorks";
-import Demo from "@/components/Demo";
-import Journey from "@/components/Journey";
-import Stats from "@/components/Stats";
-import UseCases from "@/components/UseCases";
-import RiskFree from "@/components/RiskFree";
-import DataProof from "@/components/DataProof";
-import Comparison from "@/components/Comparison";
-import Pricing from "@/components/Pricing";
-import BetaPartner from "@/components/BetaPartner";
-import FAQ from "@/components/FAQ";
-import FinalCTA from "@/components/FinalCTA";
-import AboutCompany from "@/components/AboutCompany";
-import SecurityBadges from "@/components/SecurityBadges";
+import type { Metadata } from "next";
+import PartnerHeader from "@/components/partner/PartnerHeader";
+import PartnerHero from "@/components/partner/PartnerHero";
+import TwoDoors from "@/components/partner/TwoDoors";
+import WhatYouGet from "@/components/partner/WhatYouGet";
+import TryItLive from "@/components/partner/TryItLive";
+import RevenueSimulator from "@/components/partner/RevenueSimulator";
+import Industries from "@/components/partner/Industries";
+import Roadmap from "@/components/partner/Roadmap";
+import Territory from "@/components/partner/Territory";
+import WhoBuilds from "@/components/partner/WhoBuilds";
+import PartnerFAQ from "@/components/partner/PartnerFAQ";
+import PartnerCTA from "@/components/partner/PartnerCTA";
 import Footer from "@/components/Footer";
-import FloatingCTA from "@/components/FloatingCTA";
-import PhonePopup from "@/components/PhonePopup";
 import JsonLd from "@/components/JsonLd";
-import { faqs } from "@/lib/faqs";
+import { partnerFaqs } from "@/lib/partnerFaqs";
 import { SITE } from "@/lib/site";
+import { MARGIN_RATE, SUGGESTED_RETAIL, WHOLESALE_MONTHLY } from "@/lib/wholesale";
+
+const title = "店舗AIシステムのOEM提供・販売代理店募集";
+const description = `公式LINE上で予約確定・会員管理・入退館・決済まで実行する店舗運営システムを、御社ブランドでの販売向けに卸します。卸値は1店舗あたり月額${WHOLESALE_MONTHLY.toLocaleString("ja-JP")}円、想定小売${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円で御社の取り分は${Math.round(MARGIN_RATE * 100)}%。エンドユーザーの画面に当社の名前は出ません。`;
+
+export const metadata: Metadata = {
+  title: `${title} | LINX PARTNERS`,
+  description,
+  keywords:
+    "予約システム OEM,店舗管理システム OEM,ホワイトラベル SaaS,販売代理店募集,SaaS 代理店,LINE 予約システム OEM,自社ブランド 予約システム,FC本部 予約管理 システム,多店舗 予約管理 システム",
+  alternates: { canonical: SITE.url },
+  openGraph: {
+    title: `${title} | LINX PARTNERS`,
+    description,
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "/images/hero-main.png", width: 1200, height: 630, alt: "LINX PARTNERS — 店舗AIシステムのOEM提供" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${title} | LINX PARTNERS`,
+    description,
+    images: ["/images/hero-main.png"],
+  },
+};
 
 export default function Home() {
   return (
@@ -32,68 +50,52 @@ export default function Home() {
         data={[
           {
             "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: SITE.name,
-            applicationCategory: "BusinessApplication",
-            operatingSystem: "Web",
+            "@type": "WebPage",
+            name: title,
             url: SITE.url,
-            description:
-              "公式LINE上のAIが、問い合わせ対応だけでなく空き確認・予約確定・会員管理・入退館・決済まで実行する店舗運営システム。ジム・ヨガ・ピラティス・クリニック・サウナ・美容室向け。",
-            offers: {
-              "@type": "Offer",
-              price: "29800",
-              priceCurrency: "JPY",
-              priceValidUntil: "2027-12-31",
-            },
-            provider: {
-              "@type": "Organization",
-              name: SITE.company,
-              url: SITE.companyUrl,
+            description,
+            inLanguage: "ja",
+            isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+            about: {
+              "@type": "Service",
+              name: "LINX パートナープログラム（OEM・販売代理店）",
+              serviceType: "ホワイトラベルSaaSの卸提供",
+              provider: { "@type": "Organization", name: SITE.company, url: SITE.companyUrl },
+              areaServed: { "@type": "Country", name: "日本" },
+              offers: {
+                "@type": "Offer",
+                name: "卸値型（1店舗あたり月額）",
+                price: String(WHOLESALE_MONTHLY),
+                priceCurrency: "JPY",
+              },
             },
           },
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: faqs.map((f) => ({
+            mainEntity: partnerFaqs.map((f) => ({
               "@type": "Question",
               name: f.q,
               acceptedAnswer: { "@type": "Answer", text: f.a },
             })),
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: SITE.name,
-            url: SITE.url,
-            inLanguage: "ja",
-          },
         ]}
       />
-      <Header />
+      <PartnerHeader />
       <main>
-        <Hero />
-        <TrustStrip />
-        <BeforeAfter />
-        <Solution />
-        <ProductShowcase />
-        <HowItWorks />
-        <Demo />
-        <Journey />
-        <Stats />
-        <UseCases />
-        <RiskFree />
-        <DataProof />
-        <Comparison />
-        <Pricing />
-        <BetaPartner />
-        <FAQ />
-        <FinalCTA />
-        <AboutCompany />
-        <SecurityBadges />
+        <PartnerHero />
+        <TwoDoors />
+        <WhatYouGet />
+        <TryItLive />
+        <RevenueSimulator />
+        <Industries />
+        <Roadmap />
+        <Territory />
+        <WhoBuilds />
+        <PartnerFAQ />
+        <PartnerCTA />
       </main>
       <Footer />
-      <FloatingCTA />
-      <PhonePopup />
     </>
   );
 }

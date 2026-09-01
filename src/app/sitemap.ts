@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: baseUrl, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${baseUrl}/product`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/documents`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     ...INDUSTRIES.map((slug) => ({
       url: `${baseUrl}/solutions/${slug}`,

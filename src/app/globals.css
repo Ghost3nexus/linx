@@ -60,6 +60,11 @@ p, h1, h2, h3, h4, li, span, a {
   scroll-margin-top: 80px;
 }
 
+/* ヘッダーが sticky なので、アンカー移動時に見出しが隠れないようにする */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
 :focus-visible {
   outline: 2px solid #06C755;
   outline-offset: 2px;
