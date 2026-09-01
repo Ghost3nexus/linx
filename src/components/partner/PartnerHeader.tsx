@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const nav = [
-  { label: "手に入るもの", href: "#whatyouget" },
+  { label: "売るもの", href: "#whatyouget" },
   { label: "収益を試算する", href: "#simulator" },
   { label: "売れる業界", href: "#industries" },
   { label: "テリトリー", href: "#territory" },

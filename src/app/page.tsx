@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import HashScroll from "@/components/partner/HashScroll";
 import PartnerHeader from "@/components/partner/PartnerHeader";
 import PartnerHero from "@/components/partner/PartnerHero";
 import TwoDoors from "@/components/partner/TwoDoors";
-import WhatYouGet from "@/components/partner/WhatYouGet";
+import WhiteLabelProof from "@/components/partner/WhiteLabelProof";
+import ProductVisual from "@/components/partner/ProductVisual";
 import TryItLive from "@/components/partner/TryItLive";
 import RevenueSimulator from "@/components/partner/RevenueSimulator";
 import Industries from "@/components/partner/Industries";
@@ -81,11 +83,13 @@ export default function Home() {
           },
         ]}
       />
+      <HashScroll />
       <PartnerHeader />
       <main>
         <PartnerHero />
         <TwoDoors />
-        <WhatYouGet />
+        <WhiteLabelProof />
+        <ProductVisual />
         <TryItLive />
         <RevenueSimulator />
         <Industries />
