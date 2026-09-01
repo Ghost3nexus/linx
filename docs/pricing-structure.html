@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>LINX 料金構造と卸値の設計</title>
+<style>
+@page { size: A4 landscape; margin: 12mm 10mm 12mm 10mm;
+  @bottom-right { content: counter(page) " / " counter(pages); font-size: 8pt; color: #888; } }
+* { box-sizing: border-box; }
+body { font-family: "Hiragino Sans","Noto Sans JP",sans-serif; font-size: 9pt; color:#1a1a1a; line-height:1.55; margin:0; }
+h1 { font-size:17pt; margin:0 0 2mm 0; }
+h2 { font-size:11pt; margin:6mm 0 2mm 0; padding:1.5mm 0 1.5mm 3mm; border-left:4px solid #06C755; background:#F5FBF7; }
+.meta { color:#888; font-size:8pt; border-bottom:1.5px solid #1a1a1a; padding-bottom:2mm; margin-bottom:4mm; }
+.sub { color:#666; font-size:8.5pt; margin:0 0 2mm 0; }
+table { width:100%; border-collapse:collapse; margin:2mm 0 3mm 0; font-size:8.5pt; }
+th { background:#1a1a1a; color:#fff; text-align:left; padding:1.8mm 2mm; border:.5px solid #1a1a1a; }
+td { padding:1.8mm 2mm; border:.5px solid #ccc; vertical-align:top; }
+tr:nth-child(even) td { background:#FAFAFA; }
+td.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+td.c { text-align:center; }
+.ok { color:#069040; font-weight:bold; } .ng { color:#C62828; font-weight:bold; } .wa { color:#B26A00; font-weight:bold; }
+.box { border:1px solid #06C755; background:#F5FBF7; padding:3mm; margin:3mm 0; }
+.box.warn { border-color:#C62828; background:#FDF3F3; }
+.box p { margin:0 0 1.5mm 0; } .box p:last-child { margin:0; }
+.src { font-size:7.5pt; color:#777; }
+.pb { page-break-before: always; }
+.big { font-size:12pt; font-weight:bold; }
+</style></head><body>
+
+<h1>LINX 料金構造と卸値の設計</h1>
+<p class="meta">株式会社TomorrowProof ／ 2026年9月1日 (JST) ／ 社内資料 ／ 前提: 1USD = 150円</p>
+
+<div class="box">
+<p class="big">結論：安さを「エンド価格」でなく「代理店の取り分」に変換する。</p>
+<p>LINXの1顧客あたり限界費用は<strong>月およそ ¥1,500〜2,500</strong>（AI実費＋インフラ按分）。定価¥29,800なら粗利率は<strong>92%前後</strong>で、業界標準より深く割れます。</p>
+<p><strong>ただし定価を下げると、代理店の手取り「額」が減って売る動機が消えます。</strong>代理店の営業コストは1件あたりほぼ一定（訪問・提案・導入支援）なので、単価が下がると割に合わなくなる。安さをエンド価格に全部使うのは、代理店戦略と正面から衝突します。</p>
+<p><strong>正解は、エンド価格を競合より安くしつつ、掛け率を業界標準の逆側に振ること。</strong>従来型のSaaS会社は開発費と人件費の回収があるため、この2つを同時に出せません。ここがTPの構造的優位です。</p>
+</div>
+
+<h2>1. 実費 — 1顧客・1ヶ月あたり</h2>
+<p class="sub">AI応答はプロンプトキャッシュ前提。system prompt とナレッジ（計 約3,500トークン）をキャッシュし、会話履歴とユーザー発話（約1,600トークン）を都度送る想定。出力250トークン。</p>
+<table>
+<tr><th style="width:20%">項目</th><th style="width:14%">単価</th><th style="width:16%">1応答あたり</th><th style="width:16%">月2,000応答</th><th style="width:34%">注</th></tr>
+<tr><td>Claude Sonnet 5<br>（キャッシュあり）</td><td class="n">$2 / $10 per 1M<br>キャッシュ読 0.1×</td><td class="n">$0.0064<br>≒ ¥0.96</td><td class="n">¥1,920</td><td>現行の設定は <code>claude-sonnet-4-20250514</code> 固定。Sonnet 5 への更新が必要</td></tr>
+<tr><td>Claude Haiku 4.5<br>（キャッシュあり）</td><td class="n">$1 / $5 per 1M</td><td class="n">$0.0032<br>≒ ¥0.48</td><td class="n">¥960</td><td class="ok">簡単な問い合わせはこちらに寄せれば半減。TP実測の参照点あり（リオG文字応対 ≒ ¥0.17/通）</td></tr>
+<tr><td>Claude Sonnet 5<br>（キャッシュなし）</td><td class="n">—</td><td class="n">$0.0127<br>≒ ¥1.90</td><td class="n">¥3,800</td><td class="wa">キャッシュを効かせないと約2倍。現状の実装は要確認</td></tr>
+<tr><td>LINE Messaging API</td><td class="n">—</td><td class="c">—</td><td class="n ok">¥0</td><td class="ok"><strong>店舗が自分でLINE公式アカウントを契約する構造</strong>なので、通信料はTP負担ゼロ</td></tr>
+<tr><td>Railway（API＋DB）</td><td class="n">全顧客で共有</td><td class="c">—</td><td class="n wa">¥150〜500<br>（按分・要実測）</td><td class="wa">実際の請求額を引いて顧客数で割る必要がある</td></tr>
+<tr><td>Vercel（フロント）</td><td class="n">実質固定</td><td class="c">—</td><td class="n">≒ ¥0</td><td>顧客数に比例しない</td></tr>
+<tr><td class="ok"><strong>振り分け後の平均</strong><br>（FAQ7割=Haiku ／ 予約3割=Sonnet）</td><td class="n">—</td><td class="n ok"><strong>≒ ¥0.62</strong></td><td class="n ok"><strong>¥1,240</strong></td><td class="ok">品質を落とさずに実費が約35%減。<strong>採用決定（2026-09-01）</strong></td></tr>
+<tr><td><strong>限界費用 合計</strong></td><td class="c">—</td><td class="c">—</td><td class="n ok"><strong>約 ¥1,500〜2,500</strong></td><td class="ng"><strong>サポート工数（人の時間）は含まず。</strong>ここは代理店に持たせて消す</td></tr>
+</table>
+<p class="src">出典: Anthropic 公式モデル料金（Sonnet 5 $2/$10・Haiku 4.5 $1/$5 per 1M トークン）／キャッシュ読み取りは基本入力価格の約0.1倍、書き込みは1.25倍（5分TTL）</p>
+
+<h2>2. 「安くする」と「代理店が売る」は衝突する — 数字で確認</h2>
+<p class="sub">代理店が20顧客を獲得した場合の、代理店側の月間収入。掛け率50%（代理店取り分50%）で固定して、定価だけを変えた比較。</p>
+<table>
+<tr><th style="width:18%">エンド定価</th><th style="width:18%">代理店の取り分<br>（1顧客・月）</th><th style="width:18%">20顧客での月収</th><th style="width:46%">代理店から見た判断</th></tr>
+<tr><td class="n">¥29,800</td><td class="n">¥14,900</td><td class="n ok">¥298,000</td><td class="ok">1人の営業を張れる。本気で売る</td></tr>
+<tr><td class="n">¥19,800</td><td class="n">¥9,900</td><td class="n">¥198,000</td><td>副業的には成立。専任は置けない</td></tr>
+<tr><td class="n">¥9,800</td><td class="n">¥4,900</td><td class="n ng">¥98,000</td><td class="ng">訪問・提案・導入支援のコストに見合わない。<strong>登録するが売らない</strong></td></tr>
+</table>
+<div class="box warn">
+<p><strong>これが罠です。</strong>「安く作れるから安く売れる」をそのまま実行すると、代理店の手取り額が縮んで、誰も売らなくなります。営業コストは定価に比例しません——¥9,800の商材も¥29,800の商材も、訪問して提案して導入を手伝う手間は同じです。</p>
+</div>
+
+<h2 class="pb">3. 解き方 — 安さを「掛け率」に流す</h2>
+<p class="sub">エンド価格は競合より安く。しかし掛け率は業界標準（代理店20〜30%）の逆側に振る。TPの原価が低いから成立する。</p>
+<table>
+<tr><th style="width:14%">案</th><th style="width:13%">エンド定価</th><th style="width:13%">卸値<br>（TP受取）</th><th style="width:11%">掛け率</th><th style="width:14%">代理店取り分</th><th style="width:11%">TP粗利</th><th style="width:24%">評価</th></tr>
+<tr><td><strong>案1 標準型</strong></td><td class="n">¥29,800</td><td class="n">¥14,900</td><td class="n">50%</td><td class="n">¥14,900 (50%)</td><td class="n">¥12,900<br>(87%)</td><td>海外の再販標準に一致。無難だが、価格でhacomonoに勝ち切れない</td></tr>
+<tr><td class="ok"><strong>案2 逆張り型<br>（採用）</strong></td><td class="n">¥19,800</td><td class="n">¥5,000</td><td class="n ok">25%</td><td class="n ok">¥14,800 (75%)</td><td class="n">¥3,000<br>(60%)</td><td class="ok"><strong>エンドはhacomonoの半額以下、代理店取り分は案1と同額。</strong>業界標準の3倍の厚さ＝これ自体が営業トーク</td></tr>
+<tr><td><strong>案3 最安型</strong></td><td class="n">¥9,800</td><td class="n">¥3,000</td><td class="n">31%</td><td class="n ng">¥6,800 (69%)</td><td class="n">¥1,000<br>(40%)</td><td class="ng">率は厚いが額が小さく代理店が動かない。かつTP粗利がサポート1回で消える</td></tr>
+<tr><td class="ok"><strong>案4 固定枠型<br>（大型向け・併用）</strong></td><td class="c">代理店が自由に決定</td><td class="n">月固定 ¥50,000<br>＋AI従量</td><td class="c">—</td><td class="c ok">顧客が増えるほど<br>1件あたり原価が下がる</td><td class="n">固定＋従量</td><td class="ok">GoHighLevel型。10顧客なら1件¥5,000相当、50顧客なら¥1,000相当。<strong>売るほど儲かるので自走する</strong></td></tr>
+</table>
+<div class="box">
+<p><strong>採用：案2 を通常条件に、案4 を大型向けに併用。</strong>エンド¥19,800は hacomono ¥35,000/店＋初期費用 に対して明確に安く、しかも代理店の手取りは定価¥29,800×50%と同額です。<strong>「エンドも安い、代理店も厚い」を両立できるのは、開発費を人件費で回収しなくていいTPだけ</strong>——これがそのまま口説き文句になります。</p>
+</div>
+
+<h2>3-2. AI従量の設計（2026-09-01 決定）</h2>
+<p class="sub">月額の卸値とは<strong>別建て</strong>。OEMではエンド店舗がTPの存在を知らないため、TPがエンドに従量請求する構造は取れない。代理店が実費で仕入れ、自分の名前で好きに上乗せする（GoHighLevel の rebilling と同じ形）。</p>
+<table>
+<tr><th style="width:20%">段</th><th style="width:20%">単価</th><th style="width:20%">月800応答なら</th><th style="width:40%">根拠・注</th></tr>
+<tr><td>TPの実費</td><td class="n">¥0.62 / 応答</td><td class="n">¥496</td><td>Sonnet 5／Haiku 4.5 振り分け＋プロンプトキャッシュ前提</td></tr>
+<tr><td class="ok"><strong>TP → 代理店（卸）</strong></td><td class="n ok"><strong>¥1.3 / 応答</strong></td><td class="n">¥1,040</td><td class="ok">実費の約2倍。GoHighLevelの1.9倍（$0.0079→$0.015）に一致</td></tr>
+<tr><td>代理店 → エンド</td><td class="n">¥3〜5 / 応答<br>（代理店が自由に決定）</td><td class="n">¥2,400〜4,000</td><td>または「月1,000応答込み」のパッケージに変換して売る</td></tr>
+</table>
+<div class="box">
+<p><strong>なぜ月額に込みにしないのか。</strong>込みにすると、TPは応答が増えるほど損をするので<strong>応答を削る動機が生まれます</strong>（2026-08-17 CEO指示）。実費＋固定マークアップなら、TPは応答が増えるほど儲かる。動機の向きが逆になり、製品を良くする方向に働きます。</p>
+<p><strong>エンド店舗の「従量が青天井になる不安」は代理店が吸収します。</strong>代理店が「月1,000応答込み ¥19,800、超過 ¥5/応答」のようなパッケージに変換して売る。仕入れは従量、販売は定額——この変換こそ代理店の付加価値であり、利益源です。</p>
+</div>
+<p class="sub"><strong>代理店1顧客あたりの経済（案2＋従量）</strong></p>
+<table>
+<tr><th style="width:22%">ケース</th><th style="width:20%">代理店の仕入れ</th><th style="width:20%">代理店の売値</th><th style="width:16%">代理店粗利</th><th style="width:22%">TPの粗利</th></tr>
+<tr><td>月800応答</td><td class="n">¥5,000 ＋ ¥1,040<br>= ¥6,040</td><td class="n">¥19,800</td><td class="n ok">¥13,760（69%）</td><td class="n">¥3,000 ＋ ¥544<br>= ¥3,544</td></tr>
+<tr><td>月2,000応答</td><td class="n">¥5,000 ＋ ¥2,600<br>= ¥7,600</td><td class="n">¥24,800<br>（超過1,000×¥5）</td><td class="n ok">¥17,200（69%）</td><td class="n">¥3,000 ＋ ¥1,360<br>= ¥4,360</td></tr>
+<tr><td>20顧客・平均800応答</td><td class="n">¥120,800</td><td class="n">¥396,000</td><td class="n ok"><strong>¥275,200 / 月</strong></td><td class="n"><strong>¥70,880 / 月</strong></td></tr>
+</table>
+
+<h2>3-3. 上限に達したときの挙動（2026-09-01 決定）</h2>
+<table>
+<tr><th style="width:26%">動作</th><th style="width:74%">内容</th></tr>
+<tr><td class="ng">止めるもの</td><td><strong>AI自動応答のみ</strong>。上限到達後は定型文での応対に切り替える（応対そのものは止めない）</td></tr>
+<tr><td class="ok">止めないもの</td><td><strong>予約・会員管理・入退館・決済</strong>。入退館が止まると店舗の営業が止まるため、金額上限で落としてはならない</td></tr>
+<tr><td>根拠</td><td>2026-08-17 CEO指示「従量課金は金を食う機能だけ止める。サイト全体を止めると上限が事故になる」。リオGの文字応対でも「落ちたら定型に戻る」設計で実証済み</td></tr>
+<tr><td>計測</td><td>個人識別情報を持たない形で応答数のみ計上する</td></tr>
+</table>
+
+<h2>4. 決める前に埋めるべき数字</h2>
+<table>
+<tr><th style="width:26%">項目</th><th style="width:36%">なぜ必要か</th><th style="width:38%">取り方</th></tr>
+<tr><td class="ng">Railway / Vercel の実請求額</td><td>インフラ按分が推定のまま。顧客数が増えたときの単価が読めない</td><td>Railway・Vercel のダッシュボードから直近3ヶ月の請求を引く</td></tr>
+<tr><td class="ng">1顧客あたりの実応答数</td><td>月2,000応答は上限値であって実測ではない。実際が月300なら原価は1/6</td><td><code>conversation_logs</code> を account_id 別・月別に集計</td></tr>
+<tr><td class="ng">キャッシュが効いているか</td><td>効いていなければAI原価が約2倍。案2のTP粗利¥3,000が半分になる</td><td>API応答の <code>usage.cache_read_input_tokens</code> を確認。ゼロなら実装修正</td></tr>
+<tr><td class="ok">モデル振り分け実装</td><td class="ok">採用決定。FAQ=Haiku 4.5／予約ツール呼び出し=Sonnet 5。実費が約35%下がり、卸値の余地が広がる</td><td>ルーティング判定を engine 層に追加。あわせて <code>claude-sonnet-4-20250514</code> 固定を Sonnet 5 に更新</td></tr>
+<tr><td class="wa">サポート1件あたりの工数</td><td>唯一の人件費。ここが月3時間かかるなら案2の粗利は成立しない</td><td>代理店契約で一次サポートを代理店側に寄せる前提で設計する</td></tr>
+</table>
+
+<h2>5. 横展開 — この型は他の製品でも使えるか</h2>
+<p class="sub">「LINXでできるなら他のアプリでもできる」への検証。ただし全部が卸せるわけではない。</p>
+<table>
+<tr><th style="width:22%">卸せる条件</th><th style="width:78%">中身</th></tr>
+<tr><td>① マルチテナント</td><td>1顧客1インスタンスの作りだと、卸した瞬間に運用が破綻する。DBがテナント軸で分かれていること</td></tr>
+<tr><td>② 買い手が顧客を持っている</td><td>代理店・OEM先が「配る先」をすでに抱えていること。ゼロから客を探させる商材は売られない</td></tr>
+<tr><td>③ 導入支援を代理店が担える</td><td>設定が複雑すぎるとTPに全部戻ってくる。代理店が2〜3時間で立ち上げられる程度に収まっていること</td></tr>
+<tr><td>④ 顧客あたり限界費用が低い</td><td>従量原価が重いと、掛け率を厚くした瞬間に赤字になる</td></tr>
+</table>
+<table>
+<tr><th style="width:20%">製品</th><th style="width:26%">想定OEM先／代理店</th><th style="width:12%">見込み</th><th style="width:42%">理由</th></tr>
+<tr><td><strong>LINX</strong></td><td>LINE構築会社・FC本部・業種特化コンサル</td><td class="c ok">◎ 1本目</td><td class="ok">4条件すべて満たす。LINEチャネルが顧客側なのでホワイトラベルが構造的に成立</td></tr>
+<tr><td><strong>keiriagent</strong></td><td class="ok"><strong>税理士事務所</strong></td><td class="c ok">◎</td><td class="ok">士業は顧問先を大量に抱え、囲い込みたく、自分では作れない。②が最も強い</td></tr>
+<tr><td>tp-cs-agent</td><td>EC支援会社・Shopifyパートナー</td><td class="c ok">○</td><td>Shopifyパートナーは店舗を複数抱えている。②が成立</td></tr>
+<tr><td>autogram / x-operation-os</td><td>広告代理店・SNS運用会社</td><td class="c">○</td><td>代理店が既に顧客を持つ。ただしSNS自動化はプラットフォーム規約の確認が先</td></tr>
+<tr><td>bridge-estimator</td><td>建材商社・工務店ネットワーク</td><td class="c wa">△</td><td>③が課題。見積ロジックが会社ごとに違うと代理店が立ち上げられない</td></tr>
+<tr><td>tp-counter</td><td>展示会主催者・業界団体</td><td class="c wa">△</td><td>②は強いが、①③の作り込みが必要。個社カスタムの度合いが高い</td></tr>
+<tr><td>satori-inspection</td><td>—</td><td class="c ng">×</td><td>受託案件で個社仕様。汎用化してからの話</td></tr>
+</table>
+<div class="box">
+<p><strong>順番を間違えないこと。</strong>10本を同時に卸そうとすると全部が中途半端になります。<strong>LINXで型（契約書・卸値表・パートナー画面・利用規約の出し分け・一次サポートの線引き）を1度作れば、2本目以降はそれを使い回すだけ</strong>になります。1本目にかかる工数の大半は、製品でなく制度側です。</p>
+<p>そして<strong>keiriagent × 税理士事務所は、LINXの次に置く価値があります</strong>。士業は「顧問先を他所に取られたくない」という動機が強く、自分のブランドで配れるAIツールは囲い込みの道具になります。買い手の動機が製品でなく防衛にある商材は、価格交渉が起きにくい。</p>
+</div>
+
+</body></html>

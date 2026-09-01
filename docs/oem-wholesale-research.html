@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>システムの卸・OEM提供 — 競合と海外実績の調査</title>
+<style>
+@page { size: A4 landscape; margin: 12mm 10mm 12mm 10mm;
+  @bottom-right { content: counter(page) " / " counter(pages); font-size: 8pt; color: #888; } }
+* { box-sizing: border-box; }
+body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; font-size: 9pt; color: #1a1a1a; line-height: 1.55; margin: 0; }
+h1 { font-size: 17pt; margin: 0 0 2mm 0; letter-spacing: .02em; }
+h2 { font-size: 11pt; margin: 6mm 0 2mm 0; padding: 1.5mm 0 1.5mm 3mm; border-left: 4px solid #06C755; background: #F5FBF7; }
+h3 { font-size: 9.5pt; margin: 4mm 0 1.5mm 0; color: #069040; }
+.sub { color: #666; font-size: 9pt; margin: 0 0 1mm 0; }
+.meta { color: #888; font-size: 8pt; border-bottom: 1.5px solid #1a1a1a; padding-bottom: 2mm; margin-bottom: 4mm; }
+table { width: 100%; border-collapse: collapse; margin: 2mm 0 3mm 0; font-size: 8.5pt; }
+th { background: #1a1a1a; color: #fff; text-align: left; padding: 1.8mm 2mm; font-weight: bold; border: .5px solid #1a1a1a; }
+td { padding: 1.8mm 2mm; border: .5px solid #ccc; vertical-align: top; }
+tr:nth-child(even) td { background: #FAFAFA; }
+td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.c { text-align: center; }
+.ok { color: #069040; font-weight: bold; }
+.ng { color: #C62828; font-weight: bold; }
+.wa { color: #B26A00; font-weight: bold; }
+.box { border: 1px solid #06C755; background: #F5FBF7; padding: 3mm; margin: 3mm 0; }
+.box p { margin: 0 0 1.5mm 0; }
+.box p:last-child { margin-bottom: 0; }
+.warn { border-color: #C62828; background: #FDF3F3; }
+ul { margin: 1mm 0 2mm 0; padding-left: 5mm; }
+li { margin-bottom: .8mm; }
+.src { font-size: 7.5pt; color: #777; }
+.lead { font-size: 9.5pt; }
+strong { font-weight: bold; }
+.pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>システムの卸・OEM提供 — 競合と海外実績の調査</h1>
+<p class="meta">株式会社TomorrowProof ／ LINX 販売戦略 ／ 2026年9月1日 (JST) 作成 ／ 社内資料</p>
+
+<div class="box">
+<p class="lead"><strong>結論。「システムを卸す」は確立された型で、日本にも直接の前例があります。</strong></p>
+<p>① 海外では <strong>GoHighLevel</strong> が最も成功した形。代理店から<strong>固定の月額</strong>を取り、顧客数は無制限にして再販させる。代理店は顧客が増えるほど利幅が広がるので、放っておいても売る。</p>
+<p>② 日本では <strong>Reserve Kit（トライハッチ／東証プライム上場ベクトルの子会社）</strong>が、2025年5月から<strong>予約管理システムをOEM・代理店ホワイトラベルで募集</strong>している。LINXが狙う位置とほぼ同じ。</p>
+<p>③ 相場は日本のストック型で定価の<strong>20〜30%</strong>、海外の「再販前提の組込み契約」で<strong>50%</strong>。実績ゼロで動いてもらうなら厚い側に置く合理性がある。</p>
+<p>④ <strong>ただし時間はかかる。「契約すればすぐ売れる」は業界公認の誤解で、実際は2〜3年。</strong>初年度の売上を代理店に期待する設計にしてはいけない。</p>
+</div>
+
+<h2>1. 型の分類 — 日本のSaaS業界では3つに整理されている</h2>
+<table>
+<tr><th style="width:16%">分類</th><th style="width:26%">中身</th><th style="width:29%">買い手が見るもの</th><th style="width:29%">LINXでの当てはまり</th></tr>
+<tr><td><strong>販売パートナー</strong></td><td>製品を仕入れて、開発元の名前のまま売る</td><td>利幅・売りやすさ・サポート体制</td><td>LINE構築会社・広告代理店・業種特化コンサル</td></tr>
+<tr><td><strong>OEMパートナー</strong></td><td><strong>パートナーのブランド名で販売する</strong></td><td>自社ブランドで出せるか・カスタマイズ範囲・データの帰属</td><td class="ok">◎ 本命。FC本部・チェーン本部・業界団体</td></tr>
+<tr><td>製品連携パートナー</td><td>他製品と統合して価値を出す</td><td>API・連携の容易さ</td><td>既存予約システム（salonpos-net / hacomono 等）</td></tr>
+</table>
+<p class="src">出典: 才流「SaaS企業のパートナーセールス（代理店販売）入門」</p>
+
+<h2>2. 海外の確立例 — GoHighLevel と Vendasta、構造の違いが決定的</h2>
+<table>
+<tr><th style="width:14%">項目</th><th style="width:33%">GoHighLevel（推奨モデル）</th><th style="width:33%">Vendasta</th><th style="width:20%">LINXへの示唆</th></tr>
+<tr><td>代理店の支払い</td><td class="n">$497/月（Agency Pro・SaaS Mode）</td><td class="n">$499/月（Professional）</td><td>ほぼ同額</td></tr>
+<tr><td><strong>顧客が増えたとき</strong></td><td class="ok">原価は $497 のまま固定。<strong>顧客数は無制限</strong>。増やすほど利幅が広がる</td><td class="ng">顧客が増えるとマーケットプレイス製品の利用も増え、<strong>利幅が縮む</strong></td><td class="ok">固定費モデルを採る</td></tr>
+<tr><td>売る動機</td><td>構造的に「売れば売るほど儲かる」</td><td>売るほど原価が乗る</td><td>代理店の自走を設計で作る</td></tr>
+<tr><td>従量分の扱い</td><td>SMS・メール・AIは<strong>実費に上乗せして再課金（rebilling）</strong>。例: 仕入 $0.0079/SMS → 販売 $0.015/SMS</td><td>—</td><td class="wa">LINXのAI応答は実費が出るので、この構造が必要</td></tr>
+<tr><td>性格</td><td>自分で組み立てる「代理店向けプラットフォーム」</td><td>他社製品を並べて自分の看板で売る「マーケットプレイス」</td><td>LINXは前者</td></tr>
+</table>
+<div class="box">
+<p><strong>いちばんの学び：卸値を「1顧客あたりいくら」にしない。</strong>「代理店に固定費、顧客数は無制限」にすると、代理店の利幅が顧客数に比例して伸びるので、代理店が勝手に売ります。1顧客ごとに卸値を取ると、代理店の利幅は増えず、売る動機が頭打ちになります。</p>
+<p><strong>ただしLINXにはAI応答の実費がある</strong>ため、そこだけは GoHighLevel と同じく「実費＋マークアップ」で切り出す必要があります。固定費で無制限にすると、AI原価が青天井になります。</p>
+</div>
+<p class="src">出典: GoHighLevel 公式価格ページ／HighLevel Support Portal「Pricing &amp; Billing: Wallets, Charges, Rebilling」／Ciela AI「GoHighLevel vs Vendasta」</p>
+
+<h2 class="pb">3. 日本の直接の前例 — Reserve Kit（トライハッチ）</h2>
+<p class="sub">「予約システムをOEMで卸す」は、すでに日本で、しかも上場企業グループが始めています。</p>
+<table>
+<tr><th style="width:18%">項目</th><th>内容</th></tr>
+<tr><td>提供元</td><td>株式会社トライハッチ（<strong>東証プライム上場・株式会社ベクトル 6058 の子会社</strong>）</td></tr>
+<tr><td>製品</td><td>Reserve Kit（リザーブキット）— 店舗事業者向け予約管理システム。2025年5月15日 提供開始</td></tr>
+<tr><td>中身</td><td>複数の予約ポータル・SNS経由の予約を一元管理／チャネル別の予約数・売上をリアルタイム可視化／自動リマインド</td></tr>
+<tr><td><strong>料金</strong></td><td>初期費用 <strong>0円</strong>／月額 <strong>0円</strong>／<strong>成果報酬 220円（税込）／予約1件</strong>（オンライン決済利用時は決済手数料別）</td></tr>
+<tr><td><strong>OEM提供</strong></td><td class="ok"><strong>「ロゴ・メインカラーを自由に変更し、自社サービスとして展開可能」</strong>と明記し、OEMパートナー・販売代理店を公式に募集</td></tr>
+<tr><td>掛け率</td><td class="wa">非公開（問い合わせのみ）</td></tr>
+<tr><td>主対象</td><td>飲食店中心。別ブランド「RESERVE CHEKI」で<strong>多店舗展開企業に特化</strong>した予約管理も展開</td></tr>
+</table>
+<div class="box">
+<p><strong>読み方：これは脅威ではなく、市場の証明です。</strong>上場企業グループが同じ判断（予約システムはOEMで卸せる）をして、実際に商品化している。「例を知らない」という懸念に対する直接の反証になります。</p>
+<p><strong>そしてLINXが被らない点が2つあります。</strong>① Reserve Kit は<strong>飲食店・予約ポータル一元管理</strong>が主戦場で、LINXのジム／サロン／クリニック等の<strong>会員制・入退館・決済</strong>とは客層が違う。② Reserve Kit に<strong>AI自動応答は無い</strong>（予約の受け皿と可視化が中心）。LINXが持つ「公式LINE上でAIが会話して予約まで完了する」は重ならない。</p>
+</div>
+<p class="src">出典: PR TIMES／ASCII.jp／トライハッチ公式ニュース（RESERVE CHEKI）</p>
+
+<h2>4. マージン相場 — 実データ</h2>
+<table>
+<tr><th style="width:12%">地域</th><th style="width:32%">条件</th><th style="width:18%">水準</th><th style="width:38%">出典・注</th></tr>
+<tr><td>日本</td><td>SaaS・クラウド（継続支払い）</td><td class="n">月額の 10〜50%</td><td>代理店募集.com。幅が広く、条件次第</td></tr>
+<tr><td>日本</td><td>IT・SaaS・サブスク系の中心値</td><td class="n">初回 20〜40% ＋ 継続 10〜20%</td><td>原価率が低いためマージンを厚くしやすい</td></tr>
+<tr><td>日本</td><td>ストック型の一般的な手数料率</td><td class="n">商品価格の 20〜30%</td><td>最も多いレンジ</td></tr>
+<tr><td>日本</td><td>実態調査（2023年5月）</td><td class="n">紹介手数料 20%未満 が過半</td><td class="wa">＝ 実際に払われている額は相場論より低い</td></tr>
+<tr><td>海外</td><td>ディスカウント全般</td><td class="n">10〜50%</td><td>10%側＝単に一部品を足すだけ／50%側＝再販前提</td></tr>
+<tr><td>海外</td><td><strong>組込み・再販前提の契約</strong></td><td class="n"><strong>50%</strong></td><td class="ok">LINXのOEMはここに該当</td></tr>
+<tr><td>海外</td><td>オンプレ時代のエンタープライズ標準</td><td class="n">定価の 40%引き</td><td>歴史的な基準値</td></tr>
+<tr><td>海外</td><td>再販業者が狙う粗利</td><td class="n">40〜80%</td><td>付加サービス込みの場合</td></tr>
+</table>
+
+<h2>5. これを踏まえたLINXの卸値案（たたき台）</h2>
+<p class="sub">定価 月額 ¥29,800（Standard）を基準にした場合。金額は方向性の提示で、確定前に実費（AI原価・サポート工数）の積算が必要です。</p>
+<table>
+<tr><th style="width:16%">層</th><th style="width:20%">代理店の支払い</th><th style="width:16%">掛け率</th><th style="width:24%">代理店の取り分</th><th style="width:24%">根拠</th></tr>
+<tr><td><strong>販売パートナー</strong><br>（LINXの名前のまま売る）</td><td class="n">¥20,900 / 顧客・月</td><td class="n">70%</td><td class="n">¥8,900（30%）</td><td>日本のストック型相場 20〜30% の上限</td></tr>
+<tr><td><strong>OEMパートナー</strong><br>（自社ブランドで売る）</td><td class="n">¥14,900 / 顧客・月</td><td class="n">50%</td><td class="n">¥14,900（50%）<br>＋上乗せ自由</td><td class="ok">海外の「再販前提＝50%」に一致</td></tr>
+<tr><td><strong>OEM固定枠</strong><br>（FC本部・大型代理店）</td><td class="n">月額固定 ＋ AI従量実費</td><td class="c">—</td><td class="n">店舗が増えるほど<br>1店あたり原価が下がる</td><td class="ok">GoHighLevel型。売る動機が最大になる</td></tr>
+</table>
+<div class="box warn">
+<p><strong>注意すべき点が2つ。</strong></p>
+<p>① <strong>AI応答には実費がある。</strong>固定枠で無制限にすると原価が青天井になります。GoHighLevelと同じく「AI・LINE配信は実費＋マークアップで別枠」に切り出すのが定石です。</p>
+<p>② <strong>掛け率を最初から50%で出すと、後で戻せません。</strong>実績ゼロの立ち上げ期の特別条件として「先着◯社・◯年間」と期限を切る形にするのが安全です。</p>
+</div>
+
+<h2 class="pb">6. 立ち上がりの現実 — 時間軸を間違えると失敗する</h2>
+<table>
+<tr><th style="width:26%">論点</th><th>実データ</th></tr>
+<tr><td class="ng">最大の誤解</td><td><strong>「契約すればすぐ売れる」— 実際には2〜3年かかる</strong>と業界で明言されている</td></tr>
+<tr><td>成功したときの姿</td><td><strong>セーフィー</strong>: パートナー経由の売上比率 <strong>54%</strong>（2022年3月）／<strong>ラクス</strong>: 代理店手数料が前年比 <strong>134.8%</strong> 成長（2022年3月期）／<strong>AI inside</strong>: パートナー104社を登録し、2018年比で2021年に約16.5倍成長</td></tr>
+<tr><td>代理店販売が向く条件</td><td>① <strong>能動的に情報収集しないマジョリティ層</strong>に届かせたいとき（「地方のローカルキング」との協業が有効）<br>② <strong>業界特有の知識が要る新規セグメント</strong>を攻めるとき（例: SMBCクラウドサインの金融特化）</td></tr>
+<tr><td class="ok">LINXの当てはまり</td><td><strong>両方に該当します。</strong>店舗オーナーは自分からSaaSを探しに行かない層で、かつ業種ごとに商習慣が違う。だからこそ代理店・OEMが効きます</td></tr>
+</table>
+
+<h2>7. よくある失敗 — 契約書と制度で先に潰しておく</h2>
+<table>
+<tr><th style="width:24%">失敗</th><th style="width:38%">何が起きるか</th><th style="width:38%">先に打つ手</th></tr>
+<tr><td>受け身の代理店契約</td><td>登録だけして誰も売らない。「ディストリビューター契約の受け身営業体制」として名指しで問題視されている</td><td>登録は無審査にしない。研修＋最低販売数か、初期費用を取る</td></tr>
+<tr><td class="ng">チャネル衝突・値崩れ</td><td>同じ客に複数の代理店が別価格で当たる。安値で叩く大手が入ると市場全体が崩れる</td><td><strong>地域・業種でパートナー数を制限する</strong>のが定石。大手の安値攻勢を招く契約はしない</td></tr>
+<tr><td class="ng">サポート負荷の青天井</td><td>エンドユーザーの問い合わせが全部TPに来る</td><td><strong>一次サポートは代理店が負う</strong>と契約で明記。TPは代理店向けの二次サポートのみ</td></tr>
+<tr><td>方針が曖昧</td><td>「どの製品を、どの地域で、何を優先して売るのか」が伝わらず、代理店が基本的な質問を繰り返す</td><td>パートナー向け資料・研修・KPIを最初に用意する</td></tr>
+<tr><td>期待のかけ違い</td><td>「ホワイトラベルは技術をつくる負担は消すが、<strong>事業をつくる仕事は消さない</strong>」</td><td>代理店に「顧客・導入支援・サポート」の役割があることを前提に条件を組む</td></tr>
+</table>
+
+<h2>8. OEM提供の技術要件 × LINXの現在地</h2>
+<p class="sub">日本のSaaS事業者（OPTiM）が実務として整理している「OEMで切り替えが必要なもの」との突合。</p>
+<table>
+<tr><th style="width:20%">要件</th><th style="width:34%">求められること</th><th style="width:10%">LINX</th><th style="width:36%">現状・必要な作業</th></tr>
+<tr><td>エンド接点</td><td>顧客が触る画面に提供元の名前が出ないこと</td><td class="c ok">済</td><td class="ok">アカウントごとに自前のLINEチャネル資格情報を保持。エンドユーザーが触るのは常に「その店の公式LINE」。AI表示名も <code>bot_name</code> で変更可</td></tr>
+<tr><td>データ分離</td><td>テナントごとにデータが分かれていること</td><td class="c ok">済</td><td class="ok"><code>accounts</code> を軸にした完全なマルチテナント。全テーブルが <code>account_id</code> 参照</td></tr>
+<tr><td>多店舗の権限</td><td>店舗単位のロール管理</td><td class="c ok">済</td><td class="ok"><code>stores</code> / <code>user_store_access</code>（migration 018）</td></tr>
+<tr><td class="ng">ブランディング</td><td>サービス名・ロゴ・favicon・アイコン・ブランドカラー・メニューの動的切替</td><td class="c ng">未</td><td>管理画面は「LINX」ベタ書きの単一デプロイ。テナント別のテーマ設定が必要</td></tr>
+<tr><td class="ng">ドメイン</td><td>テナントごとのURL、およびカスタムドメイン対応</td><td class="c ng">未</td><td>単一ドメイン。サブドメイン方式かパス方式かの設計から</td></tr>
+<tr><td class="ng">利用規約・PP</td><td><strong>OEM先が契約主体になるため、規約とプライバシーポリシーの出し分けが必須</strong></td><td class="c ng">未</td><td class="wa">見落としやすいが法務上いちばん重い。テナント別に差し替え可能にする</td></tr>
+<tr><td class="ng">代理店の階層</td><td>代理店が自分の顧客店舗を一覧・管理できること</td><td class="c ng">未</td><td><code>accounts</code> の上に「パートナー」概念が無い。新規に階層を作る必要がある</td></tr>
+<tr><td class="ng">課金の分配</td><td>決済代行の接続設定をOEM先ごとに構成管理</td><td class="c ng">未</td><td>Stripeはアカウント→TPへ直課金。卸値請求・レベニューシェアの仕組みが無い</td></tr>
+</table>
+<div class="box">
+<p><strong>現在地の要約：お客様から見えるところは、今日からホワイトラベルです。</strong>LINE上でLINXの名前は一切出ません。<strong>足りないのは代理店側の道具（ブランド設定・ドメイン・規約出し分け・パートナー画面・分配課金）</strong>で、これは「営業を始めてから作っても間に合う」ものと「契約前に必要」なものに分かれます。規約・PPの出し分けだけは、契約主体が変わる以上、最初の1社の前に必要です。</p>
+</div>
+
+<h2 class="pb">10. 競合＝「代理店の署名を奪い合う相手」の実像</h2>
+<p class="sub">このLPで戦う相手は hacomono ではない。hacomono は代理店の顧客が今払いすぎている先であって、代理店の取り合いには出てこない。競合は<strong>OEM提供元</strong>である。</p>
+<table>
+<tr><th style="width:16%">相手</th><th style="width:24%">何を卸しているか</th><th style="width:24%">条件</th><th style="width:36%">LINXとの関係</th></tr>
+<tr><td><strong>Reserve Kit</strong><br>（トライハッチ／ベクトル 6058）</td><td>予約管理システム。予約ポータル・SNSの一元管理</td><td>エンド: 初期0円・月額0円・<strong>予約1件220円</strong>／OEM条件は非公開</td><td class="wa">最も近い。ただし<strong>飲食店中心</strong>で、会員制・入退館・決済は範囲外。<strong>AI自動応答は無い</strong></td></tr>
+<tr><td><strong>使えるねっと</strong></td><td>ファイル箱・データプロテクト等のクラウド</td><td><strong>OEM 約150社</strong>・OEM導入率90%／納期1〜1.5ヶ月／<strong>価格決定権を委譲</strong>／ユーザー数無制限</td><td>領域は違うが<strong>日本のOEM募集ページの型そのもの</strong>。実績数字で信頼を作る構成</td></tr>
+<tr><td><strong>Liny</strong><br>（ソーシャルデータバンク）</td><td class="ok">LINEマーケティングツール。<strong>Lステップへ OEM 提供していた実体</strong></td><td>Liny 初期費用 ¥54,780／エンタープライズ・官公庁向け</td><td class="ok"><strong>同じLINE領域でOEMが業界構造になっている証拠。</strong>2026年4月1日にソーシャルデータバンク・アローリンク・Maneql が経営統合し、Liny は Lステップ最上位プランへ</td></tr>
+<tr><td class="ng"><strong>LINEヤフー本体</strong></td><td class="ng">LINE公式アカウントの標準機能として<strong>AIチャットボット(β)</strong></td><td class="ng">月額 <strong>¥3,000（税別）</strong>／チャットProオプション<br>2025年11月13日 提供開始</td><td class="ng"><strong>プラットフォーム自身が降りてきた。</strong>Q&A自動応答は事実上コモディティ化。ただし<strong>予約確定・会員管理・決済・入退館の業務連携は無く、グループトークでは使えない</strong></td></tr>
+</table>
+<div class="box warn">
+<p><strong>LPの主張が1つ崩れています。</strong>現在の <code>DataProof.tsx</code> は「<strong>唯一</strong> LINE×AI自動応答を搭載したSaaS（2026年4月自社調べ）」と書いていますが、<strong>2025年11月13日にLINEヤフー自身が月額¥3,000でAIチャットボットを出しました</strong>。この主張は成立しません。放置すれば、偽の口コミ評価と同じ種類の誤りになります。</p>
+<p><strong>ただし差別化はむしろ明確になりました。</strong>LINEヤフーのAIは<strong>登録したQ&Aから答えを返すだけ</strong>で、空き枠を見て予約を確定させることも、会員ステータスを更新することも、鍵を開けることも、決済することもできません。グループトークでも使えません。</p>
+<p class="big">売るべきは「AIが答える」ではなく、<strong>「AIが予約を取り、会員を管理し、鍵を開ける」</strong>。FAQ応答が月¥3,000で標準装備される時代に、その先まで繋がっているかどうかが商品の境界線になります。</p>
+</div>
+
+<h2>11. 代理店に渡す「売る道具」— すでに手元にあるもの</h2>
+<p class="sub">代理店募集で効くのは制度の説明よりも、明日から使える現物である。TPは広告クリエイティブを既に作っている。</p>
+<table>
+<tr><th style="width:24%">素材</th><th style="width:16%">状態</th><th style="width:60%">扱い</th></tr>
+<tr><td>60秒 広告動画<br><code>linx-ad-60s-final-sfx</code></td><td class="wa">要修正</td><td class="ng"><strong>「GOOD LIFE GYM 渋谷店」の実名と月額（¥7,678／¥5,478）が画面に入っている。</strong>GOOD LIFEは提案先であって契約済み顧客ではなく、公開物にクライアント実名を出さない社内規律にも反する。<strong>店名を架空名に差し替えてから配布する</strong></td></tr>
+<tr><td>同・末尾のロゴカード</td><td class="wa">要更新</td><td>タグラインが「LINE x AI auto-response」。LINEヤフーがコモディティ化した領域を名乗る形になっているため、業務連携まで含む表現に変える</td></tr>
+<tr><td>縦型・v2/v3 各種<br>SwitchBot／ヨガ→ジム／チェックイン</td><td class="c">流用可</td><td>iCloud上に3本。代理店がSNS広告に使える素材として棚卸しする</td></tr>
+<tr><td>業種別LP 8本</td><td class="c ok">流用可</td><td class="ok">代理店への「この業界に売れます」の市場証明。固有metadataを与えれば検索の受け皿にもなる</td></tr>
+</table>
+<div class="box">
+<p><strong>この動画はOEM向けトップには使えません</strong>——訴求先が店舗オーナー（深夜のLINE返信地獄）であって、代理店ではないからです。<strong>そのかわり「代理店に渡す販促素材」として強い</strong>。使えるねっとが約束している4つ（ブランド化・納期・価格決定権・無制限）に相当する<strong>現物</strong>を、TPはすでに持っていることになります。</p>
+</div>
+
+<h2>9. 出典</h2>
+<table>
+<tr><th style="width:26%">領域</th><th>URL</th></tr>
+<tr><td>日本のパートナー分類・実データ</td><td>https://sairu.co.jp/method/6043/</td></tr>
+<tr><td>Reserve Kit（PR TIMES）</td><td>https://prtimes.jp/main/html/rd/p/000000338.000035376.html</td></tr>
+<tr><td>Reserve Kit（ASCII.jp）</td><td>https://ascii.jp/elem/000/004/269/4269233/</td></tr>
+<tr><td>RESERVE CHEKI（多店舗特化）</td><td>https://tryhatch.co.jp/news/reserve-cheki/</td></tr>
+<tr><td>OEM提供の技術要件</td><td>https://tech-blog.optim.co.jp/entry/2022/06/23/100000</td></tr>
+<tr><td>GoHighLevel 価格・再課金</td><td>https://www.gohighlevel.com/pricing ／ https://help.gohighlevel.com/support/solutions/articles/155000001156-highlevel-pricing-guide</td></tr>
+<tr><td>GoHighLevel vs Vendasta 構造比較</td><td>https://ciela.ai/blogs/gohighlevel-vs-vendasta</td></tr>
+<tr><td>日本の代理店マージン相場</td><td>https://b-seeds.com/column/agency-commission-rate ／ https://partnersuccess.jp/media/partner-insentive</td></tr>
+<tr><td>海外のディスカウント幅</td><td>https://www.getmonetizely.com/articles/partner-discounts-amp-margins-how-to-structure-a-win-win-saas-reseller-program ／ https://bravado.co/war-room/posts/var-reseller-margins</td></tr>
+<tr><td>LINEヤフー AIチャットボット(β)</td><td>https://www.lycorp.co.jp/ja/news/release/019859/</td></tr>
+<tr><td>Lステップ／Liny のOEM関係・経営統合</td><td>https://www.lstepoffcial.com/column/lstep-liny/ ／ https://prtimes.jp/main/html/rd/p/000000040.000107713.html</td></tr>
+<tr><td>使えるねっと ホワイトラベル</td><td>https://www.tsukaeru.net/blog/whitelabel-ja/</td></tr>
+<tr><td>代理店募集ページの作り方（先行事例）</td><td>https://partnersuccess.jp/media/partnerprogram-lp</td></tr>
+<tr><td>代理店募集サイト比較・成立条件</td><td>https://note.com/r_kasai32/n/ncf3f1172edef</td></tr>
+<tr><td>GoHighLevel SaaS Mode の収益提示</td><td>https://rocketlauncher.ai/saas-mode</td></tr>
+<tr><td>白ラベル再販の失敗パターン</td><td>https://www.apptium.com/resources/18-warning-signs-your-saas-reseller-partner-program-not-working ／ https://www.siptrunk.com/blog/white-label-saas-reseller/</td></tr>
+</table>
+
+</body>
+</html>
