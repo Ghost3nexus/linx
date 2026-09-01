@@ -17,6 +17,7 @@ const doors = [
     ],
     href: "#simulator",
     cta: "取り分を試算する",
+    type: "reseller" as const,
   },
   {
     icon: Building2,
@@ -31,6 +32,7 @@ const doors = [
     ],
     href: "#simulator",
     cta: "固定枠で試算する",
+    type: "inhouse" as const,
   },
 ];
 

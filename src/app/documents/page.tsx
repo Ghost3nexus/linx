@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FileText, ArrowRight, Download, Mail, Building2, User, Phone, Globe, Briefcase, CheckCircle2 } from "lucide-react";
 
 export default function DocumentsPage() {
@@ -12,9 +13,20 @@ export default function DocumentsPage() {
     const [phone, setPhone] = useState("");
     const [industry, setIndustry] = useState("");
     const [website, setWebsite] = useState("");
+    const [purpose, setPurpose] = useState<"documents" | "meeting" | "both">("documents");
+    const [partnerType, setPartnerType] = useState<"reseller" | "inhouse" | "undecided">("undecided");
     const [sending, setSending] = useState(false);
 
     const [error, setError] = useState("");
+
+    // LP側のCTAから ?purpose=meeting などで用件を渡せるようにする
+    useEffect(() => {
+        const q = new URLSearchParams(window.location.search);
+        const p = q.get("purpose");
+        if (p === "meeting" || p === "both" || p === "documents") setPurpose(p);
+        const t = q.get("type");
+        if (t === "reseller" || t === "inhouse") setPartnerType(t);
+    }, []);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -26,7 +38,7 @@ export default function DocumentsPage() {
             const res = await fetch(`${apiUrl}/documents/request`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, company, phone, industry, website }),
+                body: JSON.stringify({ name, email, company, phone, industry, website, purpose, partnerType }),
             });
             if (!res.ok) {
                 const data = await res.json().catch(() => ({}));
@@ -46,16 +58,16 @@ export default function DocumentsPage() {
             {/* Header */}
             <header className="border-b border-[#F0F0F0] bg-white sticky top-0 z-50">
                 <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
-                    <a href="/" className="text-[22px] font-bold tracking-tight text-[#1A1A1A]">
+                    <Link href="/" className="text-[22px] font-bold tracking-tight text-[#1A1A1A]">
                         LIN<span className="text-[#06C755]">X</span>
-                    </a>
+                    </Link>
                     <div className="flex items-center gap-3">
-                        <a
-                            href="/login"
-                            className="inline-flex items-center gap-2 bg-[#06C755] text-white font-bold px-5 py-2.5 rounded-full text-[14px] hover:bg-[#05B04A] transition-all duration-300"
+                        <Link
+                            href="/demo"
+                            className="inline-flex items-center gap-2 border border-[#E8E8E8] text-[#1A1A1A] font-bold px-5 py-2.5 rounded-full text-[14px] hover:border-[#06C755] transition-colors"
                         >
-                            無料ではじめる
-                        </a>
+                            管理画面デモ
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -69,11 +81,11 @@ export default function DocumentsPage() {
                                 <FileText size={32} className="text-[#06C755]" />
                             </div>
                             <h1 className="text-[28px] sm:text-[36px] font-bold text-[#1A1A1A]" style={{ lineHeight: 1.3 }}>
-                                LINX サービス資料
+                                お問い合わせ
                             </h1>
                             <p className="text-[16px] text-[#666666] mt-3 leading-relaxed">
-                                AI自動応答・予約管理・決済・顧客管理の<br className="hidden sm:block" />
-                                機能と料金をまとめた資料をご覧いただけます。
+                                資料のご請求も、打ち合わせのお申し込みも<br className="hidden sm:block" />
+                                こちらから承ります。
                             </p>
                         </div>
 
@@ -84,6 +96,61 @@ export default function DocumentsPage() {
                                 </div>
                             )}
                             <div className="space-y-4">
+                                <div>
+                                    <label className="block text-[14px] font-medium text-[#333333] mb-2">
+                                        ご用件 <span className="text-[#E53935]">*</span>
+                                    </label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {([
+                                            ["documents", "資料がほしい"],
+                                            ["meeting", "話を聞きたい"],
+                                            ["both", "両方"],
+                                        ] as const).map(([v, label]) => (
+                                            <button
+                                                key={v}
+                                                type="button"
+                                                onClick={() => setPurpose(v)}
+                                                className={`rounded-xl border px-2 py-3 text-[13px] font-bold transition-colors ${purpose === v
+                                                    ? "border-[#06C755] bg-[#06C755]/8 text-[#06C755]"
+                                                    : "border-[#E8E8E8] bg-[#F9FAFB] text-[#666666] hover:border-[#06C755]"
+                                                    }`}
+                                            >
+                                                {label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <p className="mt-2 text-[12px] text-[#999999]">
+                                        {purpose === "documents"
+                                            ? "卸値表と契約条件をまとめた資料をお送りします。"
+                                            : purpose === "meeting"
+                                                ? "実際のLINEの画面もその場でお見せします。日程を折り返します。"
+                                                : "資料をお送りしたうえで、日程を折り返します。"}
+                                    </p>
+                                </div>
+                                <div>
+                                    <label className="block text-[14px] font-medium text-[#333333] mb-2">
+                                        どちらのお立場ですか
+                                    </label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {([
+                                            ["reseller", "販売代理店"],
+                                            ["inhouse", "自社で利用"],
+                                            ["undecided", "検討中"],
+                                        ] as const).map(([v, label]) => (
+                                            <button
+                                                key={v}
+                                                type="button"
+                                                onClick={() => setPartnerType(v)}
+                                                className={`rounded-xl border px-2 py-3 text-[13px] font-bold transition-colors ${partnerType === v
+                                                    ? "border-[#06C755] bg-[#06C755]/8 text-[#06C755]"
+                                                    : "border-[#E8E8E8] bg-[#F9FAFB] text-[#666666] hover:border-[#06C755]"
+                                                    }`}
+                                            >
+                                                {label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
                                 <div>
                                     <label className="block text-[14px] font-medium text-[#333333] mb-2">
                                         お名前 <span className="text-[#E53935]">*</span>

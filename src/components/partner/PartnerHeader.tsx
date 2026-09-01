@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { meetingHref, documentsHref } from "@/lib/site";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -43,10 +44,10 @@ export default function PartnerHeader() {
             製品を見る
           </Link>
           <Link
-            href="/documents"
+            href={meetingHref()}
             className="inline-flex items-center bg-[#06C755] text-white font-bold px-5 py-2.5 rounded-full text-[14px] hover:bg-[#05B04A] transition-colors"
           >
-            パートナー資料
+            打ち合わせを申し込む
           </Link>
         </nav>
 
@@ -80,11 +81,18 @@ export default function PartnerHeader() {
               製品を見る
             </Link>
             <Link
-              href="/documents"
+              href={meetingHref()}
               onClick={() => setOpen(false)}
               className="mt-3 text-center bg-[#06C755] text-white font-bold py-3 rounded-full text-[15px]"
             >
-              パートナー資料を請求する
+              打ち合わせを申し込む
+            </Link>
+            <Link
+              href={documentsHref()}
+              onClick={() => setOpen(false)}
+              className="mt-2 text-center border border-white/25 text-white font-bold py-3 rounded-full text-[15px]"
+            >
+              資料を受け取る
             </Link>
           </div>
         </motion.div>

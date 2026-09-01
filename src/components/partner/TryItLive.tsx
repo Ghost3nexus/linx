@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MessageCircle, MonitorPlay, ArrowRight } from "lucide-react";
-import { DEMO_LINE_URL } from "@/lib/site";
+import { DEMO_LINE_URL, meetingHref } from "@/lib/site";
 import Demo from "@/components/Demo";
 
 export default function TryItLive() {
@@ -65,26 +65,17 @@ export default function TryItLive() {
               </div>
               <h4 className="mt-4 text-[16px] font-bold text-[#1A1A1A]">お客様が触る公式LINE</h4>
               <p className="mt-2.5 text-[13.5px] leading-[1.85] text-[#666666]">
-                実際のLINE上で、問い合わせから予約が確定するところまでご確認いただけます。
+                実機のLINEは、打ち合わせの場でお見せします。問い合わせから予約が確定するところまで、
+                実際に動かしてご確認いただけます。
               </p>
-              {DEMO_LINE_URL ? (
-                <a
-                  href={DEMO_LINE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#06C755] px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#05B04A]"
-                >
-                  デモ用LINEを友だち追加
-                  <ArrowRight size={16} />
-                </a>
-              ) : (
-                <Link
-                  href="/documents"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#E2E8F0] px-6 py-3 text-[14px] font-bold text-[#0F172A] transition-colors hover:border-[#06C755]"
-                >
-                  デモ用LINEのご案内を受け取る
-                </Link>
-              )}
+              <Link
+                href={DEMO_LINE_URL ?? meetingHref()}
+                {...(DEMO_LINE_URL ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#06C755] px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#05B04A]"
+              >
+                打ち合わせを申し込む
+                <ArrowRight size={16} />
+              </Link>
             </div>
 
             {/* 店舗側 */}

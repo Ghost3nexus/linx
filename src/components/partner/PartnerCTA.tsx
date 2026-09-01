@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, FileText, MessageSquare } from "lucide-react";
+import { ArrowRight, FileText, CalendarCheck } from "lucide-react";
+import { meetingHref, documentsHref } from "@/lib/site";
 
 export default function PartnerCTA() {
   return (
@@ -24,34 +25,42 @@ export default function PartnerCTA() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-6 text-[#AAAAAA] text-[15px] sm:text-[17px] leading-[1.9]"
         >
-          卸値表、契約条件、導入の流れをまとめた資料をお送りします。
+          どちらからでも構いません。話が早いのは打ち合わせのほうです。
           <br className="hidden sm:block" />
-          具体的な商圏のご相談は、個別に承ります。
+          商圏が空いているかどうかも、その場でお答えできます。
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
-        >
+        <div className="mx-auto mt-10 grid max-w-[720px] gap-4 sm:grid-cols-2">
           <Link
-            href="/documents"
-            className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(6,199,85,0.35)]"
+            href={meetingHref()}
+            className="group rounded-2xl border border-[#06C755] bg-[#06C755] p-6 text-left transition-colors hover:bg-[#05B04A] sm:p-7"
           >
-            <FileText size={18} />
-            パートナー資料を請求する
-            <ArrowRight size={18} />
+            <div className="flex items-center gap-2.5">
+              <CalendarCheck size={20} className="text-white" />
+              <span className="text-[17px] font-bold text-white">打ち合わせを申し込む</span>
+              <ArrowRight size={17} className="ml-auto text-white/70 transition-transform group-hover:translate-x-0.5" />
+            </div>
+            <p className="mt-3 text-[13.5px] leading-[1.85] text-white/85">
+              実際のLINEと管理画面を動かしながら、御社の商圏で成り立つかを一緒に見ます。
+              日程はこちらから折り返します。
+            </p>
           </Link>
+
           <Link
-            href="/documents"
-            className="inline-flex items-center justify-center gap-2 border-2 border-[#3A3A3A] hover:border-[#06C755] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-all duration-300"
+            href={documentsHref()}
+            className="group rounded-2xl border border-[#3A3A3A] bg-[#161616] p-6 text-left transition-colors hover:border-[#06C755] sm:p-7"
           >
-            <MessageSquare size={18} />
-            個別に相談する
+            <div className="flex items-center gap-2.5">
+              <FileText size={20} className="text-[#06C755]" />
+              <span className="text-[17px] font-bold text-white">資料を受け取る</span>
+              <ArrowRight size={17} className="ml-auto text-white/40 transition-transform group-hover:translate-x-0.5" />
+            </div>
+            <p className="mt-3 text-[13.5px] leading-[1.85] text-[#AAAAAA]">
+              卸値表、契約条件、導入の流れをまとめた資料をお送りします。
+              社内で回してご検討ください。
+            </p>
           </Link>
-        </motion.div>
+        </div>
 
         <p className="mt-8 text-[13px] text-[#777777]">
           製品そのものをご覧になりたい場合は{" "}

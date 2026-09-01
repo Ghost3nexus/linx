@@ -14,3 +14,17 @@ export const INDEXABLE = true;
  * 未用意のあいだは null にしておくこと（動かないQRを出さない）。
  */
 export const DEMO_LINE_URL: string | null = null;
+
+/**
+ * 打ち合わせの日程調整ページ（TimeRex / Spir / Googleの予約ページ等）。
+ * 未設定のあいだは申込フォームに落として、こちらから日程を返す。
+ */
+export const MEETING_URL: string | null = null;
+
+/** 打ち合わせの申し込み先。カレンダーが未用意でも動くようにする */
+export const meetingHref = (type?: "reseller" | "inhouse") =>
+  MEETING_URL ?? `/documents?purpose=meeting${type ? `&type=${type}` : ""}`;
+
+/** 資料請求の申し込み先 */
+export const documentsHref = (type?: "reseller" | "inhouse") =>
+  `/documents?purpose=documents${type ? `&type=${type}` : ""}`;
