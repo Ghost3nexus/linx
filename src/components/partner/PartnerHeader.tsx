@@ -10,6 +10,7 @@ const nav = [
   { label: "売るもの", href: "#whatyouget" },
   { label: "収益の立ち方", href: "#revenue" },
   { label: "売れる業界", href: "#industries" },
+  { label: "導入の流れ", href: "#onboarding" },
   { label: "テリトリー", href: "#territory" },
   { label: "よくある質問", href: "#faq" },
 ];

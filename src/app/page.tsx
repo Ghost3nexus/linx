@@ -9,6 +9,7 @@ import TryItLive from "@/components/partner/TryItLive";
 import RevenueStructure from "@/components/partner/RevenueStructure";
 import SalesKit from "@/components/partner/SalesKit";
 import Industries from "@/components/partner/Industries";
+import Onboarding from "@/components/partner/Onboarding";
 import Roadmap from "@/components/partner/Roadmap";
 import Territory from "@/components/partner/Territory";
 import WhoBuilds from "@/components/partner/WhoBuilds";
@@ -106,6 +107,7 @@ export default function Home() {
         <RevenueStructure />
         <SalesKit />
         <Industries />
+        <Onboarding />
         <Roadmap />
         <Territory />
         <WhoBuilds />

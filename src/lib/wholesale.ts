@@ -29,6 +29,35 @@ export const DEFAULT_RESPONSES = 800;
 /** 掛け率（卸値 ÷ 想定小売） */
 export const MARGIN_RATE = 1 - WHOLESALE_MONTHLY / SUGGESTED_RETAIL; // 0.747...
 
+/**
+ * 店舗数による段階。売った実績で条件が良くなる方向にしてある。
+ * 未実績の相手に最良条件を先に渡さないため、逓減は「上げる」方向で組む。
+ * 一度到達した段は下げない（一時的に店舗数が減っても据え置き）。
+ * 🔴 LPには出さない。資料と打ち合わせで提示する。
+ */
+export const WHOLESALE_TIERS = [
+  { from: 1, to: 9, wholesale: 19900, partnerShare: 0.5 },
+  { from: 10, to: 29, wholesale: 17000, partnerShare: 0.57 },
+  { from: 30, to: 99, wholesale: 14700, partnerShare: 0.63 },
+  { from: 100, to: null, wholesale: 11900, partnerShare: 0.7 },
+] as const;
+
+/** 契約条件 */
+export const CONTRACT = {
+  minimumMonths: 6,
+  renewal: "以後1ヶ月単位で自動更新",
+  noticeMonths: 1,
+} as const;
+
+/** サポート窓口 */
+export const SUPPORT = {
+  channels: ["公式LINE", "メール"],
+  hours: "平日",
+} as const;
+
+/** 申込から販売開始までの目安 */
+export const ONBOARDING_WEEKS = 2;
+
 export type PlanType = "wholesale" | "flat";
 
 export interface SimInput {

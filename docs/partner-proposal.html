@@ -25,11 +25,10 @@ td.c{text-align:center}
 </style></head><body>
 
 <h1>LINX パートナー提案書</h1>
-<p class="meta">株式会社TomorrowProof ／ 2026年9月2日 (JST) ／ <strong style="color:#C62828">社内ドラフト — 赤の項目が未確定。埋まるまで配布しない</strong></p>
+<p class="meta">株式会社TomorrowProof ／ 2026年9月2日 (JST) ／ パートナー向け配布資料</p>
 
-<div class="box warn">
-<p><strong>この資料の位置づけ。</strong>パートナーLPからは卸値も掛け率も外しました。B2Bは相手ごとに条件を組むため、公開すると規模に応じた提示ができなくなるからです。<strong>実額はこの資料と打ち合わせで渡します。</strong></p>
-<p><strong style="color:#C62828">赤で示した4項目はKOZUKIさんの判断が要ります。</strong>そこが埋まるまでは配布できません（LPは「資料を受け取る」と言っているので、埋め次第 public/downloads へ入れます）。</p>
+<div class="box">
+<p><strong>この資料に、条件をすべて書いています。</strong>卸値、掛け率、契約条件、サポートの範囲、導入までの期間、そして<strong>いま出来ないこと</strong>まで。ご検討の材料としてお使いください。</p>
 </div>
 
 <h2>1. 何を卸すか</h2>
@@ -51,9 +50,24 @@ td.c{text-align:center}
 <tr><td>御社の取り分</td><td class="n win">19,900円（50%）</td><td class="c">店舗が増えるほど1店あたりの原価が下がる</td><td>日本のストック型SaaSの代理店マージン相場は20〜30%</td></tr>
 <tr><td>初期費用</td><td class="c win">0円</td><td class="c win">0円</td><td>最低販売数もありません</td></tr>
 <tr><td>AI応答</td><td colspan="2" class="c">実費で仕入れ、上乗せは御社が決める</td><td>従量で請求しても、月額に含めて売っても構いません</td></tr>
-<tr><td class="todo">店舗数による逓減</td><td colspan="2" class="c todo">未確定</td><td class="todo">競合（Trafft）は 1-5／6-15／16-30／31-50／51+ で逓減。当社は「売った実績で上げる」方向を推奨（未実績の相手に最良条件を先に渡さない）</td></tr>
-<tr><td class="todo">最低契約期間・解約</td><td colspan="2" class="c todo">未確定</td><td class="todo">代理店は「抜けられるか」を必ず見ます</td></tr>
+<tr><td><strong>店舗数による逓減</strong></td><td colspan="2" class="c win">あり（次表）</td><td>売った実績で条件が良くなる形にしています</td></tr>
+<tr><td><strong>最低契約期間</strong></td><td colspan="2" class="c">6ヶ月</td><td>以後は1ヶ月単位で自動更新。解約は1ヶ月前までにご連絡ください</td></tr>
 </table>
+
+<h2>2-2. 店舗数による段階</h2>
+<p class="lead">売った実績で条件が良くなります。<strong>一度到達した段は下げません</strong>——一時的に店舗数が減っても、条件は据え置きます。</p>
+<table>
+<tr><th style="width:20%">導入店舗数</th><th style="width:22%">卸値（1店舗・月）</th><th style="width:20%">御社の取り分</th><th>20店舗運用時の御社の月間粗利</th></tr>
+<tr><td>1〜9店舗</td><td class="n">19,900円</td><td class="n">50%</td><td class="n">—</td></tr>
+<tr><td>10〜29店舗</td><td class="n win">17,000円</td><td class="n win">57%</td><td class="n win">456,000円</td></tr>
+<tr><td>30〜99店舗</td><td class="n">14,700円</td><td class="n">63%</td><td class="n">—</td></tr>
+<tr><td>100店舗〜</td><td class="n">11,900円</td><td class="n">70%</td><td class="n">—</td></tr>
+</table>
+<p class="note">
+※ 想定小売価格 39,800円で販売した場合の試算です。実際の販売価格は御社が決めるため、取り分の額は変わります。<br>
+※ 20店舗運用時の粗利＝(39,800円 − 17,000円) × 20店舗。AI応答の仕入れは別途です。<br>
+※ 日本のストック型SaaSにおける代理店マージンの相場は20〜30%です。
+</p>
 
 <div class="box">
 <p><strong>上限に達したときの挙動。</strong>AI応答のみ止まり、定型文での応対に切り替わります。<strong>予約・会員管理・入退館・決済は動き続けます。</strong>入退館が止まると店舗の営業そのものが止まるため、金額の上限で落とさない設計にしています。</p>
@@ -75,21 +89,25 @@ td.c{text-align:center}
 <tr><td>エンドユーザーの一次サポート</td><td class="win">担当</td><td class="c">—</td></tr>
 <tr><td>技術調査・不具合対応</td><td class="c">—</td><td class="win">担当（御社向けの二次サポート）</td></tr>
 <tr><td>製品開発・インフラ・セキュリティ</td><td class="c">—</td><td class="win">担当</td></tr>
-<tr><td class="todo">サポート窓口・受付時間</td><td colspan="2" class="c todo">未確定 — 実際に守れる範囲で決める（競合は「平日10:00-18:00／電話・チャット・メール」等を明示）</td></tr>
+<tr><td><strong>サポート窓口</strong></td><td colspan="2" class="c">公式LINE または メール ／ 平日対応</td></tr>
 </table>
-<p class="note">※ 一次サポートを御社に担っていただく前提で、掛け率を厚く設定しています。</p>
+<p class="note">
+※ 一次サポートを御社に担っていただく前提で、掛け率を厚く設定しています。<br>
+※ 返答時間の数値目標は設けていません。守れない約束を先に書かないためです。実際の対応は平日中に順次おこないます。
+</p>
 
 <h2>5. 導入までの流れ</h2>
 <table>
 <tr><th style="width:6%">段</th><th style="width:26%">やること</th><th style="width:16%">期間</th><th>備考</th></tr>
-<tr><td class="c">1</td><td>打ち合わせ</td><td class="c todo">未確定</td><td>実際のLINEと管理画面を動かしながら、御社の商圏で成り立つかを確認します</td></tr>
-<tr><td class="c">2</td><td>商圏と条件のすり合わせ</td><td class="c todo">未確定</td><td>地域・業種・想定店舗数から条件を組みます</td></tr>
-<tr><td class="c">3</td><td>契約</td><td class="c todo">未確定</td><td>テリトリーを契約書に明記します</td></tr>
-<tr><td class="c">4</td><td>初期設定と操作研修</td><td class="c todo">未確定</td><td>御社側で導入支援ができる状態にします</td></tr>
-<tr><td class="c">5</td><td>初案件</td><td class="c todo">未確定</td><td>最初の1件は当社が同席します</td></tr>
+<tr><td class="c">1</td><td>打ち合わせ</td><td class="c">お申し込みから数日以内</td><td>実際のLINEと管理画面を動かしながら、御社の商圏で成り立つかを一緒に確認します</td></tr>
+<tr><td class="c">2</td><td>商圏と条件のすり合わせ</td><td class="c">打ち合わせの場で</td><td>地域・業種・想定店舗数から条件を組みます</td></tr>
+<tr><td class="c">3</td><td>契約</td><td class="c">1週目</td><td>テリトリーを契約書に明記します</td></tr>
+<tr><td class="c">4</td><td>初期設定と操作研修</td><td class="c">2週目</td><td>御社側で導入支援ができる状態にします</td></tr>
+<tr><td class="c">5</td><td><strong>御社の販売開始</strong></td><td class="c win"><strong>お申し込みから約2週間</strong></td><td>最初の1件は当社が同席します。導入先の店舗が使い始めるまでの時間は、店舗の準備状況によります</td></tr>
 </table>
-<div class="box warn">
-<p><strong style="color:#C62828">各段の日数が未確定です。</strong>競合は SimplyBook.me が「数週間で開始」、使えるねっとが「約1〜1.5ヶ月」と明示しています。<strong>実際に用意できる日数</strong>を入れてください。ここが空欄だと、相手は次に何が起きるか分かりません。</p>
+<div class="box">
+<p><strong>お申し込みから約2週間で、御社が販売できる状態になります。</strong>同種のサービスでは「数週間」「約1〜1.5ヶ月」が一般的です。</p>
+<p><strong>これは御社の立ち上げにかかる期間です。</strong>その先、導入先の店舗が使い始めるまでの時間は、店舗の準備状況によって変わります。すでに公式LINEを運用している店舗であれば最短1日、これから開設する場合はそのぶん時間がかかります。</p>
 </div>
 
 <h2 class="pb">6. いま動いているもの / これから作るもの</h2>
@@ -113,8 +131,24 @@ td.c{text-align:center}
 <tr><td>商圏を絞ります</td><td>地域と業種でパートナー数を制限します。同じ商圏で複数の代理店が競合して値崩れする状態を避けるためです。区分けは契約書に明記します</td></tr>
 <tr><td>当社は直販しません</td><td>御社が獲得したお客様に、当社が後から直接アプローチすることはありません</td></tr>
 <tr><td>現在の条件について</td><td>掲載している条件は<strong>立ち上げ期のもの</strong>です。枠が埋まり次第見直しますが、ご契約済みの分は契約期間中そのまま据え置きます</td></tr>
-<tr><td class="todo">応募の要件</td><td class="todo">未確定 — 「誰にでも卸すわけではない」と言う以上、基準が要ります。満たさなくても相談可と添えるのが無難です</td></tr>
+<tr><td><strong>お取引の条件</strong></td><td>
+①法人であること ②販売を担当される方がいること ③LINXを自社の商材として扱う意思があること<br>
+<span class="note">※ 契約主体として成立するかの確認です。ここは満たすかどうかの二択になります。</span>
+</td></tr>
 </table>
+
+<h2>7-2. 打ち合わせで一緒に確認すること</h2>
+<p class="lead">売れるかどうかを決めるのは、御社そのものよりも<strong>御社がすでに取引されている店舗</strong>です。審査ではなく、噛み合うかどうかを一緒に見る時間だと思ってください。</p>
+<table>
+<tr><th style="width:34%">見ること</th><th>なぜ見るか</th></tr>
+<tr><td>すでにお取引のある店舗が何件あるか</td><td>ゼロから開拓していただく商材ではありません。既存の取引先へご案内できる状態が、いちばん立ち上がりが速いためです</td></tr>
+<tr><td>その店舗が予約制・会員制か</td><td>LINXが効くのは、予約と会員管理が業務の中心にある業態です。物販中心の店舗では価値が出ません</td></tr>
+<tr><td>その店舗が公式LINEを運用しているか</td><td>すでに友だちがいれば、その日から使えます。ゼロから公式LINEを立ち上げる場合は、そのぶん時間がかかります</td></tr>
+<tr><td>商圏が空いているか</td><td>地域と業種でパートナー数を制限しているためです。空いていない場合は、その場でお伝えします</td></tr>
+</table>
+<div class="box">
+<p><strong>ここで噛み合わないと分かった場合、無理にお勧めしません。</strong>売れない商材を抱えていただいても、御社にとっても当社にとっても損になるためです。</p>
+</div>
 
 <h2>8. 実績について</h2>
 <div class="box">

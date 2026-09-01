@@ -357,6 +357,21 @@ export default function DocumentsPage() {
                                         <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-1">PDF資料ダウンロード</h3>
                                         <p className="text-[12px] text-[#999] mb-4">社内共有・検討用にどうぞ</p>
                                         <div className="space-y-3">
+                                            {(partnerType === "reseller" || partnerType === "inhouse") && (
+                                                <a
+                                                    href="/downloads/linx-partner-proposal.pdf"
+                                                    download
+                                                    className="flex items-center gap-3 rounded-xl border border-[#06C755] bg-[#F5FBF7] p-3 transition-all hover:bg-[#EAF8EF]"
+                                                >
+                                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#06C755]/15">
+                                                        <Download size={16} className="text-[#06C755]" />
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="truncate text-[13px] font-bold text-[#1A1A1A]">パートナー提案書</p>
+                                                        <p className="text-[11px] text-[#666]">卸値・条件・導入の流れ · PDF</p>
+                                                    </div>
+                                                </a>
+                                            )}
                                             <a
                                                 href="/downloads/linx-vs-hacomono.pdf"
                                                 download

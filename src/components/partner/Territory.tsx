@@ -55,6 +55,48 @@ export default function Territory() {
           </p>
         </div>
 
+        <div className="mx-auto mt-6 grid max-w-[860px] gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-[#EAEAEA] bg-white p-6 sm:p-7">
+            <h3 className="text-[16px] font-bold text-[#1A1A1A]">お取引の条件</h3>
+            <ul className="mt-4 space-y-2.5">
+              {[
+                "法人であること",
+                "販売を担当される方がいること",
+                "自社の商材として扱う意思があること",
+              ].map((t) => (
+                <li key={t} className="flex gap-2.5 text-[14px] leading-relaxed text-[#333333]">
+                  <span className="shrink-0 font-bold text-[#06C755]">—</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-[12.5px] leading-relaxed text-[#94A3B8]">
+              契約主体として成立するかの確認です。
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-[#EAEAEA] bg-white p-6 sm:p-7">
+            <h3 className="text-[16px] font-bold text-[#1A1A1A]">打ち合わせで一緒に見ること</h3>
+            <ul className="mt-4 space-y-2.5">
+              {[
+                "すでにお取引のある店舗が何件あるか",
+                "その店舗が予約制・会員制か",
+                "その店舗が公式LINEを運用しているか",
+                "商圏が空いているか",
+              ].map((t) => (
+                <li key={t} className="flex gap-2.5 text-[14px] leading-relaxed text-[#333333]">
+                  <span className="shrink-0 font-bold text-[#06C755]">—</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-[12.5px] leading-relaxed text-[#94A3B8]">
+              売れるかどうかを決めるのは、御社そのものよりも御社がすでにお取引されている店舗です。
+              噛み合わないと分かった場合、無理にお勧めしません。
+            </p>
+          </div>
+        </div>
+
         <div className="mt-6 space-y-4">
           {rules.map((r, i) => (
             <motion.div
