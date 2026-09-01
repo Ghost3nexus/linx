@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen, Sparkles } from "lucide-react";
-import { isLoggedIn, getMe, clearAuth, type Me } from "@/lib/apiClient";
+import { isLoggedIn, getMe, clearAuth, isDemoMode, exitDemoMode, type Me } from "@/lib/apiClient";
 
 const navItems = [
     { href: "/dashboard", label: "ダッシュボード", icon: LayoutDashboard },
@@ -23,6 +23,7 @@ const navItems = [
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+    const [demo, setDemo] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
     const [me, setMe] = useState<Me | null>(null);
@@ -47,6 +48,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             }
             window.history.replaceState({}, "", pathname);
         }
+
+        setDemo(isDemoMode());
 
         // JWTの存在チェック（クライアント側）
         if (!isLoggedIn()) {
@@ -86,8 +89,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     return (
         <div className="min-h-screen bg-white flex">
+            {demo && (
+                <div className="fixed inset-x-0 top-0 z-40 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 bg-[#0B0C0E] px-4 py-2 text-center text-[12px] text-white/85 sm:text-[13px]">
+                    <span>
+                        <strong className="font-bold text-[#06C755]">デモ表示中</strong>
+                        ／ 架空の店舗のサンプルデータです。入力しても保存されません
+                    </span>
+                    <button
+                        onClick={() => {
+                            exitDemoMode();
+                            window.location.href = "/";
+                        }}
+                        className="rounded-full border border-white/25 px-3 py-1 text-[11px] font-bold transition-colors hover:border-white/60"
+                    >
+                        デモを終了する
+                    </button>
+                </div>
+            )}
             {/* Sidebar */}
-            <aside className="w-[240px] bg-white border-r border-[#E8E8E8] flex flex-col fixed h-full z-20">
+            <aside className={`w-[240px] bg-white border-r border-[#E8E8E8] flex flex-col fixed h-full z-20 ${demo ? "pt-11" : ""}`}>
                 <div className="p-5 border-b border-[#E8E8E8]">
                     <Link href="/" className="flex items-center gap-2 font-bold text-lg">
                         <div className="w-7 h-7 rounded-lg bg-[#06C755] flex items-center justify-center">
@@ -139,7 +159,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </aside>
 
             {/* Main content */}
-            <main className="flex-1 ml-[240px] p-8 min-h-screen">
+            <main className={`flex-1 ml-[240px] p-8 min-h-screen ${demo ? "pt-[76px]" : ""}`}>
                 {children}
             </main>
         </div>

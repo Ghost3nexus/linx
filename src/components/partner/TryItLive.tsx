@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { MessageCircle, ArrowRight } from "lucide-react";
+import { MessageCircle, MonitorPlay, ArrowRight } from "lucide-react";
 import { DEMO_LINE_URL } from "@/lib/site";
 import Demo from "@/components/Demo";
 
@@ -47,36 +47,68 @@ export default function TryItLive() {
         <Demo embedded />
       </div>
 
-      <div className="max-w-[680px] mx-auto px-0 sm:px-6">
-        <div className="border border-[#E8E8E8] rounded-2xl p-6 sm:p-8 text-center">
-          <div className="w-12 h-12 rounded-xl bg-[#E8F5E9] flex items-center justify-center mx-auto">
-            <MessageCircle size={24} className="text-[#06C755]" />
-          </div>
-          <h3 className="mt-5 text-[19px] sm:text-[21px] font-bold text-[#1A1A1A]">
-            実機のLINEでも、そのままお試しいただけます
+      <div className="mx-auto max-w-[880px] px-0 sm:px-6">
+        <div className="rounded-2xl border border-[#E8E8E8] p-6 sm:p-8">
+          <h3 className="text-center text-[19px] font-bold text-[#1A1A1A] sm:text-[21px]">
+            商談では、2つの画面を見せることになります
           </h3>
-          <p className="mt-3 text-[14px] text-[#666666] leading-[1.85]">
-            上は画面上の再現です。実際のLINE上で、予約が確定するところまでご確認いただけます。
+          <p className="mx-auto mt-3 max-w-[600px] text-center text-[14px] leading-[1.85] text-[#666666]">
+            お客様が触る公式LINEと、店舗が使う管理画面。
+            どちらもそのままお見せいただけるよう用意しています。
           </p>
-          {DEMO_LINE_URL ? (
-            <a
-              href={DEMO_LINE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-3.5 rounded-full text-[15px] transition-colors"
-            >
-              デモ用LINEを友だち追加する
-              <ArrowRight size={17} />
-            </a>
-          ) : (
-            <Link
-              href="/documents"
-              className="mt-6 inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-3.5 rounded-full text-[15px] transition-colors"
-            >
-              デモ環境のご案内を受け取る
-              <ArrowRight size={17} />
-            </Link>
-          )}
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {/* お客様側 */}
+            <div className="rounded-xl border border-[#EAEAEA] p-5 sm:p-6">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8F5E9]">
+                <MessageCircle size={21} className="text-[#06C755]" />
+              </div>
+              <h4 className="mt-4 text-[16px] font-bold text-[#1A1A1A]">お客様が触る公式LINE</h4>
+              <p className="mt-2.5 text-[13.5px] leading-[1.85] text-[#666666]">
+                実際のLINE上で、問い合わせから予約が確定するところまでご確認いただけます。
+              </p>
+              {DEMO_LINE_URL ? (
+                <a
+                  href={DEMO_LINE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#06C755] px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#05B04A]"
+                >
+                  デモ用LINEを友だち追加
+                  <ArrowRight size={16} />
+                </a>
+              ) : (
+                <Link
+                  href="/documents"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#E2E8F0] px-6 py-3 text-[14px] font-bold text-[#0F172A] transition-colors hover:border-[#06C755]"
+                >
+                  デモ用LINEのご案内を受け取る
+                </Link>
+              )}
+            </div>
+
+            {/* 店舗側 */}
+            <div className="rounded-xl border border-[#EAEAEA] p-5 sm:p-6">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8F5E9]">
+                <MonitorPlay size={21} className="text-[#06C755]" />
+              </div>
+              <h4 className="mt-4 text-[16px] font-bold text-[#1A1A1A]">店舗が使う管理画面</h4>
+              <p className="mt-2.5 text-[13.5px] leading-[1.85] text-[#666666]">
+                ログイン不要で開きます。架空の店舗のサンプルデータで、予約・会員・入退館・シフトを触れます。
+              </p>
+              <Link
+                href="/demo"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#06C755] px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#05B04A]"
+              >
+                管理画面デモを開く
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+
+          <p className="mt-6 text-center text-[12px] text-[#94A3B8]">
+            ※ どちらも架空の店舗です。実在の導入先ではありません。
+          </p>
         </div>
       </div>
     </section>

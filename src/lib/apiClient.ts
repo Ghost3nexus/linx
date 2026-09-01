@@ -1,4 +1,26 @@
+import { resolveDemo } from './demoData';
+
 const API_BASE = process.env.NEXT_PUBLIC_LINX_API_URL || 'https://linx-server-production.up.railway.app/api';
+
+// ── デモ表示（/demo から入ったとき）──
+// 代理店が商談で管理画面をそのまま見せられるよう、ログイン無しで動く。
+// 書き込みは一切サーバへ送らない。
+export function isDemoMode(): boolean {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('linx_demo') === '1';
+}
+
+export function enterDemoMode() {
+    localStorage.setItem('linx_demo', '1');
+    localStorage.setItem('linx_token', 'demo');
+    localStorage.setItem('linx_account_id', 'demo');
+}
+
+export function exitDemoMode() {
+    localStorage.removeItem('linx_demo');
+    localStorage.removeItem('linx_token');
+    localStorage.removeItem('linx_account_id');
+}
 
 // ── Auth token helpers ──
 
@@ -29,6 +51,11 @@ export function isLoggedIn(): boolean {
 // ── Core fetch helper ──
 
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
+    // デモ表示中はサーバへ出さない。書き込み系は握りつぶして現状を返す
+    if (isDemoMode()) {
+        await new Promise((r) => setTimeout(r, 120));   // 読み込み中の見え方を実物に近づける
+        return resolveDemo(path) as T;
+    }
     const token = getToken();
     const res = await fetch(`${API_BASE}${path}`, {
         ...options,

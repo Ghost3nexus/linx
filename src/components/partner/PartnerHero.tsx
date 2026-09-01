@@ -90,7 +90,7 @@ export default function PartnerHero() {
                 href="#tryit"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-8 py-4 text-[16px] font-bold text-white backdrop-blur transition-colors hover:border-white/50"
               >
-                実際のLINEで試す
+                デモを触ってみる
               </a>
             </div>
 
