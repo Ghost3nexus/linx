@@ -37,8 +37,8 @@ const partners = [
 const badges = [
   {
     icon: "🛡️",
-    title: "LINE×AI自動応答 業界唯一*",
-    sub: "*2026年4月 自社調べ",
+    title: "AIが予約確定まで実行",
+    sub: "FAQ応答で終わらない業務連携",
   },
   {
     icon: "🎓",

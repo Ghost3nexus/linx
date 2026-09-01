@@ -1,14 +1,11 @@
 import { MetadataRoute } from "next";
+import { SITE, INDEXABLE } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/dashboard/", "/login", "/api/"],
-      },
-    ],
-    sitemap: "https://linx-rouge.vercel.app/sitemap.xml",
+    rules: INDEXABLE
+      ? [{ userAgent: "*", allow: "/", disallow: ["/dashboard/", "/login", "/api/"] }]
+      : [{ userAgent: "*", disallow: "/" }],
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }

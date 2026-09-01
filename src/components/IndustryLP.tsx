@@ -27,7 +27,7 @@ export default function IndustryLP({ data }: { data: IndustryData }) {
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <Image src={data.heroImage} alt={data.name} fill className="object-cover" priority />
+            <Image src={data.heroImage} alt={`${data.name}の予約・会員管理をLINEのAIで自動化するLINXの利用イメージ`} fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
           </div>
           <div className="relative z-10 max-w-[1100px] mx-auto px-6 py-20 w-full">

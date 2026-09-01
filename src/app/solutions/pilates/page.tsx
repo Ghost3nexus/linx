@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "pilates",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "ピラティス予約管理システム｜マシン台数×講師×時間帯をLINE AIで最適化 | LINX",
+  description: "ピラティススタジオ向けの予約管理システム。リフォーマーの台数・インストラクター・時間帯が絡む複雑な枠管理を、公式LINE上のAIが自動で最適化。会員管理と決済まで一元化します。",
+  keywords: "ピラティス 予約管理 システム,ピラティス 予約,リフォーマー 予約,スタジオ 予約管理,LINE 予約 AI",
+  alternates: { canonical: `${SITE.url}/solutions/pilates` },
+  openGraph: {
+    title: "ピラティス予約管理システム｜マシン台数×講師×時間帯をLINE AIで最適化 | LINX",
+    description: "ピラティススタジオ向けの予約管理システム。リフォーマーの台数・インストラクター・時間帯が絡む複雑な枠管理を、公式LINE上のAIが自動で最適化。会員管理と決済まで一元化します。",
+    url: `${SITE.url}/solutions/pilates`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ピラティス予約管理システム｜マシン台数×講師×時間帯をLINE AIで最適化 | LINX",
+    description: "ピラティススタジオ向けの予約管理システム。リフォーマーの台数・インストラクター・時間帯が絡む複雑な枠管理を、公式LINE上のAIが自動で最適化。会員管理と決済まで一元化します。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/pilates`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

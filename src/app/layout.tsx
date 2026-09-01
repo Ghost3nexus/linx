@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
+import { SITE, INDEXABLE } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,9 +54,9 @@ export const metadata: Metadata = {
     images: ["/images/hero-gym.png"],
   },
   robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
+    index: INDEXABLE,
+    follow: INDEXABLE,
+    googleBot: { index: INDEXABLE, follow: INDEXABLE },
   },
   alternates: {
     canonical: "https://linx-rouge.vercel.app",
@@ -69,34 +71,23 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "LINX",
-              "applicationCategory": "BusinessApplication",
-              "operatingSystem": "Web",
-              "description": "LINE AI予約・会員管理・入退館・決済の統合システム。ジム・ヨガ・ピラティス・クリニック・サウナ向け。",
-              "offers": {
-                "@type": "Offer",
-                "price": "29800",
-                "priceCurrency": "JPY",
-                "priceValidUntil": "2027-12-31",
-              },
-              "provider": {
-                "@type": "Organization",
-                "name": "株式会社TomorrowProof",
-                "url": "https://tomorrowproof-ai.com",
-                "email": "tomorrowprooftokyo@gmail.com",
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "12",
-              },
-            }),
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: SITE.company,
+            url: SITE.companyUrl,
+            email: SITE.email,
+            address: {
+              "@type": "PostalAddress",
+              addressCountry: "JP",
+              addressRegion: "東京都",
+              addressLocality: "港区",
+              streetAddress: "南青山7-1-27-702",
+            },
+            founder: { "@type": "Person", name: "上月 貴博" },
+            foundingDate: "2025-08-08",
+            brand: { "@type": "Brand", name: SITE.name },
           }}
         />
       </head>

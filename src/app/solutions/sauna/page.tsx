@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "sauna",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "サウナ施設の予約・入退館管理システム｜LINEで時間制予約と混雑配信 | LINX",
+  description: "サウナ・スパ施設向けの予約管理システム。時間制の枠予約、入退館の記録、混雑状況の一斉配信までを公式LINE上で完結。スタッフを増やさずに快適な体験を提供できます。",
+  keywords: "サウナ 予約管理 システム,サウナ 入退館 管理,時間制 予約,混雑状況 配信,スパ 予約システム",
+  alternates: { canonical: `${SITE.url}/solutions/sauna` },
+  openGraph: {
+    title: "サウナ施設の予約・入退館管理システム｜LINEで時間制予約と混雑配信 | LINX",
+    description: "サウナ・スパ施設向けの予約管理システム。時間制の枠予約、入退館の記録、混雑状況の一斉配信までを公式LINE上で完結。スタッフを増やさずに快適な体験を提供できます。",
+    url: `${SITE.url}/solutions/sauna`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "サウナ施設の予約・入退館管理システム｜LINEで時間制予約と混雑配信 | LINX",
+    description: "サウナ・スパ施設向けの予約管理システム。時間制の枠予約、入退館の記録、混雑状況の一斉配信までを公式LINE上で完結。スタッフを増やさずに快適な体験を提供できます。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/sauna`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

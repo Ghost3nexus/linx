@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "clinic",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "クリニック・整体院の予約システム｜LINEで事前問診・予約・リマインドを完結 | LINX",
+  description: "クリニック・整体院向けの予約管理システム。事前問診の自動送信から予約受付、来院リマインド、再来院の案内まで公式LINE上のAIが対応し、受付業務の負担を大きく減らします。",
+  keywords: "クリニック 予約システム,整体院 予約管理,事前問診 LINE,来院リマインド,医院 予約 自動化",
+  alternates: { canonical: `${SITE.url}/solutions/clinic` },
+  openGraph: {
+    title: "クリニック・整体院の予約システム｜LINEで事前問診・予約・リマインドを完結 | LINX",
+    description: "クリニック・整体院向けの予約管理システム。事前問診の自動送信から予約受付、来院リマインド、再来院の案内まで公式LINE上のAIが対応し、受付業務の負担を大きく減らします。",
+    url: `${SITE.url}/solutions/clinic`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "クリニック・整体院の予約システム｜LINEで事前問診・予約・リマインドを完結 | LINX",
+    description: "クリニック・整体院向けの予約管理システム。事前問診の自動送信から予約受付、来院リマインド、再来院の案内まで公式LINE上のAIが対応し、受付業務の負担を大きく減らします。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/clinic`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

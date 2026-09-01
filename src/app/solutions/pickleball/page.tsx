@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "pickleball",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "ピックルボール施設の予約管理システム｜コート予約・大会エントリーをLINEで | LINX",
+  description: "ピックルボール施設向けの予約管理システム。コートの空き確認と予約確定、会員管理、大会エントリーの受付までを公式LINE上のAIが自動化。急成長する競技の運営を支えます。",
+  keywords: "ピックルボール 予約管理,コート予約 システム,大会エントリー 受付,スポーツ施設 予約,会員管理",
+  alternates: { canonical: `${SITE.url}/solutions/pickleball` },
+  openGraph: {
+    title: "ピックルボール施設の予約管理システム｜コート予約・大会エントリーをLINEで | LINX",
+    description: "ピックルボール施設向けの予約管理システム。コートの空き確認と予約確定、会員管理、大会エントリーの受付までを公式LINE上のAIが自動化。急成長する競技の運営を支えます。",
+    url: `${SITE.url}/solutions/pickleball`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ピックルボール施設の予約管理システム｜コート予約・大会エントリーをLINEで | LINX",
+    description: "ピックルボール施設向けの予約管理システム。コートの空き確認と予約確定、会員管理、大会エントリーの受付までを公式LINE上のAIが自動化。急成長する競技の運営を支えます。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/pickleball`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

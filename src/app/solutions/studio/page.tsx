@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "studio",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "ダンス・カルチャースタジオ管理システム｜LINEでクラス予約と出席管理 | LINX",
+  description: "ダンス・カルチャースタジオ向けの管理システム。クラス予約、出席管理、月謝の案内、発表会の連絡までを公式LINE上のAIが自動化。講師もスタッフも本業に集中できます。",
+  keywords: "スタジオ 予約管理 システム,ダンススクール 管理,出席管理,月謝 管理,クラス予約 システム",
+  alternates: { canonical: `${SITE.url}/solutions/studio` },
+  openGraph: {
+    title: "ダンス・カルチャースタジオ管理システム｜LINEでクラス予約と出席管理 | LINX",
+    description: "ダンス・カルチャースタジオ向けの管理システム。クラス予約、出席管理、月謝の案内、発表会の連絡までを公式LINE上のAIが自動化。講師もスタッフも本業に集中できます。",
+    url: `${SITE.url}/solutions/studio`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ダンス・カルチャースタジオ管理システム｜LINEでクラス予約と出席管理 | LINX",
+    description: "ダンス・カルチャースタジオ向けの管理システム。クラス予約、出席管理、月謝の案内、発表会の連絡までを公式LINE上のAIが自動化。講師もスタッフも本業に集中できます。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/studio`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

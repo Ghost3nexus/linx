@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "yoga",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "ヨガスタジオ予約管理システム｜LINE AIで定員管理とリマインドを自動化 | LINX",
+  description: "ヨガスタジオ向けの予約管理システム。少人数クラスの定員管理、キャンセル待ち、前日リマインドまで公式LINE上のAIが自動化。講師は指導に集中でき、予約の取りこぼしも防げます。",
+  keywords: "ヨガ 予約管理 システム,ヨガスタジオ 予約,定員管理,LINE 予約管理 システム,レッスン予約 システム",
+  alternates: { canonical: `${SITE.url}/solutions/yoga` },
+  openGraph: {
+    title: "ヨガスタジオ予約管理システム｜LINE AIで定員管理とリマインドを自動化 | LINX",
+    description: "ヨガスタジオ向けの予約管理システム。少人数クラスの定員管理、キャンセル待ち、前日リマインドまで公式LINE上のAIが自動化。講師は指導に集中でき、予約の取りこぼしも防げます。",
+    url: `${SITE.url}/solutions/yoga`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ヨガスタジオ予約管理システム｜LINE AIで定員管理とリマインドを自動化 | LINX",
+    description: "ヨガスタジオ向けの予約管理システム。少人数クラスの定員管理、キャンセル待ち、前日リマインドまで公式LINE上のAIが自動化。講師は指導に集中でき、予約の取りこぼしも防げます。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/yoga`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }

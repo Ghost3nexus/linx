@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import IndustryLP from "@/components/IndustryLP";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 const data = {
   slug: "salon",
@@ -42,6 +45,48 @@ const data = {
   ],
 };
 
+
+export const metadata: Metadata = {
+  title: "美容室・サロンのLINE予約管理システム｜AI接客とアフターケア自動配信 | LINX",
+  description: "美容室・ヘアサロン向けの予約管理システム。Instagramからの流入を公式LINEで受け止め、AIがスタイリスト指名の相談から予約確定まで対応。施術後のホームケア配信で再来店につなげます。",
+  keywords: "美容室 予約管理 システム,美容室 予約 顧客管理 システム,サロン LINE 予約,予約 顧客 一元管理,スタイリスト 指名 予約",
+  alternates: { canonical: `${SITE.url}/solutions/salon` },
+  openGraph: {
+    title: "美容室・サロンのLINE予約管理システム｜AI接客とアフターケア自動配信 | LINX",
+    description: "美容室・ヘアサロン向けの予約管理システム。Instagramからの流入を公式LINEで受け止め、AIがスタイリスト指名の相談から予約確定まで対応。施術後のホームケア配信で再来店につなげます。",
+    url: `${SITE.url}/solutions/salon`,
+    siteName: SITE.name,
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: data.heroImage, width: 1200, height: 630, alt: `${data.name}向けの予約・会員管理システム LINX` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "美容室・サロンのLINE予約管理システム｜AI接客とアフターケア自動配信 | LINX",
+    description: "美容室・ヘアサロン向けの予約管理システム。Instagramからの流入を公式LINEで受け止め、AIがスタイリスト指名の相談から予約確定まで対応。施術後のホームケア配信で再来店につなげます。",
+    images: [data.heroImage],
+  },
+};
+
 export default function Page() {
-  return <IndustryLP data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: data.name,
+              item: `${SITE.url}/solutions/salon`,
+            },
+          ],
+        }}
+      />
+      <IndustryLP data={data} />
+    </>
+  );
 }
