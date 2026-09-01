@@ -7,6 +7,7 @@ import WhiteLabelProof from "@/components/partner/WhiteLabelProof";
 import ProductVisual from "@/components/partner/ProductVisual";
 import TryItLive from "@/components/partner/TryItLive";
 import RevenueSimulator from "@/components/partner/RevenueSimulator";
+import SalesKit from "@/components/partner/SalesKit";
 import Industries from "@/components/partner/Industries";
 import Roadmap from "@/components/partner/Roadmap";
 import Territory from "@/components/partner/Territory";
@@ -92,6 +93,7 @@ export default function Home() {
         <ProductVisual />
         <TryItLive />
         <RevenueSimulator />
+        <SalesKit />
         <Industries />
         <Roadmap />
         <Territory />
