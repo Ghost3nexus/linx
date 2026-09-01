@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "yoga",
   name: "ヨガスタジオ",
-  heroImage: "/images/usecase-yoga.png",
+  heroImage: "/images/usecase-yoga.jpg",
   heroTitle: "ヨガスタジオの\n予約管理をゼロに。",
   heroSub: "少人数クラスの定員管理からリマインドまで、AIがLINEで自動化。講師は指導に集中できる。",
   pains: [

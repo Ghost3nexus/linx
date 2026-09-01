@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "pilates",
   name: "ピラティススタジオ",
-  heroImage: "/images/usecase-pilates.png",
+  heroImage: "/images/usecase-pilates.jpg",
   heroTitle: "ピラティス予約を\nAIに任せる。",
   heroSub: "リフォーマー台数×インストラクター×時間帯。複雑な予約管理をLINE AIが自動で最適化。",
   pains: [

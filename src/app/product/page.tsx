@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: "ja_JP",
     type: "website",
-    images: [{ url: "/images/hero-gym.png", width: 1200, height: 630, alt: "LINX — 店舗のAI予約・会員管理システム" }],
+    images: [{ url: "/images/hero-gym.jpg", width: 1200, height: 630, alt: "LINX — 店舗のAI予約・会員管理システム" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${title} | LINX`,
     description,
-    images: ["/images/hero-gym.png"],
+    images: ["/images/hero-gym.jpg"],
   },
 };
 

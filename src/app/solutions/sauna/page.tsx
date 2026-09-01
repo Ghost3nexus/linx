@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "sauna",
   name: "サウナ施設",
-  heroImage: "/images/usecase-sauna.png",
+  heroImage: "/images/usecase-sauna.jpg",
   heroTitle: "サウナ施設の\n混雑管理をAIで解決。",
   heroSub: "時間制予約・入退館管理・混雑状況の配信まで、LINE1つで完結。快適な体験を自動で提供。",
   pains: [

@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "studio",
   name: "ダンス・カルチャースタジオ",
-  heroImage: "/images/usecase-studio.png",
+  heroImage: "/images/usecase-studio.jpg",
   heroTitle: "スタジオ運営を\nLINEで一元管理。",
   heroSub: "クラス予約・出席管理・発表会の案内まで、AIが自動化。講師もスタッフも本業に集中できる。",
   pains: [

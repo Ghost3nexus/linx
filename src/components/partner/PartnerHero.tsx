@@ -10,16 +10,16 @@ import {
   yen,
 } from "@/lib/wholesale";
 
-/** チップを囲む8業種。中央のチップが、これらをまとめて動かしていることを示す */
-const stores = [
-  { name: "ジム", image: "/images/hero-gym.png" },
-  { name: "ヨガ", image: "/images/usecase-yoga.png" },
-  { name: "美容室", image: "/images/hero-salon.png" },
-  { name: "ピラティス", image: "/images/usecase-pilates.png" },
-  { name: "サウナ", image: "/images/usecase-sauna.png" },
-  { name: "クリニック", image: "/images/usecase-clinic.png" },
-  { name: "スタジオ", image: "/images/usecase-studio.png" },
-  { name: "ピックルボール", image: "/images/usecase-pickleball.png" },
+/** 背景に敷く店舗。業種の広さを、読ませるのでなく見せる */
+const backdrop = [
+  { image: "/images/hero-gym.jpg", alt: "ジム" },
+  { image: "/images/usecase-yoga.jpg", alt: "ヨガスタジオ" },
+  { image: "/images/hero-salon.jpg", alt: "美容室" },
+  { image: "/images/usecase-pilates.jpg", alt: "ピラティススタジオ" },
+  { image: "/images/usecase-sauna.jpg", alt: "サウナ施設" },
+  { image: "/images/usecase-clinic.jpg", alt: "クリニック" },
+  { image: "/images/usecase-studio.jpg", alt: "ダンススタジオ" },
+  { image: "/images/usecase-pickleball.jpg", alt: "ピックルボール施設" },
 ];
 
 const facts = [
@@ -28,46 +28,43 @@ const facts = [
   { v: `¥${AI_UNIT_WHOLESALE}`, l: "AI応答／1回" },
 ];
 
-/** ヒーローの絵はJSに依存させない。opacity を落とすと、
-    スクリプトが動くまで何も見えない状態になる */
-function StoreTile({ s }: { s: (typeof stores)[number] }) {
-  return (
-    <div className="relative aspect-square rounded-xl overflow-hidden border border-white/10">
-      <Image
-        src={s.image}
-        alt={`${s.name}の店舗`}
-        fill
-        priority
-        sizes="(max-width: 1024px) 30vw, 150px"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      <span className="absolute left-2 bottom-1.5 text-white text-[11px] sm:text-[12px] font-bold drop-shadow">
-        {s.name}
-      </span>
-    </div>
-  );
-}
-
 export default function PartnerHero() {
   return (
     <section className="relative overflow-hidden bg-[#0B0C0E]">
+      {/* 背景：店舗のモザイク */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        <div className="absolute -top-32 left-1/3 w-[720px] h-[720px] bg-[#06C755]/12 rounded-full blur-[140px]" />
-        <div className="absolute bottom-[-160px] right-1/4 w-[560px] h-[560px] bg-[#2C7BE5]/10 rounded-full blur-[120px]" />
+        <div className="grid h-full w-full grid-cols-2 grid-rows-4 sm:grid-cols-4 sm:grid-rows-2">
+          {backdrop.map((b) => (
+            <div key={b.image} className="relative">
+              <Image
+                src={b.image}
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 640px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+        {/* 覆い。左は文字が乗るので濃く、右は店舗が見える程度に薄く残す */}
+        <div className="absolute inset-0 bg-[#0B0C0E]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/92 via-45% to-[#0B0C0E]/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#0B0C0E]/45" />
+        <div className="absolute -top-40 left-1/4 h-[560px] w-[560px] rounded-full bg-[#06C755]/12 blur-[150px]" />
       </div>
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-20">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-12 items-center">
-          {/* 左：何のサービスか */}
+      {/* 手前：チップと文字 */}
+      <div className="relative z-10 mx-auto max-w-[1240px] px-6 sm:px-8 pt-16 pb-16 sm:pt-20 sm:pb-20">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.75fr] lg:gap-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] sm:text-[13px] font-bold tracking-wide text-white/85">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-bold tracking-wide text-white/85 backdrop-blur sm:text-[13px]">
               初期費用 0円
               <span className="text-white/25">／</span>
               取り分 {Math.round(MARGIN_RATE * 100)}%
             </p>
 
-            <h1 className="mt-6 text-white text-[32px] sm:text-[44px] md:text-[52px] font-extrabold leading-[1.2] tracking-tight">
+            <h1 className="mt-6 text-[32px] font-extrabold leading-[1.2] tracking-tight text-white sm:text-[44px] md:text-[52px]">
               あらゆる店舗を動かす
               <br />
               <span className="text-[#06C755]">店舗管理AI OS</span>を、
@@ -75,62 +72,48 @@ export default function PartnerHero() {
               御社の名前で。
             </h1>
 
-            <p className="mt-6 text-[#9CA3AF] text-[15px] sm:text-[17px] leading-[1.9] max-w-[500px]">
+            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.9] text-[#B6BCC6] sm:text-[17px]">
               ジム、美容室、ヨガ、ピラティス、クリニック、サウナ。
               予約管理・顧客管理・入退館・決済を、公式LINE上のAIがまとめて引き受けます。
               価格も契約期間も、御社が決められます。
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3.5 mt-9">
+            <div className="mt-9 flex flex-col gap-3.5 sm:flex-row">
               <a
                 href="#simulator"
-                className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05B04A] text-white font-bold px-8 py-4 rounded-full text-[16px] transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#06C755] px-8 py-4 text-[16px] font-bold text-white transition-colors hover:bg-[#05B04A]"
               >
                 卸値表を見る
                 <ArrowRight size={18} />
               </a>
               <a
                 href="#tryit"
-                className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/45 text-white font-bold px-8 py-4 rounded-full text-[16px] transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-8 py-4 text-[16px] font-bold text-white backdrop-blur transition-colors hover:border-white/50"
               >
                 実際のLINEで試す
               </a>
             </div>
 
-            <dl className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-10 pt-7 border-t border-white/10">
+            <dl className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-white/10 pt-7">
               {facts.map((f) => (
                 <div key={f.l} className="flex items-baseline gap-2">
                   <dt className="sr-only">{f.l}</dt>
                   <dd className="flex items-baseline gap-2">
-                    <span className="text-white text-[18px] font-bold tabular-nums">{f.v}</span>
-                    <span className="text-[#6B7280] text-[12px]">{f.l}</span>
+                    <span className="tabular-nums text-[18px] font-bold text-white">{f.v}</span>
+                    <span className="text-[12px] text-[#8A919C]">{f.l}</span>
                   </dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          {/* 右：店舗が並び、中央でLINXが動かしている */}
-          <div className="relative">
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
-              <StoreTile s={stores[0]} />
-              <StoreTile s={stores[1]} />
-              <StoreTile s={stores[2]} />
-
-              <StoreTile s={stores[3]} />
-              {/* 中央：チップ */}
-              <div className="relative aspect-square flex items-center justify-center">
-                <LinxChip className="w-full h-full animate-[chipPulse_3.2s_ease-in-out_infinite]" />
-              </div>
-              <StoreTile s={stores[4]} />
-
-              <StoreTile s={stores[5]} />
-              <StoreTile s={stores[6]} />
-              <StoreTile s={stores[7]} />
-            </div>
-
-            <p className="mt-4 text-center text-[12px] sm:text-[13px] text-white/45">
-              業種はちがっても、動かしている仕組みは同じです。
+          {/* チップ */}
+          <div className="flex flex-col items-center">
+            <LinxChip className="w-[210px] sm:w-[260px] lg:w-full lg:max-w-[300px] animate-[chipPulse_3.2s_ease-in-out_infinite] drop-shadow-[0_20px_60px_rgba(6,199,85,0.28)]" />
+            <p className="mt-5 text-center text-[12px] leading-relaxed text-white/50 sm:text-[13px]">
+              業種はちがっても、
+              <br className="hidden sm:block" />
+              動かしている仕組みは同じです。
             </p>
           </div>
         </div>

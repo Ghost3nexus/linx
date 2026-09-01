@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "clinic",
   name: "クリニック・整体院",
-  heroImage: "/images/usecase-clinic.png",
+  heroImage: "/images/usecase-clinic.jpg",
   heroTitle: "問診・予約・リマインド\nすべてLINEで完結。",
   heroSub: "事前問診から予約管理、来院リマインドまでAIが自動化。受付業務の負担を大幅に削減。",
   pains: [

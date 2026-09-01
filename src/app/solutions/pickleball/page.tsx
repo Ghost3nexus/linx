@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "pickleball",
   name: "ピックルボール施設",
-  heroImage: "/images/usecase-pickleball.png",
+  heroImage: "/images/usecase-pickleball.jpg",
   heroTitle: "コート予約も大会運営も\nLINEで完結。",
   heroSub: "コート予約・会員管理・大会エントリーまで、AIが自動化。急成長するスポーツの運営を支える。",
   pains: [

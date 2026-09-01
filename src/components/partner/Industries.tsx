@@ -5,14 +5,14 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 const industries = [
-  { slug: "gym", name: "ジム予約管理", image: "/images/hero-gym.png", note: "入退館管理・会員管理・体験からの入会" },
-  { slug: "salon", name: "美容室 予約・顧客管理", image: "/images/hero-salon.png", note: "LINE予約・指名・アフターケア配信" },
-  { slug: "yoga", name: "ヨガスタジオ", image: "/images/usecase-yoga.png", note: "定員管理・キャンセル待ち・リマインド" },
-  { slug: "pilates", name: "ピラティス", image: "/images/usecase-pilates.png", note: "マシン台数×講師×時間帯の枠管理" },
-  { slug: "clinic", name: "クリニック・整体院", image: "/images/usecase-clinic.png", note: "事前問診・来院リマインド・予約履歴管理" },
-  { slug: "sauna", name: "サウナ・スパ", image: "/images/usecase-sauna.png", note: "時間制予約・混雑状況の配信" },
-  { slug: "studio", name: "ダンス・スタジオ", image: "/images/usecase-studio.png", note: "クラス予約・出席管理・月謝" },
-  { slug: "pickleball", name: "ピックルボール", image: "/images/usecase-pickleball.png", note: "コート予約・大会エントリー" },
+  { slug: "gym", name: "ジム予約管理", image: "/images/hero-gym.jpg", note: "入退館管理・会員管理・体験からの入会" },
+  { slug: "salon", name: "美容室 予約・顧客管理", image: "/images/hero-salon.jpg", note: "LINE予約・指名・アフターケア配信" },
+  { slug: "yoga", name: "ヨガスタジオ", image: "/images/usecase-yoga.jpg", note: "定員管理・キャンセル待ち・リマインド" },
+  { slug: "pilates", name: "ピラティス", image: "/images/usecase-pilates.jpg", note: "マシン台数×講師×時間帯の枠管理" },
+  { slug: "clinic", name: "クリニック・整体院", image: "/images/usecase-clinic.jpg", note: "事前問診・来院リマインド・予約履歴管理" },
+  { slug: "sauna", name: "サウナ・スパ", image: "/images/usecase-sauna.jpg", note: "時間制予約・混雑状況の配信" },
+  { slug: "studio", name: "ダンス・スタジオ", image: "/images/usecase-studio.jpg", note: "クラス予約・出席管理・月謝" },
+  { slug: "pickleball", name: "ピックルボール", image: "/images/usecase-pickleball.jpg", note: "コート予約・大会エントリー" },
 ];
 
 export default function Industries() {

@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "salon",
   name: "美容室・ヘアサロン",
-  heroImage: "/images/hero-salon.png",
+  heroImage: "/images/hero-salon.jpg",
   heroTitle: "次の美容室体験を、\nLINEで。",
   heroSub: "ホットペッパービューティーで終わらない、サロンの美意識を延長するデジタルコンシェルジュ。Instagramからの流入をLINEで受け止め、スタイリスト指名からアフターケアまでを一つの所作でつなぎます。",
   pains: [

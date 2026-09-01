@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 const data = {
   slug: "gym",
   name: "パーソナルジム",
-  heroImage: "/images/hero-gym.png",
+  heroImage: "/images/hero-gym.jpg",
   heroTitle: "ジム運営を\nAIで自動化する。",
   heroSub: "予約・入退館・会員管理・決済まで、LINE1つで完結。スタッフの負担をゼロに。",
   pains: [
