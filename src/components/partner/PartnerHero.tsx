@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import LinxChip from "./LinxChip";
 import {
   AI_UNIT_WHOLESALE,
   MARGIN_RATE,
@@ -10,11 +10,44 @@ import {
   yen,
 } from "@/lib/wholesale";
 
+/** チップを囲む8業種。中央のチップが、これらをまとめて動かしていることを示す */
+const stores = [
+  { name: "ジム", image: "/images/hero-gym.png" },
+  { name: "ヨガ", image: "/images/usecase-yoga.png" },
+  { name: "美容室", image: "/images/hero-salon.png" },
+  { name: "ピラティス", image: "/images/usecase-pilates.png" },
+  { name: "サウナ", image: "/images/usecase-sauna.png" },
+  { name: "クリニック", image: "/images/usecase-clinic.png" },
+  { name: "スタジオ", image: "/images/usecase-studio.png" },
+  { name: "ピックルボール", image: "/images/usecase-pickleball.png" },
+];
+
 const facts = [
   { v: yen(WHOLESALE_MONTHLY), l: "卸値／1店舗・月" },
   { v: `${Math.round(MARGIN_RATE * 100)}%`, l: "御社の取り分" },
   { v: `¥${AI_UNIT_WHOLESALE}`, l: "AI応答／1回" },
 ];
+
+/** ヒーローの絵はJSに依存させない。opacity を落とすと、
+    スクリプトが動くまで何も見えない状態になる */
+function StoreTile({ s }: { s: (typeof stores)[number] }) {
+  return (
+    <div className="relative aspect-square rounded-xl overflow-hidden border border-white/10">
+      <Image
+        src={s.image}
+        alt={`${s.name}の店舗`}
+        fill
+        priority
+        sizes="(max-width: 1024px) 30vw, 150px"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <span className="absolute left-2 bottom-1.5 text-white text-[11px] sm:text-[12px] font-bold drop-shadow">
+        {s.name}
+      </span>
+    </div>
+  );
+}
 
 export default function PartnerHero() {
   return (
@@ -25,8 +58,8 @@ export default function PartnerHero() {
       </div>
 
       <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-20">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-10 items-center">
-          {/* 左：コピー */}
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-12 items-center">
+          {/* 左：何のサービスか */}
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] sm:text-[13px] font-bold tracking-wide text-white/85">
               初期費用 0円
@@ -34,14 +67,17 @@ export default function PartnerHero() {
               取り分 {Math.round(MARGIN_RATE * 100)}%
             </p>
 
-            <h1 className="mt-6 text-white text-[32px] sm:text-[44px] md:text-[54px] font-extrabold leading-[1.18] tracking-tight">
-              御社の名前で売る、
+            <h1 className="mt-6 text-white text-[32px] sm:text-[44px] md:text-[52px] font-extrabold leading-[1.2] tracking-tight">
+              あらゆる店舗を動かす
               <br />
-              <span className="text-[#06C755]">店舗管理AI OS</span>。
+              <span className="text-[#06C755]">店舗管理AI OS</span>を、
+              <br />
+              御社の名前で。
             </h1>
 
             <p className="mt-6 text-[#9CA3AF] text-[15px] sm:text-[17px] leading-[1.9] max-w-[500px]">
-              多店舗の予約管理・顧客管理・入退館・決済を、公式LINE上のAIでひとつにつなぐ基盤です。
+              ジム、美容室、ヨガ、ピラティス、クリニック、サウナ。
+              予約管理・顧客管理・入退館・決済を、公式LINE上のAIがまとめて引き受けます。
               価格も契約期間も、御社が決められます。
             </p>
 
@@ -61,7 +97,6 @@ export default function PartnerHero() {
               </a>
             </div>
 
-            {/* 数字は細く一列に置く */}
             <dl className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-10 pt-7 border-t border-white/10">
               {facts.map((f) => (
                 <div key={f.l} className="flex items-baseline gap-2">
@@ -75,45 +110,29 @@ export default function PartnerHero() {
             </dl>
           </div>
 
-          {/* 右：製品を重ねて見せる（奥＝本部の管理画面 / 手前＝お客様のLINE） */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative"
-          >
-            <div className="relative aspect-[16/11] w-full">
-              {/* 奥：管理画面 */}
-              <div className="absolute inset-y-0 left-0 right-[8%] rounded-xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] bg-[#12141A]">
-                <Image
-                  src="/images/staff-dashboard.png"
-                  alt="多店舗の予約と会員を本部から一元管理する管理画面"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 620px"
-                  className="object-cover object-left-top opacity-60"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#0B0C0E]/70 via-transparent to-transparent" />
-              </div>
+          {/* 右：店舗が並び、中央でLINXが動かしている */}
+          <div className="relative">
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+              <StoreTile s={stores[0]} />
+              <StoreTile s={stores[1]} />
+              <StoreTile s={stores[2]} />
 
-              {/* 手前：お客様のLINE */}
-              <div className="absolute -bottom-[6%] right-0 w-[38%] rounded-2xl overflow-hidden border border-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.6)] bg-white">
-                <Image
-                  src="/images/phone-line-chat.png"
-                  alt="公式LINE上でAIが予約を受け付けている画面"
-                  width={512}
-                  height={768}
-                  sizes="(max-width: 1024px) 40vw, 240px"
-                  className="w-full h-auto object-cover"
-                />
+              <StoreTile s={stores[3]} />
+              {/* 中央：チップ */}
+              <div className="relative aspect-square flex items-center justify-center">
+                <LinxChip className="w-full h-full animate-[chipPulse_3.2s_ease-in-out_infinite]" />
               </div>
+              <StoreTile s={stores[4]} />
 
-              {/* 関係を一言で示す */}
-              <p className="absolute left-3 bottom-3 text-[11px] sm:text-[12px] text-white/55 bg-black/45 backdrop-blur rounded-full px-3 py-1.5">
-                奥：本部の管理画面　／　手前：お客様が触る公式LINE
-              </p>
+              <StoreTile s={stores[5]} />
+              <StoreTile s={stores[6]} />
+              <StoreTile s={stores[7]} />
             </div>
-          </motion.div>
+
+            <p className="mt-4 text-center text-[12px] sm:text-[13px] text-white/45">
+              業種はちがっても、動かしている仕組みは同じです。
+            </p>
+          </div>
         </div>
       </div>
     </section>
