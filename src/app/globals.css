@@ -24,14 +24,23 @@ html {
 body {
   background-color: #FFFFFF;
   color: #1A1A1A;
-  font-family: var(--font-noto-sans-jp), var(--font-inter), "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  /* 欧文は Inter、和文は各OSの本文用ゴシックに任せる。
+     Noto Sans JP は latin サブセットしか読んでいないため、
+     和文のフォールバック順をこちらで明示する。 */
+  font-family: var(--font-inter), var(--font-noto-sans-jp),
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "BIZ UDPGothic", "Yu Gothic Medium", "Yu Gothic", YuGothic,
+    "Noto Sans JP", Meiryo, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100dvh;
   overflow-x: hidden;
   font-size: 16px;
-  line-height: 1.8;
-  letter-spacing: 0.02em;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  /* 和文の約物を詰める。本文にも効かせる */
+  font-feature-settings: "palt" 1;
+  font-optical-sizing: auto;
 }
 
 /* Prevent iOS auto-zoom on inputs */
@@ -39,10 +48,22 @@ input, select, textarea {
   font-size: 16px !important;
 }
 
-/* Japanese text wrapping safety */
-p, h1, h2, h3, h4, li, span, a {
-  overflow-wrap: break-word;
-  word-break: break-word;
+/* 和文の折り返し。
+   word-break: break-word は日本語で語の途中を割ってしまうため使わない。
+   禁則を効かせつつ、長い英数字だけを折る。 */
+p, h1, h2, h3, h4, li, span, a, dt, dd {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-break: strict;
+}
+
+/* 見出しと本文の読点前後で不自然に切れないようにする */
+h1, h2, h3, p, li {
+  text-wrap: pretty;
+}
+
+h1, h2 {
+  text-wrap: balance;
 }
 
 ::selection {
@@ -88,10 +109,24 @@ section[id] {
   box-shadow: 0 4px 24px rgba(6, 199, 85, 0.4);
 }
 
-/* Premium typography */
-h1, h2, h3 {
-  font-feature-settings: "palt";
+/* 見出し。和文は字間を締め、行間も本文より詰める */
+h1, h2, h3, h4 {
+  font-feature-settings: "palt" 1;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+h1 {
   letter-spacing: -0.02em;
+  line-height: 1.28;
+}
+
+/* 数字は等幅にして、試算の桁がそろうようにする */
+.tabular-nums,
+[class*="tabular"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "palt" 0, "tnum" 1;
 }
 
 /* Smooth scroll-triggered animations */

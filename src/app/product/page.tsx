@@ -26,15 +26,23 @@ import { faqs } from "@/lib/faqs";
 import { SITE } from "@/lib/site";
 import { SUGGESTED_RETAIL } from "@/lib/wholesale";
 
-const title = "店舗のAI予約・会員管理システム｜公式LINEで予約確定・入退館・決済まで";
+const title = "店舗 予約管理システム｜LINEのAIが24時間 予約受付・顧客管理・入退館まで";
 const description =
-  "公式LINE上のAIが、問い合わせに答えるだけでなく空き確認から予約確定、会員管理、入退館、決済まで実行する店舗運営システム。ジム・ヨガ・ピラティス・クリニック・サウナ・美容室向け。既存のLINE公式アカウントにそのまま追加できます。";
+  "店舗の予約管理と顧客管理をLINEで一元化する、店舗管理AI OSです。公式LINE上のAIが24時間 予約受付に応対し、空き確認から予約の自動確定まで実行。会員管理・顧客カルテ・予約履歴の管理・入退館管理・決済連携までつながります。ジム・美容室・ヨガ・ピラティス・クリニック・サウナ向け。既存のLINE公式アカウントにそのまま追加できます。";
 
 export const metadata: Metadata = {
   title: `${title} | LINX`,
   description,
-  keywords:
-    "店舗 予約管理 システム,LINE 予約管理 システム,AI 予約システム 店舗,会員管理 システム 店舗,入退館 管理,店舗運営 自動化 システム",
+  keywords: [
+    "店舗 予約管理 システム", "店舗 予約管理 システム 導入",
+    "店舗 顧客管理 システム", "店舗 顧客管理 システム 比較",
+    "LINE 予約管理 システム", "LINE 予約管理 システム 導入", "LINE 予約",
+    "AI 予約システム 店舗", "AI 自動応対", "24時間 予約受付",
+    "問い合わせ 自動化", "予約 自動確定", "予約 顧客 一元管理",
+    "顧客管理 一元化", "顧客カルテ", "予約履歴 管理",
+    "会員管理 システム 店舗", "入退館 管理", "決済 連携",
+    "店舗運営 自動化 システム", "LINE 顧客対応 自動化", "店舗管理 AI OS",
+  ].join(","),
   alternates: { canonical: `${SITE.url}/product` },
   openGraph: {
     title: `${title} | LINX`,

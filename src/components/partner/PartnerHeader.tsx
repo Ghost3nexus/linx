@@ -17,11 +17,11 @@ export default function PartnerHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#EEEEEE]">
+    <header className="sticky top-0 z-50 bg-[#0B0C0E]/92 backdrop-blur border-b border-white/10">
       <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
-        <Link href="/" className="text-[22px] font-bold tracking-tight text-[#1A1A1A]">
+        <Link href="/" className="text-[22px] font-bold tracking-tight text-white">
           LIN<span className="text-[#06C755]">X</span>
-          <span className="ml-2 text-[11px] font-bold text-[#666666] tracking-widest align-middle">
+          <span className="ml-2 text-[11px] font-bold text-white/45 tracking-widest align-middle">
             PARTNERS
           </span>
         </Link>
@@ -31,14 +31,14 @@ export default function PartnerHeader() {
             <a
               key={n.href}
               href={n.href}
-              className="text-[14px] text-[#444444] hover:text-[#06C755] transition-colors"
+              className="text-[14px] text-white/70 hover:text-white transition-colors"
             >
               {n.label}
             </a>
           ))}
           <Link
             href="/product"
-            className="text-[14px] text-[#444444] hover:text-[#06C755] transition-colors"
+            className="text-[14px] text-white/70 hover:text-white transition-colors"
           >
             製品を見る
           </Link>
@@ -52,7 +52,7 @@ export default function PartnerHeader() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden text-[#1A1A1A]"
+          className="lg:hidden text-white"
           aria-label={open ? "メニューを閉じる" : "メニューを開く"}
         >
           {open ? <X size={24} /> : <Menu size={24} />}
@@ -63,7 +63,7 @@ export default function PartnerHeader() {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
-          className="lg:hidden border-t border-[#EEEEEE] bg-white overflow-hidden"
+          className="lg:hidden border-t border-white/10 bg-[#0B0C0E] overflow-hidden"
         >
           <div className="px-6 py-4 flex flex-col gap-1">
             {nav.map((n) => (
@@ -71,12 +71,12 @@ export default function PartnerHeader() {
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="py-3 text-[15px] text-[#444444] border-b border-[#F5F5F5]"
+                className="py-3 text-[15px] text-white/80 border-b border-white/10"
               >
                 {n.label}
               </a>
             ))}
-            <Link href="/product" onClick={() => setOpen(false)} className="py-3 text-[15px] text-[#444444] border-b border-[#F5F5F5]">
+            <Link href="/product" onClick={() => setOpen(false)} className="py-3 text-[15px] text-white/80 border-b border-white/10">
               製品を見る
             </Link>
             <Link

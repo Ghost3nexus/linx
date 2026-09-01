@@ -6,28 +6,32 @@ import Image from "next/image";
 const items: { image: string; title: string; body: string; tag: string; note?: string }[] = [
   {
     image: "/images/phone-line-chat.png",
-    title: "公式LINEの中で、会話が完結する",
-    body: "問い合わせに答えるだけでなく、空き枠を照会して予約を確定します。お客様は新しいアプリを入れる必要がありません。",
-    tag: "AI応対・予約確定",
+    tag: "LINE予約管理・AI自動応対",
+    title: "24時間、予約を受け付ける",
+    body:
+      "公式LINE上のAIが問い合わせに答え、空き枠を照会して予約まで自動で確定します。営業時間外の取りこぼしがなくなり、電話と手作業の予約受付から離れられます。",
     note: "画像は当社の検証環境です。表示名は導入先ごとに設定できます。",
   },
   {
     image: "/images/smartlock-entry.png",
+    tag: "入退館管理・スマートロック",
     title: "LINEから、鍵が開く",
-    body: "会員証をLINEに置き、本人確認を済ませたうえでスマートロックを解錠します。入退館の記録も同時に残ります。",
-    tag: "入退館・スマートロック",
+    body:
+      "会員証をLINEに置き、本人確認を済ませたうえでスマートロックを解錠します。入退館の記録も同時に残るため、会員ごとの利用頻度がそのまま見えます。",
   },
   {
     image: "/images/members-checkin.png",
-    title: "会員の状態が、そのまま台帳になる",
-    body: "チェックイン、来店履歴、会員ステータス。現場の操作がそのままデータになるので、別途の入力作業が発生しません。",
-    tag: "会員管理・チェックイン",
+    tag: "会員管理・顧客カルテ",
+    title: "予約と顧客を、一元管理する",
+    body:
+      "チェックイン、来店履歴、会員ステータス、顧客カルテ。予約履歴の管理まで同じ画面に集まります。台帳への転記も、ツール間の行き来も発生しません。",
   },
   {
     image: "/images/staff-dashboard.png",
-    title: "店舗側の画面も、ひととおり揃っている",
-    body: "予約カレンダー、顧客、スタッフ、レポート。導入先の店舗がその日から使える状態で渡せます。",
-    tag: "管理画面",
+    tag: "多店舗管理・本部管理",
+    title: "複数店舗を、本部から見る",
+    body:
+      "店舗ごとの予約状況と会員数を、横断で確認できます。既存の会員データはCSVで一括取り込み、既存の予約システムとはAPIで連携します。決済はStripeとSquareに対応します。",
   },
 ];
 
@@ -50,7 +54,7 @@ export default function ProductVisual() {
         <p className="mt-5 text-center text-[#666666] text-[15px] sm:text-[16px] leading-[1.85] max-w-[640px] mx-auto">
           FAQに答えるだけのチャットボットではありません。
           <br className="hidden sm:block" />
-          予約を確定し、会員を管理し、鍵を開けるところまで繋がっています。
+          店舗の予約管理・顧客管理・入退館・決済までを、ひとつの仕組みでつなぎます。
         </p>
 
         <div className="grid md:grid-cols-2 gap-5 sm:gap-6 mt-14">

@@ -20,14 +20,22 @@ import { partnerFaqs } from "@/lib/partnerFaqs";
 import { SITE } from "@/lib/site";
 import { MARGIN_RATE, SUGGESTED_RETAIL, WHOLESALE_MONTHLY } from "@/lib/wholesale";
 
-const title = "店舗AIシステムのOEM提供・販売代理店募集";
-const description = `公式LINE上で予約確定・会員管理・入退館・決済まで実行する店舗運営システムを、御社ブランドでの販売向けに卸します。卸値は1店舗あたり月額${WHOLESALE_MONTHLY.toLocaleString("ja-JP")}円、想定小売${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円で御社の取り分は${Math.round(MARGIN_RATE * 100)}%。エンドユーザーの画面に当社の名前は出ません。`;
+const title = "多店舗・FC向け 店舗管理AI OS のOEM提供｜店舗運営 自動化システムの販売代理店募集";
+const description = `多店舗の予約管理・顧客管理・入退館・決済を公式LINE上のAIでつなぐ店舗管理AI OSを、御社ブランドでの販売向けに卸します。店舗運営の自動化システムとして、FC本部・チェーン本部の本部管理にも対応。卸値は1店舗あたり月額${WHOLESALE_MONTHLY.toLocaleString("ja-JP")}円、想定小売${SUGGESTED_RETAIL.toLocaleString("ja-JP")}円で御社の取り分は${Math.round(MARGIN_RATE * 100)}%。エンドユーザーの画面に当社の名前は出ません。`;
 
 export const metadata: Metadata = {
   title: `${title} | LINX PARTNERS`,
   description,
-  keywords:
-    "予約システム OEM,店舗管理システム OEM,ホワイトラベル SaaS,販売代理店募集,SaaS 代理店,LINE 予約システム OEM,自社ブランド 予約システム,FC本部 予約管理 システム,多店舗 予約管理 システム",
+  keywords: [
+    // OEM・代理店（このページの主戦場）
+    "予約システム OEM", "店舗管理システム OEM", "ホワイトラベル SaaS",
+    "販売代理店募集", "SaaS 代理店", "自社ブランド 予約システム",
+    // 多店舗・FC（GMO提案のターゲット層）
+    "多店舗 予約管理 システム", "FC 予約管理 システム", "多店舗 予約 顧客管理 システム",
+    "複数店舗 一元管理", "マルチ店舗 管理", "本部 管理",
+    "店舗運営 自動化 システム", "店舗運営 自動化 AI システム", "店舗管理 AI OS", "店舗OS",
+    "会員管理 システム 店舗", "企業向け カスタマイズ", "API 連携", "CSV データ移行",
+  ].join(","),
   alternates: { canonical: SITE.url },
   openGraph: {
     title: `${title} | LINX PARTNERS`,
