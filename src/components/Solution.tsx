@@ -23,7 +23,7 @@ const features = [
   {
     title: "会員管理・チェックイン",
     description: "ステータス管理、ワンタップチェックイン、LINE一斉配信。これ1つで完結。",
-    image: "/images/members-checkin.png",
+    image: "/images/ui-entry.jpg",
     metric: "1",
     suffix: "画面",
     metricLabel: "で全管理",
@@ -31,7 +31,7 @@ const features = [
   {
     title: "ダッシュボード",
     description: "予約・シフト・会員・入退館・決済。すべてを1つの画面で。API連携にも対応。",
-    image: "/images/staff-dashboard.png",
+    image: "/images/ui-reservations.jpg",
     metric: "5",
     suffix: "分",
     metricLabel: "で導入完了",

@@ -18,8 +18,8 @@ export default function Hero() {
           {/* Left: copy */}
           <div className="max-w-[560px]">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 30 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <p className="text-[#06C755] font-bold text-[14px] sm:text-[16px] tracking-wider mb-4">
@@ -28,8 +28,8 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 30 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
               className="text-[#0F172A] text-[32px] sm:text-[44px] md:text-[56px] font-extrabold leading-[1.2]"
             >
@@ -39,8 +39,8 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="text-[#475569] text-[16px] sm:text-[18px] mt-6 leading-[1.8] max-w-[520px]"
             >
@@ -52,8 +52,8 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
               className="flex flex-col sm:flex-row gap-4 mt-10"
             >
@@ -74,7 +74,7 @@ export default function Hero() {
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.7 }}
               className="flex gap-8 sm:gap-12 mt-14"

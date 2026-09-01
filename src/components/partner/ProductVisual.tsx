@@ -5,33 +5,32 @@ import Image from "next/image";
 
 const items: { image: string; title: string; body: string; tag: string; note?: string }[] = [
   {
-    image: "/images/phone-line-chat.png",
+    image: "/images/ui-reservations.jpg",
     tag: "LINE予約管理・AI自動応対",
-    title: "24時間、予約を受け付ける",
+    title: "24時間、予約が埋まっていく",
     body:
-      "公式LINE上のAIが問い合わせに答え、空き枠を照会して予約まで自動で確定します。営業時間外の取りこぼしがなくなり、電話と手作業の予約受付から離れられます。",
-    note: "画像は当社の検証環境です。表示名は導入先ごとに設定できます。",
+      "公式LINE上のAIが問い合わせに答え、空き枠を照会して予約まで自動で確定します。確定した予約は、この週間カレンダーにそのまま入ります。営業時間外の取りこぼしがなくなります。",
   },
   {
-    image: "/images/smartlock-entry.png",
+    image: "/images/ui-entry.jpg",
     tag: "入退館管理・スマートロック",
-    title: "LINEから、鍵が開く",
+    title: "来館が、その場で記録に変わる",
     body:
-      "会員証をLINEに置き、本人確認を済ませたうえでスマートロックを解錠します。入退館の記録も同時に残るため、会員ごとの利用頻度がそのまま見えます。",
+      "会員証をLINEに置き、本人確認を済ませたうえでスマートロックを解錠します。チェックインは同時に記録されるので、会員ごとの利用頻度と来館率がそのまま見えます。",
   },
   {
-    image: "/images/members-checkin.png",
+    image: "/images/ui-customers.jpg",
     tag: "会員管理・顧客カルテ",
     title: "予約と顧客を、一元管理する",
     body:
-      "チェックイン、来店履歴、会員ステータス、顧客カルテ。予約履歴の管理まで同じ画面に集まります。台帳への転記も、ツール間の行き来も発生しません。",
+      "会員ステータス、来店回数、最終来店日、顧客カルテ。予約履歴の管理まで同じ画面に集まります。台帳への転記も、ツール間の行き来も発生しません。CSVで一括取り込みできます。",
   },
   {
-    image: "/images/staff-dashboard.png",
-    tag: "多店舗管理・本部管理",
-    title: "複数店舗を、本部から見る",
+    image: "/images/ui-schedule.jpg",
+    tag: "スタッフ管理・多店舗管理",
+    title: "誰がいつ入るかを、先に決めておく",
     body:
-      "店舗ごとの予約状況と会員数を、横断で確認できます。既存の会員データはCSVで一括取り込み、既存の予約システムとはAPIで連携します。決済はStripeとSquareに対応します。",
+      "スタッフ×時間で枠を組み、そこに予約が入る形です。複数店舗の状況は本部から横断で確認できます。既存の予約システムとはAPIで連携し、決済はStripeとSquareに対応します。",
   },
 ];
 
@@ -57,7 +56,11 @@ export default function ProductVisual() {
           店舗の予約管理・顧客管理・入退館・決済までを、ひとつの仕組みでつなぎます。
         </p>
 
-        <div className="grid md:grid-cols-2 gap-5 sm:gap-6 mt-14">
+        <p className="mt-4 text-center text-[12px] text-[#94A3B8]">
+          ※ 以下はすべて実際の管理画面です。表示しているデータはサンプルです。
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-6 mt-12">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
