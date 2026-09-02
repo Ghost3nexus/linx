@@ -49,10 +49,28 @@ td.c{text-align:center}
 <tr><td><strong>卸値</strong></td><td class="n win big">19,900円 / 店・月</td><td class="n">要相談（月額固定）</td><td>掛け率50%</td></tr>
 <tr><td>御社の取り分</td><td class="n win">19,900円（50%）</td><td class="c">店舗が増えるほど1店あたりの原価が下がる</td><td>日本のストック型SaaSの代理店マージン相場は20〜30%</td></tr>
 <tr><td>初期費用</td><td class="c win">0円</td><td class="c win">0円</td><td>最低販売数もありません</td></tr>
-<tr><td>AI応答</td><td colspan="2" class="c">実費で仕入れ、上乗せは御社が決める</td><td>従量で請求しても、月額に含めて売っても構いません</td></tr>
+<tr><td><strong>AI応答</strong></td><td colspan="2" class="c win">プランに含まれます（従量請求なし）</td><td>プランごとに含まれる応答数の上限を決めています。次表</td></tr>
 <tr><td><strong>店舗数による逓減</strong></td><td colspan="2" class="c win">あり（次表）</td><td>売った実績で条件が良くなる形にしています</td></tr>
 <tr><td><strong>最低契約期間</strong></td><td colspan="2" class="c">6ヶ月</td><td>以後は1ヶ月単位で自動更新。解約は1ヶ月前までにご連絡ください</td></tr>
 </table>
+
+<h2>2-1. プラン</h2>
+<p class="lead">AI応答を従量で請求しません。<strong>プランに「含まれる応答数」を上限として組み込み、月額を固定しています。</strong>従量のままだと、店舗は請求額が読めず、御社は転売時の売値を組めません。</p>
+<table>
+<tr><th style="width:16%">プラン</th><th style="width:16%">想定小売（月）</th><th style="width:16%">卸値（月）</th><th style="width:18%">含まれるAI応答</th><th>想定される規模</th></tr>
+<tr><td><strong>スタンダード</strong></td><td class="n">39,800円</td><td class="n win">19,900円</td><td class="n">1,000件 / 月</td><td>1日あたり約33件。会員100〜300名規模</td></tr>
+<tr><td><strong>プラス</strong></td><td class="n">59,800円</td><td class="n win">29,900円</td><td class="n">5,000件 / 月</td><td>1日あたり約166件。予約の出入りが多い店舗</td></tr>
+<tr><td><strong>プロ</strong></td><td class="n">89,800円</td><td class="n win">44,900円</td><td class="n">15,000件 / 月</td><td>1日あたり約500件。多店舗・大規模施設</td></tr>
+</table>
+<p class="note">※ 卸値は「想定小売 × (1 − 御社の取り分)」で算出しています。上表は取り分50%（1〜9店舗）の場合です。店舗数が増えると次表の通り取り分が上がり、卸値はさらに下がります。<br>
+※ 想定小売はあくまで目安です。<strong>実際の販売価格は御社が決めます。</strong></p>
+
+<div class="box">
+<p><strong>上限を超えたときの扱いは、2つから選べます。</strong></p>
+<p>① <strong>当社が担う</strong>——上限でAI応答を定型文に切り替えます。追加請求は発生しません。御社の仕入れ額は月額固定のままです。</p>
+<p>② <strong>御社が持つ</strong>——超過分を実費で仕入れていただきます。上乗せするかどうか、いくら乗せるかは御社が決めます。</p>
+<p class="note" style="margin-top:2mm">どちらを採るかは、御社の売り方に合わせて契約時に決めます。導入先ごとに変えても構いません。</p>
+</div>
 
 <h2>2-2. 店舗数による段階</h2>
 <p class="lead">売った実績で条件が良くなります。<strong>一度到達した段は下げません</strong>——一時的に店舗数が減っても、条件は据え置きます。</p>
@@ -65,19 +83,19 @@ td.c{text-align:center}
 </table>
 <p class="note">
 ※ 想定小売価格 39,800円で販売した場合の試算です。実際の販売価格は御社が決めるため、取り分の額は変わります。<br>
-※ 20店舗運用時の粗利＝(39,800円 − 17,000円) × 20店舗。AI応答の仕入れは別途です。<br>
+※ 20店舗運用時の粗利＝(39,800円 − 17,000円) × 20店舗。スタンダードで揃えた場合です。<br>
 ※ 日本のストック型SaaSにおける代理店マージンの相場は20〜30%です。
 </p>
 
 <div class="box">
-<p><strong>上限に達したときの挙動。</strong>AI応答のみ止まり、定型文での応対に切り替わります。<strong>予約・会員管理・入退館・決済は動き続けます。</strong>入退館が止まると店舗の営業そのものが止まるため、金額の上限で落とさない設計にしています。</p>
+<p><strong>上限に達しても、店舗は止まりません。</strong>AI応答のみ定型文での応対に切り替わり、<strong>予約・会員管理・入退館・決済は動き続けます。</strong>入退館が止まると店舗の営業そのものが止まるためです。上位プランへの変更で、その場で解除できます。</p>
 </div>
 
 <h2 class="pb">3. 御社の収益は3つから立ちます</h2>
 <table>
 <tr><th style="width:22%">収益源</th><th style="width:14%">頻度</th><th>内容</th></tr>
 <tr><td><strong>月額の卸差益</strong></td><td class="c">毎月</td><td>卸値で仕入れ、御社が決めた価格で販売。差額が毎月積み上がります</td></tr>
-<tr><td><strong>AI応答の上乗せ</strong></td><td class="c">使った分</td><td>実費で仕入れ、いくらで売るかは御社が決めます。<strong>仕入れは従量、販売は定額という変換自体が利益</strong>になります</td></tr>
+<tr><td><strong>プランの引き上げ</strong></td><td class="c">毎月</td><td>店舗が育ってAI応答が増えれば、上位プランへ移ります。<strong>スタンダードからプラスへ1店舗動くだけで、御社の取り分は毎月1万円増えます</strong>（19,900円→29,900円）</td></tr>
 <tr><td><strong>導入支援・運用代行</strong></td><td class="c">都度</td><td>初期設定、ナレッジ整備、LINE配信の設計。店舗が自分でやりたがらない部分は御社の工数として請求できます。当社は関与しません</td></tr>
 </table>
 
