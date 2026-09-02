@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 const dataCards = [
   {
-    big: "1/4",
-    description: "hacomonoの月額コストと比較して",
-    note: "hacomono ¥54,000~/店 vs LINX ¥12,800~/店 ※オプション込み実質比較",
+    big: "24時間",
+    description: "営業時間外の予約も、取りこぼさない",
+    note: "AIが空き枠を確認して予約を確定するところまで実行する。スタッフの対応時間外も止まらない",
   },
   {
     big: "¥0",

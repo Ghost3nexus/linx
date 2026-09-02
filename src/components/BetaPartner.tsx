@@ -9,8 +9,8 @@ const TOTAL_SLOTS = 10;
 const perks = [
   {
     icon: "💰",
-    title: "Standard機能を6ヶ月間",
-    desc: "月額¥9,800 → ¥3,200（67%OFF）",
+    title: "予約・決済連携を6ヶ月間",
+    desc: "特別条件でご提供します（金額は個別にご案内）",
   },
   {
     icon: "🎯",

@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { getSettings, createCheckoutSession, createPortalSession, type Settings } from "@/lib/apiClient";
 import { CreditCard, Zap, Check, ExternalLink } from "lucide-react";
 
+/** 🔴 料金体系の改定中のため、プラン一覧の表示を一時停止している。
+ *  戻すときは PLANS_VISIBLE を true にする。 */
+const PLANS_VISIBLE = false;
+
 const PLANS = [
     {
         id: "free",
@@ -112,7 +116,17 @@ export default function BillingPage() {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            {!PLANS_VISIBLE && (
+                <div className="mt-8 bg-white border border-[#E8E8E8] rounded-xl p-8 text-center">
+                    <p className="text-[15px] font-medium text-[#1A1A1A]">料金プランはただいまご案内を準備中です</p>
+                    <p className="mt-2 text-[13px] text-[#999999] leading-[1.9]">
+                        プランの改定を行っています。現在ご利用中の内容と料金は変更されません。<br />
+                        ご不明な点は担当者までお問い合わせください。
+                    </p>
+                </div>
+            )}
+
+            <div className={`grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 ${PLANS_VISIBLE ? "grid" : "hidden"}`}>
                 {PLANS.map((plan) => {
                     const isCurrent = plan.id === currentPlan;
                     const isUpgrade = !isCurrent && plan.id !== "free";

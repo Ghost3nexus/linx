@@ -55,30 +55,10 @@ export default function Terms() {
 
           <section>
             <h2 className="text-[18px] font-semibold text-[#1A1A1A] mb-3">第4条（料金・支払い）</h2>
-            <p className="mb-3">本サービスは以下のプランを提供します。料金はすべて税込価格です。</p>
-            <table className="w-full text-[14px] mb-4">
-              <thead>
-                <tr className="border-b border-[#E8E8E8] text-[#999999]">
-                  <th className="py-2 text-left font-medium">プラン</th>
-                  <th className="py-2 text-left font-medium">月額料金</th>
-                  <th className="py-2 text-left font-medium">概要</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#E8E8E8]">
-                {[
-                  ["Free", "¥0", "基本機能・月50メッセージまで"],
-                  ["Starter", "¥2,980", "AI応答強化・月500メッセージ"],
-                  ["Standard", "¥9,800", "予約・決済連携・月2,000メッセージ"],
-                  ["Pro", "¥29,800", "全機能・無制限メッセージ・優先サポート"],
-                ].map(([plan, price, desc]) => (
-                  <tr key={plan}>
-                    <td className="py-3 pr-3 font-medium">{plan}</td>
-                    <td className="py-3 pr-3">{price}</td>
-                    <td className="py-3">{desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <p className="mb-3">
+              本サービスの料金プラン、月額料金および提供内容は、当社が別途定め、お申し込み時に個別に提示します。
+              現在、料金体系の改定を行っているため、本規約上での掲載を一時停止しています。
+            </p>
             <ol className="list-decimal list-inside space-y-2">
               <li>有料プランの決済はStripe社のシステムを通じて行われます。クレジットカード情報は当社では保持しません。</li>
               <li>月額料金は利用開始日を起算日とし、毎月自動的に決済されます。</li>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, BookOpen, MessageSquare, Settings, CreditCard, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen, Sparkles, Menu, X } from "lucide-react";
+import { LayoutDashboard, BookOpen, MessageSquare, Settings, LogOut, Zap, CalendarDays, CalendarClock, Users, ClipboardList, HelpCircle, DoorOpen, Sparkles, Menu, X } from "lucide-react";
 import { isLoggedIn, getMe, clearAuth, isDemoMode, exitDemoMode, type Me } from "@/lib/apiClient";
 
 const navItems = [
@@ -18,7 +18,6 @@ const navItems = [
     { href: "/dashboard/aftercare", label: "AfterCare配信", icon: Sparkles },
     { href: "/dashboard/logs", label: "会話ログ", icon: MessageSquare },
     { href: "/dashboard/settings", label: "設定", icon: Settings },
-    { href: "/dashboard/billing", label: "プラン・課金", icon: CreditCard },
     { href: "/dashboard/guide", label: "取扱説明書", icon: HelpCircle },
 ];
 
